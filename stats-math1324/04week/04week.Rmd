@@ -1,0 +1,108 @@
+---
+title: "MATH1324 - Class Worksheet"
+output: html_notebook
+---
+
+
+Week 4 - Binomial Distributions
+Working in small groups or pairs, complete the following exercises.
+Zener Cards - Psychic Ability or Guessing?
+Data: Zener_Test.csv (see Data Repository)
+Activity Description
+The Zener Card test is commonly used to test psychic ability. The test is simple. There are five different cards (see image to the right). A random card is selected and hidden from the person taking the test. The person is then required to predict the symbol of the hidden card. The experiment is repeated, usually 25 times, and the number of “hits” or correct guesses are recorded. The number of hits is used to determine if someone demonstrates evidence of psychic ability.
+
+Complete the 25 card Zener test online here - http://www.psychicscience.org/esp3.aspx. Complete this test three times and for each test, record the number of hits /25 in the following table.
+
+Upload your hits from each of the three tests to this form here - http://goo.gl/forms/fYZ20rmChq
+
+The class data will be made available in the data repository. Wait for everyone to finish data collection before downloading the data.
+Data Preparation
+When signalled, download the Zener_Test.csv data from the Data Repository as a .csv file. Import the data into RStudio. Name the data object Zener_Test. Load the mosaic package.
+Binomial Distribution Model
+Sceptics claim that the number of hits on a Zener Card Test follows a binomial distribution, with p = .2 and n = 25. In other words, the person is just guessing and for each trial they have a 20% chance of a correct guess. Under this assumption, we can model guessing using a binomial distribution.
+
+Let’s plot the binomial distribution assuming people are just guessing:
+
+```{r}
+plotDist("binom", size = 25, prob = 0.2, xlim = c(0, 25),
+         ylab = "Probability", xlab = "No. Hits",
+         main = "Binomial Distribution, n = 25, p = 0.2")
+```
+You can also get the exact probabilities using the following functions with examples:
+
+
+```{r}
+Pr(X = 3)
+
+dbinom(3, 25, 0.2)
+
+Pr(X ≤ 10)
+
+pbinom(10, 25, 0.2, lower.tail=TRUE)
+```
+
+## Exercises
+
+What is the expected number of hits /25 for each test assuming the people taking the test are just guessing?
+For each of your three tests, calculate the exact probability of getting the number of hits you did assuming you were just guessing.
+Test 1:
+Test 2:
+Test 3:
+For each of your three tests, calculate the probability of guessing a higher number of hits than you did.
+Test 1:
+Test 2:
+Test 3:
+Fitting the Class Data
+Now we will compare the empirical class data to the binomial distribution model for guessing:
+
+```{r}
+histogram(
+  ~Hits,
+  data = Zener_Test,
+  type="density", 	#Histogram of class
+  main = "Distribution of Class Hits",			#Set main title
+  col=rgb(0,0,0,alpha=0.0),
+  xlim=c(0,25))		#Set transparent colour for bins
+
+plotDist(
+  "binom",
+  size = 25,
+  prob = 0.2,
+  kind= "density",	#Overlay binomial distribution
+  type = "b",
+  col = "red",
+  lwd=2, 
+  add=TRUE)
+```
+
+Comment on how well the class data follows a binomial distribution.
+
+
+## Solutions and Answers
+
+Exercises
+
+E(X) = 25*.2 = 5
+
+# Assume your test results were 6, 4, and 9.
+
+```{r}
+dbinom(6, 25, 0.2) # = 0.163
+dbinom(4, 25, 0.2) # = 0.187
+dbinom(9, 25, 0.2) # = 0.029
+```
+
+Assume your test results were 6, 4, and 9.
+
+```{r}
+pbinom(6, 25, 0.2, lower.tail=FALSE) # = 0.22
+pbinom(4, 25, 0.2, lower.tail=FALSE) # = 0.579
+pbinom(9, 25, 0.2, lower.tail=FALSE) # = 0.017
+```
+
+
+# Fitting the Class Data
+
+I cleaned the data to remove some suspect cases. The final data set is available in the Data Repository.
+
+The plot above shows a histogram of the class data overlaid with a red line showing a binomial distribution (n = 25, p = .2). The class data largely follows the binomial distribution, suggesting that test results were most likely explained by guessing.

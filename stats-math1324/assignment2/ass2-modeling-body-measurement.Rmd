@@ -1,0 +1,170 @@
+---
+title: "MATH1324 Introduction to Statistics Assignment 2"
+author: "Phil Steinke s3725547"
+---
+
+# Modelling Body Measurements
+This assignment is worth 5%
+by 29/04/2018.
+
+# Body Measurements Dataset Description
+
+Overview
+The goal of this assignment is simple. You must determine if one of the body measurements fits a normal distribution. To do this, you are going to use the “Body” Dataset (bdims.csv) which is located under Google Drive -> Data Repository.
+
+# 1. Problem Statement  [Plain text]:
+_Write a clear and concise problem statement that guides your investigation. Explain which variable you choose and outline the approaches taken for normal distribution fitting._
+
+## Statement goes here:
+
+
+1. You are required to select ONLY ONE MEASUREMENT from the dataset for this investigation. You must decide which measurement to deal with. You don’t need to include all variables.
+
+## Select your measurement here
+```{r}
+
+```
+
+Since males and females tend to have different body dimensions, you are required to investigate the normality assumption of the selected variable separately in men and women.
+
+Let’s say that you selected biacromial diameter measurement as a variable of interest. Then you should investigate if this measurement fits a normal distribution in men and in women separately.
+
+Keep in mind that there will be some cases in which men’s distribution may fit a normal distribution where else female's distribution may not fit a normal distribution, or vice a versa.
+
+# 2. Load Packages:
+- This section is not marked.
+Data [R Chunk]: Import the body measurements data and prepare it for analysis. Show your code.
+```{r}
+library(readr)
+library(base)
+library(dplyr)
+setwd("~/code/tldr/data-science/stats-math1324/assignment2")
+```
+
+## import the dataset into R Studio
+
+```{r}
+body_measurements  <- list()
+body_measurements <- read_csv("data/Body - Body.csv")
+```
+
+## Tidy it up
+- tidy it up (e.g., you may need to define the variable sex as a factor and define labels for it) using R functions.
+- (e.g. you may need to define the variable sex as a factor and define labels for it) using R functions.
+
+```{r}
+head(body_measurements)
+
+wrist_measurements <- select(body_measurements, Case, Wrist) # and sex if we had it
+head(wrist_measurements)
+
+```
+
+# 3. Summary Statistics [R Chunk]:
+- Calculate descriptive statistics (i.e., mean, median, standard deviation, first and third quartile, interquartile range, minimum and maximum values) of the selected measurement grouped by sex.
+4. You need to give summary statistics (i.e., mean, median, standard deviation, first and third quartile, interquartile range, minimum and maximum values) for your variable of interest separately in men and in women using R functions.
+
+## mean
+```{r}
+summary(wrist_measurements$Wrist)
+
+## mean
+18.23
+
+### for men
+
+### for women
+
+```
+
+## standard deviation
+```{r}
+
+## standard deviation
+sd(wrist_measurements$Wrist) # 0.933584928958703
+
+### for men
+
+### for women
+
+```
+
+## first and third quartile
+```{r}
+summary(wrist_measurements)
+
+## first and third quartile
+
+1st Qu.
+17.60
+
+3rd Qu.
+18.80
+### for men
+
+### for women
+
+```
+
+## interquartile range
+```{r}
+IQR(wrist_measurements$Wrist)
+# 1.2
+
+### for men
+
+### for women
+
+```
+## minimum and maximum values
+```{r}
+summary(wrist_measurements)
+
+## minimum and maximum values
+
+Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+  15.80   17.60   18.30   18.23   18.80   21.40
+
+### for men
+
+### for women
+
+```
+
+# 4. Distribution Fitting [Plain Text and R Chunk] :
+- Compare the empirical distribution of selected body measurement to a normal distribution separately in men and in women. You need to do this visually by plotting the histogram with normal distribution overlay. Show your code.
+- Then you will use R to summarise the empirical distribution of body measurement separately in men and women and compare it to a normal distribution. You need to do this visually by plotting the histogram with normal distribution overlay.
+
+## summarise the empirical distribution of body measurement
+
+### for men
+```{r}
+
+```
+
+### for women
+```{r}
+
+```
+
+## compare it to a normal distribution
+- by plotting the histogram with normal distribution overlay
+```{r}
+
+```
+
+
+6- You will end by discussing the extent to how your theoretical normal distribution fits the empirical data and make recommendations regarding the modelling of this body measurement.
+
+- dot point 1
+- dot point 2
+- dot point 3
+
+## My Recommendation:
+
+- dot point 1
+- dot point 2
+- dot point 3
+
+# 5. Interpretation [Plain text]:
+- Going back to your problem statement, what insight has been gained from the investigation? Discuss the extent to how your theoretical normal distribution fits the empirical data.

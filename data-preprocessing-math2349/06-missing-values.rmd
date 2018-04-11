@@ -1,0 +1,308 @@
+---
+title: "Scan: Missing Values - Week 6 - Class Worksheet"
+author: "Dr. Anil Dolgun, Last updated: 19 February, 2018"
+subtitle: "Scan: Missing Values"
+output:
+  html_notebook: default
+---
+
+# Week 6 - Class Worksheet
+## Scan: Missing Values
+
+- Dr. Anil Dolgun
+- Last updated: 19 February, 2018
+
+## Required Packages
+The following packages will be required or may come in handy.
+
+```{r}
+
+Packages <- c(
+  "readr",
+  "dplyr",
+  "readxl",
+  "gdata",
+  "rvest",
+  "tidyr",
+  "knitr",
+  "deductive",
+  "validate",
+  "Hmisc",
+  "stringr",
+  "magrittr"
+)
+
+lapply(Packages, library, character.only = TRUE)
+#   suppressPackageStartupMessages
+
+```
+
+# Exercises
+
+## Private Consumption Data
+
+The following exercises (exercise 1-3) will be based on Private Consumption Data, [pr.RDS] located at http://www.oecd-ilibrary.org/economics/data/main-economic-indicators_mei-data-en containing 44 observations of countries’ seasonally adjusted private consumption which is one of the main economic indicators. Variables are self explanatory however it is expected to do checks on the type of the data and using the suitable transformations if necessary.
+
+[pr.RDS]: http://rare-phoenix-161610.appspot.com/secured/data/pr.RDS
+
+```{r}
+private_consumption <-
+readRDS("../datasets/06-data-preprocessing/pr.RDS") %>%
+  data.frame() %>%
+  print()
+
+class(private_consumption)
+
+# Moving Countries to Row names:
+row.names(private_consumption) <-
+  private_consumption[,1]
+
+private_consumption <-
+  private_consumption[,c(-1)]
+
+
+```
+
+1. Identify NAs in full data frame and for each column, use `print()` to see the results. Find out the location of NAs in each column using the appropriate function. Identify the count of NAs in each column using `sum()`, then use  `colSums()` for the same task.
+
+```{r}
+private_consumption_na <- 
+  private_consumption %>%
+  is.na() %>%
+  print()
+
+private_consumption_na %>%
+  sum() # is 89
+
+private_consumption_na %>%
+  colSums()
+# Country    X2016    X2017 X2016_Q1 X2016_Q2 X2016_Q3 X2016_Q4 X2017_Q1 X2017_Q2 X2017_Q3 X2017_Q4 
+#       0        1       39        1        1        1        1        2        2        2       39 
+
+```
+
+2. Create two data frames using `complete.cases()` and subsetting with ! operator to get incomplete cases respectively. 
+
+```{r}
+
+private_consumption_complete <- 
+  private_consumption[complete.cases(private_consumption), ] %>%
+  print()
+
+private_consumption_incomplete <- 
+  private_consumption[!complete.cases(private_consumption), ] %>%
+  print()
+
+
+```
+Use `na.omit()` to get complete cases. 
+
+```{r}
+na.omit(private_consumption)
+```
+
+Find out the country that has NAs for every column using  `rowsums()` nested with `is.na()` 
+```{r}
+cat("dimensions: ")
+dim(private_consumption)
+
+# TODO doesn't work
+  private_consumption %>%
+  is.na() %>%
+  rowSums(na.rm = F)
+  
+  
+  
+```
+then remove that country from the data frame with the same method with reversing the calculation.
+
+
+3. Recode the missing values using the mean values for quarterly values for 2017 with rowMeans(), use  `na.rm=TRUE` argument.
+
+```{r}
+
+# useful to get rows, types, etc: str(private_consumption)
+
+# private_consumption_with_mean <- 
+str(private_consumption)
+cat("rowMeans: \n")
+rowMeans(private_consumption[,2:11], na.rm=T)
+
+private_consumption
+
+# UP to here!
+private_consumption_with_row_mean <- private_consumption <- rowMeans(private_consumption, na.rm=T)
+private_consumption_with_row_mean
+
+private_consumption
+
+# Get rowMeans while ignoring characters
+rowMeans(private_consumption[sapply(private_consumption, is.numeric)])
+
+# doesn't work:
+# private_consumption_numeric[2:11] <- as.numeric(private_consumption[2:11])
+
+#broken
+cat("recode: \n")
+
+private_consumption[is.na(private_consumption)] <-
+  rowMeans(private_consumption, na.rm=T)
+  
+
+# private_consumption_with_mean
+ 
+private_consumption_matrix <- data.matrix(private_consumption, rownames.force = NA)
+?rowMeans
+rowMeans(private_consumption_matrix, na.rm=TRUE)
+
+```
+
+Once you complete this, simply use the mean values of the quarterly columns for 2017, recode the NA values using `ifelse()` function.
+
+```{r}
+
+
+```
+
+When you complete recoding the missing values, check for the existence of NaN values within the data frame, refer to the lecture notes for `is.notanumber()` function given below (using `na.rm=TRUE` will create `NaN` values).
+
+```{r}
+is.notanumber <- function(x){ if (is.numeric(x)) is.nan(x) }
+```
+
+```{r}
+
+
+```
+
+## Population by Country Time Series Data
+The following exercises (exercise 4-6) will be based on Population by Country Time Series Data, popbycountry.csv sourced from U.S Department of Energy, located at https://openei.org/doe-opendata/dataset/population-by-country-1980-2010 containing 232 observations of countries’ population in millions per year from 1980 to 2010. Variables are self explanatory however it is expected to do checks on the type of the data and using the suitable transformations if necessary.
+
+4. Investigate the `NA` values in the `popbycountry.csv` data set.
+
+```{r}
+
+
+```
+
+Have you noticed -- values?
+
+```{r}
+
+
+```
+
+Replace them with  `NA`.
+
+```{r}
+
+
+```
+
+Remove the countries if they have NAs for each column.
+
+```{r}
+
+
+```
+
+Now identify the NA values.
+
+```{r}
+
+```
+
+Don’t forget to check types of data using `str()` or `typeof()` functions, make appropriate adjustments.
+
+
+```{r}
+
+```
+
+5. Use `str_detect()` function from stringr package to `dplyr::filter()` strings that has `Germany` in it and save this as a data frame.
+
+```{r}
+
+```
+
+Replace the NA values in Germany row with the column sums of `Germany, East` and  `Germany, West`.
+
+```{r}
+
+```
+
+When you complete the task, repeat the same procedure in the original data set without subsetting Germany, then remove Germany, East, Germany, West and the countries that have NAs for every column.
+
+
+```{r}
+
+```
+
+6. **Data Challenge:** Use the data frame you created in Exercise 5 and impute the NAs with the mean values using  `impute()` function from `Hmisc` package.
+
+```{r}
+
+```
+
+Use `is.imputed()` to see values imputed once you finish. Work with the transpose of the data frame with simply using `t()`.
+
+```{r}
+
+```
+
+The challenge is creating a loop since there are many columns with NAs.
+
+```{r}
+
+```
+Once you take the transpose, don’t forget to check the type of the columns!
+
+```{r}
+
+```
+Understand the difference of `[ ]` and `[[ ]]`.
+
+```{r}
+
+```
+
+Here is an example to get you started:
+
+```{r}
+df<-data.frame(var1=c(1,3,NA,10),
+               var2=c(NA,2,5,9)
+              )
+
+vars<-c("var1", "var2")
+
+for (i in vars ) { df[[i]]<-mean(df[[i]], na.rm=TRUE) #replaces every value with the mean of the column
+
+
+            }
+```
+
+
+## Bank Marketing Data set
+
+Bonus exercise will be based on randomly sampled bank marketing data (revisiting from Week 1), [banksim.csv] which is manipulated for the purpose of the task,located at UCI Machine Learning Repository https://archive.ics.uci.edu/ml/datasets/Bank+Marketing containing the variables:
+
+[banksim.csv](http://rare-phoenix-161610.appspot.com/secured/data/banksim.csv)
+
+- **age:** Numerical variable
+- **marital:** Categorical variable with three levels (married,single,divorced where widowed counted as divorced)
+- **education:** Categorical variable with three levels (primary, secondary, tertiary)
+- **job:** Categorical variable containing type of jobs
+- **balance:** Numerical variable, balance in the bank account
+- **day:** Numerical variable, last contacted month of the day
+- **month:** Categorical variable, last contacted month
+- **duration:** Numerical variable, duration of the contact time
+
+**Bonus Exercise:** Check for obvious inconsistencies or errors in the banksim.csv data using your own choice of package.
+
+```{r}
+
+```
+
+Share your own approach with your code on [Slack] under `#classweek6` channel. Best solution(s) will be immortalised as example solutions in this worksheet.
+
+[Slack]: https://math2349.slack.com/

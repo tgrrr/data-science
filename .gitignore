@@ -1,0 +1,14 @@
+.Rproj.user/
+.RData
+.Rhistory
+*.xlsx
+*.html
+*.csv
+*.history
+*.zip
+scrapy/
+*.RData
+*.rds
+*.ipynb
+*.Rout
+*.Rproj

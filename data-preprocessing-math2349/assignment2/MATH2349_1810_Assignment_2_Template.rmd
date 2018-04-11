@@ -1,0 +1,273 @@
+---
+title: "MATH2349 Semester 1, 2018"
+author: "Phil Steinke s3725547"
+subtitle: Assignment 2
+# output:
+#  html_notebook: default
+---
+
+[MATH2349_1810 Assignment_2](https://drive.google.com/open?id=1lI3mgcq9m5PCDIE2Dbv54hyE9Hr6jLLosjbAyJTKOKo)
+[Slack](https://math2349.slack.com) under the `#assignment2` channel.
+
+
+## Setup
+
+Install and load the necessary packages to reproduce the report here:
+
+```{r, echo = TRUE, message=FALSE}
+
+# This is a chunk where you can load the necessary packages required to reproduce the report. Here are some example packages, you may add others if you require  
+
+# install.packages("outliers")
+
+library(readr)
+library(tidyr)
+library(dplyr)
+library(Hmisc)
+library(outliers)
+
+setwd("~/code/tldr/data-science/data-preprocessing-math2349/assignment2")
+
+```
+
+
+## Read WHO Data
+
+Read the WHO data using an appropriate function.
+
+```{r}
+
+# This is an R chunk for reading the WHO data. Provide your R codes here:
+
+who <- read_csv("raw-data/WHO.csv")
+head(who)
+class(who)
+```
+
+
+## Tidy Task 1:
+
+Use appropriate `tidyr` functions to reshape the WHO data set into the form given in the MATH2349_1810 Assignment_2 instructions document.
+
+Notes:
+
+Variables in the WHO data
+
+WHO data set has a unique coding system for the variables.
+- Columns five through sixty encode four separate pieces of information in their column names:
+
+1. The first three letters of each column denote whether the column contains new or old cases of TB.
+- In this data set, each column contains “new” cases.
+
+2. The next two letters describe the type of case being counted.
+- We will treat each of these as a separate variable.
+- “rel” stands for cases of relapse
+- “ep” stands for cases of extra-pulmonary TB
+- “sn” stands for cases of pulmonary TB that could not be diagnosed by a pulmonary smear (smear negative)
+- “sp” stands for cases of pulmonary TB that could be diagnosed be a pulmonary smear (smear positive)
+
+3. The sixth letter describes the sex of TB patients. The data set groups cases by males (“m”) and females (“ f ”).
+
+4. The remaining numbers describe the age group of TB patients. The data set groups cases into seven age groups:
+“014” stands for patients that are 0 to 14 years old
+“1524” stands for patients that are 15 to 24 years old
+“2534” stands for patients that are 25 to 34 years old
+“3544” stands for patients that are 35 to 44 years old
+“4554” stands for patients that are 45 to 54 years old
+“5564” stands for patients that are 55 to 64 years old
+“65” stands for patients that are 65 years old or older
+
+Note that the WHO data set is untidy, the data appears to contain values in its column names.
+
+Todo:
+- Get data out of column names
+  - get current column names
+  - separate column names
+  - tidyr into tidy data set
+    - column with new or old cases of TB: new/old # they'll all be new, but it doesn't matter
+    - column with age ranges:
+        0 to 14 years old
+        15 to 24 years old
+        25 to 34 years old
+        35 to 44 years old
+        45 to 54 years old
+        55 to 64 years old
+        65 years old or older
+    
+```{r, echo=TRUE}
+names("who")
+?tidyr
+
+names(who[5:length(who)])
+
+
+
+```
+
+
+
+## Tidy Task 2:
+
+The WHO data set is not in a tidy format yet. The `code` column still contains four different variables' information (see variable description section for the details). Separate the `code` column and form four new variables using appropriate `tidyr` functions.  The final format of the WHO data set for this task should be in the form given in the MATH2349_1810 Assignment_2 instructions document.  
+
+
+```{r}
+
+# This is an R chunk for tidy task 2. Provide your R codes here:
+
+# What is the code column?
+
+
+
+```
+
+
+## Tidy Task 3:
+
+The WHO data set is not in a tidy format yet. The `rel`, `ep`, `sn`, and `sp` keys need to be in their own columns as we will treat each of these as a separate variable. In this step, move the `rel`, `ep`, `sn`, and `sp` keys into their own columns. The final version of the WHO data set for this task should be in the form given in the MATH2349_1810 Assignment_2 instructions document.  
+
+
+```{r}
+
+# This is an R chunk for tidy task 3. Provide your R codes here:
+
+# - column with type of case: “rel”, “ep”, “sn”, “sp”
+
+
+
+
+```
+
+
+## Tidy Task 4:
+
+There is one more step to tidy WHO data set. We have two categorical variables `sex` and `age`. Use `mutate()` to factorise sex and age. For age variable, you need to create labels and also order the variable. Labels would be: <15, 15-24, 25-34, 35-44, 45-54, 55-64, 65>=. The final tidy version of the WHO data set would be in the form given in the MATH2349_1810 Assignment_2 instructions document.
+
+
+```{r}
+
+# This is a chunk for Task 4. Provide your R codes here:
+
+
+
+
+
+
+```
+
+## Task 5: Filter & Select
+
+
+Drop the redundant columns `iso2` and `new`, and filter any three countries from the tidy version of the WHO data set. Name this subset of the data frame as `WHO_subset`.
+
+```{r}
+
+# This is a chunk for Task 5. Provide your R codes here:
+
+
+
+
+
+```
+
+
+
+## Read Species and Surveys data sets
+
+Read the Species and Surveys data sets using an appropriate function. Name these data frames as `species` and `surveys`, respectively.
+
+```{r}
+
+# This is an R chunk for reading the Species and Surveys data sets. Provide your R codes here:
+
+
+
+
+```
+
+
+
+
+## Task 6: Join  
+
+Combine `surveys` and `species` data frames using the key variable `species_id`. For this task, you need to add the species information (`genus`, `species`, `taxa`) to the `surveys` data.  Rename the combined data frame as `surveys_combined`.
+
+
+```{r}
+
+# This is a chunk for Task 6. Provide your R codes here:
+
+
+
+
+
+```
+
+
+
+## Task 7: Calculate
+
+Using the `surveys_combined` data frame, calculate the average weight and hindfoot length of one of the species observed in each month (irrespective of the year). Make sure to exclude missing values while calculating the average.
+
+
+```{r}
+
+# This is a chunk for Task 7. Provide your R codes here:
+
+
+
+
+
+```
+
+
+
+## Task 8: Missing Values
+
+Select one of the years in the `surveys_combined` data frame, rename this data set as `surveys_combined_year`. Using `surveys_combined_year` data frame, find the total missing values in `weight` column grouped by `species`. Replace the missing values in `weight` column with the mean values of each species. Save this imputed data as `surveys_weight_imputed`.
+
+
+```{r}
+
+# This is a chunk for Task 8. Provide your R codes here:
+
+
+
+
+
+```
+
+
+
+
+
+## Task 9: Inconsistencies or Special Values
+
+Inspect the `weight` column in `surveys_weight_imputed` data frame for any further inconsistencies or special values (i.e., NaN, Inf, -Inf) . Trace back and explain briefly why you got such a value.
+
+```{r}
+
+# This is a chunk for Task 9. Provide your R codes here:
+
+
+```
+
+
+
+
+## Task 10: Outliers
+
+Using the `surveys_combined` data frame, inspect the variable hindfoot length for possible univariate outliers. If you detect any outliers use any of the methods outlined in the Module 6 notes to deal with them. Explain briefly the actions that you take to handle outliers.
+
+```{r}
+
+# This is a chunk for Task 10. Provide your R codes here:
+
+
+```
+
+
+
+
+<br>
+<br>

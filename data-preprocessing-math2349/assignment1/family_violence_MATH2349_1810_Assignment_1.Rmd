@@ -1,0 +1,342 @@
+---
+title: "MATH2349 Semester 1, 2018"
+author: "Phil Steinke s3725547@student.rmit.edu.au"
+subtitle: "Assignment 1 - Victorian family violence cases 2012-2017"
+output:
+  html_notebook: default
+---
+
+## Setup
+```{r, echo = FALSE, warnings = FALSE}
+
+library(readr) # Useful for importing data
+library(foreign) # Useful for importing SPSS, SAS, STATA etc. data files
+library(rvest) # Useful for scraping HTML data
+library(knitr) # Useful for creating nice tables
+library(forcats)
+library(mosaic)
+library(readxl)
+library(rmarkdown)
+library("miceadds", lib.loc="/Library/Frameworks/R.framework/Versions/3.4/Resources/library")
+library("plotly")
+```
+
+## Data Description
+
+"Victims Support Agency Data Tables- 2016-17.xlsx"
+Table 2. Number of VAP family violence cases initiated for new clients by client gender and age group, July 2012 to June 2017
+
+Source: [https://www.crimestatistics.vic.gov.au/sites/default/files/embridge_cache/emshare/original/public/2017/12/74/906ab3fb8/Victims%20Support%20Agency%20Data%20Tables-%202016-17.xlsx](https://www.crimestatistics.vic.gov.au/sites/default/files/embridge_cache/emshare/original/public/2017/12/74/906ab3fb8/Victims%20Support%20Agency%20Data%20Tables-%202016-17.xlsx)
+
+```{r}
+#' VICTIMS SUPPORT AGENCY DATA TABLES- 2016-17.XLSX
+#' TABLE 2. NUMBER OF VAP FAMILY VIOLENCE CASES INITIATED FOR NEW CLIENTS BY CLIENT GENDER AND AGE GROUP, 
+#' JULY 2012 TO JUNE 2017
+#'
+#' VAP FAMILY VIOLENCE CASES INITIATED FOR NEW CLIENTS BY CLIENT GENDER AND AGE GROUP
+#' 
+#' @format Starting format xlxs with 53 observations/rows and 7 variables/cols
+#' only 46 observations/rows and 7 variables/cols are imported to not include whitespace and the totals
+#' \describe{
+#'   \item{\code{Gender}}{character. GENDER OF CLIENT THAT REPORTED FAMILY VIOLENCE. LEVELS: MALE/FEMALE.}
+#'   \item{\code{age group}}{character. DESCRIPTION.}
+#'   \item{\code{2012-13}}{character. COUNT OF REPORTED INCIDENTS FROM JULY 2012 TILL JUNE 2013.}
+#'   \item{\code{2013-14}}{character. COUNT OF REPORTED INCIDENTS FROM JULY 2013 TILL JUNE 2014.}
+#'   \item{\code{2014-15}}{character. COUNT OF REPORTED INCIDENTS FROM JULY 2014 TILL JUNE 2015.}
+#'   \item{\code{2015-16}}{character. COUNT OF REPORTED INCIDENTS FROM JULY 2015 TILL JUNE 2016.}
+#'   \item{\code{2016-17}}{character. COUNT OF REPORTED INCIDENTS FROM JULY 2016 TILL JUNE 2017.}
+#' }
+#' "Victims Support Agency Data Tables- 2016-17.xlsx"
+#'
+#' @format end format is a dataframe with 28 observations/rows and 7 variables/cols
+#' \describe{
+#'   \item{\code{Gender}}{character. GENDER OF CLIENT THAT REPORTED FAMILY VIOLENCE. LEVELS: MALE/FEMALE. }
+#'   \item{\code{Age Range}}{character. AGE OF PARTICIPANTS DIVIDED INTO 5 YEAR INCRIMENTS.}
+#'   \item{\code{2012-13}}{integer. COUNT OF REPORTED INCIDENTS FROM JULY 2012 TILL JUNE 2013.}
+#'   \item{\code{2013-14}}{integer. COUNT OF REPORTED INCIDENTS FROM JULY 2013 TILL JUNE 2014.}
+#'   \item{\code{2014-15}}{integer. COUNT OF REPORTED INCIDENTS FROM JULY 2014 TILL JUNE 2015.}
+#'   \item{\code{2015-16}}{integer. COUNT OF REPORTED INCIDENTS FROM JULY 2015 TILL JUNE 2016.}
+#'   \item{\code{2016-17}}{integer. COUNT OF REPORTED INCIDENTS FROM JULY 2016 TILL JUNE 2017.}
+#' }
+"family_violence"
+```
+
+As a minimum, your data set should include:
+* one numeric variable = number of family violence cases per year
+* one qualitative (categorical) variable = Age Range
+
+This dataset show most reported assaults with women occur between the ages of 25-49. Each age bracket within that range (of 5 years) have approximately double the reported assaults of children and teenagers. The data also shows an increase in reported assaults per year over the last 5 years. 
+
+## Read/Import Data
+
+```{r}
+rm(list=ls())
+setwd("~/code/tldr/data-science/data-preprocessing-math2349/assignment1/data/")
+
+# Read/Import the data into R, then save it as a data frame.
+
+family_violence <-
+  read_excel(
+    "Victims Support Agency Data Tables- 2016-17.xlsx",
+    sheet = "Table 2",
+    range = cell_rows(12:58)
+  ) %>%
+  data.frame()
+
+# `stringsAsFactors = FALSE` wont work here, so I set it in my defaults
+
+class(family_violence) # -> family violence is a "data.frame"
+
+# You must also provide the R codes with outputs
+head(family_violence)
+
+```
+
+## Inspect and Understand
+
+### * check the dimensions of the data frame.
+```{r}
+dim(family_violence)
+# OR
+nrow(family_violence)
+ncol(family_violence)
+
+# check the attributes in the data.
+attributes(family_violence)
+
+```
+- It has 46 rows and 7 columns
+- It's names are X__1, ...
+- It's row names are numbers 1,2,3...
+- It's a data.frame
+
+## check the data types (i.e., character, numeric, integer, factor, and logical) of the variables in the data set.
+
+```{r}
+
+class(family_violence) # -> family_violence is a data.frame
+
+class(family_violence[,1]) # -> "Gender and age group" is a character
+
+head(family_violence[,2]) # [1] NA             "0 - 4"        "5 - 9"        "10 - 14"      "15 - 19"      "20 - 24"
+class(family_violence[,2]) # -> is a character
+
+head(family_violence[,3]) #  [1] "2012-13" "74"      "84"      "72"      "52"      "64"      "62"         
+class(family_violence[,3])# ->  is a character
+
+head(family_violence[,4]) #  [1] "2013-14" "61"      "121"     "80"      "70"      "47"      "60"          
+class(family_violence[,4])  # ->  is a character
+
+head(family_violence[,5]) #  [1] "2013-14" "61"      "121"     "80"      "70"      "47"      "60"          
+class(family_violence[,5])  # ->  is a character
+
+head(family_violence[,6]) # "2015-16" "41"      "107"     "88"      "74"      "95"     
+class(family_violence[,6])  # ->  is a character
+
+```
+
+- Everything is treated as a character because of the column titles are included in the spreadsheet
+
+### check the levels of factor variables
+
+```{r}
+# family_violence[1,] # column names for reference
+
+levels_gender <-
+  c(family_violence[,1]) %>%
+  factor(ordered= TRUE) %>%
+  levels() %>%
+  print()
+
+levels_age_range <-
+  c(family_violence[,2]) %>%
+  factor(ordered= TRUE) %>%
+  levels() %>%
+  print()
+
+cat("\nLevels for all year cols from 2012-17\n including titles")
+levels_all_years <-
+c(family_violence[,3],
+  family_violence[,4],
+  family_violence[,5],
+  family_violence[,6],
+  family_violence[,7]
+) %>%
+  factor() %>%
+  levels() %>%
+  print()
+
+cat("\nLevels from 2012-13\n")
+levels_2012_13 <-
+  c(family_violence[,3]) %>%
+  factor(ordered= TRUE) %>%
+  levels() %>%
+  print()
+
+```
+
+# * check the column names in the data frame, rename them if required.
+
+```{r}
+# check the column names in the data frame
+colnames(family_violence)
+
+```
+
+```{r}
+# rename them if required.
+colnames(family_violence) <- c("Gender", "Age Range", c(family_violence[1,3:7]))
+
+#The excel doesn't include Male/Female accross all of the fields, so here I've filled them in:
+family_violence[c(3:16),1] <- "Male"
+family_violence[c(18:31),1] <- "Female"
+
+# Removing the empty rows and rows with totals in them
+family_violence <- family_violence[-c(1, 16, 31:46), ]
+
+# Fixing the Row numbering
+rownames(family_violence) <- c(1:length(family_violence$`Gender`))
+family_violence
+
+
+```
+
+```{r}
+class(family_violence) # -> family_violence is a data.frame
+family_violence[1, 'Age Range'] # -> "0 - 4"
+class(family_violence[3, 'Age Range']) # -> "Age Range" is a character
+family_violence[3, '2012-13']
+class(family_violence[3, '2012-13']) # -> "Year" is a character
+family_violence[1, 4]
+class(family_violence[1, 4]) # -> "Gender" and N/A is a character
+
+```
+
+
+```{r}
+# fixing the data types: rename/rearrange if required
+
+cat("Setting each year's data to integers\n")
+class(family_violence[3:7])
+family_violence[3:7] <- Map(as.integer, family_violence[3:7])
+
+Map(is.integer, family_violence[3:7])
+
+# Previous code that seemed cumbersome:
+#class(family_violence$`2012-13`)
+family_violence$`2012-13` %>%
+  as.integer() -> family_violence$`2012-13`
+#class(family_violence$`2012-13`)
+
+cat("\nLevels for all years again: from 2012-17\n including titles")
+levels_all_years <-
+c(family_violence[,3],
+  family_violence[,4],
+  family_violence[,5],
+  family_violence[,6],
+  family_violence[,7]
+) %>%
+  factor() %>%
+  levels() %>%
+  print()
+
+```
+
+## New data types tests
+```{r}
+cat("New data types\n")
+class(family_violence) # -> family_violence is a data.frame
+cat("Age Range\n")
+family_violence[1, 'Age Range'] # -> "0 - 4"
+class(family_violence[3, 'Age Range']) # -> "Age Range" is a character
+cat("Year col 2012-13\n")
+family_violence$'2012-13'
+class(family_violence$'2012-13') # -> All Year cols are now an integer
+cat("single value from a year column 2012-13\n")
+family_violence[1, 5]
+class(family_violence[1, 4]) # -> Grabbing a single value from a year col which is now an integer
+dim(family_violence)
+
+```
+
+## Subsetting I
+
+Subset the data frame using first 10 observations (include all variables). Then convert it to a matrix.
+
+```{r}
+# Subset the data frame using first 10 observations (include all variables)
+
+# What are all variables?
+names(family_violence) -> all_variables
+all_variables
+
+# I assume you mean this because all_variables
+data_frame_subset <- family_violence[1:10,]
+data_frame_subset
+
+# Then convert it to a matrix
+
+data_frame_subset %>%
+  as.matrix(
+  ) %>%
+  print()
+
+data_frame_matrix1 <- data.matrix(data_frame_subset, rownames.force = NA)
+class(data_frame_matrix1) # Matrix
+data_frame_matrix2 <- as.matrix(data_frame_subset)
+class(data_frame_matrix2) # Matrix
+data_frame_matrix3 <- apply(data_frame_subset, 2, as.matrix) 
+class(data_frame_matrix3) # Matrix Trinity
+
+```
+
+## Subsetting II
+
+```{r}
+## Subset the data frame including only first and the last variable in the data set
+
+# Grabbing the variables:
+names(family_violence) -> all_variables
+all_variables
+```
+
+```{r}
+
+family_violence %>%
+  subset (
+    select = c(
+      1,
+      length(family_violence)
+    )
+  ) -> first_and_last_subset
+head(first_and_last_subset)
+
+```
+
+## save it as an R object file (.RData).
+#### This didn't work:
+```{r}
+
+save.image() # Saving the workspace
+
+first_and_last_subset
+
+save(first_and_last_subset, file = "data/first_and_last_subset.Rdata")
+rm(first_and_last_subset)
+testing_save_worked <- load("data/first_and_last_subset.Rdata")
+
+identical(first_and_last_subset, testing_save_worked) # FALSE
+
+```
+
+```{r}
+# Using load.Rdata2 from miceadds instead:
+
+save.Rdata(first_and_last_subset, "data/first_and_last_subset.RData")
+
+testing_save_worked <- load.Rdata2(filename = "data/first_and_last_subset.RData", path=getwd())
+
+identical(first_and_last_subset, testing_save_worked) # [1] TRUE
+```
+<br>
+<br>

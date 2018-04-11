@@ -1,0 +1,350 @@
+---
+title: " Cars CSVModule 2 exercises week2 Phil Steinke"
+output: html_notebook
+---
+
+Cars
+Download the Cars.csv dataset from the Data Repository.
+
+```{r}
+library(readr)
+library(forcats)
+library(mosaic)
+
+setwd("~/code/tldr/data-science/stats-math1324/02week/data/")
+
+## Load this dataset into RStudio.
+## Name the dataset Cars.
+
+Cars <- read_csv("Cars - Cars.csv")
+head(Cars)
+
+# Ensure factors are defined correctly.
+
+# Sports: Sports car? (1 = 'yes', 0 ='no')
+Cars$Sports <- factor(Cars$Sports,
+  levels = c("0","1"),
+  labels = c("No","Yes")
+  )
+Cars$Sport_utility <- factor(Cars$Sport_utility,
+  levels = c("0","1"),
+  labels = c("No","Yes")
+  )
+Cars$Wagon <- factor(Cars$Wagon,
+  levels = c("0","1"),
+  labels = c("No","Yes")
+  )
+Cars$Minivan <- factor(Cars$Minivan,
+  levels = c("0","1"),
+  labels = c("No","Yes")
+  )
+
+Cars$Pickup <- factor(Cars$Pickup,
+  levels = c("0","1"),
+  labels = c("No","Yes")
+  )
+Cars$All_wheel_drive <- factor(Cars$All_wheel_drive,
+  levels = c("0","1"),
+  labels = c("No","Yes")
+  )
+Cars$Rear_wheel_drive <- factor(Cars$Rear_wheel_drive,
+  levels = c("0","1"),
+  labels = c("No","Yes")
+  )
+
+head(Cars, 50)
+```
+
+
+This dataset contains data from over 400 vehicles from 2003. The following variables, along with their coding, are included:
+
+Vehicle_name: Model Name
+Sports: Sports car? (1 = 'yes', 0 ='no')
+Sport_utility: Sports utility vehicle? (1 = 'yes', 0 ='no')
+Wagon: Wagon? (1 = 'yes', 0 ='no')
+Minivan: Minivan?  (1 = 'yes', 0 ='no')
+Pickup: Pickup?  (1 = 'yes', 0 ='no')
+All_wheel_drive: All wheel drive?  (1 = 'yes', 0 ='no')
+Rear_wheel_drive: Rear wheel drive?  (1 = 'yes', 0 ='no')
+Retail_price: The recommended retail price ($)
+Dealer_cost: The cost price for a car dealer ($)
+Engine_size: Engine size in litres
+Cylinders: Number of cylinders (-1 = Rotary engine)
+Kilowatts: Power of the engine in kilowatts.
+Economy_city: Kilometres per litre for city driving
+Economy_highway: Kilometres per litre for highway driving
+Weight: Curb weight of car (kg)
+Wheel_base: Wheel base of car (cm)
+Length: Length of car (cm)
+Width: Width of car (cm)
+
+Use this dataset to complete the following exercises.
+
+What is the sample size?
+
+```{r}
+#tally( ~ Vehicle_name, data = Cars)
+tally(~Vehicle_name, data = Cars, margins = TRUE) #Include total
+# tally(~Vehicle_name, data = Cars, format="proportion", margins = TRUE) #percentage
+
+# 428 Cars total
+
+nrow(Cars) #428
+NROW(na.omit(Cars)) #387
+
+```
+
+
+```{r}
+
+# 2. Obtain a frequency distribution for the cylinder variable. How many cars had 4 cylinders?
+freq_cylinders<-tally( ~Cylinders, data = Cars)
+freq_cylinders
+
+# -> 136
+
+# 3. What percentage of cars had 6 cylinders? (Round response to two decimal places)
+proportion_cylinders<-tally( ~Cylinders, format="percent", data = Cars)
+proportion_cylinders
+
+# -> 44.39
+
+```
+
+4. What proportion of cars had all wheel drive? (Round response to two decimal places)
+```{r}
+freq_all_wheel_drive<-tally( ~All_wheel_drive, format="percent", data = Cars)
+freq_all_wheel_drive
+
+# 21.49
+```
+
+
+### Q 5
+How many sports cars were in the sample?
+
+```{r}
+freq_sports_cars<-tally( ~Sports, data = Cars)
+freq_sports_cars
+```
+
+### Q 6 Create a bar chart showing the distribution of the proportion of different total car cylinders in the sample. Save the bar chart as an image and upload it to this exercise
+This question was imported from an external source. It was a 'File Upload' question, which is not supported in this quiz tool.
+```{r}
+proportion_car_cylinders <- barplot(freq, main = "Cars", ylab="Percent", ylim=c(0,50))
+dev.copy(png, filename='exports/proportion_car_cylinders.png')
+dev.off()
+```
+
+### Q 7
+Create a contingency table showing the column proportions of cylinders by sports car.
+```{r}
+contingency_car_cylinders <- tally(~Sports + Cylinders, format="percent", data=Cars)
+contingency_car_cylinders
+c(4.6728972 + 3.2710280 + 0.2336449 + 0.2336449)
+
+```
+
+What proportion of sports cars have six or more cylinders? (Round answer to two decimal places)
+
+```{r}
+proportion_6_contingency_car_cylinders <- round(
+  tally(~Sports + Cylinders,  data=Cars, format = "proportion"), 4)
+proportion_6_contingency_car_cylinders
+
+c(0.0467 + 0.0327 + 0.0023 + 0.0023)
+
+```
+
+### Q 8
+What proportion of non-sports cars have six or more cylinders? (Round answer to two decimal places)
+
+```{r}
+c(39.7196262 + 17.0560748 + 0.2336449 + 0.4672897)
+
+```
+
+### Q 9
+Are sports cars more likely to have 6 or more cylinders than non-sports cars?
+	Yes
+	No
+```{r}
+
+```
+
+### Upload: Q 10 Create a clustered bar chart comparing the proportion of sports and non-sports car cylinder numbers. Save the plot and upload it to this exercise.
+
+
+
+```{r}
+
+cars_clusteredbarchart <-
+  tally( ~ cut | clarity, format = "proportion", data=Cars)
+
+barcars <- 
+  barplot(table, 
+    main = "Cars",
+    ylab=~Sports,
+    ylim=c(0,.8),
+    legend=rownames(table),
+    beside=TRUE,
+    args.legend=c(x = "top",
+      horiz=TRUE,
+      title="Sports vs Not"),
+      xlab="Clarity",
+      height = 100)
+barcars
+```
+
+```{r}
+sports_car_table<-tally( ~ proportion_6_contingency_car_cylinders | !proportion_6_contingency_car_cylinders , format = "proportion", data=Cars)
+sports_car_table
+```
+
+### Q 11
+What is the modal cylinder number for non-sports cars?
+
+```{r}
+
+```
+
+### Q 12
+What is the modal cylinder number for sports cars?
+
+```{r}
+
+```
+
+### Q 13 Produce a dot plot of car kilowatts. Save the plot and upload to this question.
+This question was imported from an external source. It was a 'File Upload' question, which is not supported in this quiz tool.
+```{r}
+
+```
+
+### Q 14
+How would you describe the shape of the kilowatts variable depicted in the dot plot?
+	Symmetric
+	Skewed to the right
+	Skewed to the left
+	Multi-modal
+```{r}
+
+```
+
+### Q 15 Produce a histogram of city fuel economy with 18 bins. Save the plot and upload it to this exercise
+This question was imported from an external source. It was a 'File Upload' question, which is not supported in this quiz tool.
+```{r}
+
+```
+
+### Q 16
+How would you describe the distribution shape of the city fuel economy depicted in the histogram?
+	Skewed to the left
+	Multi-modal
+	Symmetric
+	Skewed to the right
+```{r}
+
+```
+
+### Q 17
+For city fuel economy, would you expect the mean or median to be higher based on the shape of the distribution?
+	About the same
+	Median would be higher
+	Mean would be higher
+	Impossible to say
+```{r}
+
+```
+
+### Q 18 Produce a histogram of car length with 18 bins. Save the plot and upload it to this exercise.
+This question was imported from an external source. It was a 'File Upload' question, which is not supported in this quiz tool.
+```{r}
+
+```
+
+### Q 19
+How would you describe the distribution shape of car length depicted in the histogram?
+	Skewed to the left
+	Multi-modal
+	Symmetric
+	Skewed to the right
+```{r}
+
+```
+
+### Q 20 Create a filtered dataset called Cars_filtered, with only 4 and 6 cylinder cars selected. Produce a side-by-side box plot of 4 and 6 cylinder cars on highway fuel economy. Save the plot and upload it to this exercise.
+This question was imported from an external source. It was a 'File Upload' question, which is not supported in this quiz tool.
+```{r}
+
+```
+
+### Q 21
+How many suggested outliers are present for the four cylinder cars?
+
+```{r}
+
+```
+
+### Q 22
+Which cylinder, 4 or 6, has the higher IQR for highway fuel economy?
+	4
+	6
+```{r}
+
+```
+
+### Q 23
+What is the median highway fuel economy for 4 cylinder cars?
+
+```{r}
+
+```
+
+### Q 24
+What is the mean highway fuel economy for 4 cylinder cars? (Round answer to two decimal places)
+
+```{r}
+
+```
+
+### Q 25
+What is the standard deviation for highway fuel economy for 4 cylinder cars? (Round answer to two decimal places)
+
+```{r}
+
+```
+
+### Q 26
+What is the IQR for highway fuel economy for the 6 cylinder cars?
+
+```{r}
+
+```
+
+### Q 27
+What is the upper fence for an outlier on highway fuel economy in the 4 cylinder cars?
+
+```{r}
+
+```
+
+### Q 28
+What is the range of highway fuel economy for 6 cylinder cars?
+
+```{r}
+
+```
+
+### Q 29 Produce a scatter plot of city fuel economy by highway fuel economy. Save the plot and upload it to this exercise.
+This question was imported from an external source. It was a 'File Upload' question, which is not supported in this quiz tool.
+```{r}
+
+```
+
+### Q 30
+Which of the following statements best explains the relationship between city and highway fuel economy?
+	As highway fuel economy increases, city fuel economy tends to increase.
+	As highway fuel economy increases, city fuel economy tends to decrease.
+	As there are a few outliers present, it's difficult to determine the nature of the relationship between city and highway fuel economy.
+	There is no relationship between city and highway fuel economy
