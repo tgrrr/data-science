@@ -20,11 +20,6 @@ _Write a clear and concise problem statement that guides your investigation. Exp
 
 1. You are required to select ONLY ONE MEASUREMENT from the dataset for this investigation. You must decide which measurement to deal with. You don’t need to include all variables.
 
-## Select your measurement here
-```{r}
-
-```
-
 Since males and females tend to have different body dimensions, you are required to investigate the normality assumption of the selected variable separately in men and women.
 
 Let’s say that you selected biacromial diameter measurement as a variable of interest. Then you should investigate if this measurement fits a normal distribution in men and in women separately.
@@ -35,17 +30,28 @@ Keep in mind that there will be some cases in which men’s distribution may fit
 - This section is not marked.
 Data [R Chunk]: Import the body measurements data and prepare it for analysis. Show your code.
 ```{r}
-library(readr)
-library(base)
-library(dplyr)
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(base))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(readxl))
+suppressPackageStartupMessages(library("mosaic", lib.loc="/Library/Frameworks/R.framework/Versions/3.4/Resources/library"))
 setwd("~/code/tldr/data-science/stats-math1324/assignment2")
 ```
 
 ## import the dataset into R Studio
 
 ```{r}
-body_measurements  <- list()
-body_measurements <- read_csv("data/Body - Body.csv")
+body_measurements <- read_excel("data/bdims.csv (1).xlsx", 
+    sheet = "bdims.csv") %>%
+  as.data.frame()
+head(body_measurements)
+```
+
+
+## Select your measurement here
+```{r}
+head(body_measurements)
+
 ```
 
 ## Tidy it up
@@ -53,103 +59,207 @@ body_measurements <- read_csv("data/Body - Body.csv")
 - (e.g. you may need to define the variable sex as a factor and define labels for it) using R functions.
 
 ```{r}
-head(body_measurements)
-
-wrist_measurements <- select(body_measurements, Case, Wrist) # and sex if we had it
-head(wrist_measurements)
-
+wrist_measurements <- select(body_measurements, wri.gi, sex) %>%
+  as.data.frame()
+colnames(x = wrist_measurements) <- c("wrist.girth", "sex")
+wrist_measurements
 ```
 
 # 3. Summary Statistics [R Chunk]:
 - Calculate descriptive statistics (i.e., mean, median, standard deviation, first and third quartile, interquartile range, minimum and maximum values) of the selected measurement grouped by sex.
 4. You need to give summary statistics (i.e., mean, median, standard deviation, first and third quartile, interquartile range, minimum and maximum values) for your variable of interest separately in men and in women using R functions.
 
-## mean
+## Summary of wrist measurements
 ```{r}
-summary(wrist_measurements$Wrist)
+wrist_summary <- wrist_measurements$wrist.girth
 
-## mean
-18.23
+cat("summary \n")
+summary(wrist_summary)
 
-### for men
+cat("summary mean \n")
+summary_mean <- 
+  mean(wrist_summary) %>% 
+  print()
 
-### for women
+cat("standard deviation \n")
+summary_sd <- 
+  sd(wrist_summary) %>% 
+  print()
+
+cat("Interquartile Range \n")
+IQR(wrist_summary)
 
 ```
 
-## standard deviation
+## Male
 ```{r}
+male <- subset(
+  wrist_measurements,
+  sex == 1    
+  )$wrist.girth
 
-## standard deviation
-sd(wrist_measurements$Wrist) # 0.933584928958703
+cat("summary \n")
+summary(male)
 
-### for men
+male_mean <- 
+  mean(male) %>% 
+  print()
 
-### for women
+cat("standard deviation \n")
+male_sd <- 
+  sd(male) %>% 
+  print()
+
+cat("Interquartile Range \n")
+IQR(male)
 
 ```
 
-## first and third quartile
+## Female
 ```{r}
-summary(wrist_measurements)
+female <- subset(
+  wrist_measurements,
+  sex == 0  
+  )$wrist.girth
 
-## first and third quartile
+cat("summary \n")
+summary(female)
 
-1st Qu.
-17.60
+female_mean <- 
+  mean(female) %>% 
+  print()
 
-3rd Qu.
-18.80
-### for men
+cat("standard deviation \n")
+female_sd <- 
+  sd(female) %>% 
+  print()
 
-### for women
-
-```
-
-## interquartile range
-```{r}
-IQR(wrist_measurements$Wrist)
-# 1.2
-
-### for men
-
-### for women
-
-```
-## minimum and maximum values
-```{r}
-summary(wrist_measurements)
-
-## minimum and maximum values
-
-Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-  15.80   17.60   18.30   18.23   18.80   21.40
-
-### for men
-
-### for women
+cat("Interquartile Range \n")
+IQR(female)
 
 ```
 
 # 4. Distribution Fitting [Plain Text and R Chunk] :
-- Compare the empirical distribution of selected body measurement to a normal distribution separately in men and in women. You need to do this visually by plotting the histogram with normal distribution overlay. Show your code.
+- Compare the empirical distribution of selected body measurement to a normal distribution separately in men and in women. 
+
+You need to do this visually by plotting the histogram with normal distribution overlay. Show your code.
+```{r}
+# histogram_and_plot_dist <-
+#   function(this_mean, this_sd) {
+    
+    histogram(
+      x = wrist_summary,
+      type="density",
+      main = "female wrist girth and normal distribution",
+      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+
+    plotDist(
+      "norm",  
+      mean = summary_mean, 
+      sd = summary_sd, 
+      kind= "density",
+      type = "b",
+      col = "red", 
+      lwd=2, 
+      add=TRUE) %>%
+      return()
+  # }
+
+# histogram_and_plot_dist(summary_mean, summary_sd, message)
+
+```
+
 - Then you will use R to summarise the empirical distribution of body measurement separately in men and women and compare it to a normal distribution. You need to do this visually by plotting the histogram with normal distribution overlay.
 
 ## summarise the empirical distribution of body measurement
 
 ### for men
 ```{r}
+# histogram_and_plot_dist(male_mean, male_sd, "you son of a bitch")
+    histogram(
+      x = male,
+      type="density",
+      main = "male wrist girth",
+      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+
+    plotDist(
+      "norm",  
+      mean = male_mean, 
+      sd = male_sd, 
+      kind= "density",
+      type = "b",
+      col = "red", 
+      lwd=2, 
+      add=TRUE) %>%
+      return()
 
 ```
 
-### for women
+### for females
 ```{r}
+    histogram(
+      x = female,
+      type="density",
+      main = "female wrist girth",
+      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+
+    plotDist(
+      "norm",  
+      mean = female_mean, 
+      sd = female_sd, 
+      kind= "density",
+      type = "b",
+      col = "red", 
+      lwd=2, 
+      add=TRUE) %>%
+      return()
 
 ```
 
 ## compare it to a normal distribution
 - by plotting the histogram with normal distribution overlay
+
+
+### for men
 ```{r}
+# histogram_and_plot_dist(male_mean, male_sd, "you son of a bitch")
+    histogram(
+      x = male,
+      type="density",
+      main = "male wrist girth against normal distribution",
+      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+
+    plotDist(
+      "norm",  
+      mean = summary_mean, 
+      sd = summary_sd, 
+      kind= "density",
+      type = "b",
+      col = "red", 
+      lwd=2, 
+      add=TRUE) %>%
+      return()
+
+```
+
+### for females
+```{r}
+    histogram(
+      x = female,
+      type="density",
+      main = "female wrist girth against normal distribution",
+      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+
+    plotDist(
+      "norm",  
+      mean = summary_mean, 
+      sd = summary_sd, 
+      kind= "density",
+      type = "b",
+      col = "red", 
+      lwd=2, 
+      add=TRUE) %>%
+      return()
 
 ```
 
