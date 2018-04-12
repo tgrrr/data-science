@@ -2,7 +2,11 @@
 ## Scan: Missing Values
 
 - Dr. Anil Dolgun
-- Last updated: 19 February, 2018
+- Last updated: 10 April, 2018
+
+- [slides](http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html#9)
+- [Full details of lecture](http://rare-phoenix-161610.appspot.com/secured/Module_05.html)
+- [Skill builder](http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html)
 
 ## Required Packages
 The following packages will be required or may come in handy.
