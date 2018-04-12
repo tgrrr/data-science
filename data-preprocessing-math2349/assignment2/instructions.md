@@ -2,6 +2,35 @@ MATH2349 Data Preprocessing Assignment 2
 ( Last Updated 6.04.2018 )
 
 
+Notes:
+
+Variables in the WHO data
+
+WHO data set has a unique coding system for the variables.
+- Columns five through sixty encode four separate pieces of information in their column names:
+
+1. The first three letters of each column denote whether the column contains new or old cases of TB.
+- In this data set, each column contains “new” cases.
+
+2. The next two letters describe the type of case being counted.
+- We will treat each of these as a separate variable.
+- “rel” stands for cases of relapse
+- “ep” stands for cases of extra-pulmonary TB
+- “sn” stands for cases of pulmonary TB that could not be diagnosed by a pulmonary smear (smear negative)
+- “sp” stands for cases of pulmonary TB that could be diagnosed be a pulmonary smear (smear positive)
+
+3. The sixth letter describes the sex of TB patients. The data set groups cases by males (“m”) and females (“ f ”).
+
+4. The remaining numbers describe the age group of TB patients. The data set groups cases into seven age groups:
+“014” stands for patients that are 0 to 14 years old
+“1524” stands for patients that are 15 to 24 years old
+“2534” stands for patients that are 25 to 34 years old
+“3544” stands for patients that are 35 to 44 years old
+“4554” stands for patients that are 45 to 54 years old
+“5564” stands for patients that are 55 to 64 years old
+“65” stands for patients that are 65 years old or older
+
+
 Weight: 20%
 Due date: 29 April, 2018, 23:59 AEST.
 Length: Maximum 20 pages
@@ -9,7 +38,7 @@ Feedback mode:  Feedback will be provided using Turnitin's inline marking tool a
 
 This assignment requires you to apply different data manipulation techniques (like recode, filter, select, split, aggregate, and reshape the data) and justify data by detecting and handling missing values, outliers. This assignment is worth 20% and is due 29/04/2018.
 
-Groups
+## Groups
 
 Students are permitted to work individually or in groups of up to 3 people for Assignment 2. Each group must fill out the following form before 22/04/2018 to register their group details. After the deadline, group registrations won't be accepted. Submit the details of your group here:
 Individual and Group Registration Form
@@ -46,7 +75,7 @@ WHO data set has a unique coding system for the variables. Columns five through 
 
 Note that the WHO data set is untidy, the data appears to contain values in its column names.
 
-Species and Surveys Data Description
+# Species and Surveys Data Description
 
 Tasks 6 - 10 will be completed using two relational sets that derived from a long-term study of animal populations in the Chihuahuan Desert (Data Source:  http://dx.doi.org/10.6084/m9.figshare.1314459). The first data set, "species.csv", contains the information on the observed species where else the "surveys.csv" data lists all information related to the species available in the Chihuanuan Desert. Both data sets (available here) have a common variable called “species_id” connecting each other. The variables for Species and Surveys data sets are self-explanatory.
 
