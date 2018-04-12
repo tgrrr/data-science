@@ -2,8 +2,6 @@
 title: "Scan: Missing Values - Week 6 - Class Worksheet"
 author: "Dr. Anil Dolgun, Last updated: 19 February, 2018"
 subtitle: "Scan: Missing Values"
-output:
-  html_notebook: default
 ---
 
 # Week 6 - Class Worksheet
@@ -11,6 +9,10 @@ output:
 
 - Dr. Anil Dolgun
 - Last updated: 19 February, 2018
+
+- [slides](http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html#9)
+- [Full details of lecture](http://rare-phoenix-161610.appspot.com/secured/Module_05.html)
+- [Skill builder](http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html)
 
 ## Required Packages
 The following packages will be required or may come in handy.
@@ -51,15 +53,13 @@ readRDS("../datasets/06-data-preprocessing/pr.RDS") %>%
   data.frame() %>%
   print()
 
-class(private_consumption)
-
 # Moving Countries to Row names:
 row.names(private_consumption) <-
   private_consumption[,1]
 
 private_consumption <-
-  private_consumption[,c(-1)]
-
+  private_consumption[,c(-1)] %>%
+  print()
 
 ```
 
@@ -73,6 +73,9 @@ private_consumption_na <-
 
 private_consumption_na %>%
   sum() # is 89
+```
+
+```{r}
 
 private_consumption_na %>%
   colSums()
@@ -106,12 +109,17 @@ Find out the country that has NAs for every column using  `rowsums()` nested wit
 cat("dimensions: ")
 dim(private_consumption)
 
-# TODO doesn't work
-  private_consumption %>%
+# TODO: check this, because there are possible options
+rowSums(is.na(private_consumption))
+
+private_consumption %>%
   is.na() %>%
   rowSums(na.rm = F)
   
-  
+private_consumption %>%
+  rowSums() %>%
+  is.na()
+
   
 ```
 then remove that country from the data frame with the same method with reversing the calculation.
@@ -120,39 +128,35 @@ then remove that country from the data frame with the same method with reversing
 3. Recode the missing values using the mean values for quarterly values for 2017 with rowMeans(), use  `na.rm=TRUE` argument.
 
 ```{r}
-
 # useful to get rows, types, etc: str(private_consumption)
-
-# private_consumption_with_mean <- 
 str(private_consumption)
-cat("rowMeans: \n")
-rowMeans(private_consumption[,2:11], na.rm=T)
+cat("dimensions:\n")
+dim(private_consumption)
+```
 
-private_consumption
-
-# UP to here!
-private_consumption_with_row_mean <- private_consumption <- rowMeans(private_consumption, na.rm=T)
-private_consumption_with_row_mean
-
-private_consumption
-
-# Get rowMeans while ignoring characters
-rowMeans(private_consumption[sapply(private_consumption, is.numeric)])
-
-# doesn't work:
-# private_consumption_numeric[2:11] <- as.numeric(private_consumption[2:11])
+```{r}
+private_consumption_with_mean <- 
+rowMeans(private_consumption, na.rm=T) %>%
+  print()
+```
 
 #broken
 cat("recode: \n")
+```{r}
+cat("Private consumption with Mean\n")
+private_consumption_with_row_mean <- rowMeans(private_consumption, na.rm=T) %>%
+  print()
 
 private_consumption[is.na(private_consumption)] <-
   rowMeans(private_consumption, na.rm=T)
   
+cat("Get rowMeans while ignoring characters\n")
+private_consumption_ignore_character <- private_consumption[sapply(private_consumption, is.numeric)] %>%
+  rowMeans() %>%
+  print()
 
-# private_consumption_with_mean
- 
+cat("Get rowMeans matrix\n")
 private_consumption_matrix <- data.matrix(private_consumption, rownames.force = NA)
-?rowMeans
 rowMeans(private_consumption_matrix, na.rm=TRUE)
 
 ```
