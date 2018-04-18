@@ -1,0 +1,71 @@
+
+
+```
+const Xray = require('x-ray')
+const { scrapeUrl } = require('./package.json')
+const fs = require('fs')
+
+const x = Xray()
+
+const structure = {
+    members: x('.searchResults', [{
+        name: 'h3 a',
+    }])
+}
+
+x(scrapeUrl, structure)
+    .paginate('.sbPaginator .on + li a@href')
+    .write('results.json')
+```
+
+
+# Tidy data - week4
+
+R codes to extract variables
+df$Student.Name
+df$Subject
+df$Grade
+
+## Functions to get all maths doesn't make sense
+df[[1]]
+names(df)
+c(df[2,2], df[3,2],df[2,3] df[3,3])
+
+![tidyvsuntidy]
+
+[tidyvsuntidy]: ./assets/tidyvsuntidy.png
+
+
+## Piping
+
+```{r}
+finally_last_step(
+  and_then_third(
+    then_second(
+      do_first(data)
+    )
+  )
+)
+```
+
+```{r}
+data %>%
+  do_first() %>%
+  then_second() %>%
+  and_then_third() %>%
+  finally_last_step()
+```
+
+
+## Functions
+
+`Gather()`
+
+`separate()`
+
+
+
+`unite()`
+
+```{r}
+storms %>%

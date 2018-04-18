@@ -1,0 +1,175 @@
+---
+title: "Week 7 - Class Worksheet"
+subtitle: "Scan: Outliers"
+author: "Dr. Anil Dolgun"
+date: "18/10/2018"
+output: 
+  html_document:
+    number_sections: false
+    theme: cerulean
+    highligt: pygments
+---
+
+## Class notes
+
+- Much easier to find outliers visually
+
+```{r}
+# hard
+anscombe1<- anscombe[, c(3,7)]
+anscombe1
+
+# easy
+```
+
+
+
+
+
+
+
+## Required Packages 
+The following packages and the function will be required or may come in handy.
+```{r, warning=FALSE, message=FALSE}
+# install.packages("MVN")
+library(readr)
+library(dplyr)
+library(outliers)
+library(MVN)
+cap <- function(x){
+    quantiles <- quantile( x, c(.05, 0.25, 0.75, .95 ) )
+    x[ x < quantiles[2] - 1.5*IQR(x) ] <- quantiles[1]
+    x[ x > quantiles[3] + 1.5*IQR(x) ] <- quantiles[4]
+    x
+}
+
+library(datasets)
+head(cars)
+
+```
+
+```{r}
+
+# Task 1: Identify the possible outliers for speed using the box plot and Tukey’s method.
+
+speed <- boxplot(x = cars$speed) %>%
+  print()
+
+# Task 2: Identify the possible outliers for dist using the box plot and Tukey’s method.
+
+dist <- boxplot(x = cars$dist) %>%
+  print()
+
+# Task 3: Indentify the location of outlier in dist.
+
+cars[(cars == 120)]
+
+boxplot(cars$dist, id=TRUE)
+
+# Exercise 2
+
+z_speed <- scores(
+  x = cars$speed, 
+  type = 'z'
+  )
+
+which( abs(z_speed) > 3 ) # because standard quartile range is ~ 3 for top quartile
+
+# Exercise 3
+
+# Task 1: Inspect the data for possible multivariate outliers using scatter plot.
+
+plot(cars$speed, cars$dist)
+
+boxplot(cars$speed ~ cars$dist)
+
+# Task 2: Split the speed variable into two groups and name this variable as speed_group. The first group should include speed 
+# ≤ 15km/h and the second should include speed 
+# > 15km/h.
+
+length(cars$speed)
+
+
+speed_group <- factor(x = cars, exclude = (cars$speed <= 15), )
+
+speed_group <-   mutate(.data = cars, (cars$speed <= 15) ) %>%
+  print()
+length(speed_group)
+
+
+cars <- mutate(cars, speed_group = ifelse( speed > 15), 2, 1)
+
+cars$speed_group <- factor(cars$speed_group, labels=c("=<15", "=>15"))
+
+
+# possible functions: factor, mutate
+
+# Task 3: Inspect the possible outliers in dist grouped by speed_group.
+
+boxplot(cars$dis ~ cars$speed_group)
+
+```
+
+Multivariate continued
+
+```{r}
+
+#Task 1: Inspect the data for possible multivariate outliers using the Mahalanobis distance vs. Chi-square quantile distribution plot.
+
+results <- mvn(
+  data = cars, 
+  multivariateOutlierMethod = "quan", 
+  showOutliers = TRUE) %>% 
+  print()
+
+# Task 2: Find the locations of the multivariate outliers.
+
+
+```
+
+## Exercises 
+### Wilt Data
+The following exercises 1-4 will be based on wilt data set which is taken from <http://archive.ics.uci.edu/ml/datasets/wilt> containing 4839 observations and 6 variables. The data set was split by [training.csv](../data/training.csv) and [testing.csv](../data/testing.csv) data sets, for the purpose of this exercise training and testing sets will be joined together. It is expected to do checks on the type of the data and using the suitable transformations if necessary. 
+**class** : Diseased trees or all other land cover
+**Mean_Green**: Mean green (G) value
+**Mean_Red**: Mean red (R) value
+**Mean_NIR**: Mean near infrared (NIR) value
+**GLCM_pan**: Mean gray level co-occurrence matrix (GLCM) texture index
+**SD_pan**: Standard deviation
+1. Join the [training.csv](../data/training.csv) and [testing.csv](../data/testing.csv) data sets, and rename the combined data frame as `wilt`.
+```{r}
+# Enter your solution here
+```
+2. Identify the univariate outliers of `Mean_Green`, `Mean_Red`, `Mean_NIR` and `GLCM_pan` variables from wilt data set using Tukey's method of outlier detection.  
+```{r}
+# Enter your solution here
+```
+3. Use z-score approach via `scores()` function to extract outliers of `Mean_Green`, `Mean_Red`, `Mean_NIR` and `GLCM_pan` variables. Find the location of the outliers. How many outliers are there per variable? Use `summary()` function to find out about the variables. 
+```{r}
+# Enter your solution here
+```
+4. Replace the outliers of `Mean_Green`, `Mean_Red`, `Mean_NIR` and `GLCM_pan` variables using `capping method`. You can use `sapply()` function to apply capping across the variables or you can do it individually. Use `summary()` function to see min and max values of the variables.
+```{r}
+# Enter your solution here
+```
+### Ozone Data
+The following exercises 5-8 will be based on [ozone.csv](../data/ozone.csv) data set which is taken from <http://rstatistics.net/wp-content/uploads/2015/09/ozone.csv> containing 366 observations and 13 variables. Variables are self explanatory however it is expected to do checks on the type of the data and using the suitable transformations if necessary. 
+ 
+5. Investigate `ozone_reading` variable across `Month` and `Wind_speed` using univariate and bivariate box plots and scatter plots. Before taking the next step, subset the ozone data set with these variables and remove `NA` values, make appropriate adjustments. 
+```{r}
+# Enter your solution here
+```
+6.  Use `mvn()` function to remove the outliers, use 2 different ways while doing this. First way will be manually removing the outliers when you find them. Second way will be simply using an argument inside the `mvn()` function.  
+```{r}
+# Enter your solution here
+```
+7. **Data Challenge**: Create a subset of ozone with ozone_reading and Temperature_Sandburg variable. Use one of the `cut()`, `case_when()` or `ifelse()` functions in `mutate()` to create a new temperature variable. You can get creative and do it in a different way. The new temperature variable is going to be categorical and grouped with 10 degrees difference. Investigate the outliers using Tukey's method of outlier detection. 
+```{r}
+# Enter your solution here
+```
+8. **Bonus Exercise**: Use capping method to replace outliers in the ozone data set that you subsetted in question 5. Compare the methods you used in question 6. Which one would you pick and why? Share your own approach with your code on [Slack](https://math2349.slack.com/) under `#classweek7` channel. Best solution(s) will be immortalised as example solutions in this worksheet.
+```{r}
+# Enter your solution here
+```
+## Finished?
+If you have finished the above tasks, work through the weekly list of tasks posted on the Canvas announcement page.
