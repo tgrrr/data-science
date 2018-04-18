@@ -173,48 +173,6 @@ You need to do this visually by plotting the histogram with normal distribution 
 
 ## summarise the empirical distribution of body measurement
 
-### for men
-```{r}
-# histogram_and_plot_dist(male_mean, male_sd, "you son of a bitch")
-    histogram(
-      x = male,
-      type="density",
-      main = "male wrist girth",
-      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
-
-    plotDist(
-      "norm",  
-      mean = male_mean, 
-      sd = male_sd, 
-      kind= "density",
-      type = "b",
-      col = "red", 
-      lwd=2, 
-      add=TRUE) %>%
-      return()
-
-```
-
-### for females
-```{r}
-    histogram(
-      x = female,
-      type="density",
-      main = "female wrist girth",
-      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
-
-    plotDist(
-      "norm",  
-      mean = female_mean, 
-      sd = female_sd, 
-      kind= "density",
-      type = "b",
-      col = "red", 
-      lwd=2, 
-      add=TRUE) %>%
-      return()
-
-```
 
 ## compare it to a normal distribution
 - by plotting the histogram with normal distribution overlay
@@ -222,7 +180,6 @@ You need to do this visually by plotting the histogram with normal distribution 
 
 ### for men
 ```{r}
-# histogram_and_plot_dist(male_mean, male_sd, "you son of a bitch")
     histogram(
       x = male,
       type="density",
@@ -278,3 +235,24 @@ You need to do this visually by plotting the histogram with normal distribution 
 
 # 5. Interpretation [Plain text]:
 - Going back to your problem statement, what insight has been gained from the investigation? Discuss the extent to how your theoretical normal distribution fits the empirical data.
+
+
+
+```{r}
+pnorm(mean = 10, sd = 30, 
+)
+  
+  150, 193, 19.3)
+
+
+```
+
+
+
+
+
+
+
+
+
+

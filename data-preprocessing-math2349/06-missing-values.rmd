@@ -140,16 +140,11 @@ rowMeans(private_consumption, na.rm=T) %>%
   print()
 ```
 
-#broken
-cat("recode: \n")
 ```{r}
 cat("Private consumption with Mean\n")
 private_consumption_with_row_mean <- rowMeans(private_consumption, na.rm=T) %>%
   print()
 
-private_consumption[is.na(private_consumption)] <-
-  rowMeans(private_consumption, na.rm=T)
-  
 cat("Get rowMeans while ignoring characters\n")
 private_consumption_ignore_character <- private_consumption[sapply(private_consumption, is.numeric)] %>%
   rowMeans() %>%
@@ -165,6 +160,23 @@ Once you complete this, simply use the mean values of the quarterly columns for 
 
 ```{r}
 
+
+for (col in length(private_consumption[1])) {
+  private_consumption[,col] %>%
+    print()
+}
+private_consumption
+
+ifelse()
+
+private_consumption
+
+private_consumption_with_row_mean
+
+private_consumption_na <- 
+  private_consumption %>%
+  is.na() %>%
+  print()
 
 ```
 
@@ -310,3 +322,4 @@ Bonus exercise will be based on randomly sampled bank marketing data (revisiting
 Share your own approach with your code on [Slack] under `#classweek6` channel. Best solution(s) will be immortalised as example solutions in this worksheet.
 
 [Slack]: https://math2349.slack.com/
+
