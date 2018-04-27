@@ -1,0 +1,359 @@
+---
+title: "7 Confidence Intervals Class Worksheet"
+---
+
+Source: https://docs.google.com/document/d/19-o81HV4FZecdh8asOJTQlS_lfEngiq0DbfJoqfZOY8/edit#heading=h.j1zsyg3l10rf
+
+MATH1324 - Class Worksheet
+Week 7 - Confidence Intervals
+
+```{r}
+# Datasets: Cars.csv, Mobile_phones.csv (see Data Repository)
+
+library(psych)
+library(mosaic)
+
+
+mycars <- read.csv("~/code/tldr/data-science/datasets/stats-math1324-excel/Cars - Cars.csv")
+cars %>% 
+  head()
+
+```
+Computing Confidence Intervals
+For this activity you will practice using R to compute confidence intervals for different estimators. You are then required to interpret and compare the confidence intervals calculated. R code hints have been provided at the end of this sheet if you get stuck. 
+Cars
+Import the Cars.csv dataset and RStudio, estimate the population mean and 95% CI for highway fuel economy for 4, 6 and 8 cylinder cars. Fill out the the following table.
+
+```{r}
+favstats(
+  mycars$speed, 
+  na.rm = TRUE
+  )
+
+??favstats
+
+```
+
+
+Group
+n
+Mean
+SD
+t*
+SEM
+95% CI
+4 Cylinders
+
+
+
+
+
+
+
+
+
+
+
+
+6 Cylinders
+
+
+
+
+
+
+
+
+
+
+
+
+8 Cylinders
+
+
+
+
+
+
+
+
+
+
+
+
+
+Considering the confidence intervals calculated, explain whether or not you would be confident to conclude that the mean highway economy of 4, 6 and 8 cylinder cars are different. Explain why or why not.
+Mobile Phones
+Import the MobilePhone.csv dataset to estimate the proportion and 95% CI of the proportion of people that own a smartphone, cell phone or no cell. Ensure you install and load the epitools package. Fill out the the following table. You will need to install the epitools package.
+
+> install.packages("epitools")
+> library(epitools)
+
+
+
+Group
+n
+p
+np(1 - p) 
+z*
+SE
+95% CI
+Smartphone
+
+
+
+
+
+
+
+
+
+
+
+
+Cell
+
+
+
+
+
+
+
+
+
+
+
+
+No cell
+
+
+
+
+
+
+
+
+
+
+
+
+
+Are you confident in concluding that the proportion of smartphone and cell phone owners are different? Explain your answer. 
+Homicide
+The following table reports the 2010 - 2012 homicide statistics by type (Australian Institute of Criminology). Calculate the 95% CI for the rates.
+
+Type of homicide (Australia - 2010 - 2012)
+Rate
+Method
+Exact/Approx
+95% CI
+Intimate partner
+109
+
+
+
+
+Filicide
+42
+
+
+
+
+Parricide
+23
+
+
+
+
+Siblicide
+6
+
+
+
+
+Other family homicide
+16
+
+
+
+
+Subtotal Domestic
+196
+
+
+
+
+Acquaintance homicide
+191
+
+
+
+
+Stranger homicide
+52
+
+
+
+
+Unclassified
+71
+
+
+
+
+Total
+510
+
+
+
+
+
+Assuming homicide rates are stable across time, and the 2010 - 2012 rates are considered a sample of the general homicide rates across time, would you be confident in concluding that the rate for stranger homicide is different to intimate partner homicide? Explain your answer.
+R Hints
+Use this example R code if you get stuck:
+Cars
+> favstats(~ Economy_highway | Cylinders, 
+         data = subset(Cars, subset = (Cylinders == 4 |
+                                       Cylinders == 6 |
+                                       Cylinders == 8)))
+
+> Cars_4cylinders <- subset(subset(Cars, subset = (Cylinders == 4)) # Filter data
+
+> qt(.975,df) #calculate t* critical value
+
+# Calculate SEM
+> sd(Cars_4cylinder$Economy_highway)/sqrt(lengthCars_4cylinder$Economy_highway) 
+
+> confint(t.test(~ Economy_highway, data = Cars_4cylinders)) #95% CI for mean
+Mobile Phones
+
+> Mobilephone$SmartPhone <-factor(Mobilephone$SmartPhone, levels=c(1,2,3),
+                                labels=c("Cell, smartphone", "Cell, not a smartphone","No cell"))
+
+> tally(~SmartPhone, data=Mobilephone, margins = TRUE)
+> tally(~SmartPhone, data=Mobilephone, margins = TRUE, format = "proportion")
+
+> binom.approx(904, 2254, conf.level = 0.95)
+Homicide
+> pois.exact(109, pt = 1, conf.level = 0.95)
+
+
+Solutions and Answers
+Cars
+> favstats(~ Economy_highway | Cylinders, 
++          data = subset(Cars, subset = (Cylinders == 4 |
++                                        Cylinders == 6 |
++                                        Cylinders == 8)))
+  Cylinders min Q1 median Q3 max     mean       sd   n missing
+1         4  37 45     50 55  82 51.37984 8.106897 129       7
+2         6  27 38     42 45  52 41.04737 5.171438 190       0
+3         8  19 30     37 40  45 35.18072 5.843789  83       4
+> 
+> qt(.975,df = 129-1) #calculate t* critical value for 4 cylinder cars
+[1] 1.978671
+> qt(.975,df = 190-1) #calculate t* critical value for 6 cylinder cars
+[1] 1.972595
+> qt(.975,df = 83-1) #calculate t* critical value for 8 cylinder cars
+[1] 1.989319
+> 
+> Cars_4cylinders <- subset(subset(Cars, subset = Cylinders == 4))
+> Cars_6cylinders <- subset(subset(Cars, subset = Cylinders == 6))
+> Cars_8cylinders <- subset(subset(Cars, subset = Cylinders == 8))
+> 
+> confint(t.test(~ Economy_highway, data = Cars_4cylinders))
+mean of x     lower     upper     level 
+ 51.37984  49.96752  52.79217   0.95000 
+> confint(t.test(~ Economy_highway, data = Cars_6cylinders))
+mean of x     lower     upper     level 
+ 41.04737  40.30730  41.78744   0.95000 
+> confint(t.test(~ Economy_highway, data = Cars_8cylinders))
+mean of x     lower     upper     level 
+ 35.18072  33.90470  36.45675   0.95000 
+
+Question 1
+The confidence intervals for the estimates of mean highway fuel economy for 4, 6 and 8 cylinder cars do not overlap. This suggests that we should be confident in concluding that the mean highway fuel economy for 4, 6 and 8 cylinder cars are different. 
+Mobile Phones
+> Mobilephone <- read.csv("C:/Users/E68140/Dropbox/MATH1324 - Introduction to Statistics/Data Repository/April-2012--Cell-Phones/April_2012_Mobile_csv.csv")
+> Mobilephone$SmartPhone <-factor(Mobilephone$SmartPhone, levels=c(1,2,3),
+labels=c("Cell, smartphone", 
+"Cell, not a smartphone","No cell"))
+> library(epitools)
+ 
+> tally(~SmartPhone, data=Mobilephone, margins = TRUE)
+
+      Cell, smartphone Cell, not a smartphone                No cell                  Total 
+                   904                   1050                    300                   2254 
+> tally(~SmartPhone, data=Mobilephone, margins = TRUE, format = "proportion")
+
+Cell, smartphone Cell, not a smartphone                No cell          Total 
+       0.4010648              0.4658385              0.1330967      1.0000000 
+
+> 2254*.4*(1-.4)
+[1] 540.96
+> 2254*.47*(1-.47)
+[1] 561.4714
+> 2254*.13*(1-.13)
+[1] 254.9274
+ 
+> qnorm(.975)
+[1] 1.959964
+ 
+> sqrt((.4*(1-.4))/2254) #SE Smartphone
+[1] 0.01031879
+> sqrt((.47*(1-.47))/2254) #SE Cell
+[1] 0.01051259
+> sqrt((.13*(1-.13))/2254) #SE No cell
+[1] 0.007083605
+> 
+> binom.approx(904, 2254, conf.level = 0.95) #CI Smartphone
+    x    n proportion     lower     upper conf.level
+1 904 2254  0.4010648 0.3808314 0.4212981       0.95
+> binom.approx(1050, 2254, conf.level = 0.95) #CI Cell
+     x    n proportion     lower     upper conf.level
+1 1050 2254  0.4658385 0.4452452 0.4864318       0.95
+> binom.approx(300, 2254, conf.level = 0.95) #CI No cell
+    x    n proportion     lower     upper conf.level
+1 300 2254  0.1330967 0.1190737 0.1471197       0.95
+
+Question 2
+The confidence intervals for the estimated proportion of smartphone owners and cell phone do not overlap. We should be confident in concluding that the proportion of cell phone owners is higher than smartphones.  
+
+Homicide
+> pois.approx(109, pt = 1, conf.level = 0.95)
+    x pt rate    lower    upper conf.level
+1 109  1  109 88.53738 129.4626       0.95
+> pois.exact(42, pt = 1, conf.level = 0.95)
+   x pt rate   lower   upper conf.level
+1 42  1   42 30.2699 56.7718       0.95
+> pois.exact(23, pt = 1, conf.level = 0.95)
+   x pt rate    lower    upper conf.level
+1 23  1   23 14.58004 34.51131       0.95
+> pois.exact(6, pt = 1, conf.level = 0.95)
+  x pt rate    lower    upper conf.level
+1 6  1    6 2.201891 13.05948       0.95
+> pois.exact(16, pt = 1, conf.level = 0.95)
+   x pt rate    lower  upper conf.level
+1 16  1   16 9.145378 25.983       0.95
+> pois.approx(196, pt = 1, conf.level = 0.95)
+    x pt rate    lower    upper conf.level
+1 196  1  196 168.5605 223.4395       0.95
+> pois.approx(191, pt = 1, conf.level = 0.95)
+    x pt rate    lower    upper conf.level
+1 191  1  191 163.9128 218.0872       0.95
+> pois.exact(52, pt = 1, conf.level = 0.95)
+   x pt rate    lower    upper conf.level
+1 52  1   52 38.83609 68.19107       0.95
+> pois.exact(71, pt = 1, conf.level = 0.95)
+   x pt rate    lower    upper conf.level
+1 71  1   71 55.45159 89.55686       0.95
+> pois.approx(510, pt = 1, conf.level = 0.95)
+    x pt rate    lower    upper conf.level
+1 510  1  510 465.7378 554.2622       0.95
+
+Question 3
+The confidence intervals for the rates of intimate partner and stranger homicide do not overlap. We should be confident in concluding that intimate partner rates are higher. 
+
+
+```{r}
+plot(cars)
+```

@@ -37,6 +37,9 @@ suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(readxl))
 suppressPackageStartupMessages(library("mosaic", lib.loc="/Library/Frameworks/R.framework/Versions/3.4/Resources/library"))
 setwd("~/code/tldr/data-science/stats-math1324/assignment2")
+suppressPackageStartupMessages(library("gridExtra"))
+suppressPackageStartupMessages(library("latticeExtra"))
+
 ```
 
 ## 3. Data [R Chunk]: Import the body measurements data and prepare it for analysis. Show your code.
@@ -52,7 +55,6 @@ head(body_measurements)
 ## Select your measurement here
 ```{r}
 head(body_measurements)
-
 ```
 
 #### Instructions: Tidy it up
@@ -141,6 +143,8 @@ IQR(female)
 
 ```
 
+
+
 ## 5. Distribution Fitting [Plain Text and R Chunk] :
 
 Instructions: Compare the empirical distribution of selected body measurement to a normal distribution separately in men and in women. You need to do this visually by plotting the histogram with normal distribution overlay. Show your code.
@@ -152,11 +156,15 @@ Instructions: Compare the empirical distribution of selected body measurement to
     histogram(
       x = wrist_summary,
       type="density",
-      main = "female wrist girth and normal distribution",
-      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+      main = "Wrist girth and normal distribution",
+      col=rgb(0,0,0,alpha=0.0),
+      xlim=c(12,21),
+      ylim = c(0,0.50),
+      breaks = 40
+      )
 
     plotDist(
-      "norm",  
+      "norm",
       mean = summary_mean,
       sd = summary_sd,
       kind= "density",
@@ -169,6 +177,8 @@ Instructions: Compare the empirical distribution of selected body measurement to
 
 # histogram_and_plot_dist(summary_mean, summary_sd, message)
 
+?histogram
+        
 ```
 
 - Then you will use R to summarise the empirical distribution of body measurement separately in men and women and compare it to a normal distribution. You need to do this visually by plotting the histogram with normal distribution overlay.
@@ -182,22 +192,43 @@ Instructions: Compare the empirical distribution of selected body measurement to
 
 ### for men
 ```{r}
+
+farp <- function(x, male_mean) {
+        panel.mathdensity(
+          # dmath = dnorm,
+          args = list(mean=male_mean,sd=male_sd)
+        )
+    }
+
     histogram(
       x = male,
       type="density",
       main = "male wrist girth against normal distribution",
-      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50),
+      breaks = 40,
+      xlab = "Height (inches)",
+      ylab = "Density Histogram\n with Normal Fit",
+      panel = farp
+      ) -> male_histogram
 
     plotDist(
-      "norm",  
+      "norm",
       mean = summary_mean,
       sd = summary_sd,
       kind= "density",
       type = "b",
-      col = "red",
+      col = "blue",
       lwd=2,
-      add=TRUE) %>%
-      return()
+      add=TRUE) -> male_histogram
+    
+    #   # abline(lm(duration ~ waiting, data=faithful))
+    # 
+    #   
+    # 
+    # male_histogram <-
+    # 
+
+    male_histogram
 
 ```
 
@@ -207,7 +238,9 @@ Instructions: Compare the empirical distribution of selected body measurement to
       x = female,
       type="density",
       main = "female wrist girth against normal distribution",
-      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50))
+      col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.50),
+      breaks = 40
+      )
 
     plotDist(
       "norm",  
@@ -224,15 +257,19 @@ Instructions: Compare the empirical distribution of selected body measurement to
 
 ## Interpretation [Plain text]:
 
-#### Instuctions:
-- Going back to your problem statement, what insight has been gained from the investigation? Discuss the extent to how your theoretical normal distribution fits the empirical data.
-- You will end by discussing the extent to how your theoretical normal distribution fits the empirical data and make recommendations regarding the modelling of this body measurement.
+### What insight has been gained from the investigation?
 
 - dot point 1
 - dot point 2
 - dot point 3
 
-## My Recommendation:
+### Discuss the extent to how your theoretical normal distribution fits the empirical data
+
+- dot point 1
+- dot point 2
+- dot point 3
+
+### Make recommendations regarding the modelling of this body measurement
 
 - dot point 1
 - dot point 2

@@ -1,0 +1,78 @@
+---
+title: "Confidence intervals"
+---
+
+confidence interval is:
+How confident that we are that if we re-sampled the population, we would get same results
+
+confidence level vs confidence intervals
+
+CI or Confidence Level is normally 95%
+
+
+
+## tl;dr:
+
+```{r}
+favstats(~IQ, data = IQ)
+
+confint(
+  t.test(
+    ~IQ,
+    data = IQ
+  )
+)
+```
+## if sigma is known
+
+- Providing interval is better than point
+- There is confidence level and confidence impact
+
+## t and z tables
+- Sometimes we use z or t tables
+- t table - if we know it follows a normal distribution
+- z table - if sample size is greater than 30
+
+```{r}
+qnorm()
+```
+
+## if we don't know sigma
+
+qt formula (rather than qnormal)
+
+qt(.)
+
+
+t
+- assumption of normality
+- and sample size is less than 25
+
+
+
+Proportions
+
+p = proportions
+
+p(1 - p)
+________
+   n
+
+? can we use normal approximation   
+   
+np(1 = p)
+
+if this >= 5, then we
+
+
+
+
+
+
+```{r}
+
+
+```
+
+
+[Confidence Interval]: ./Confidence_Intervals.png
