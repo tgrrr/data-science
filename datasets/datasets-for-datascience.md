@@ -1,9 +1,7 @@
 # Datasets for Data Science
 
 [Buzzfeed](https://github.com/BuzzFeedNews/everything)
-
-https://data.world/balexturner/390-000-metoo-tweets
-Metoo tweets
+[Kaggle](https://www.kaggle.com/datasets)
 
 # Victorian datasets 2017
 https://www.crimestatistics.vic.gov.au/family-violence-data-portal/download-data-tables
@@ -17,7 +15,7 @@ https://www.crimestatistics.vic.gov.au/family-violence-data-portal/download-data
 ### People are weird
 
 [Google Big Query]
-[and the reddit list of public Datasets
+[and the reddit list of public Datasets]
 
 - [IMDB]
 
@@ -26,26 +24,26 @@ https://www.crimestatistics.vic.gov.au/family-violence-data-portal/download-data
 https://github.com/datacamp/datacamp-metoo-analysis
 https://community.tableau.com/thread/252316
 https://medium.com/@erin_gallagher/metoo-hashtag-network-visualization-960dd5a97cdf
+[Metoo tweets]: https://data.world/balexturner/390-000-metoo-tweets
+
 
 ![./datasets/metoo-amazing-image.png]()
 source: https://medium.com/@erin_gallagher/metoo-hashtag-network-visualization-960dd5a97cdf
 
+### Gender
+- [Recognising the gender of faces]
+- [Facial recognitions of pornstars]
+
 ### Dating
+(yes, this is creepy)
 
 - [Tinder faces]
 - [Download your personal data from Tinder]
-
-
-
-#### Other funny/creepy uses of Tinder include:
 - [The catfish machine - tricking guys into flirting with other guys]
 [Tinder orders removal of faces]
 - [AI auto match on dating sites]
 - [Auto liker]
 
-And:
-- [Facial recognitions of pornstars]
-- [Recognising the gender of faces]
 
 [Recognising the gender of faces]: https://www.forbes.com/sites/janetwburns/2017/05/02/tinder-profiles-have-been-looted-again-this-time-for-teaching-ai-to-genderize-faces/#240c25554547
 [Tinder faces]: https://techcrunch.com/2017/04/28/someone-scraped-40000-tinder-selfies-to-make-a-facial-dataset-for-ai-experiments/
