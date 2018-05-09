@@ -1,0 +1,287 @@
+---
+title: "Week 9 - Class Worksheet"
+subtitle: "Transform Part I: Data Transformation, Normalisation and Binning"
+author: "Dr. Anil Dolgun"
+date: "2 May 2018"
+---
+
+## Functions
+
+BoxCox() from forecast
+
+scale()
+
+discretize() from infotheo
+
+
+## Required Packages 
+
+The following packages and the function will be required or may come in handy.
+
+```{r}
+
+# install.packages('forecast')
+# install.packages('infotheo')
+
+library(readr)
+library(dplyr)
+library(forecast)
+library(infotheo)
+
+minmaxnormalise <- function(x){(x- min(x)) /(max(x)-min(x))}
+```
+
+## Exercises 
+
+## Cars 
+
+Use equal-depth binning and discretise the Economy_highway variable into 4 groups
+```{r}
+# setwd("./.")
+cars <- read.csv("cars.csv")
+   head(cars)
+
+cars$Economy_highway
+
+cars$Weight %>%
+  hist(main = "Weight")
+
+log(cars$Economy_highway) %>%
+    hist(main = "Weight")
+
+# equalDepth <- discretize(cars$Economy_highway, disc = "equalfreq")
+
+# plot(equalDepth)
+
+plot(log(cars$Economy_highway), log(cars$Weight))
+
+```
+
+```{r}
+boxplot(cars$Economy_highway)
+cars$Economy_highway %>%
+  scale(center = TRUE, scale = TRUE) %>%
+  boxplot()
+
+boxplot(cars$Weight)
+
+  
+minmaxfunct <- function(x){(
+    x- min(x, na.rm = T)
+    / max(x, na.rm = T)
+  )}
+  
+  # (y- min(y)) /(max(y)-min(y))
+
+minmaxWeight <- minmaxfunct(cars$Weight)
+
+
+boxplot(minmaxWeight)
+
+
+# scale(cars$Weight, center = TRUE, scale = TRUE) %>%
+  # boxplot()
+
+```
+
+
+```{r}
+# Binning (a.k.a. Discretisation)
+
+# cars$Economy_highway %>%
+#   boxplot()
+
+method <- 
+  cars$Economy_city %>%
+  discretize(disc = "equalfreq", nbins = 3)
+
+attributes(method)
+
+method$X <- as.factor(method$X)
+
+head(method$X)
+
+# discretize(cars$Economy_city, disc = "equalfreq") %>%
+#   boxplot()
+
+# ?discretize
+
+```
+
+### US Candy Production Data
+
+The following exercises 1-4 will be based on US Candy production [candy_production.csv](../data/candy_production.csv) data set from Kaggle <https://www.kaggle.com/rtatman/us-candy-production-by-month>. Variables are self explanatory however it is expected to do checks on the type of the data and using the suitable transformations if necessary. Here is a quick look of the candy data:
+
+```{r}
+library(readr)
+
+candy <- read_csv("~/code/tldr/data-science/data-preprocessing-math2349/09/candy_production.csv",
+                  col_names = c("observation_date", "production")
+                  )
+
+candy = candy[-1,]
+candy %>%
+  head()
+
+
+
+```
+
+1. **Data Transformation: **  Use `hist()` to check the shape of the distribution of production variable in `candy` data set. Apply data transformation via mathematical operations such as log base 10, log base e, square root and reciprocal transformations. Apply Box - Cox transformation. After you applied transformations, use `hist()` and check shape of the distribution for each transformation.
+
+
+```{r}
+
+candy$production %>%
+  as.integer() %>%
+  hist()
+
+# Apply data transformation via mathematical operations such as log base 10, log base e, square root and reciprocal transformations.
+
+candy_clean <-
+    candy$production %>%
+    na.omit() %>%
+    as.double()
+
+candy_clean %>%
+    log10() %>%
+    hist()
+
+candy_clean %>%
+    log() %>%
+    hist()
+
+candy_clean %>%
+    sqrt() %>%
+    hist()
+
+candy_clean ^(-1) %>%
+    hist()
+
+
+# Apply Box - Cox transformation.
+
+candy_clean %>%
+  BoxCox(lambda = "auto") %>%
+  hist()
+
+
+```
+
+
+2. **Data Normalisation: **  Apply mean - centering and scale by the standard deviations without centering to the production variable in `candy` data set. Use `hist()` to check the shape of the distribution for both normalisations you applied. 
+
+
+```{r}
+
+candy_clean %>%
+  scale(center = T, scale = T) %>%
+  hist()
+
+candy_clean %>%
+  scale(center = F, scale = T) %>%
+  hist()
+
+
+```
+
+
+3. **z Score Standardisation and Min- Max Normalisation: ** Apply z-score standardisation and min-max normalisation to the production variable in `candy` data set. Use `hist()` to check the shape of the distribution for both transformations you applied. 
+
+```{r}
+
+candy_clean %>%
+  scale(center = T, scale = T) %>%
+  hist()
+
+minmaxfunct <- function(x){(
+    x- min(x, na.rm = T)
+    / max(x, na.rm = T)
+  )}
+
+candy_clean %>%
+  minmaxfunct() %>%
+  hist()
+
+
+```
+
+
+4. **Binning (a.k.a. Discretisation): ** Use equal width (distance) binning and equal depth (frequency) binning to the production variable in `candy` data set. Check the head of the first 15 observations for both transformations.
+
+
+```{r}
+method2 <-
+candy_clean %>%
+  discretize(disc = "equalwidth", nbins = 3)
+
+attributes(method2)
+
+method$X < as.factor(method$X)
+
+head(method$X, n = 15)
+
+```
+
+
+
+### Ozone Data
+
+The following exercises 5-9 will be based on [ozone.csv](../data/ozone.csv) data set which is taken from <http://rstatistics.net/wp-content/uploads/2015/09/ozone.csv> containing 366 observations and 13 variables. Variables are self explanatory however it is expected to do checks on the type of the data and using the suitable transformations if necessary. 
+ 
+Here is a quick look of the ozone data:
+ 
+
+
+
+5. **Data Transformation via Mathematical Operations: ** Subset variables `ozone_reading`, `pressure_height`, `Pressure_gradient`, `Visibility`, `Inversion_temperature` from  `ozone` data set and name it ozone_sub. Use `hist()` to check the shape of the distribution for all the variables. Apply log base 10, log base e and square root transformations to the variables. `sapply()` function will come in handy to transform all the variables at once. Check the shape of the distribution of the variables using `hist()`.  
+ 
+```{r}
+
+```
+
+
+
+6. **Centering and Scaling: ** Apply mean-centering to `ozone_sub` data frame using `apply()` function. Check the shape of the distribution of the variables using `hist()`.  
+
+
+```{r}
+
+```
+
+
+7. **Min- Max Normalisation: ** Use min-max normalisation to the `ozone_sub` data frame. If you are getting NAs explain why. Take the appropriate action to fix the problem and apply the normalisation again. Use `hist()` to check the shape of the distributions of the variables.
+
+```{r}
+
+```
+
+
+
+8. **Binning: ** Use `ozone_reading` variable from `ozone` dataset and apply equal width (distance) and equal depth (frequency) binning. Compare the variable before and after binning. To do so use `cbind()` and show 15 observations from the outputs. 
+
+```{r}
+
+```
+
+
+9. **Data Challenge**: Use `ozone_sub` data frame and apply Box Cox transformation using `apply()` function. Show the shape of the distibution of the variables using `hist()`. See if you can use a loop for histograms.
+
+```{r}
+
+```
+
+
+10. **Bonus Exercise**: Select `ozone_reading`, `pressure_height`,  `Inversion_temperature` variables from ozone data set. Apply z-score standardisation using `scales()` and `scores()` functions. Then compare the results of these two functions to see if you get the same results. Don't forget to deal with NA values. 
+
+
+```{r}
+
+```
+
+
+## Finished?
+
+If you have finished the above tasks, work through the weekly list of tasks posted on the Canvas announcement page.
+
+

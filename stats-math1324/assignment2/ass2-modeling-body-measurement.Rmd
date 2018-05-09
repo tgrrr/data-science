@@ -4,21 +4,13 @@ author: "Phil Steinke s3725547"
 output: html_notebook
 ---
 
-# Modelling Body Measurements
+#### 1. Problem Statement:
+- This paper examins the wrist girth of male and females from the dataset [Heinz G, Peterson LJ, Johnson RW, Kerk CJ. 2003. Exploring Relationships in Body Dimensions. Journal of Statistics Education 11(2).](https://ww2.amstat.org/publications/jse/v11n2/datasets.heinz.html). 
+- The examined the factors are `wri.di` wrist girth (in cm) and `sex` (male or female)
+- I compare the differences in body dimensions between male and females against the normal disntribution of the population of the dataset.
 
-### 1. Problem Statement  [Plain text]:
-_Write a clear and concise problem statement that guides your investigation. Explain which variable you choose and outline the approaches taken for normal distribution fitting._
-
-TODO:
-
-- This paper examins the wrist girth of male and females from the dataset [Heinz G, Peterson LJ, Johnson RW, Kerk CJ. 2003. Exploring Relationships in Body Dimensions. Journal of Statistics Education 11(2).] (https://ww2.amstat.org/publications/jse/v11n2/datasets.heinz.html). 
-
-- Differences in body dimensions between male and females against the normal disntribution
-
-- It examines the factors `wri.di` wrist girth (in cm) and `sex` (male or female)
-
-###  2. Load Packages:
-```{r}
+####  2. Load Packages:
+```{r, echo = TRUE, message=FALSE, warnings=0}
 suppressPackageStartupMessages(library(readr))
 suppressPackageStartupMessages(library(base))
 suppressPackageStartupMessages(library(dplyr))
@@ -30,161 +22,56 @@ suppressPackageStartupMessages(library("latticeExtra"))
 
 ```
 
-### 3. Data: Import the body measurements data and prepare it for analysis.
+### 3. Data: Import the body measurements data and tidy it up
 
 ```{r}
-body_measurements <- read_excel("data/bdims.csv (1).xlsx",
-    sheet = "bdims.csv") %>%
-  as.data.frame()
+body_measurements <- read_excel("data/bdims.csv (1).xlsx", sheet = "bdims.csv") %>% as.data.frame()
+wrist_measurements <- select(body_measurements, wri.gi, sex) %>% as.data.frame()
+colnames(wrist_measurements) <- c("wrist.girth", "sex")
+wrist_measurements <- mutate(wrist_measurements, sex=factor(sex, labels=c("female", "male")))
+wrist_measurements %>% head()
 ```
 
-#### Tidy it up
+### 4. Summary Statistics: Calculate descriptive statistics
 
-_define the variable sex as a factor and define labels for it) using R functions._
-
-```{r}
-wrist_measurements <-
-  select(
-    body_measurements,
-    wri.gi,
-    sex) %>%
-  as.data.frame()
-
-colnames(wrist_measurements) <-
-  c("wrist.girth", "sex")
-
-wrist_measurements <-
-  mutate(
-    wrist_measurements,
-    sex=factor(
-      sex,
-      labels=c("female", "male"))) %>%
-  print()
-
-```
-
-## 4. Summary Statistics: Calculate descriptive statistics
-
-_Calculate descriptive statistics (i.e., mean, median, standard deviation, first and third quartile, interquartile range, minimum and maximum values) of the selected measurement grouped by sex._
-
-## Summary of wrist measurements for all sexes
+#### Summary of wrist measurements for all sexes
 ```{r}
 wrist_summary <- wrist_measurements$wrist.girth
-
 summary(wrist_summary)
-
-summary_mean <-
-  mean(wrist_summary) %>%
-  print()
-
-summary_sd <-
-  sd(wrist_summary) %>%
-  print()
-
+summary_mean <- mean(wrist_summary) %>% print()
+summary_sd <- sd(wrist_summary) %>% print()
 IQR(wrist_summary) # Interquartile Range
-
 ```
 
-## Male Summary Statistics
+#### Male Summary Statistics
 ```{r}
-male <- subset(
-  wrist_measurements,
-  sex == "male"    
-  )$wrist.girth
-
+male <- subset(wrist_measurements, sex == "male")$wrist.girth
 summary(male)
-
-male_mean <-
-  mean(male) %>%
-  print()
-
-male_sd <-
-  sd(male) %>%
-  print()
-
+male_mean <- mean(male) %>% print()
+male_sd <- sd(male) %>% print()
 IQR(male) # Interquartile Range
-
 ```
 
-## Female Summary Statistics
+#### Female Summary Statistics
 ```{r}
-female <- subset(
-  wrist_measurements,
-  sex == "female"  
-  )$wrist.girth
-
+female <- subset(wrist_measurements, sex == "female")$wrist.girth
 summary(female)
-
-female_mean <-
-  mean(female) %>%
-  print()
-
-female_sd <-
-  sd(female) %>%
-  print()
-
+female_mean <- mean(female) %>% print()
+female_sd <- sd(female) %>% print()
 IQR(female) # Interquartile Range
-
 ```
-
-
-
-## 5. Distribution Fitting: histogram with normal distribution overlay
-
-- Compare the empirical distribution of selected body measurement to a normal distribution separately in men and in women
-
+### 5. Distribution Fitting:
+#### For males
 ```{r}
 
-histogram(
-  x = wrist_summary,
-  type="density",
-  main = "Wrist girth (cm) of both sexes and its normal distribution",
-  col=rgb(0,0,0,alpha=0.0),
-  xlim=c(12,21),
-  ylim = c(0,0.50),
-  breaks = 40,
-  xlab = "wrist girth (cm)",
-  ylab = "bar"
-  )
-
-plotDist(
-  "norm",  
-  mean = summary_mean, 
-  sd = summary_sd, 
-  kind= "density",
-  type = "b",
-  col = "red",
-  lwd=2,
-  add=TRUE,
-  xlab = "wrist girth (cm)",
-  ylab = "bar"
-  ) %>%
-  return()
-
-```
-
-- Then you will use R to summarise the empirical distribution of body measurement separately in men and women and compare it to a normal distribution. You need to do this visually by plotting the histogram with normal distribution overlay.
-
-## summarise the empirical distribution of body measurement
-
-
-## compare it to a normal distribution
-- by plotting the histogram with normal distribution overlay
-
-
-### for men
-```{r}
-
+plot.new()
 histogram(
   x = male,
   type="density",
-  main = "male wrist girth (cm) against normal distribution",
-  col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.80),
+  main = "male wrist girth (cm) compared to normal distribution",  col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.80),
   breaks = 40,
   xlab = "wrist girth (cm)",
-  ylab = "Density Histogram\n with Normal Fit"
-  )
-
+  ylab = "Density Histogram\n with Normal Fit")
 plotDist(
   "norm",
   mean = summary_mean,
@@ -194,9 +81,7 @@ plotDist(
   col = "red",
   lwd=2,
   add=TRUE,
-  xlab = "wrist girth (cm)",
-  )
-
+  xlab = "wrist girth (cm)")
 plotDist(
   "norm",  
   mean = male_mean,
@@ -206,23 +91,22 @@ plotDist(
   col = "blue",
   lwd=2,
   add=TRUE,
-  xlab = "wrist girth (cm)",
-  ) %>%
-  return()
-
+  xlab = "wrist girth (cm)")
+legend("topright", 
+       c("normal distribution", "male normal distribution", "density"), 
+       density = c(100, 100, 100),
+       fill=c("red","blue","white"))
 ```
 
-### for females
+### For females
 ```{r}
-
+plot.new()
 histogram(
   x = female,
   type="density",
   main = "female wrist girth (cm) compared to normal distribution",
   col=rgb(0,0,0,alpha=0.0), xlim=c(12,21), ylim = c(0,0.80),
-  breaks = 40
-  )
-
+  breaks = 40)
 plotDist(
   "norm",  
   mean = summary_mean,
@@ -231,9 +115,7 @@ plotDist(
   type = "b",
   col = "red",
   lwd=2,
-  add=TRUE) %>%
-  return()
-
+  add=TRUE)
 plotDist(
   "norm",  
   mean = female_mean,
@@ -242,28 +124,24 @@ plotDist(
   type = "b",
   col = "pink",
   lwd=2,
-  add=TRUE) %>%
-  return()
+  add=TRUE)
+legend("topright", 
+       c("normal distribution", "female normal distribution", "density"), 
+       density = c(100, 100, 100),
+       fill=c("red","pink","white"))
 
 ```
 
-## Interpretation:
+### Interpretation:
 
+#### What insight has been gained from the investigation?
+- The mean of males is `~17.2cm` and females are `~15cm`, and the median of males is `~17.1cm` and females is `15cm`. The girth of male wrists are larger than female wrists by an average of `2cm`
 
-### What insight has been gained from the investigation?
-
-- The mean of males is `~17.2cm` and females are `~15cm`
-- Median of male is `~17.1cm` and female is `15cm`
-- The girth of male wrists are larger than female wrists by an average of `2cm`
-
-### Discuss the extent to how your theoretical normal distribution fits the empirical data
-
+#### Discuss the extent to how your theoretical normal distribution fits the empirical data
 - The data fits a similar distribution 
 - There are very few female cases above `17cm`
 - Male, female and both sexes fit a normal bell curve
 
-
-
-### Make recommendations regarding the modelling of this body measurement
-
+#### Make recommendations regarding the modelling of this body measurement
 - Further analysis to check against other distributions
+- Check against the fit with greater and fewer bins
