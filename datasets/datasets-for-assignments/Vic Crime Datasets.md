@@ -1,13 +1,3 @@
-
-[Buzzfeed](https://github.com/BuzzFeedNews/everything)
-
-https://data.world/balexturner/390-000-metoo-tweets
-Metoo tweets
-
-# Victorian datasets 2017
-https://www.crimestatistics.vic.gov.au/family-violence-data-portal/download-data-tables
-
-
 ## Table 1	Number of VAP cases initiated for new clients by family violence indicator, July 2012 to June 2017
 - Table 2	Number of VAP family violence cases initiated for new clients, by client gender and age group, July 2012 to June 2017
 - Table 3	Number of VAP family violence cases initiated for new clients, by client Aboriginal and Torres Strait Islander status, July 2012 to June 2017
