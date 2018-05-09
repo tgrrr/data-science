@@ -1,23 +1,35 @@
 # Datasets for Data Science
 
-[Buzzfeed](https://github.com/BuzzFeedNews/everything)
-[Kaggle](https://www.kaggle.com/datasets)
+## Collections of datasets
+
+- [Buzzfeed]
+- [Kaggle]
+- [Google Big Query]
+- [and the reddit list of public Datasets]
 
 # Victorian datasets 2017
-https://www.crimestatistics.vic.gov.au/family-violence-data-portal/download-data-tables
-([and a list of what's included])
 
+- [Family violence]
+- ([and a list of what's included])
 
 ### People are awesome
-[Reddit pixels]
 
+- [Reddit pixels]
 
 ### People are weird
 
-[Google Big Query]
-[and the reddit list of public Datasets]
+- [Cambridge Analytica]
+- [IMDB] - Movies
 
-- [IMDB]
+### Dating
+(yes, this is creepy)
+
+- [Tinder faces]
+- [Download your personal data from Tinder]
+- [The Catfish machine] - tricking guys into flirting with other guys on Tinder
+- [Tinder orders removal of faces]
+- [AI auto match on dating sites]
+- [Auto liker]
 
 ### Metoo
 
@@ -26,23 +38,12 @@ https://community.tableau.com/thread/252316
 https://medium.com/@erin_gallagher/metoo-hashtag-network-visualization-960dd5a97cdf
 [Metoo tweets]: https://data.world/balexturner/390-000-metoo-tweets
 
-
 ![./datasets/metoo-amazing-image.png]()
 source: https://medium.com/@erin_gallagher/metoo-hashtag-network-visualization-960dd5a97cdf
 
 ### Gender
 - [Recognising the gender of faces]
 - [Facial recognitions of pornstars]
-
-### Dating
-(yes, this is creepy)
-
-- [Tinder faces]
-- [Download your personal data from Tinder]
-- [The catfish machine - tricking guys into flirting with other guys]
-[Tinder orders removal of faces]
-- [AI auto match on dating sites]
-- [Auto liker]
 
 
 [Recognising the gender of faces]: https://www.forbes.com/sites/janetwburns/2017/05/02/tinder-profiles-have-been-looted-again-this-time-for-teaching-ai-to-genderize-faces/#240c25554547
@@ -53,7 +54,11 @@ source: https://medium.com/@erin_gallagher/metoo-hashtag-network-visualization-9
 [Auto liker]: https://github.com/jaungiers/Tinder-py_auto_liker/blob/master/tinder-py_auto_liker.py
 [AI auto match on dating sites]: https://nakedsecurity.sophos.com/2017/06/23/dating-app-boss-sees-no-problem-on-face-matching-without-consent/
 [Tinder orders removal of faces]: https://nakedsecurity.sophos.com/2017/05/03/tinder-orders-researcher-to-remove-dataset-of-40000-profile-pictures/
-[The catfish machine - tricking guys into flirting with other guys]: https://www.theverge.com/2015/3/25/8277743/tinder-hack-bros-swiping-bros
+[The Catfish machine]: https://www.theverge.com/2015/3/25/8277743/tinder-hack-bros-swiping-bros
 [Reddit pixels]: https://www.reddit.com/r/place/comments/639htx/here_is_a_1000x1000_image_of_the_final_canvas_1/
 [IMDB]: https://www.kaggle.com/PromptCloudHQ/imdb-data
 [and a list of what's included]: ./datasets/datasets-for-assignments/Vic%20Crime%20Datasets.md
+[Buzzfeed]: https://github.com/BuzzFeedNews/everything
+[Kaggle]: https://www.kaggle.com/datasets
+[Cambridge Analytica]: https://data.world/datasets/cambridge-analytica
+[Family violence]: https://www.crimestatistics.vic.gov.au/family-violence-data-portal/download-data-tables
