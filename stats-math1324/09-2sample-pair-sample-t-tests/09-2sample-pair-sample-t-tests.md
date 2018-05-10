@@ -1,6 +1,10 @@
 # 2 sample pair /Users/phil/code/tldr/data-science/stats-math1324/09-2sample-pair-sample-t-tests/09-2sample-pair-sample-t-tests.md
 
 
+the long version
+[](https://sites.google.com/a/rmit.edu.au/intro-to-stats/home/module-7?pli=1)
+
+
 slides
 https://docs.google.com/presentation/d/1G3iRXe4ewUx4COETbx6crkwjRu9kEXrSpTzu2LBvQME/edit#slide=id.gbb3a9b653_0_0
 worksheet
