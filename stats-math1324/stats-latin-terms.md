@@ -28,3 +28,9 @@ Df - degrees of freedom
 
 Welch test
   if not equal variances, then assumes using welch test
+
+
+
+Linear regression
+
+Y = alpha + betaX + Epsilon
