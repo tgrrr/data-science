@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://rare-phoenix-161610.appspot.com/secured/Module_03.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+<meta name="author" content="Dr. Anil Dolgun">
+
+
+<title>Module 3</title>
+
+<script src="./Module 3_files/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Module 3_files/cosmo.min.css" rel="stylesheet">
+<script src="./Module 3_files/bootstrap.min.js"></script>
+<script src="./Module 3_files/html5shiv.min.js"></script>
+<script src="./Module 3_files/respond.min.js"></script>
+<script src="./Module 3_files/jquery-ui.min.js"></script>
+<link href="./Module 3_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Module 3_files/jquery.tocify.js"></script>
+<script src="./Module 3_files/tabsets.js"></script>
+<link href="./Module 3_files/textmate.css" rel="stylesheet">
+<script src="./Module 3_files/highlight.js"></script>
+<link href="./Module 3_files/font-awesome.min.css" rel="stylesheet">
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Module 3_files/style.css" type="text/css">
+
+<script type="text/javascript" src="./Module 3_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="overview">Overview</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="summary">Summary</li><li class="tocify-item list-group-item" data-unique="learning_objectives">Learning Objectives</li></ul></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="types_of_variables">Types of variables</li></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="data_structures_in_r">Data Structures in R</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="vectors">Vectors</li><li class="tocify-item list-group-item" data-unique="lists">Lists</li><li class="tocify-item list-group-item" data-unique="matrices">Matrices</li><li class="tocify-item list-group-item" data-unique="data_frames">Data Frames</li></ul></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="converting_data_typesstructures">Converting Data Types/Structures</li></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="long_vs_wide_format_data">Long vs.&nbsp;wide format data</li></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="additional_resources_and_further_reading">Additional Resources and Further Reading</li></ul><ul id="tocify-header7" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="references">References</li></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://rare-phoenix-161610.appspot.com/secured/index.html">Data Preprocessing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-sticky-note-o"></span>
+     
+    Courseware
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html">Module 1 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html">Module 2 Notes</a>
+    </li>
+    <li class="active">
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html">Module 3 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html">Module 4 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html">Module 5 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html">Module 6 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07.html">Module 7 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html">Module 8 Notes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Skill Builders
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder.html">Module 1 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder_Answers.html">Module 1 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder.html">Module 2 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder_Answers.html">Module 2 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder.html">Module 3 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder_Answers.html">Module 3 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder.html">Module 4 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder_Answers.html">Module 4 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html">Module 5 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder_Answers.html">Module 5 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder.html">Module 6 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder_Answers.html">Module 6 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder.html">Module 7 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder_Answers.html">Module 7 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08_Skill_Builder.html">Module 8 Skill Builders</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-television"></span>
+     
+    Demos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_01_Demo.html">Week 1 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_02_Demo.html">Week 2 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_03_Demo.html">Week 3 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_04_Demo.html">Week 4 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_05_Demo.html">Week 5 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html">Week 6 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_07_Demo.html">Week 7 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_09_Demo.html">Week 9 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_10_Demo.html">Week 10 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_11_Demo.html">Week 11 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 12 Demonstration Slides</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    Worksheets
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet.html">Week 1 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet_answers.html">Week 1 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet.html">Week 2 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet_answers.html">Week 2 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet.html">Week 3 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet_answers.html">Week 3 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet.html">Week 4 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet_answers.html">Week 4 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet.html">Week 5 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet_answers.html">Week 5 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet.html">Week 6 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet_answers.html">Week 6 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet.html">Week 7 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet_answers.html">Week 7 Class Worksheet Answers</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet.html">Week 9 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet_answers.html">Week 9 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet.html">Week 10 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet_answers.html">Week 10 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_11_Worksheet.html">Week 11 Class Worksheet</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://drive.google.com/drive/folders/1ya4COg_QeZG4t6XNRUehAq8FrRxRuxHb?usp=sharing">
+    <span class="fa fa-folder-open"></span>
+     
+    Drive
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/secured/DataCamp.html">
+    <span class="fa fa-star"></span>
+     
+    DataCamp
+  </a>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://docs.google.com/document/d/177dgNO0PezpPfqEtXziUlkmVLxfq5dORDnxAb03YIRM/edit?usp=sharing">Course Information Pack</a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/1D9wnlYth2rJirg5CMBiwnuew0-ZjagCPNrBxmr2Qn8A/edit?usp=sharing">Course Feedback</a>
+    </li>
+    <li>
+      <a href="https://my.rmit.edu.au/">MyRMIT (Canvas)</a>
+    </li>
+    <li>
+      <a href="http://www1.rmit.edu.au/students/mydesktop">MyDesktop</a>
+    </li>
+    <li>
+      <a href="https://sites.google.com/rmit.edu.au/postgradanalytics">
+        <span class="fa fa-circle-o"></span>
+         
+        Portal
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://math2349.slack.com/">
+    <span class="fa fa-slack"></span>
+     
+    Slack
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/logout.htm">
+    <span class="fa fa-sign-out"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Module 3</h1>
+<h3 class="subtitle"><em>Understand: Understanding Data and Data Structures</em></h3>
+<h4 class="author"><em>Dr.&nbsp;Anil Dolgun</em></h4>
+<h4 class="date"><em>Last updated: 16 May, 2018</em></h4>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<div name="overview" data-unique="overview"></div><h1>Overview</h1>
+<div id="summary" class="section level2">
+<div name="summary" data-unique="summary"></div><h2>Summary</h2>
+<p>Importing data successfully doesn’t mean that we have all the information about our data. Understanding data structures and variable types in the data set are also crucial for conducting data preprocessing. We shouldn’t be performing any type of data preprocessing without understanding what we have in hand. In this module, I will provide the basics of variable types and data structures. You will learn to check the types of the variables, dimensions and structure of the data, and levels/values for the variables. We will also cover how to manipulate the format of the data (i.e., data type conversions). Finally, the difference between wide and long formatted data will be explained.</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<div name="learning_objectives" data-unique="learning_objectives"></div><h2>Learning Objectives</h2>
+<p><img src="./Module 3_files/module3.png" width="20%" align="right" alt="Understand"></p>
+<p>The learning objectives of this module are as follows:<br>
+</p>
+<ul>
+<li>Understand R’s basic data types (i.e., character, numeric, integer, factor, and logical).</li>
+<li>Understand R’s basic data structures (i.e., vector, list, matrix, and data frame) and main differences between them.</li>
+<li>Learn to check attributes (i.e., name, dimension, class, levels etc.) of R objects.</li>
+<li>Learn how to convert between data types/structures.</li>
+<li>Understand the difference between wide vs.&nbsp;long formatted data.</li>
+</ul>
+</div>
+</div>
+<div id="types-of-variables" class="section level1">
+<div name="types_of_variables" data-unique="types_of_variables"></div><h1>Types of variables</h1>
+<p>A data set is a collection of measurements or records which are often called as variables and there are two major types of variables that can be stored in a data set: qualitative and quantitative. The <strong>qualitative variable</strong> is often called as <strong>categorical</strong> and they have a non-numeric structure such as gender, hair colour, type of a disease, etc. The qualitative variable can be nominal or ordinal.</p>
+<ul>
+<li><p><b>Nominal variable</b>: They have a scale in which the numbers or letters assigned to objects serve as labels for identification or classification. Examples of this variable include binary variables (e.g., yes/no, male/female) and multinomial variables (e.g.&nbsp;religious affiliation, eye colour, ethnicity, suburb).</p></li>
+<li><p><b>Ordinal variable</b>: They have a scale that arranges objects or alternatives according to their ranking. Examples include the exam grades (i.e., HD, DI, Credit, Pass, Fail etc.) and the disease severity (i.e., severe, moderate, mild).</p></li>
+</ul>
+<p>The second type of variable is called the <strong>quantitative variable</strong>. These variables are the numerical data that we can either measure or count. The quantitative variables can be either <strong>discrete</strong> or <strong>continuous</strong>.</p>
+<ul>
+<li><p><b>Continuous quantitative variable:</b> They arise from a measurement process. Continuous variables are measured on a continuum or scale. They can have almost any numeric value and can be meaningfully subdivided into finer and finer increments, depending upon the precision of the measurement system. For example: time, temperature, wind speed may be considered as continuous quantitative variables.</p></li>
+<li><p><b>Discrete quantitative variable:</b> They arise from a counting process. Examples include the number of text messages you sent this past week and the number of faults in a manufacturing process.</p></li>
+</ul>
+<p>The following short video by Nicola Petty provides a great overview on the variable types. Note that, in some statistical sources, the “type of the data” and the “type of the variables” are used synonymously. In the following video, the term “<strong>types of data</strong>” are used to refer the “<strong>types of variables</strong>”.<br>
+</p>
+<iframe width="560" height="315" align="center" src="./Module 3_files/hZxnzfnt5v8.html" frameborder="0" allowfullscreen="" style="display:block;margin:5px auto;text-align:center;">
+</iframe>
+</div>
+<div id="data-structures-in-r" class="section level1">
+<div name="data_structures_in_r" data-unique="data_structures_in_r"></div><h1>Data Structures in R</h1>
+<p>In the previous section, we defined the types of variables in a general sense. However, as R is a programming language it has own definitions of data types and structures. Technically, R classifies all the different types of data into four classes:</p>
+<ul>
+<li><strong>Logical</strong>: This class consists of TRUE or FALSE (binary) values. A logical value is often created via comparison between variables.</li>
+</ul>
+<pre class="r"><code class="hljs">x &lt;- <span class="hljs-number">10</span>
+y &lt;- (x &gt; <span class="hljs-number">0</span>)
+y</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<p>We can use <code>class()</code> function to check the class of an object.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check the class of y</span>
+
+class(y)</code></pre>
+<pre><code class="hljs">## [1] "logical"</code></pre>
+<ul>
+<li><strong>Numeric</strong> (integer or double): Quantitative values are called as numerics in R. It is the default computational data type. Numeric class can be integer or double. Integer types can be seen as discrete values (e.g., 2) whereas, double class will have floating point numbers (e.g., 2.16).<br>
+</li>
+</ul>
+<p>Here is an example of a double numeric variable:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a double-precision numeric variable</span>
+
+dbl_var &lt;- c(<span class="hljs-number">4</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">14.5</span>)
+
+<span class="hljs-comment"># check the class of dbl_var</span>
+
+class(dbl_var)</code></pre>
+<pre><code class="hljs">## [1] "numeric"</code></pre>
+<p>To check whether a numeric object is integer or double, you can also use <code>typeof()</code>.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check the type of dbl_var object</span>
+
+typeof(dbl_var)</code></pre>
+<pre><code class="hljs">## [1] "double"</code></pre>
+<p>In order to create an integer variable, we must place an <code>L</code> directly after each number. Here is an example:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create an integer (numeric) variable</span>
+
+int_var &lt;- c(<span class="hljs-number">4L</span>, <span class="hljs-number">7L</span>, <span class="hljs-number">14L</span>)
+
+<span class="hljs-comment"># check the class of int_var</span>
+
+class(int_var)</code></pre>
+<pre><code class="hljs">## [1] "integer"</code></pre>
+<ul>
+<li><strong>Character</strong>: A character class is used to represent string values in R. The most basic way to generate a character object is to use quotation marks <code>" "</code> and assign a string/text to an object.</li>
+</ul>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a character variable using " " and check its class</span>
+
+char_var &lt;- c(<span class="hljs-string">"debit"</span>, <span class="hljs-string">"credit"</span>, <span class="hljs-string">"Paypal"</span>)
+
+class(char_var)</code></pre>
+<pre><code class="hljs">## [1] "character"</code></pre>
+<ul>
+<li><strong>Factor</strong>: Factor class is used to represent qualitative data in R. Factors can be ordered or unordered. Factors store the nominal values as a vector of integers in the range [<span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;&amp;#x2026;&lt;/mo&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 2.871em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.275em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1002.27em, 2.6em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mn" id="MathJax-Span-3" style="font-family: STIXGeneral-Regular;">1</span><span class="mo" id="MathJax-Span-4" style="font-family: STIXGeneral-Regular; padding-left: 0.165em;">…</span><span class="mi" id="MathJax-Span-5" style="font-family: STIXGeneral-Italic; padding-left: 0.165em;">k<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.065em; border-left: 0px solid; width: 0px; height: 1.026em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1</mn><mo>…</mo><mi>k</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">1\ldots k</script></span>] (where <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-6" style="width: 0.544em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.436em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1000.44em, 2.6em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-7"><span class="mi" id="MathJax-Span-8" style="font-family: STIXGeneral-Italic;">k<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.065em; border-left: 0px solid; width: 0px; height: 1.026em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span><script type="math/tex" id="MathJax-Element-2">k</script></span> is the number of unique values in the nominal variable), and an internal vector of character strings (the original values) mapped to these integers.<br>
+</li>
+</ul>
+<p>Factor objects can be created with the <code>factor()</code> function:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a factor variable using factor()</span>
+
+fac_var1 &lt;- factor( c(<span class="hljs-string">"Male"</span>, <span class="hljs-string">"Female"</span>, <span class="hljs-string">"Male"</span>, <span class="hljs-string">"Male"</span>) )
+fac_var1</code></pre>
+<pre><code class="hljs">## [1] Male   Female Male   Male  
+## Levels: Female Male</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check its class </span>
+
+class(fac_var1)</code></pre>
+<pre><code class="hljs">## [1] "factor"</code></pre>
+<p>To see the levels of a factor object <code>levels()</code> function will be used:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check the factor levels</span>
+
+levels(fac_var1)</code></pre>
+<pre><code class="hljs">## [1] "Female" "Male"</code></pre>
+<p>By default, the levels of the factors will be ordered alphabetically. Using the <code>levels()</code> argument, we can control the ordering of the levels while creating a factor:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a factor variable using factor() and order the levels using levels() argument</span>
+
+fac_var2 &lt;- factor( c(<span class="hljs-string">"Male"</span>, <span class="hljs-string">"Female"</span>, <span class="hljs-string">"Male"</span>, <span class="hljs-string">"Male"</span>), 
+                    levels = c(<span class="hljs-string">"Male"</span>, <span class="hljs-string">"Female"</span>) )
+fac_var2</code></pre>
+<pre><code class="hljs">## [1] Male   Female Male   Male  
+## Levels: Male Female</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check its levels </span>
+
+levels(fac_var2)</code></pre>
+<pre><code class="hljs">## [1] "Male"   "Female"</code></pre>
+<p>We can also create ordinal factors in a specific order using the <code>ordered = TRUE</code> argument:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a ordered factor variable using factor() and order the levels using levels() argument</span>
+
+ordered_fac &lt;-factor( c(<span class="hljs-string">"DI"</span>, <span class="hljs-string">"HD"</span>, <span class="hljs-string">"PA"</span>, <span class="hljs-string">"NN"</span>, <span class="hljs-string">"CR"</span>, <span class="hljs-string">"DI"</span>, <span class="hljs-string">"HD"</span>, <span class="hljs-string">"PA"</span>), 
+                      levels = c(<span class="hljs-string">"NN"</span>, <span class="hljs-string">"PA"</span>, <span class="hljs-string">"CR"</span>, <span class="hljs-string">"DI"</span>, <span class="hljs-string">"HD"</span>), ordered=<span class="hljs-literal">TRUE</span> )
+
+ordered_fac</code></pre>
+<pre><code class="hljs">## [1] DI HD PA NN CR DI HD PA
+## Levels: NN &lt; PA &lt; CR &lt; DI &lt; HD</code></pre>
+<p>The ordering will be reflected as <code>NN &lt; PA &lt; CR &lt; DI &lt; HD</code> in the output.<br>
+</p>
+<p>As mentioned previously, a data set is a collection of measurements or records which can be in any class (i.e., logical, character, numeric, factor, etc.). Typically, data sets contain many variables of different length and type of values. In R, we can store data sets using vectors, lists, matrices and data frames. In R, vectors, lists, matrices, arrays and data frames are called <strong>“Data Structures”</strong>.</p>
+<p>According to <span class="citation">Wickham (2014)</span>, R’s base data structures can be organised by their dimensionality (i.e., one-dimension, two-dimension, or n-dimension) and whether they’re homogeneous (i.e., all contents/variables must be of the same type) or heterogeneous (i.e., the contents/variables can be of different types). Therefore, there are five data structures given in the following table (adapted from Advanced R, <span class="citation">Wickham (2014)</span>.)<br>
+</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Homogeneous</th>
+<th>Heterogeneous</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>one-dimension</td>
+<td>Atomic vector</td>
+<td>List</td>
+</tr>
+<tr class="even">
+<td>two-dimension</td>
+<td>Matrix</td>
+<td>Data frame</td>
+</tr>
+<tr class="odd">
+<td>n-dimension</td>
+<td>Array</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<p>In this section, we won’t cover the multi-dimensional arrays, but we will go into the details of vectors, lists, matrices, and data frames.</p>
+<div id="vectors" class="section level2">
+<div name="vectors" data-unique="vectors"></div><h2>Vectors</h2>
+<p>A vector is the basic structure in R, which consists of one-dimensional sequence of data elements of the same basic type (i.e., integer , double , logical, or character). Vectors are created by combining multiple elements into one dimensional array using the <code>c()</code> function. The one-dimensional examples illustrated previously are considered vectors.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># a double numeic vector</span>
+
+dbl_var &lt;- c(<span class="hljs-number">4</span>, <span class="hljs-number">7.5</span>, <span class="hljs-number">14.5</span>)
+
+<span class="hljs-comment"># an integer vector</span>
+
+int_var &lt;- c(<span class="hljs-number">4L</span>, <span class="hljs-number">7L</span>, <span class="hljs-number">14L</span>)
+
+<span class="hljs-comment"># a logical vector</span>
+
+log_var &lt;- c(<span class="hljs-literal">T</span>, <span class="hljs-literal">F</span>, <span class="hljs-literal">T</span>, <span class="hljs-literal">T</span>)
+
+<span class="hljs-comment"># a character vector</span>
+
+char_var &lt;- c(<span class="hljs-string">"debit"</span>, <span class="hljs-string">"credit"</span>, <span class="hljs-string">"Paypal"</span>)</code></pre>
+<p>All elements of a vector must be the same type, if you attempt to combine different types of elements they will be coerced to the most flexible type possible. Here are some examples:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># vector of characters and numerics will be coerced to a character vector</span>
+
+ex1 &lt;- c(<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+
+<span class="hljs-comment"># check the class of ex1</span>
+
+class(ex1)</code></pre>
+<pre><code class="hljs">## [1] "character"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># vector of numerics and logical will be coerced to a numeric vector</span>
+
+ex2 &lt;- c(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>)
+
+<span class="hljs-comment"># check the class of ex2</span>
+
+class(ex2)</code></pre>
+<pre><code class="hljs">## [1] "numeric"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># vector of logical and characters will be coerced to a character vector</span>
+
+ex3 &lt;- c(<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>)
+
+<span class="hljs-comment"># check the class of ex3</span>
+
+class(ex3)</code></pre>
+<pre><code class="hljs">## [1] "character"</code></pre>
+<p>In order to add additional elements to a vector we can use <code>c()</code> function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add two elements (4 and 6) to the ex2 vector</span>
+
+ex4 &lt;- c(ex2, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>)
+
+ex4</code></pre>
+<pre><code class="hljs">## [1] 1 2 3 1 0 4 6</code></pre>
+<p>To subset a vector, we can use square brackets <code>[ ]</code> with positive/negative integers, logical values or names. Here are some examples:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the third element in ex4 vector</span>
+
+ex4[<span class="hljs-number">3</span>]</code></pre>
+<pre><code class="hljs">## [1] 3</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the first three elements in ex4 vector</span>
+
+ex4[<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]</code></pre>
+<pre><code class="hljs">## [1] 1 2 3</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the first, third, and fifth element</span>
+
+ex4[c(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>)]</code></pre>
+<pre><code class="hljs">## [1] 1 3 0</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take all elements except first</span>
+
+ex4[-<span class="hljs-number">1</span>]</code></pre>
+<pre><code class="hljs">## [1] 2 3 1 0 4 6</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take all elements less than 3</span>
+
+ex4[ ex4 &lt; <span class="hljs-number">3</span> ]</code></pre>
+<pre><code class="hljs">## [1] 1 2 1 0</code></pre>
+</div>
+<div id="lists" class="section level2">
+<div name="lists" data-unique="lists"></div><h2>Lists</h2>
+<p>A list is an R structure that allows you to combine elements of different types and lengths. In order to create a list we can use the <code>list()</code> function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a list using list() function</span>
+
+list1 &lt;- list(<span class="hljs-number">1</span>:<span class="hljs-number">3</span>, <span class="hljs-string">"a"</span>, c(<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>), c(<span class="hljs-number">2.5</span>, <span class="hljs-number">4.2</span>))
+
+<span class="hljs-comment"># check the class of list1</span>
+
+class(list1)</code></pre>
+<pre><code class="hljs">## [1] "list"</code></pre>
+<p>To see the detailed structure within an object we can use the structure function <code>str()</code>, which provides a compact display of the internal structure of an R object.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check the structure of the list1 object</span>
+
+str(list1)</code></pre>
+<pre><code class="hljs">## List of 4
+##  $ : int [1:3] 1 2 3
+##  $ : chr "a"
+##  $ : logi [1:3] TRUE FALSE TRUE
+##  $ : num [1:2] 2.5 4.2</code></pre>
+<p>Note how each of the four list items above are of different classes (integer, character, logical, and numeric) and different lengths.</p>
+<p>In order to add on to lists we can use the <code>append()</code> function. Let’s add a fifth element to the <code>list1</code> and store it as <code>list2</code>:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add another list c("credit", "debit", "Paypal") on list1</span>
+
+list2 &lt;- append(list1, list(c(<span class="hljs-string">"credit"</span>, <span class="hljs-string">"debit"</span>, <span class="hljs-string">"Paypal"</span>)))
+
+<span class="hljs-comment"># check the structure of the list2 object</span>
+
+str(list2)</code></pre>
+<pre><code class="hljs">## List of 5
+##  $ : int [1:3] 1 2 3
+##  $ : chr "a"
+##  $ : logi [1:3] TRUE FALSE TRUE
+##  $ : num [1:2] 2.5 4.2
+##  $ : chr [1:3] "credit" "debit" "Paypal"</code></pre>
+<p>R objects can also have attributes, which are like metadata for the object. These metadata can be very useful in that they help to describe the object. Some examples of R object attributes are:<br>
+</p>
+<ul>
+<li>names, dimnames</li>
+<li>dimensions (e.g.&nbsp;matrices, arrays)</li>
+<li>class (e.g.&nbsp;integer , numeric)</li>
+<li>length</li>
+<li>other user-defined attributes/metadata</li>
+</ul>
+<p>Attributes of an object (if any) can be accessed using the <code>attributes()</code> function. Let’s check if <code>list2</code> has any attributes.</p>
+<pre class="r"><code class="hljs">attributes(list2)</code></pre>
+<pre><code class="hljs">## NULL</code></pre>
+<p>We can add names to lists using <code>names()</code> function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add names to a pre-existing list</span>
+
+names(list2) &lt;- c (<span class="hljs-string">"item1"</span>, <span class="hljs-string">"item2"</span>, <span class="hljs-string">"item3"</span>, <span class="hljs-string">"item4"</span>, <span class="hljs-string">"item5"</span>)
+
+str(list2)</code></pre>
+<pre><code class="hljs">## List of 5
+##  $ item1: int [1:3] 1 2 3
+##  $ item2: chr "a"
+##  $ item3: logi [1:3] TRUE FALSE TRUE
+##  $ item4: num [1:2] 2.5 4.2
+##  $ item5: chr [1:3] "credit" "debit" "Paypal"</code></pre>
+<p>Now, you can see that each element has a name and the names are displayed after a dollar <code>$</code> sign.<br>
+In order to subset lists, we can use dollar <code>$</code> sign or square brackets <code>[ ]</code>. Here are some examples:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the first list item in list2</span>
+
+list2[<span class="hljs-number">1</span>]</code></pre>
+<pre><code class="hljs">## $item1
+## [1] 1 2 3</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the first list item in list2 using $</span>
+
+list2$item1</code></pre>
+<pre><code class="hljs">## [1] 1 2 3</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the third element out of fifth list item</span>
+
+list2$item5[<span class="hljs-number">3</span>]</code></pre>
+<pre><code class="hljs">## [1] "Paypal"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take multiple list items </span>
+
+list2[c(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>)]</code></pre>
+<pre><code class="hljs">## $item1
+## [1] 1 2 3
+## 
+## $item3
+## [1]  TRUE FALSE  TRUE</code></pre>
+</div>
+<div id="matrices" class="section level2">
+<div name="matrices" data-unique="matrices"></div><h2>Matrices</h2>
+<p>A matrix is a collection of data elements arranged in a two-dimensional rectangular layout. In R, the elements of a matrix must be of same class (i.e.&nbsp;all elements must be numeric, or character, etc.) and all columns of a matrix must be of same length.<br>
+</p>
+<p>We can create a matrix using the <code>matrix()</code> function using <code>nrow</code> and <code>ncol</code> arguments.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a 2x3 numeric matrix</span>
+
+m1 &lt;- matrix(<span class="hljs-number">1</span>:<span class="hljs-number">6</span>, nrow = <span class="hljs-number">2</span>, ncol = <span class="hljs-number">3</span>)
+
+m1</code></pre>
+<pre><code class="hljs">##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<p>The underlying structure of this matrix can be seen using <code>str()</code> and <code>attributes()</code> functions as follows:</p>
+<pre class="r"><code class="hljs">str(m1)</code></pre>
+<pre><code class="hljs">##  int [1:2, 1:3] 1 2 3 4 5 6</code></pre>
+<pre class="r"><code class="hljs">attributes(m1)</code></pre>
+<pre><code class="hljs">## $dim
+## [1] 2 3</code></pre>
+<p>Matrices can also be created using the column-bind <code>cbind()</code> and row-bind <code>rbind()</code> functions. However, note that the vectors that are being binded must be of equal length and mode.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create two vectors</span>
+
+v1 &lt;- c( <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)
+v2 &lt;- c( <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>)
+
+<span class="hljs-comment"># create a matrix using column-bind</span>
+
+m2 &lt;- cbind(v1, v2)
+m2</code></pre>
+<pre><code class="hljs">##      v1 v2
+## [1,]  1  6
+## [2,]  4  8
+## [3,]  5 10</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a matrix using row-bind</span>
+
+m3 &lt;- rbind(v1, v2)
+m3</code></pre>
+<pre><code class="hljs">##    [,1] [,2] [,3]
+## v1    1    4    5
+## v2    6    8   10</code></pre>
+<p>We can also use <code>cbind()</code> and <code>rbind()</code> functions to add onto matrices.</p>
+<pre class="r"><code class="hljs">v3 &lt;- c(<span class="hljs-number">9</span>, <span class="hljs-number">8</span>, <span class="hljs-number">7</span>)
+
+m4 &lt;- rbind(m3, v3)
+m4</code></pre>
+<pre><code class="hljs">##    [,1] [,2] [,3]
+## v1    1    4    5
+## v2    6    8   10
+## v3    9    8    7</code></pre>
+<p>We can add names to the rows and columns of a matrix using <code>rownames</code> and <code>colnames</code>. Let’s add row names as subject1, subject2, and subject3 and column names as var1, var2, and var3 for <code>m4</code>:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add row names to m4</span>
+
+rownames(m4) &lt;- c(<span class="hljs-string">"subject1"</span>, <span class="hljs-string">"subject2"</span>, <span class="hljs-string">"subject3"</span>)
+
+<span class="hljs-comment"># add column names to m4</span>
+
+colnames(m4) &lt;- c(<span class="hljs-string">"var1"</span>, <span class="hljs-string">"var2"</span>, <span class="hljs-string">"var3"</span>)
+
+
+<span class="hljs-comment"># check attributes</span>
+
+attributes(m4)</code></pre>
+<pre><code class="hljs">## $dim
+## [1] 3 3
+## 
+## $dimnames
+## $dimnames[[1]]
+## [1] "subject1" "subject2" "subject3"
+## 
+## $dimnames[[2]]
+## [1] "var1" "var2" "var3"</code></pre>
+<p>In order to subset matrices we use the <code>[</code> operator. As matrices have two dimensions we need to incorporate subsetting arguments for both row and column dimensions. A generic form of matrix subsetting looks like: matrix [rows, columns].</p>
+<p>We can illustrate it using matrix m4:</p>
+<pre class="r"><code class="hljs">m4</code></pre>
+<pre><code class="hljs">##          var1 var2 var3
+## subject1    1    4    5
+## subject2    6    8   10
+## subject3    9    8    7</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the value in the first row and second column </span>
+
+m4[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]</code></pre>
+<pre><code class="hljs">## [1] 4</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset for rows 1 and 2 but keep all columns</span>
+
+m4[<span class="hljs-number">1</span>:<span class="hljs-number">2</span>, ]</code></pre>
+<pre><code class="hljs">##          var1 var2 var3
+## subject1    1    4    5
+## subject2    6    8   10</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset for columns 1 and 3 but keep all rows</span>
+
+m4[ , c(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>)]</code></pre>
+<pre><code class="hljs">##          var1 var3
+## subject1    1    5
+## subject2    6   10
+## subject3    9    7</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset for both rows and columns</span>
+
+m4[<span class="hljs-number">1</span>:<span class="hljs-number">2</span>, c(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>)]</code></pre>
+<pre><code class="hljs">##          var1 var3
+## subject1    1    5
+## subject2    6   10</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># use column names to subset</span>
+
+m4[ , <span class="hljs-string">"var1"</span>]</code></pre>
+<pre><code class="hljs">## subject1 subject2 subject3 
+##        1        6        9</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># use row names to subset</span>
+
+m4[<span class="hljs-string">"subject1"</span> , ]</code></pre>
+<pre><code class="hljs">## var1 var2 var3 
+##    1    4    5</code></pre>
+</div>
+<div id="data-frames" class="section level2">
+<div name="data_frames" data-unique="data_frames"></div><h2>Data Frames</h2>
+<p>A data frame is the most common way of storing data in R and, generally, is the data structure most often used for data analyses. A data frame is a list of equal-length vectors and they can store different classes of objects in each column (i.e., numeric, character, factor).<br>
+</p>
+<p>Data frames are usually created by importing/reading in a data set using the functions covered in Module 2. However, data frames can also be created explicitly with the <code>data.frame()</code> function or they can be coerced from other types of objects like lists.<br>
+</p>
+<p>In the following example, we will create a simple data frame <code>df1</code> and assess its basic structure:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment">#  create a data frame using data.frame()</span>
+
+df1 &lt;- data.frame (col1 = <span class="hljs-number">1</span>:<span class="hljs-number">3</span>,
+                  col2 = c (<span class="hljs-string">"credit"</span>, <span class="hljs-string">"debit"</span>, <span class="hljs-string">"Paypal"</span>),
+                  col3 = c (<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>),
+                  col4 = c (<span class="hljs-number">25.5</span>, <span class="hljs-number">44.2</span>, <span class="hljs-number">54.9</span>))
+
+<span class="hljs-comment"># inspect its structure</span>
+
+str(df1)</code></pre>
+<pre><code class="hljs">## 'data.frame':    3 obs. of  4 variables:
+##  $ col1: int  1 2 3
+##  $ col2: Factor w/ 3 levels "credit","debit",..: 1 2 3
+##  $ col3: logi  TRUE FALSE TRUE
+##  $ col4: num  25.5 44.2 54.9</code></pre>
+<p>In the example above, <code>col2</code> is converted to a column of factors. This is because there is a default setting in <code>data.frame()</code> that converts character columns to factors. We can turn this off by setting the <code>stringsAsFactors = FALSE</code> argument:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># use stringsAsFactors = FALSE</span>
+
+df1 &lt;- data.frame (col1 = <span class="hljs-number">1</span>:<span class="hljs-number">3</span>,
+                  col2 = c (<span class="hljs-string">"credit"</span>, <span class="hljs-string">"debit"</span>, <span class="hljs-string">"Paypal"</span>),
+                  col3 = c (<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>),
+                  col4 = c (<span class="hljs-number">25.5</span>, <span class="hljs-number">44.2</span>, <span class="hljs-number">54.9</span>),
+                  stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+<span class="hljs-comment"># inspect its structure</span>
+
+str(df1)</code></pre>
+<pre><code class="hljs">## 'data.frame':    3 obs. of  4 variables:
+##  $ col1: int  1 2 3
+##  $ col2: chr  "credit" "debit" "Paypal"
+##  $ col3: logi  TRUE FALSE TRUE
+##  $ col4: num  25.5 44.2 54.9</code></pre>
+<p>We can add columns (variables) and rows (items) on to a data frame using <code>cbind()</code> and <code>rbind()</code> functions. Here are some examples:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a new vector</span>
+
+v4 &lt;- c(<span class="hljs-string">"VIC"</span>, <span class="hljs-string">"NSW"</span>, <span class="hljs-string">"TAS"</span>)
+
+<span class="hljs-comment"># add a column (variable) to df1</span>
+
+df2 &lt;- cbind(df1, v4)</code></pre>
+<p>Adding attributes to data frames is very similar to what we have done in matrices. We can use <code>rownames()</code> and <code>colnames()</code> functions to add the row and column names, respectively.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add row names</span>
+
+rownames(df2) &lt;- c(<span class="hljs-string">"subj1"</span>, <span class="hljs-string">"subj2"</span>, <span class="hljs-string">"subj3"</span>)
+
+<span class="hljs-comment"># add column names </span>
+colnames(df2) &lt;- c(<span class="hljs-string">"number"</span>, <span class="hljs-string">"card_type"</span>, <span class="hljs-string">"fraud"</span>, <span class="hljs-string">"transaction"</span>, <span class="hljs-string">"state"</span>)
+
+<span class="hljs-comment"># check the structure and the attributes</span>
+
+str(df2)</code></pre>
+<pre><code class="hljs">## 'data.frame':    3 obs. of  5 variables:
+##  $ number     : int  1 2 3
+##  $ card_type  : chr  "credit" "debit" "Paypal"
+##  $ fraud      : logi  TRUE FALSE TRUE
+##  $ transaction: num  25.5 44.2 54.9
+##  $ state      : Factor w/ 3 levels "NSW","TAS","VIC": 3 1 2</code></pre>
+<pre class="r"><code class="hljs">attributes(df2)</code></pre>
+<pre><code class="hljs">## $names
+## [1] "number"      "card_type"   "fraud"       "transaction" "state"      
+## 
+## $row.names
+## [1] "subj1" "subj2" "subj3"
+## 
+## $class
+## [1] "data.frame"</code></pre>
+<p>Data frames possess the characteristics of both lists and matrices. Therefore, if you subset with a single vector, they behave like lists and will return the selected columns with all rows and if you subset with two vectors, they behave like matrices and can be subset by row and column. Here are some examples:</p>
+<pre class="r"><code class="hljs">df2</code></pre>
+<pre><code class="hljs">##       number card_type fraud transaction state
+## subj1      1    credit  TRUE        25.5   VIC
+## subj2      2     debit FALSE        44.2   NSW
+## subj3      3    Paypal  TRUE        54.9   TAS</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset by row numbers, take second and third rows only</span>
+
+df2[<span class="hljs-number">2</span>:<span class="hljs-number">3</span>, ]</code></pre>
+<pre><code class="hljs">##       number card_type fraud transaction state
+## subj2      2     debit FALSE        44.2   NSW
+## subj3      3    Paypal  TRUE        54.9   TAS</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># same as above but uses row names</span>
+
+df2[c(<span class="hljs-string">"subj2"</span>, <span class="hljs-string">"subj3"</span>),  ]</code></pre>
+<pre><code class="hljs">##       number card_type fraud transaction state
+## subj2      2     debit FALSE        44.2   NSW
+## subj3      3    Paypal  TRUE        54.9   TAS</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset by column numbers, take first and forth columns only</span>
+
+df2[, c(<span class="hljs-number">1</span>,<span class="hljs-number">4</span>)]</code></pre>
+<pre><code class="hljs">##       number transaction
+## subj1      1        25.5
+## subj2      2        44.2
+## subj3      3        54.9</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># same as above but uses column names</span>
+
+df2[, c(<span class="hljs-string">"number"</span>, <span class="hljs-string">"transaction"</span>)]</code></pre>
+<pre><code class="hljs">##       number transaction
+## subj1      1        25.5
+## subj2      2        44.2
+## subj3      3        54.9</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset by row and column numbers</span>
+
+df2[<span class="hljs-number">2</span>:<span class="hljs-number">3</span>, c(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>)]</code></pre>
+<pre><code class="hljs">##       number transaction
+## subj2      2        44.2
+## subj3      3        54.9</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># same as above but uses row and column names</span>
+
+df2[c(<span class="hljs-string">"subj2"</span>, <span class="hljs-string">"subj3"</span>), c(<span class="hljs-string">"number"</span>, <span class="hljs-string">"transaction"</span>)]</code></pre>
+<pre><code class="hljs">##       number transaction
+## subj2      2        44.2
+## subj3      3        54.9</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset using $: take the column (variable) fraud</span>
+
+df2$fraud</code></pre>
+<pre><code class="hljs">## [1]  TRUE FALSE  TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># take the second element in the fraud column</span>
+
+df2$fraud[<span class="hljs-number">2</span>]</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+</div>
+</div>
+<div id="converting-data-typesstructures" class="section level1">
+<div name="converting_data_typesstructures" data-unique="converting_data_typesstructures"></div><h1>Converting Data Types/Structures</h1>
+<p>Data type and structure conversions can be done easily using <code>as.</code> functions. Essentially, <code>as.</code> functions will convert the object to a given type (whenever possible) and <code>is.</code> functions will test for the given data type and return a logical value (<code>TRUE</code> or <code>FALSE</code>).</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th><code>as.</code> Functions</th>
+<th>Changes type to</th>
+<th><code>is.</code> Functions</th>
+<th>Checks if the type is</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>as.numeric()</code></td>
+<td>numeric</td>
+<td><code>is.numeric()</code></td>
+<td>numeric</td>
+</tr>
+<tr class="even">
+<td><code>as.integer()</code></td>
+<td>integer</td>
+<td><code>is.integer()</code></td>
+<td>integer</td>
+</tr>
+<tr class="odd">
+<td><code>as.double()</code></td>
+<td>double</td>
+<td><code>is.double()</code></td>
+<td>double</td>
+</tr>
+<tr class="even">
+<td><code>as.character()</code></td>
+<td>character</td>
+<td><code>is.character()</code></td>
+<td>character</td>
+</tr>
+<tr class="odd">
+<td><code>as.factor()</code></td>
+<td>factor</td>
+<td><code>is.factor()</code></td>
+<td>factor</td>
+</tr>
+<tr class="even">
+<td><code>as.logical()</code></td>
+<td>logical</td>
+<td><code>is.logical()</code></td>
+<td>logical</td>
+</tr>
+<tr class="odd">
+<td><code>as.vector()</code></td>
+<td>vector</td>
+<td><code>is.vector()</code></td>
+<td>vector</td>
+</tr>
+<tr class="even">
+<td><code>as.list()</code></td>
+<td>list</td>
+<td><code>is.list()</code></td>
+<td>list</td>
+</tr>
+<tr class="odd">
+<td><code>as.matrix()</code></td>
+<td>matrix</td>
+<td><code>is.matrix()</code></td>
+<td>matrix</td>
+</tr>
+<tr class="even">
+<td><code>as.data.frame()</code></td>
+<td>data frame</td>
+<td><code>is.data.frame()</code></td>
+<td>data frame</td>
+</tr>
+</tbody>
+</table>
+<p>Here are some examples on data type conversions:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a numeric vector called num_vec</span>
+
+num_vec &lt;- as.vector(<span class="hljs-number">8</span>:<span class="hljs-number">17</span>)
+
+<span class="hljs-comment"># check if it's a vector</span>
+
+is.vector(num_vec)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># convert num_vec into a character</span>
+
+char_vec &lt;-as.character(num_vec) 
+
+<span class="hljs-comment"># check if it's a character</span>
+
+is.character(char_vec)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a logical vector</span>
+
+log_vec &lt;- c(<span class="hljs-literal">FALSE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>)
+
+<span class="hljs-comment"># convert log_vec into a numeric vector</span>
+
+num_vec2 &lt;- as.numeric(log_vec)
+
+<span class="hljs-comment"># check if it's a numeric vector</span>
+
+is.numeric(num_vec2)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<p>The <code>as.</code> functions are also useful to initialise data types. The following example illustrates how you can initialise data using vectors and turn multiple vectors into a data frame:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create different types of vectors</span>
+
+col1 &lt;- <span class="hljs-number">1</span>:<span class="hljs-number">3</span>
+col2 &lt;- c (<span class="hljs-string">"credit"</span>, <span class="hljs-string">"debit"</span>, <span class="hljs-string">"Paypal"</span>)
+col3 &lt;- c (<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>)
+col4 &lt;- c (<span class="hljs-number">25.5</span>, <span class="hljs-number">44.2</span>, <span class="hljs-number">54.9</span>)
+
+<span class="hljs-comment"># use cbind to combine vectors by columns </span>
+
+colvec &lt;- cbind(col1, col2, col3, col4)
+
+<span class="hljs-comment"># check its class</span>
+
+class(colvec)</code></pre>
+<pre><code class="hljs">## [1] "matrix"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># convert matrix to a data frame</span>
+
+df &lt;- as.data.frame(colvec, stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+df</code></pre>
+<pre><code class="hljs">##   col1   col2  col3 col4
+## 1    1 credit  TRUE 25.5
+## 2    2  debit FALSE 44.2
+## 3    3 Paypal  TRUE 54.9</code></pre>
+</div>
+<div id="long-vs.wide-format-data" class="section level1">
+<div name="long_vs_wide_format_data" data-unique="long_vs_wide_format_data"></div><h1>Long vs.&nbsp;wide format data</h1>
+<p>A single data set can be rearranged in many different ways. One of the ways is called “<strong>long format (a.k.a long layout)</strong>”. In this layout, the data set is arranged in such a way that a single subject’s information is stored in multiple rows.</p>
+<p>In the <strong>wide format (a.k.a wide layout)</strong>, a single subject’s information is stored in multiple columns. The main difference between a wide layout and a long layout is that the wide layout contains all the measured information in different columns.</p>
+<p>An illustration of the same data set stored in wide vs.&nbsp;long format is given below:</p>
+<img src="./Module 3_files/widevslong.png" width="80%" align="center">
+<figcaption>
+Fig1. The same data set presented in wide vs.&nbsp;long format
+</figcaption>
+<p><br>
+In Module 4, we will see how we can convert a long format to a wide one and vice versa using R.</p>
+</div>
+<div id="additional-resources-and-further-reading" class="section level1">
+<div name="additional_resources_and_further_reading" data-unique="additional_resources_and_further_reading"></div><h1>Additional Resources and Further Reading</h1>
+<p>Data Wrangling with R by <span class="citation">Boehmke (2016)</span> is a comprehensive source for all data types and structures in R. This book is also one the recommended texts in our course. It is available through <a href="http://www1.rmit.edu.au/library">RMIT Library</a>.</p>
+<p>Base R cheatsheet on <a href="http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf" class="uri">http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf</a> is useful for remembering commonly used functions and arguments for data types and structures in R.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<div name="references" data-unique="references"></div><h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-boehmke2016">
+<p>Boehmke, Bradley C. 2016. <em>Data Wrangling with R</em>. Springer.</p>
+</div>
+<div id="ref-wickham2014advanced">
+<p>Wickham, Hadley. 2014. <em>Advanced R</em>. CRC Press.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>

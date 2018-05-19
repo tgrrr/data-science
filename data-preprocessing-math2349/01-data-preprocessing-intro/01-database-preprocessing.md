@@ -1,6 +1,8 @@
 # Data Preprocessing
 ## Intro lecture 28 Feb 2018
 
+![./Dataprepver_son.png]
+
 R Studio overview
 
 Table:
@@ -12,4 +14,3 @@ Table:
 
 # Worksheet 1
 Identify possible problems/errors in this data set. Collaboratively decide three major problems/errors that would be most problematic for your data analysis.
-

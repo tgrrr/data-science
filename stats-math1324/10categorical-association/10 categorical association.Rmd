@@ -1,0 +1,83 @@
+---
+title: "week 11 pt 2"
+# output: html_notebook
+---
+
+Class notes
+
+Call
+
+lm(formula = foot_length ~ hand_length, data = Hand_length)
+
+Get Estimated
+
+(intercept)  88.87 = alpha
+hand_length  0.8979 = b slope
+
+feet_length = alpha (intercept) + hand_length * hand_length
+
+y = alpha + X x B
+
+
+Get R squared.
+31.79 of variaion is feet length is a direct result of hand length
+
+
+Look at sign of B slope.
+If negative, then 
+
+= 
+= negative squared root
+
+if > 75%, or r squared > ~.66
+
+
+_____________________________________________________
+
+H0 - there is no relationship between y and x
+H: there is a relationship between y and x
+
+_______________________
+
+H0: check if alpha is 0 or not
+H : if B is null or not <- more important
+
+If P vale is very small
+We reject the null hypothesis
+Therefore the slope is significant
+
+F value: (degrees of freedom)
+
+rejection region probability ( F > 53.59)
+P of F test
+df ()
+
+
+
+
+F is testing the significance of the line to the data
+
+T test is testing the individual variable
+
+
+
+
+
+
+```{r}
+
+
+```
+
+
+degrees of freedom 
+
+number of (categories - 1) * (categories ihn  -1)
+
+eg 
+
+cases with breast cancer vs non (2)
+
+categories 
+
+

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://rare-phoenix-161610.appspot.com/secured/Module_01.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+<meta name="author" content="Dr. Anil Dolgun">
+
+
+<title>Module 1</title>
+
+<script src="./Module 1_files/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Module 1_files/cosmo.min.css" rel="stylesheet">
+<script src="./Module 1_files/bootstrap.min.js"></script>
+<script src="./Module 1_files/html5shiv.min.js"></script>
+<script src="./Module 1_files/respond.min.js"></script>
+<script src="./Module 1_files/jquery-ui.min.js"></script>
+<link href="./Module 1_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Module 1_files/jquery.tocify.js"></script>
+<script src="./Module 1_files/tabsets.js"></script>
+<link href="./Module 1_files/textmate.css" rel="stylesheet">
+<script src="./Module 1_files/highlight.js"></script>
+<script src="./Module 1_files/htmlwidgets.js"></script>
+<script src="./Module 1_files/d3.min.js"></script>
+<script src="./Module 1_files/dagre-d3.min.js"></script>
+<link href="./Module 1_files/mermaid.css" rel="stylesheet">
+<script src="./Module 1_files/mermaid.slim.min.js"></script>
+<link href="./Module 1_files/styles.css" rel="stylesheet">
+<script src="./Module 1_files/chromatography.js"></script>
+<script src="./Module 1_files/DiagrammeR.js"></script>
+<link href="./Module 1_files/font-awesome.min.css" rel="stylesheet">
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Module 1_files/style.css" type="text/css">
+
+<script type="text/javascript" src="./Module 1_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="overview">Overview</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="summary">Summary</li><li class="tocify-item list-group-item" data-unique="learning_objectives">Learning Objectives</li></ul></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="data">Data</li></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="the_rise_of_the_data_analyst">The rise of the Data Analyst</li></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="data_analysis_steps">Data Analysis Steps</li></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="what_is_data_preprocessing">What is Data Preprocessing?</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="why_data_preprocessing_is_important">Why Data Preprocessing is important</li><li class="tocify-item list-group-item" data-unique="why_do_you_learn_data_preprocessing">Why do you learn Data Preprocessing?</li><li class="tocify-item list-group-item" data-unique="major_tasks_in_data_preprocessing">Major Tasks in Data Preprocessing</li></ul></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="why_you_learn_this_subject_using_r">Why you learn this subject using R?</li></ul><ul id="tocify-header7" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="introduction_to_r_and_rstudio_ide">Introduction to R and RStudio IDE</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="installing_r">Installing R</li><li class="tocify-item list-group-item" data-unique="installing_rstudio">Installing RStudio</li><li class="tocify-item list-group-item" data-unique="r_studio_overview">R Studio Overview</li><li class="tocify-item list-group-item" data-unique="installing_packages">Installing Packages</li></ul></ul><ul id="tocify-header8" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="r_programming_basics">R Programming Basics</li></ul><ul id="tocify-header9" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="additional_resources_and_further_help_in_r">Additional Resources and Further Help in R</li></ul><ul id="tocify-header10" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="references">References</li></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://rare-phoenix-161610.appspot.com/secured/index.html">Data Preprocessing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-sticky-note-o"></span>
+     
+    Courseware
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="active">
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html">Module 1 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html">Module 2 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html">Module 3 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html">Module 4 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html">Module 5 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html">Module 6 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07.html">Module 7 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html">Module 8 Notes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Skill Builders
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder.html">Module 1 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder_Answers.html">Module 1 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder.html">Module 2 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder_Answers.html">Module 2 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder.html">Module 3 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder_Answers.html">Module 3 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder.html">Module 4 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder_Answers.html">Module 4 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html">Module 5 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder_Answers.html">Module 5 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder.html">Module 6 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder_Answers.html">Module 6 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder.html">Module 7 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder_Answers.html">Module 7 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08_Skill_Builder.html">Module 8 Skill Builders</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-television"></span>
+     
+    Demos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_01_Demo.html">Week 1 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_02_Demo.html">Week 2 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_03_Demo.html">Week 3 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_04_Demo.html">Week 4 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_05_Demo.html">Week 5 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html">Week 6 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_07_Demo.html">Week 7 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_09_Demo.html">Week 9 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_10_Demo.html">Week 10 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_11_Demo.html">Week 11 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 12 Demonstration Slides</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    Worksheets
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet.html">Week 1 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet_answers.html">Week 1 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet.html">Week 2 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet_answers.html">Week 2 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet.html">Week 3 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet_answers.html">Week 3 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet.html">Week 4 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet_answers.html">Week 4 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet.html">Week 5 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet_answers.html">Week 5 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet.html">Week 6 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet_answers.html">Week 6 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet.html">Week 7 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet_answers.html">Week 7 Class Worksheet Answers</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet.html">Week 9 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet_answers.html">Week 9 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet.html">Week 10 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet_answers.html">Week 10 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_11_Worksheet.html">Week 11 Class Worksheet</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://drive.google.com/drive/folders/1ya4COg_QeZG4t6XNRUehAq8FrRxRuxHb?usp=sharing">
+    <span class="fa fa-folder-open"></span>
+     
+    Drive
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/secured/DataCamp.html">
+    <span class="fa fa-star"></span>
+     
+    DataCamp
+  </a>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://docs.google.com/document/d/177dgNO0PezpPfqEtXziUlkmVLxfq5dORDnxAb03YIRM/edit?usp=sharing">Course Information Pack</a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/1D9wnlYth2rJirg5CMBiwnuew0-ZjagCPNrBxmr2Qn8A/edit?usp=sharing">Course Feedback</a>
+    </li>
+    <li>
+      <a href="https://my.rmit.edu.au/">MyRMIT (Canvas)</a>
+    </li>
+    <li>
+      <a href="http://www1.rmit.edu.au/students/mydesktop">MyDesktop</a>
+    </li>
+    <li>
+      <a href="https://sites.google.com/rmit.edu.au/postgradanalytics">
+        <span class="fa fa-circle-o"></span>
+         
+        Portal
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://math2349.slack.com/">
+    <span class="fa fa-slack"></span>
+     
+    Slack
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/logout.htm">
+    <span class="fa fa-sign-out"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Module 1</h1>
+<h3 class="subtitle"><em>Data Preprocessing: From Raw Data to Ready to Analyse</em></h3>
+<h4 class="author"><em>Dr.&nbsp;Anil Dolgun</em></h4>
+<h4 class="date"><em>Last updated: 16 May, 2018</em></h4>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<div name="overview" data-unique="overview"></div><h1>Overview</h1>
+<div id="summary" class="section level2">
+<div name="summary" data-unique="summary"></div><h2>Summary</h2>
+<p>Module 1 will set the background for the entire course. Data preprocessing will be defined and the importance of data preprocessing inside the data analysis workflow will be explored. The module will define 5 major tasks for data preprocessing and will provide a quick overview of these tasks. Then, in the following modules of this course, we will unwrap each data preprocessing task by providing details of operations related to that task. I will also introduce you to R in this module, discuss the benefits it provides, and start to get you comfortable with R by giving R and RStudio basics. Recommended reading and useful online resources to get started with R will be given at the end of this module.</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<div name="learning_objectives" data-unique="learning_objectives"></div><h2>Learning Objectives</h2>
+<p><img src="./Module 1_files/data.jpg" width="40%" align="right" alt="Data"></p>
+<p>The learning objectives of this module are as follows:</p>
+<ul>
+<li>Define data preprocessing</li>
+<li>Identify steps for data analysis, understand the place of data preprocessing inside the data analysis workflow</li>
+<li>Understand the reasons why data preprocessing is important</li>
+<li>Identify major tasks in data preprocessing</li>
+<li>Understand main benefits of using R statistical programming language in data preprocessing</li>
+<li>Learn how to install R and RStudio, know the overview of the RStudio interface.</li>
+<li>Know how to install and load packages</li>
+<li>Learn mathematical/logical operations and basic programming in R</li>
+<li>Know how to get further help for R statistical programming language</li>
+</ul>
+</div>
+</div>
+<div id="data" class="section level1">
+<div name="data" data-unique="data"></div><h1>Data</h1>
+<p><strong><em>“Data! Data! Data! I can’t make bricks without clay!”</em></strong> - Sir Arthur Conan Doyle.</p>
+<p>Data. Our world has turned out to be increasingly dependent upon this resource. Sir Conan Doyle’s famous detective, Sherlock Holmes, wouldn’t shape any theories or draw any conclusions unless he had adequate data. Data is the fundamental building piece of all that we do in analytics such as the analyses we perform, the reports we build, and the decisions we made.</p>
+<p><img src="./Module 1_files/data1.jpg" width="30%" align="right" alt="Data"></p>
+<p><strong><em>“In God we trust. All others must bring data.”</em></strong> – W. Edwards Deming.</p>
+<p>This quote by <a href="https://en.wikipedia.org/wiki/W._Edwards_Deming">W. Edwards Deming</a> (statistician, professor, author, lecturer, and consultant), emphasises the significance of data-driven decisions. Obviously, everyone has better bring (also understand and interpret) data to back up their claims.</p>
+</div>
+<div id="the-rise-of-the-data-analyst" class="section level1">
+<div name="the_rise_of_the_data_analyst" data-unique="the_rise_of_the_data_analyst"></div><h1>The rise of the Data Analyst</h1>
+<p>Today’s organisations have access to more data than ever before, but more data isn’t better data unless you know what to do with it. Organisations are struggling to find people who can turn their data into insights and value, which in turn has created a high demand across the world for data analysts. During an interview in 2009, Google’s Chief Economist Dr.&nbsp;Hal R. Varian stated, <strong><em>“The ability to take data - to be able to understand it, to process it, to extract value from it, to visualize it, to communicate it - that’s going to be a hugely important skill in the next decades.”</em></strong> <a href="https://www.forbes.com/sites/brentdykes/2016/03/31/data-storytelling-the-essential-data-science-skill-everyone-needs/#2a2b655c52ad">Read the full article here</a></p>
+<p>Moreover, LinkedIn recently reported that the “data analysis” is one of the hottest skill categories over the past two years for recruiters, and it was the only category that consistently ranked in the top 4 across all of the countries they analysed. <a href="https://blog.linkedin.com/2016/10/20/top-skills-2016-week-of-learning-linkedin">Read the full article here</a>. Below are the top ten skills of 2016 reported on LinkedIn for Australia.</p>
+<p><img src="./Module 1_files/topten.png" width="100%" align="center" alt="Top ten skills in LinkedIn Australia, 2016"></p>
+<p>According to a recent IBM report (<a href="https://public.dhe.ibm.com/common/ssi/ecm/im/en/iml14576usen/IML14576USEN.PDF">Read the full article here</a>):</p>
+<ul>
+<li>59% of all data science and analytics job demand is in Finance and Insurance, Professional Services, and IT.</li>
+<li>By 2020, the number of data science and analytics job listings is projected to grow by nearly 364,000 listings to approximately 2,720,000.</li>
+<li>39% of data scientists and advanced analyst positions require a Master’s or Ph.D.&nbsp;in the related area.</li>
+</ul>
+<p>Consequently, it is safe to say that skilled data analysts are now crucial to all industries. There is a need for becoming fluent in the data analysis process and staying up-to-date by continually learning and adding new knowledge in this field. I am assuming that’s the reason why you are here!</p>
+</div>
+<div id="data-analysis-steps" class="section level1">
+<div name="data_analysis_steps" data-unique="data_analysis_steps"></div><h1>Data Analysis Steps</h1>
+<p>The statistical approach to data analysis is much broader than just analysing data. Data analysis process starts with defining problem statement, continues with planning and collecting data, preprocessing data, exploring data using descriptive statistics and data visualisations, analysing/modelling data, and finalises with interpreting and reporting findings. This process is depicted in the following illustration.</p>
+<div class="figure" style="text-align: center">
+<div id="htmlwidget-8fc4a25fb1cdd66632ab" style="width:672px;height:480px;" class="DiagrammeR html-widget html-widget-static-bound mermaid" data-processed="true"><svg id="mermaidChart0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 416 514" style="max-width: 416px; width: 100%; height: 100%;"><style type="text/css" title="mermaid-svg-internal-css">/*  */
+#mermaidChart0 .node&gt;rect { ; }
+#mermaidChart0 .node text  { fill:#000; stroke:none; font-weight:300; font-family:"Helvetica Neue",Helvetica,Arial,sans-serf; font-size:14px; }
+#mermaidChart0 .edgeLabel text  { fill:#000; stroke:none; font-weight:300; font-family:"Helvetica Neue",Helvetica,Arial,sans-serf; font-size:14px; }
+#mermaidChart0 .cluster rect  { rx:4px; fill: rgb(255, 255, 222); rx: 4px; stroke: rgb(170, 170, 51); stroke-width: 1px; }
+* { box-sizing: border-box;}
+.label { display: inline; padding: 0.2em 0.6em 0.3em; font-size: 75%; font-weight: bold; line-height: 1; color: rgb(255, 255, 255); text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25em;}
+.label { border-radius: 0px;}
+.mermaid .label { color: rgb(51, 51, 51); font-weight: 400;}
+.mermaid .node rect, .node circle, .mermaid .node ellipse, .mermaid .node polygon { fill: rgb(236, 236, 255); stroke: rgb(204, 204, 255); stroke-width: 1px;}
+.mermaid .edgePath .path { stroke: rgb(51, 51, 51);}
+.mermaid g .edgeLabel { background-color: white;}
+.DiagrammeR g .label { font-family: Helvetica; font-size: 14px; color: rgb(51, 51, 51);}
+/*  */
+</style><g><g class="output"><g class="clusters"></g><g class="edgePaths"><g class="edgePath" style="opacity: 1;"><path class="path" d="M198,54L198,79L198,104" marker-end="url(#arrowhead27)" style="fill:none"></path><defs><marker id="arrowhead27" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: #333"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M198,138L198,163L198,188" marker-end="url(#arrowhead28)" style="fill:none"></path><defs><marker id="arrowhead28" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: #333"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M198,222L198,247L198,272" marker-end="url(#arrowhead29)" style="fill:none"></path><defs><marker id="arrowhead29" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: #333"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M198,306L198,331L198,356" marker-end="url(#arrowhead30)" style="fill:none"></path><defs><marker id="arrowhead30" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: #333"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M198,390L198,415L198,440" marker-end="url(#arrowhead31)" style="fill:none"></path><defs><marker id="arrowhead31" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" style="fill: #333"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignobject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignobject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignobject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignobject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignobject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignobject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignobject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignobject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignobject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignobject></g></g></g><g class="nodes"><g class="node" id="A" transform="translate(198,37)" style="opacity: 1;"><rect rx="5" ry="5" x="-98" y="-17" width="196" height="34" style="fill:#E5E25F;"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-88,-7)"><foreignobject width="176" height="14"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Defining Problem Statement</div></foreignobject></g></g></g><g class="node" id="B" transform="translate(198,121)" style="opacity: 1;"><rect rx="5" ry="5" x="-100" y="-17" width="200" height="34" style="fill:#87AB51;"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-90,-7)"><foreignobject width="180" height="14"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Planning and Collecting Data</div></foreignobject></g></g></g><g class="node" id="C" transform="translate(198,205)" style="opacity: 1;"><rect rx="5" ry="5" x="-71" y="-17" width="142" height="34" style="fill:#F3A1A1;"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-61,-7)"><foreignobject width="122" height="14"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Data Preprocessing</div></foreignobject></g></g></g><g class="node" id="D" transform="translate(198,289)" style="opacity: 1;"><rect rx="5" ry="5" x="-178" y="-17" width="356" height="34" style="fill:#A1CAF3;"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-168,-7)"><foreignobject width="336" height="14"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Exploring Data via Descriptive Statistics/Visualisations</div></foreignobject></g></g></g><g class="node" id="E" transform="translate(198,373)" style="opacity: 1;"><rect rx="5" ry="5" x="-89" y="-17" width="178" height="34" style="fill:#BE94C1;"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-79,-7)"><foreignobject width="158" height="14"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Analysing/Modelling Data</div></foreignobject></g></g></g><g class="node" id="F" transform="translate(198,457)" style="opacity: 1;"><rect rx="5" ry="5" x="-97" y="-17" width="194" height="34" style="fill:#BBB5B8;"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-87,-7)"><foreignobject width="174" height="14"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Interpretation and Reporting</div></foreignobject></g></g></g></g></g></g></svg></div>
+<script type="application/json" data-for="htmlwidget-8fc4a25fb1cdd66632ab">{"x":{"diagram":"\ngraph TD\nA(Defining Problem Statement )-->B(Planning and Collecting Data)\nB-->C(Data Preprocessing)\nC-->D(Exploring Data via Descriptive Statistics/Visualisations)\nD-->E(Analysing/Modelling Data)\nE-->F(Interpretation and Reporting)\nstyle A fill:#E5E25F\nstyle B fill:#87AB51\nstyle C fill:#F3A1A1\nstyle D fill:#A1CAF3\nstyle E fill:#BE94C1\nstyle F fill:#BBB5B8\n "},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+</p>
+</div>
+<ul>
+<li><p><strong><em>Defining Problem Statement</em></strong>: This is the first step of data analysis. In this step, the problem statement is identified by the organisations/researchers. The data analyst should thoroughly understand the problem and the domain of the problem.</p></li>
+<li><p><strong><em>Planning and Collecting Data</em></strong>: In this step, the appropriate tools for data collection related to the problem statement will be identified. This step may include designing a survey for data collection, scraping data from web or accessing an Excel/a database file.</p></li>
+<li><p><strong><em>Data Preprocessing</em></strong>: The objective of this step is to make the data ready for the further statistical analysis. This step is considered to be one of the important phases in data analysis. The accuracy of the statistical analysis depends on the quality of the data gained in this step. A number of operations such as importing data, reshaping data from long to wide format, filtering data, cleaning data, identifying outliers, and transforming variables can be applied to the data to make ready for the statistical analysis.</p></li>
+<li><p><strong><em>Exploring Data via Descriptive Statistics/Visualisations</em></strong>: The objective of this step is to understand the main characteristics of the data. Exploratory analyses are generally done using descriptive statistics (i.e.&nbsp;mean, median, standard deviation, frequencies, percentages etc.) and visualisation tools (i.e.&nbsp;scatter plots, box-plots, histograms, interactive data visualisations etc.). Exploratory analysis will show you the things that you didn’t expect, or raise new questions about the data.</p></li>
+<li><p><strong><em>Analysing/Modelling Data</em></strong>: The statistical analysis/modelling step can include a broad range of techniques like statistical hypothesis testing, statistical modelling, and machine learning algorithms. Generally, the type of the variables in the data set and the purpose of the investigation will determine the appropriate analysis technique.</p></li>
+<li><p><strong><em>Interpretation and Reporting</em></strong>: The last step of the data analysis is the reporting and the interpretation of the results. This step is also critical as if you cannot understand and communicate your results to others, it doesn’t matter how well you conducted your analysis.</p></li>
+</ul>
+</div>
+<div id="what-is-data-preprocessing" class="section level1">
+<div name="what_is_data_preprocessing" data-unique="what_is_data_preprocessing"></div><h1>What is Data Preprocessing?</h1>
+<p>Most statistical theory concentrates on data modelling, prediction, and statistical inference while it is usually assumed that data are in the correct state for the data analysis. However, in practice, a data analyst spends most of his/her time (usually 50%-80% of an analyst time) on making ready the data before doing any statistical operation (<span class="citation">Dasu and Johnson (2003)</span>). Despite the amount of time it takes, there has been surprisingly very little emphasis on how to preprocess data well (<span class="citation">Wickham and others (2014)</span>). Real-world data are commonly incomplete, noisy, inconsistent, and don’t have all the correct labels and codes that are required for the analysis. <strong><em>Data Preprocessing, which is also commonly referred to as data wrangling, data manipulation, data cleaning, etc., is a process and the collection of operations needed to prepare all forms of untidy data (incomplete, noisy and inconsistent data) for statistical analysis</em></strong>.</p>
+<div id="why-data-preprocessing-is-important" class="section level2">
+<div name="why_data_preprocessing_is_important" data-unique="why_data_preprocessing_is_important"></div><h2>Why Data Preprocessing is important</h2>
+<p><img src="./Module 1_files/garbage.png" width="30%" align="right" alt="GIGO"></p>
+<p>Data preprocessing may significantly influence the statistical conclusions based on the data. “<strong>Garbage in, garbage out (GIGO)</strong>” is a famous saying that is used to emphasise “<strong><em>the quality of the statistical analyses (output) always depends on the quality of the data (input)</em></strong>”. By preprocessing data, we can minimise the garbage that gets into our analysis so that we can minimise the amount of garbage that our analyses/models result.</p>
+</div>
+<div id="why-do-you-learn-data-preprocessing" class="section level2">
+<div name="why_do_you_learn_data_preprocessing" data-unique="why_do_you_learn_data_preprocessing"></div><h2>Why do you learn Data Preprocessing?</h2>
+<p>The road to becoming an expert in data analysis can be challenging and in fact, obtaining expertise in the broad range of data analysis is a career-long process. In this course, you will take a step closer to fluency in the early stages; namely in the data preprocessing step, as you need to be able to import, manage, manipulate and transform your data before performing any kind of data analysis.</p>
+</div>
+<div id="major-tasks-in-data-preprocessing" class="section level2">
+<div name="major_tasks_in_data_preprocessing" data-unique="major_tasks_in_data_preprocessing"></div><h2>Major Tasks in Data Preprocessing</h2>
+<p>We will define 5 major tasks for data preprocessing framework, namely : <strong><em>Get</em></strong>, <strong><em>Understand</em></strong>, <strong><em>Tidy &amp; Manipulate</em></strong>, <strong><em>Scan</em></strong> and <strong><em>Transform</em></strong>.</p>
+<p>A typical data preprocessing process usually (but not necessarily) follows the following order of tasks given below:<br>
+</p>
+<img src="./Module 1_files/Dataprepver_son.png" width="120%" align="center" alt="Data Preprocessing Steps">
+<figcaption>
+Fig1. Major tasks in data preprocessing
+</figcaption>
+<p><br>
+<strong>Get</strong>: A data set can be stored in a computer or can be online in different file formats. We need to get the data set into R by importing it from other data sources (i.e., .txt, .xls, .csv files and databases) or scraping from web. R provides many useful commands to import (and also export) data sets in different file formats.</p>
+<p><strong>Understand</strong>: We cannot perform any type of data preprocessing without understanding what we have in hand. In this step, we will check the data volume (i.e., the dimensions of the data) and structure, understand the variables/attributes in the data set, and understand the meaning of each level/value for the variables.</p>
+<p><strong>Tidy &amp; Manipulate</strong>: In this step, we will apply several important tasks to tidy up messy data sets. We will follow Hadley Wickham’s “Tidy Data” principles (<span class="citation">Wickham and others (2014)</span>):</p>
+<ol style="list-style-type: decimal">
+<li>Each variable should form a column.</li>
+<li>Each observation should form a row.</li>
+<li>Each type of observational unit should form a table.</li>
+</ol>
+<p>We may also need to manipulate, i.e.&nbsp;filter, arrange, select, subset/split data, or generate new variables from the data set.</p>
+<p><strong>Scan</strong>: This step will include checking for plausibility of values, cleaning data for obvious errors, identifying and handling outliers, and dealing with missing values.</p>
+<p><strong>Transform</strong>: Some statistical analysis methods are sensitive to the scale of the variables and it may be necessary to apply transformations before using them. In this step we will introduce well-known data transformations, data scaling, centering, standardising and normalising methods.</p>
+<p>There are also other steps related with preprocessing special types of data including dates, time and characters/strings. The last module of this course will introduce the special operations used for date, time and text preprocessing.</p>
+</div>
+</div>
+<div id="why-you-learn-this-subject-using-r" class="section level1">
+<div name="why_you_learn_this_subject_using_r" data-unique="why_you_learn_this_subject_using_r"></div><h1>Why you learn this subject using R?</h1>
+<p>In this course, you won’t learn anything about Excel, SPSS, SQL, SAS, Python, Julia, or any other statistical package/programming language useful for data preprocessing. This isn’t because I think that these tools are bad or redundant. They’re not. In practice, most data analytics teams use a mixture of these tools and programming languages. I strongly believe that R is a great place to start your data analysis journey as it is a comprehensive language for data analysis. You can use R effectively in almost each step of data analysis, from data collection to reporting. You can collect, preprocess, visualise and analyse your data using R functions, report and publish your findings using RMarkdown.</p>
+<p>Since any typical data preprocessing actions like missing value imputation or outlier handling obviously influence the results of statistical analyses, data preprocessing should be viewed as a statistical operation and should be performed in a reproducible way. The R software provides us a good environment for reproducible data preprocessing as all actions can be scripted and therefore reproduced. Moreover, through the Master of Analytics and Master of Statistics &amp; Operations Research programs, you will learn many data analysis subjects (i.e., Introduction to Statistics, Data Visualisation, Machine Learning, Analysis of Categorical Data, Time Series Analysis, Forecasting and Applied Bayesian Analysis courses) using R environment. So it is better to use the same tool for data preprocessing as well.</p>
+</div>
+<div id="introduction-to-r-and-rstudio-ide" class="section level1">
+<div name="introduction_to_r_and_rstudio_ide" data-unique="introduction_to_r_and_rstudio_ide"></div><h1>Introduction to R and RStudio IDE</h1>
+<p>There are many reasons why R is a good solution for the problems that are covered in this course. According to <span class="citation">Munzert et al. (2014)</span>, the most important points are:</p>
+<ul>
+<li><p>R is freely and easily accessible. You can download, install, and use it wherever and whenever you want.</p></li>
+<li><p>For a software environment with a primarily statistical focus, R has a large community that continues to flourish. R is used by various disciplines, such as social scientists, medical scientists, psychologists, biologists, geographers, linguists, and also in business.</p></li>
+<li><p>R is open source. This means that you can easily retrace how functions work and modify them with little effort.</p></li>
+<li><p>R is reasonably fast in ordinary tasks.</p></li>
+<li><p>R is powerful in creating data visualizations. Although this not an obvious plus for data collection, you would not want to miss R’s graphics facilities in your daily workflow.</p></li>
+<li><p>Work in R is mainly command line based. This might sound like a disadvantage to R rookies, but it is the only way to allow for the production of reproducible results compared to point-and-click programs.</p></li>
+<li><p>R is not picky about operating systems. It can generally be run under Windows, Mac OS, and Linux.</p></li>
+<li><p>Finally, R is the entire package from start to finish.</p></li>
+</ul>
+<p>The following videos will cover the installation of R, RStudio and R packages, and introduce you the RStudio’s basic features.</p>
+<div id="installing-r" class="section level2">
+<div name="installing_r" data-unique="installing_r"></div><h2>Installing R</h2>
+<p>This video will introduce you how to download and install R for different operating systems.</p>
+<iframe width="560" height="315" align="center" src="./Module 1_files/203516510.html" frameborder="0" allowfullscreen="" style="display:block;margin:5px auto;text-align:center;">
+</iframe>
+</div>
+<div id="installing-rstudio" class="section level2">
+<div name="installing_rstudio" data-unique="installing_rstudio"></div><h2>Installing RStudio</h2>
+<p>This video will introduce you how to download and install RStudio for different operating systems.</p>
+<iframe width="560" height="315" align="center" src="./Module 1_files/203516968.html" frameborder="0" allowfullscreen="" style="display:block;margin:5px auto;text-align:center;">
+</iframe>
+</div>
+<div id="r-studio-overview" class="section level2">
+<div name="r_studio_overview" data-unique="r_studio_overview"></div><h2>R Studio Overview</h2>
+<p>This video will give you a quick overview of the RStudio IDE.</p>
+<iframe width="560" height="315" align="center" src="./Module 1_files/79539272.html" frameborder="0" allowfullscreen="" style="display:block;margin:5px auto;text-align:center;">
+</iframe>
+</div>
+<div id="installing-packages" class="section level2">
+<div name="installing_packages" data-unique="installing_packages"></div><h2>Installing Packages</h2>
+<p>This video will introduce you how to install packages in R.</p>
+<iframe width="560" height="315" align="center" src="./Module 1_files/203516241.html" frameborder="0" allowfullscreen="" style="display:block;margin:5px auto;text-align:center;">
+</iframe>
+</div>
+</div>
+<div id="r-programming-basics" class="section level1">
+<div name="r_programming_basics" data-unique="r_programming_basics"></div><h1>R Programming Basics</h1>
+<p>We will also use <a href="https://www.linkedin.com/in/james-baglin-ab3764114/">Dr.&nbsp;James Baglin’s</a> R Bootcamp notes to introduce you to the basics of R and RStudio environment. Please complete the following two modules in order to get started with learning R. Do not assume you will be an R guru after completing all of them. These are just beginnings. R has a slow learning curve and you will get heaps of practice during this course.</p>
+<ul>
+<li><a href="https://astral-theory-157510.appspot.com/secured/RBootcamp_Overview.html">R Bootcamp Overview</a></li>
+<li><a href="https://astral-theory-157510.appspot.com/secured/RBootcamp_Course_01.html">R Bootcamp Course 1 - Getting Started</a></li>
+</ul>
+<p>After finishing <a href="https://astral-theory-157510.appspot.com/secured/RBootcamp_Overview.html">R Bootcamp Overview</a> and <a href="https://astral-theory-157510.appspot.com/secured/RBootcamp_Course_01.html">R Bootcamp Course 1 - Getting Started</a> modules, you will be able to:</p>
+<ul>
+<li>Install R and RStudio</li>
+<li>Access RStudio from MyDesktop</li>
+<li>Have an overview of the RStudio interface</li>
+<li>Install and load packages</li>
+<li>Learn mathematical/logical operations</li>
+<li>Learn basic programming in R</li>
+</ul>
+</div>
+<div id="additional-resources-and-further-help-in-r" class="section level1">
+<div name="additional_resources_and_further_help_in_r" data-unique="additional_resources_and_further_help_in_r"></div><h1>Additional Resources and Further Help in R</h1>
+<p>There are lots of amazing things that you can do with R and RStudio. Here are my favourite links to help you learn more.</p>
+<ul>
+<li><p><a href="http://r4ds.had.co.nz/">R for Data Science</a>: The online (and free!) book “R for Data Science” by Garrett Grolemund and Hadley Wickham, published by O’Reilly, January 2017. This is also one of the recommended textbook for our course.</p></li>
+<li><p><a href="https://bookdown.org/rdpeng/rprogdatascience/">R Programming for Data Science</a>: The online (and free!) book “R Programming for Data Science” by Roger D. Peng.</p></li>
+<li><p><a href="https://www.rstudio.com/resources/cheatsheets/">R Cheatsheets</a>: RStudio cheat sheets make it easy to learn about and use some of the favourite packages.</p></li>
+<li><p><a href="http://rseek.org/">Rseek</a>: A custom search engine for R related resources created and maintained by Sasha Goodman.</p></li>
+<li><p><a href="https://www.r-bloggers.com/">R-bloggers</a>: R news and tutorials contributed by (750) R bloggers.</p></li>
+<li><p><a href="http://swirlstats.com/">swirl</a>: Learn R, in R. Swirl teaches you R programming and data science interactively, at your own pace, and right in the R console!</p></li>
+<li><p><a href="https://www.datacamp.com/">DataCamp</a>: Free hands-on courses on R programming.</p></li>
+<li><p><a href="http://www.statmethods.net/">Quick-R web page</a>: A comprehensive web site including R tutorials on basic and advanced statistics.</p></li>
+<li><p>R Help pages: R has a very powerful but complicated help file achieve. If you don’t know how to use a function, you can search it by typing <code>help()</code> (e.g., <code>help(mean)</code>) in the console and this will display the help files (e.g., associated with <code>mean()</code> function).</p></li>
+<li><p><a href="https://community.rstudio.com/">RStudio Community</a>: This is a warm and welcoming place to ask any questions you might have about the R and RStudio.</p></li>
+<li><p>Google and <a href="https://stackexchange.com/">Stack Exchange</a>: Sometimes what you really need to see are some examples. You can ask your question to Google or Stack Exchange. Just add “<strong>with R</strong>” at the end of any search. There is a huge community there willing to help when you have issues.</p></li>
+</ul>
+</div>
+<div id="references" class="section level1 unnumbered">
+<div name="references" data-unique="references"></div><h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-dasu2003">
+<p>Dasu, Tamraparni, and Theodore Johnson. 2003. <em>Exploratory Data Mining and Data Cleaning</em>. Vol. 479. John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-munzert2014">
+<p>Munzert, Simon, Christian Rubba, Peter Meißner, and Dominic Nyhuis. 2014. <em>Automated Data Collection with R: A Practical Guide to Web Scraping and Text Mining</em>. John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-wickham2014tidy">
+<p>Wickham, Hadley, and others. 2014. “Tidy Data.” <em>Journal of Statistical Software</em> 59 (10). Foundation for Open Access Statistics: 1–23.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+<div class="mermaidTooltip" style="opacity: 0;"></div></body></html>

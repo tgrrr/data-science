@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://rare-phoenix-161610.appspot.com/secured/Module_05.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+<meta name="author" content="Dr. Anil Dolgun">
+
+
+<title>Module 5</title>
+
+<script src="./Module 5_files/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Module 5_files/cosmo.min.css" rel="stylesheet">
+<script src="./Module 5_files/bootstrap.min.js"></script>
+<script src="./Module 5_files/html5shiv.min.js"></script>
+<script src="./Module 5_files/respond.min.js"></script>
+<script src="./Module 5_files/jquery-ui.min.js"></script>
+<link href="./Module 5_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Module 5_files/jquery.tocify.js"></script>
+<script src="./Module 5_files/tabsets.js"></script>
+<link href="./Module 5_files/textmate.css" rel="stylesheet">
+<script src="./Module 5_files/highlight.js"></script>
+<link href="./Module 5_files/font-awesome.min.css" rel="stylesheet">
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Module 5_files/style.css" type="text/css">
+
+<script type="text/javascript" src="./Module 5_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="overview">Overview</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="summary">Summary</li><li class="tocify-item list-group-item" data-unique="learning_objectives">Learning Objectives</li></ul></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="missing_data">Missing Data</li></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="identifying_missing_data">Identifying Missing Data</li></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="recode_missing_data">Recode Missing Data</li></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="excluding_missing_data">Excluding Missing Data</li></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="basic_missing_value_imputation_techniques">Basic Missing Value Imputation Techniques</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="replace_the_missing_value(s)_with_some_constant,_specified_by_the_analyst">Replace the missing value(s) with some constant, specified by the analyst</li><li class="tocify-item list-group-item" data-unique="replace_the_missing_value(s)_with_the_mean,_median_or_mode">Replace the missing value(s) with the mean, median or mode</li><li class="tocify-item list-group-item" data-unique="more_complex_approaches_to_missing_value_imputation">More Complex Approaches to Missing Value Imputation</li></ul></ul><ul id="tocify-header7" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="special_values">Special values</li></ul><ul id="tocify-header8" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="identifying_special_values">Identifying Special Values</li></ul><ul id="tocify-header9" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="checking_for_obvious_inconsistencies_or_errors">Checking for Obvious Inconsistencies or Errors</li></ul><ul id="tocify-header10" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="correction_of_obvious_inconsistencies_or_errors">Correction of Obvious Inconsistencies or Errors</li></ul><ul id="tocify-header11" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="additional_resources_and_further_reading">Additional Resources and Further Reading</li></ul><ul id="tocify-header12" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="references">References</li></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://rare-phoenix-161610.appspot.com/secured/index.html">Data Preprocessing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-sticky-note-o"></span>
+     
+    Courseware
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html">Module 1 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html">Module 2 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html">Module 3 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html">Module 4 Notes</a>
+    </li>
+    <li class="active">
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html">Module 5 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html">Module 6 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07.html">Module 7 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html">Module 8 Notes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Skill Builders
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder.html">Module 1 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder_Answers.html">Module 1 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder.html">Module 2 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder_Answers.html">Module 2 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder.html">Module 3 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder_Answers.html">Module 3 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder.html">Module 4 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder_Answers.html">Module 4 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html">Module 5 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder_Answers.html">Module 5 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder.html">Module 6 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder_Answers.html">Module 6 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder.html">Module 7 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder_Answers.html">Module 7 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08_Skill_Builder.html">Module 8 Skill Builders</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-television"></span>
+     
+    Demos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_01_Demo.html">Week 1 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_02_Demo.html">Week 2 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_03_Demo.html">Week 3 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_04_Demo.html">Week 4 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_05_Demo.html">Week 5 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html">Week 6 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_07_Demo.html">Week 7 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_09_Demo.html">Week 9 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_10_Demo.html">Week 10 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_11_Demo.html">Week 11 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 12 Demonstration Slides</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    Worksheets
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet.html">Week 1 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet_answers.html">Week 1 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet.html">Week 2 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet_answers.html">Week 2 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet.html">Week 3 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet_answers.html">Week 3 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet.html">Week 4 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet_answers.html">Week 4 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet.html">Week 5 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet_answers.html">Week 5 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet.html">Week 6 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet_answers.html">Week 6 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet.html">Week 7 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet_answers.html">Week 7 Class Worksheet Answers</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet.html">Week 9 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet_answers.html">Week 9 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet.html">Week 10 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet_answers.html">Week 10 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_11_Worksheet.html">Week 11 Class Worksheet</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://drive.google.com/drive/folders/1ya4COg_QeZG4t6XNRUehAq8FrRxRuxHb?usp=sharing">
+    <span class="fa fa-folder-open"></span>
+     
+    Drive
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/secured/DataCamp.html">
+    <span class="fa fa-star"></span>
+     
+    DataCamp
+  </a>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://docs.google.com/document/d/177dgNO0PezpPfqEtXziUlkmVLxfq5dORDnxAb03YIRM/edit?usp=sharing">Course Information Pack</a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/1D9wnlYth2rJirg5CMBiwnuew0-ZjagCPNrBxmr2Qn8A/edit?usp=sharing">Course Feedback</a>
+    </li>
+    <li>
+      <a href="https://my.rmit.edu.au/">MyRMIT (Canvas)</a>
+    </li>
+    <li>
+      <a href="http://www1.rmit.edu.au/students/mydesktop">MyDesktop</a>
+    </li>
+    <li>
+      <a href="https://sites.google.com/rmit.edu.au/postgradanalytics">
+        <span class="fa fa-circle-o"></span>
+         
+        Portal
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://math2349.slack.com/">
+    <span class="fa fa-slack"></span>
+     
+    Slack
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/logout.htm">
+    <span class="fa fa-sign-out"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Module 5</h1>
+<h3 class="subtitle"><em>Scan: Missing Values</em></h3>
+<h4 class="author"><em>Dr.&nbsp;Anil Dolgun</em></h4>
+<h4 class="date"><em>Last updated: 16 May, 2018</em></h4>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<div name="overview" data-unique="overview"></div><h1>Overview</h1>
+<div id="summary" class="section level2">
+<div name="summary" data-unique="summary"></div><h2>Summary</h2>
+<p>Dealing missing values is an unavoidable task in the data preprocessing. For almost every data set, we will encounter some missing values. So, it is important to know how R handles missing values and how they are represented. In this module, first you will learn how the missing values and special values are represented in R. Then, you will learn how to identify, recode and exclude missing values. Moreover, we will cover missing value imputation techniques briefly. Note that the missing value analysis and the missing value imputation are broader concepts that would be a stand alone topic of another course. Interested readers may refer to the books and resources in the <strong>additional resources and further reading</strong> section for further details.<br>
+</p>
+<p>The analysts may also need to check and correct the obvious errors and/or inconsistencies in a data set. In this module, you will be introduced the <code>deductive</code> and <code>deducorrect</code> packages (in fact <code>deducorrect</code> is a former version of <code>deductive</code> package), and useful functions to correct the obvious errors and inconsistencies in a given data set.</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<div name="learning_objectives" data-unique="learning_objectives"></div><h2>Learning Objectives</h2>
+<p><img src="./Module 5_files/module5.png" width="20%" align="right" alt="Missing values"></p>
+<p>The learning objectives of this module are as follows:<br>
+</p>
+<ul>
+<li>Learn how missing and special values are represented in the data set.</li>
+<li>Identify missing values in the data set.</li>
+<li>Learn how to recode missing values.</li>
+<li>Learn the functions for removing missing values.</li>
+<li>Learn commonly used approaches to impute/replace missing value(s).</li>
+<li>Check and correct obvious inconsistencies and errors in the data set.</li>
+</ul>
+</div>
+</div>
+<div id="missing-data" class="section level1">
+<div name="missing_data" data-unique="missing_data"></div><h1>Missing Data</h1>
+<p>In R, a numeric missing value is represented by <code>NA</code> (NA stands for “not available”), while character missing values are represented by <code>&lt;NA&gt;</code>. In addition to <code>NA</code> and <code>&lt;NA&gt;</code>, some other values may represent missing values (i.e. <code>99</code>, <code>.</code>, <code>..</code>, just space, or <code>NULL</code>) depending on the software (i.e., Excel, SPSS etc.) that you import in your data.</p>
+<p>Let’s have a look at the <a href="http://rare-phoenix-161610.appspot.com/secured/data/pet1.csv">pet1.csv</a> data:</p>
+<pre class="r"><code class="hljs"><span class="hljs-keyword">library</span>(readr)
+
+pet1 &lt;- read_csv(<span class="hljs-string">"data/pet1.csv"</span>)</code></pre>
+<pre><code class="hljs">## Parsed with column specification:
+## cols(
+##   id = col_integer(),
+##   State = col_character(),
+##   Region = col_character(),
+##   Reference = col_integer(),
+##   Animal_Name = col_character(),
+##   Colour_primary = col_character()
+## )</code></pre>
+<pre class="r"><code class="hljs">head(pet1)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 6
+##       id State    Region   Reference Animal_Name Colour_primary 
+##    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;          
+## 1 118269 Victoria Ballarat        NA Jack Wilson Brown          
+## 2 106347 Victoria Ballarat        NA Eva         Black And White
+## 3 156347 Victoria Wyndham         NA &lt;NA&gt;        TRI            
+## 4  63947 Victoria Geelong         NA Archie      White/Brown    
+## 5  79724 Victoria Ballarat        NA Susie       Brown          
+## 6  43442 Victoria Geelong         NA Pearl       Tri Colour</code></pre>
+<p>Note that, as we read this data from a .csv file, missing values are represented as <code>NA</code> for the integer <code>reference</code> variable where else <code>&lt;NA&gt;</code> for the character <code>Animal_Name</code> variable.<br>
+</p>
+<p>However, let’s look at another example SPSS data file named <a href="http://rare-phoenix-161610.appspot.com/secured/data/population_NA.sav">population_NA.sav</a>:</p>
+<pre class="r"><code class="hljs"><span class="hljs-keyword">library</span>(foreign)
+
+population_NA &lt;- read.spss(<span class="hljs-string">"data/population_NA.sav"</span>, to.data.frame = <span class="hljs-literal">TRUE</span>, stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+population_NA</code></pre>
+<pre><code class="hljs">##                                 Region X.2013 X.2014 X.2015  X.2016
+## 1  ISL                                   3.21   3.25   3.28 3.32   
+## 2  CAN                                   3.87   3.91   3.94 3.99   
+## 3  RUS                                   7.83   7.85   7.87 ..     
+## 4  COL                                  41.27  41.74     NA ..     
+## 5  ZAF                                  43.53  44.22     NA ..     
+## 6  LTU                                  47.42  46.96  46.63 46.11  
+## 7  MEX                                  60.43  61.10  61.76 62.41  
+## 8  IND                                 394.85     NA     NA ..     
+## 9  NLD                                 497.64 499.59 501.68 504.01 
+## 10 KOR                                 504.92 506.97 508.91 510.77</code></pre>
+<p>As you see in the data frame, there are two different representations for the missing values: one is <code>NA</code>, the other is <code>..</code> . Therefore, we need to be careful about different representations of the missing values while importing the data from other software.</p>
+</div>
+<div id="identifying-missing-data" class="section level1">
+<div name="identifying_missing_data" data-unique="identifying_missing_data"></div><h1>Identifying Missing Data</h1>
+<p>To identify missing values we will use <code>is.na()</code> function which returns a logical vector with <code>TRUE</code> in the element locations that contain missing values represented by <code>NA</code>. <code>is.na()</code> will work on vectors, lists, matrices, and data frames.<br>
+</p>
+<p>Here are some examples of <code>is.na()</code> function:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a vector with missing data</span>
+x &lt;- c(<span class="hljs-number">1</span>:<span class="hljs-number">4</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">6</span>:<span class="hljs-number">7</span>, <span class="hljs-literal">NA</span>)
+x</code></pre>
+<pre><code class="hljs">## [1]  1  2  3  4 NA  6  7 NA</code></pre>
+<pre class="r"><code class="hljs">is.na(x)</code></pre>
+<pre><code class="hljs">## [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a data frame with missing data</span>
+
+df &lt;- data.frame(col1 = c(<span class="hljs-number">1</span>:<span class="hljs-number">3</span>, <span class="hljs-literal">NA</span>),
+                 col2 = c(<span class="hljs-string">"this"</span>, <span class="hljs-literal">NA</span>,<span class="hljs-string">"is"</span>, <span class="hljs-string">"text"</span>), 
+                 col3 = c(<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">TRUE</span>), 
+                 col4 = c(<span class="hljs-number">2.5</span>, <span class="hljs-number">4.2</span>, <span class="hljs-number">3.2</span>, <span class="hljs-literal">NA</span>),
+                 stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+<span class="hljs-comment"># identify NAs in full data frame</span>
+
+is.na(df)</code></pre>
+<pre><code class="hljs">##       col1  col2  col3  col4
+## [1,] FALSE FALSE FALSE FALSE
+## [2,] FALSE  TRUE FALSE FALSE
+## [3,] FALSE FALSE FALSE FALSE
+## [4,]  TRUE FALSE FALSE  TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># identify NAs in specific data frame column</span>
+
+is.na(df$col4)</code></pre>
+<pre><code class="hljs">## [1] FALSE FALSE FALSE  TRUE</code></pre>
+<p>To identify the <strong>location</strong> or <strong>the number of NAs</strong> we can use the <code>which()</code> and <code>sum()</code> functions:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># identify location of NAs in vector</span>
+
+which(is.na(x))</code></pre>
+<pre><code class="hljs">## [1] 5 8</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># identify count of NAs in data frame</span>
+
+sum(is.na(df))</code></pre>
+<pre><code class="hljs">## [1] 3</code></pre>
+<p>More convenient way to compute <strong>the total missing values in each column</strong> is to use <code>colSums()</code>:</p>
+<pre class="r"><code class="hljs">colSums(is.na(df))</code></pre>
+<pre><code class="hljs">## col1 col2 col3 col4 
+##    1    1    0    1</code></pre>
+</div>
+<div id="recode-missing-data" class="section level1">
+<div name="recode_missing_data" data-unique="recode_missing_data"></div><h1>Recode Missing Data</h1>
+<p>We can use normal subsetting and assignment operations in order to recode missing values; or recode specific indicators that represent missing values.<br>
+</p>
+<p>For instance, we can recode missing values in vector <code>x</code> with the mean values in <code>x</code>. To do this, first we need to subset the vector to identify <code>NA</code>s and then assign these elements a value. Here is an example:<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create vector with missing data</span>
+
+x &lt;- c(<span class="hljs-number">1</span>:<span class="hljs-number">4</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">6</span>:<span class="hljs-number">7</span>, <span class="hljs-literal">NA</span>)
+x</code></pre>
+<pre><code class="hljs">## [1]  1  2  3  4 NA  6  7 NA</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># recode missing values with the mean (also see "Missing Value Imputation Techniques" section)</span>
+
+x[is.na(x)] &lt;- mean(x, na.rm = <span class="hljs-literal">TRUE</span>)
+
+x</code></pre>
+<pre><code class="hljs">## [1] 1.000000 2.000000 3.000000 4.000000 3.833333 6.000000 7.000000 3.833333</code></pre>
+<p>Similarly, if missing values are represented by another value (i.e. <code>..</code>) we can simply subset the data for the elements that contain that value and then assign a desired value to those elements.<br>
+</p>
+<p>Remember that <code>population_NA</code> data frame has missing values represented by <code>".."</code> in the <code>X.2016</code> column. Now let’s change <code>".."</code> values to <code>NA</code>’s.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># population_NA data frame has missing values represented by ".." in the X.2016 column.</span>
+
+population_NA$X.2016</code></pre>
+<pre><code class="hljs">##  [1] "3.32   " "3.99   " "..     " "..     " "..     " "46.11  " "62.41  "
+##  [8] "..     " "504.01 " "510.77 "</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Note the white spaces after ..'s and  change  "..     " values to NAs</span>
+
+
+population_NA[population_NA == <span class="hljs-string">"..     "</span> ] &lt;- <span class="hljs-literal">NA</span>
+
+population_NA</code></pre>
+<pre><code class="hljs">##                                 Region X.2013 X.2014 X.2015  X.2016
+## 1  ISL                                   3.21   3.25   3.28 3.32   
+## 2  CAN                                   3.87   3.91   3.94 3.99   
+## 3  RUS                                   7.83   7.85   7.87    &lt;NA&gt;
+## 4  COL                                  41.27  41.74     NA    &lt;NA&gt;
+## 5  ZAF                                  43.53  44.22     NA    &lt;NA&gt;
+## 6  LTU                                  47.42  46.96  46.63 46.11  
+## 7  MEX                                  60.43  61.10  61.76 62.41  
+## 8  IND                                 394.85     NA     NA    &lt;NA&gt;
+## 9  NLD                                 497.64 499.59 501.68 504.01 
+## 10 KOR                                 504.92 506.97 508.91 510.77</code></pre>
+<p>If we want to recode missing values in a single data frame variable, we can subset for the missing value in that specific variable of interest and then assign it the replacement value. For example, in the following example, we will recode the missing value in <code>col4</code> with the mean value of <code>col4</code>.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># data frame with missing data</span>
+
+df &lt;- data.frame(col1 = c(<span class="hljs-number">1</span>:<span class="hljs-number">3</span>, <span class="hljs-literal">NA</span>),
+                 col2 = c(<span class="hljs-string">"this"</span>, <span class="hljs-literal">NA</span>,<span class="hljs-string">"is"</span>, <span class="hljs-string">"text"</span>), 
+                 col3 = c(<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">TRUE</span>), 
+                 col4 = c(<span class="hljs-number">2.5</span>, <span class="hljs-number">4.2</span>, <span class="hljs-number">3.2</span>, <span class="hljs-literal">NA</span>),
+                 stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+<span class="hljs-comment"># recode the missing value in col4 with the mean value of col4</span>
+
+df$col4[is.na(df$col4)] &lt;- mean(df$col4, na.rm = <span class="hljs-literal">TRUE</span>)
+
+df</code></pre>
+<pre><code class="hljs">##   col1 col2  col3 col4
+## 1    1 this  TRUE  2.5
+## 2    2 &lt;NA&gt; FALSE  4.2
+## 3    3   is  TRUE  3.2
+## 4   NA text  TRUE  3.3</code></pre>
+</div>
+<div id="excluding-missing-data" class="section level1">
+<div name="excluding_missing_data" data-unique="excluding_missing_data"></div><h1>Excluding Missing Data</h1>
+<p>A common method of handling missing values is simply to omit the records or fields with missing values from the analysis. However, this may be dangerous, since the pattern of missing values may in fact be systematic, and simply deleting records with missing values would lead to a biased subset of the data.<br>
+</p>
+<p>Some authors recommend that if the amount of missing data is very small relatively to the size of the data set (up to 5%), then leaving out the few values with missing features would be the best strategy in order not to bias the analysis. When this is the case, we can exclude missing values in a couple different ways.<br>
+</p>
+<p>If we want to exclude missing values from mathematical operations, we can use the <code>na.rm = TRUE</code> argument. If you do not exclude these values, most functions will return an <code>NA</code>. Here are some examples:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a vector with missing values</span>
+
+x &lt;- c(<span class="hljs-number">1</span>:<span class="hljs-number">4</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">6</span>:<span class="hljs-number">7</span>, <span class="hljs-literal">NA</span>)
+
+<span class="hljs-comment"># including NA values will produce an NA output when used with mathematical operations</span>
+
+mean(x)</code></pre>
+<pre><code class="hljs">## [1] NA</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># excluding NA values will calculate the mathematical operation for all non-missing values</span>
+
+mean(x, na.rm = <span class="hljs-literal">TRUE</span>)</code></pre>
+<pre><code class="hljs">## [1] 3.833333</code></pre>
+<p>We may also want to subset our data to obtain complete observations (those observations in our data that contain no missing data). We can do this a few different ways.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># data frame with missing values</span>
+
+df &lt;- data.frame(col1 = c(<span class="hljs-number">1</span>:<span class="hljs-number">3</span>, <span class="hljs-literal">NA</span>),
+                 col2 = c(<span class="hljs-string">"this"</span>, <span class="hljs-literal">NA</span>,<span class="hljs-string">"is"</span>, <span class="hljs-string">"text"</span>), 
+                 col3 = c(<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">TRUE</span>), 
+                 col4 = c(<span class="hljs-number">2.5</span>, <span class="hljs-number">4.2</span>, <span class="hljs-number">3.2</span>, <span class="hljs-literal">NA</span>),
+                 stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+df</code></pre>
+<pre><code class="hljs">##   col1 col2  col3 col4
+## 1    1 this  TRUE  2.5
+## 2    2 &lt;NA&gt; FALSE  4.2
+## 3    3   is  TRUE  3.2
+## 4   NA text  TRUE   NA</code></pre>
+<p>First, to find complete cases we can leverage the <code>complete.cases()</code> function which returns a logical vector identifying rows which are complete cases. So in the following case rows 1 and 3 are complete cases. We can use this information to subset our data frame which will return the rows which <code>complete.cases()</code> found to be <code>TRUE</code>.</p>
+<pre class="r"><code class="hljs">complete.cases(df)</code></pre>
+<pre><code class="hljs">## [1]  TRUE FALSE  TRUE FALSE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># subset data frame with complete.cases to get only complete cases</span>
+
+df[complete.cases(df), ]</code></pre>
+<pre><code class="hljs">##   col1 col2 col3 col4
+## 1    1 this TRUE  2.5
+## 3    3   is TRUE  3.2</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># or subset with `!` operator to get incomplete cases</span>
+
+df[!complete.cases(df), ]</code></pre>
+<pre><code class="hljs">##   col1 col2  col3 col4
+## 2    2 &lt;NA&gt; FALSE  4.2
+## 4   NA text  TRUE   NA</code></pre>
+<p>A shorthand alternative approach is to simply use <code>na.omit()</code> to omit all rows containing missing values.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># or use na.omit() to get same as above</span>
+
+na.omit(df)</code></pre>
+<pre><code class="hljs">##   col1 col2 col3 col4
+## 1    1 this TRUE  2.5
+## 3    3   is TRUE  3.2</code></pre>
+<p>However, it seems like a waste to omit the information in all the other fields just because one field value is missing. Therefore, data analysts should carefully approach to excluding missing values especially when the amount of missing data is very large.<br>
+</p>
+<p>Another recommended approach is to replace the missing value with a value substituted according to various criteria. These approaches will be given in the next section.</p>
+</div>
+<div id="basic-missing-value-imputation-techniques" class="section level1">
+<div name="basic_missing_value_imputation_techniques" data-unique="basic_missing_value_imputation_techniques"></div><h1>Basic Missing Value Imputation Techniques</h1>
+<p>Imputation is the process of estimating or deriving values for fields where data is missing. There is a vast body of literature on imputation methods and it goes beyond the scope of this course to discuss all of them. In this section I will provide basic missing value imputation techniques only.<br>
+</p>
+<div id="replace-the-missing-values-with-some-constant-specified-by-the-analyst" class="section level2">
+<div name="replace_the_missing_value(s)_with_some_constant,_specified_by_the_analyst" data-unique="replace_the_missing_value(s)_with_some_constant,_specified_by_the_analyst"></div><h2>Replace the missing value(s) with some constant, specified by the analyst</h2>
+<p>In some cases, a missing value can be determined because the observed values combined with their constraints force a unique solution. As an example, consider the following data frame listing the costs for <code>staff</code>, <code>cleaning</code>, <code>housing</code> and the total <code>total</code> for three months.</p>
+<pre class="r"><code class="hljs">df &lt;- data.frame(month = c(<span class="hljs-number">1</span>:<span class="hljs-number">3</span>),
+                 staff = c(<span class="hljs-number">15000</span> , <span class="hljs-number">20000</span>, <span class="hljs-number">23000</span>), 
+                 cleaning = c(<span class="hljs-number">100</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">500</span>), 
+                 housing = c(<span class="hljs-number">300</span>, <span class="hljs-number">200</span>, <span class="hljs-literal">NA</span>),
+                 total = c(<span class="hljs-literal">NA</span>, <span class="hljs-number">20500</span>, <span class="hljs-number">24000</span>)
+                 )
+
+df</code></pre>
+<pre><code class="hljs">##   month staff cleaning housing total
+## 1     1 15000      100     300    NA
+## 2     2 20000       NA     200 20500
+## 3     3 23000      500      NA 24000</code></pre>
+<p>Now, assume that we have the following rules for the calculation of total cost: <code>staff</code> + <code>cleaning</code> + <code>housing</code> = <code>total</code> and all costs &gt; 0. Therefore, if one of the variables is missing we can clearly derive the missing values by solving the rule. For this example, first month’s total cost can be found as 15000 + 100 + 300 = 15400. Other missing values can be found in a similar way.<br>
+</p>
+<p>The <code>deducorrect</code> and <code>validate</code> packages have a number of functions available that can impute (and correct) the values according to the given rules automatically for a given data frame.</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"deductive"</span>)
+
+install.packages(<span class="hljs-string">"validate"</span>)
+
+<span class="hljs-keyword">library</span>(deductive)
+<span class="hljs-keyword">library</span>(validate)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Define the rules as an validator expression</span>
+
+Rules &lt;- validator( staff + cleaning + housing == total,
+                              staff &gt;= <span class="hljs-number">0</span>,
+                              housing &gt;= <span class="hljs-number">0</span>,
+                              cleaning &gt;= <span class="hljs-number">0</span>
+              )</code></pre>
+<pre><code class="hljs">## Found more than one class "rule" in cache; using the first, from namespace 'cli'</code></pre>
+<pre><code class="hljs">## Also defined by 'validate'</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Use impute_lr function</span>
+
+imputed_df &lt;- impute_lr(df,Rules)
+
+imputed_df</code></pre>
+<pre><code class="hljs">##   month staff cleaning housing total
+## 1     1 15000      100     300 15400
+## 2     2 20000      300     200 20500
+## 3     3 23000      500     500 24000</code></pre>
+<p>The <code>deducorrect</code> package together with <code>validate</code> provide a collection of powerful methods for automated data cleaning and imputing. For more information on these packages please refer to “Correction of Obvious Inconsistencies and Errors” section of the module notes and the <a href="https://cran.r-project.org/web/packages/deductive/deductive.pdf"><code>deducorrect</code> package manual</a> and <a href="https://cran.r-project.org/web/packages/validate/validate.pdf"><code>validate</code> package manual</a>.<br>
+</p>
+</div>
+<div id="replace-the-missing-values-with-the-mean-median-or-mode" class="section level2">
+<div name="replace_the_missing_value(s)_with_the_mean,_median_or_mode" data-unique="replace_the_missing_value(s)_with_the_mean,_median_or_mode"></div><h2>Replace the missing value(s) with the mean, median or mode</h2>
+<p>Replacing the missing value with the mean, median (for numerical variables) or the mode (for categorical variables) is a crude way of treating missing values. The <code>Hmisc</code> package has a convenient wrapper function allowing you to specify what function is used to compute imputed values from the non-missing.<br>
+</p>
+<p>Consider the following data frame with missing values:</p>
+<pre class="r"><code class="hljs">x &lt;- data.frame( no = c(<span class="hljs-number">1</span>:<span class="hljs-number">6</span>),
+                 x1 = c(<span class="hljs-number">15000</span> , <span class="hljs-number">20000</span>, <span class="hljs-number">23000</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">18000</span>, <span class="hljs-number">21000</span>), 
+                 x2 = c(<span class="hljs-number">4</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>),
+                 x3 = factor(c(<span class="hljs-literal">NA</span>, <span class="hljs-string">"False"</span>, <span class="hljs-string">"False"</span>, <span class="hljs-string">"False"</span>, <span class="hljs-string">"True"</span>, <span class="hljs-string">"True"</span>))
+                 )
+x</code></pre>
+<pre><code class="hljs">##   no    x1 x2    x3
+## 1  1 15000  4  &lt;NA&gt;
+## 2  2 20000 NA False
+## 3  3 23000  4 False
+## 4  4    NA  5 False
+## 5  5 18000  7  True
+## 6  6 21000  8  True</code></pre>
+<p>For this data frame, imputation of the mean, median and mode can be done using <code>Hmisc</code> package as follows:</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"Hmisc"</span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-keyword">library</span>(Hmisc)
+
+<span class="hljs-comment"># mean imputation (for numerical variables)</span>
+
+x1 &lt;- impute(x$x1, fun = mean) 
+
+x1</code></pre>
+<pre><code class="hljs">##      1      2      3      4      5      6 
+##  15000  20000  23000 19400*  18000  21000</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># median imputation (for numerical variables)</span>
+
+x2 &lt;- impute(x$x2, fun = median) 
+
+x2</code></pre>
+<pre><code class="hljs">##  1  2  3  4  5  6 
+##  4 5*  4  5  7  8</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># mode imputation (for categorical/factor variables)</span>
+
+x3 &lt;- impute(x$x3, fun= mode)
+
+x3</code></pre>
+<pre><code class="hljs">##      1      2      3      4      5      6 
+## False*  False  False  False   True   True</code></pre>
+<p>An nice feature of the <code>impute</code> function is that the resulting vector remembers what values were imputed. This information may be requested with <code>is.imputed</code> function as in the example below.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check which values are imputed</span>
+
+is.imputed(x1)</code></pre>
+<pre><code class="hljs">## [1] FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code class="hljs">is.imputed(x2)</code></pre>
+<pre><code class="hljs">## [1] FALSE  TRUE FALSE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code class="hljs">is.imputed(x3)</code></pre>
+<pre><code class="hljs">## [1]  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+<div id="more-complex-approaches-to-missing-value-imputation" class="section level2">
+<div name="more_complex_approaches_to_missing_value_imputation" data-unique="more_complex_approaches_to_missing_value_imputation"></div><h2>More Complex Approaches to Missing Value Imputation</h2>
+<p>Another strategy is to use predictive models to impute the missing data. There are many different predictive models and algorithms to <strong>predict and impute</strong> the missing values. Regression analysis, multiple imputation methods, random forests, <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 0.544em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.436em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1000.44em, 2.6em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: STIXGeneral-Italic;">k<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.065em; border-left: 0px solid; width: 0px; height: 1.026em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">k</script></span> nearest neighbours, last observation carried forward / next observation carried backward, etc. are only some of these techniques. In R, there are many different packages (e.g., <code>mice</code>, <code>missForest</code>, <code>impute</code> etc. ) that can be used to predict and impute the missing data.</p>
+<p>For the detailed information on the missing value imputation please refer to the <a href="https://primo-direct-apac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=RMIT_ALMA2137428490001341&amp;context=L&amp;vid=RMITU&amp;search_scope=Books_articles_and_more&amp;isFrbr=true&amp;tab=default_tab&amp;lang=en_US">“Statistical analysis with missing data (<span class="citation">Little and Rubin (2014)</span>)”</a> for the theory behind the missing value mechanism and analysis. For multiple imputation techniques and case studies using R, please refer to <a href="https://primo-direct-apac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=RMIT_ALMA5159878830001341&amp;context=L&amp;vid=RMITU&amp;search_scope=Books_articles_and_more&amp;tab=default_tab&amp;lang=en_US">“Flexible imputation of missing data (<span class="citation">Van Buuren (2012)</span>)”</a>.</p>
+</div>
+</div>
+<div id="special-values" class="section level1">
+<div name="special_values" data-unique="special_values"></div><h1>Special values</h1>
+<p>In addition to missing values, there are a few special values that are used in R. These are <code>-Inf</code>, <code>Inf</code> and <code>NaN</code>.<br>
+</p>
+<p>If a computation results in a number that is too big, R will return <code>Inf</code> (meaning positive infinity) for a positive number and <code>-Inf</code> for a negative number (meaning negative infinity). Here are some examples:</p>
+<pre class="r"><code class="hljs"> <span class="hljs-number">3</span> ^ <span class="hljs-number">1024</span></code></pre>
+<pre><code class="hljs">## [1] Inf</code></pre>
+<pre class="r"><code class="hljs"> -<span class="hljs-number">3</span> ^ <span class="hljs-number">1024</span></code></pre>
+<pre><code class="hljs">## [1] -Inf</code></pre>
+<p>This is also the value returned when you divide by 0:<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-number">12</span> / <span class="hljs-number">0</span></code></pre>
+<pre><code class="hljs">## [1] Inf</code></pre>
+<p>Sometimes, a computation will produce a result that makes little sense. In these cases, R will often return <code>NaN</code> (meaning “not a number”):<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-literal">Inf</span> - <span class="hljs-literal">Inf</span></code></pre>
+<pre><code class="hljs">## [1] NaN</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-number">0</span>/<span class="hljs-number">0</span></code></pre>
+<pre><code class="hljs">## [1] NaN</code></pre>
+</div>
+<div id="identifying-special-values" class="section level1">
+<div name="identifying_special_values" data-unique="identifying_special_values"></div><h1>Identifying Special Values</h1>
+<p>Calculations involving special values often result in special values, thus it is important to handle special values prior to analysis. The <code>is.finite</code>, <code>is.infinite</code>, or <code>is.nan</code> functions will generate logical values (TRUE or FALSE) and they can be used to identify the special values in a data set.<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a vector with special values</span>
+m &lt;- c( <span class="hljs-number">2</span>, <span class="hljs-number">0</span>/<span class="hljs-number">0</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">1</span>/<span class="hljs-number">0</span>, -<span class="hljs-literal">Inf</span>, <span class="hljs-literal">Inf</span>, (<span class="hljs-literal">Inf</span>*<span class="hljs-number">2</span>) )
+m</code></pre>
+<pre><code class="hljs">## [1]    2  NaN   NA  Inf -Inf  Inf  Inf</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check finite values</span>
+
+is.finite(m)</code></pre>
+<pre><code class="hljs">## [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check infinite values</span>
+
+is.infinite(m)</code></pre>
+<pre><code class="hljs">## [1] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check not a number values</span>
+
+is.nan(m)</code></pre>
+<pre><code class="hljs">## [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a data frame containing special values</span>
+
+df &lt;- data.frame(col1 = c( <span class="hljs-number">2</span>, <span class="hljs-number">0</span>/<span class="hljs-number">0</span>, <span class="hljs-literal">NA</span>, <span class="hljs-number">1</span>/<span class="hljs-number">0</span>, -<span class="hljs-literal">Inf</span>, <span class="hljs-literal">Inf</span>),
+                 col2 = c( <span class="hljs-literal">NA</span>, <span class="hljs-literal">Inf</span>/<span class="hljs-number">0</span>, <span class="hljs-number">2</span>/<span class="hljs-number">0</span>, <span class="hljs-literal">NaN</span>, -<span class="hljs-literal">Inf</span>, <span class="hljs-number">4</span>)
+                )
+
+df</code></pre>
+<pre><code class="hljs">##   col1 col2
+## 1    2   NA
+## 2  NaN  Inf
+## 3   NA  Inf
+## 4  Inf  NaN
+## 5 -Inf -Inf
+## 6  Inf    4</code></pre>
+<pre class="r"><code class="hljs">is.infinite(df)
+
+<span class="hljs-comment"># Error in is.infinite(df) : default method not implemented for type 'list'</span></code></pre>
+<p>These functions accept vectorial input, this is why you will receive an error when you try to use it with a data frame. Hopefully, we can write a simple function that may be used to check every numerical column in a data frame for infinite values or NA’s.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Check inputs whether they are not finite or NA using a function called is.special</span>
+
+is.special &lt;- <span class="hljs-keyword">function</span>(x){
+<span class="hljs-keyword">if</span> (is.numeric(x)) !is.finite(x) <span class="hljs-keyword">else</span> is.na(x)
+}
+
+
+is.special &lt;- <span class="hljs-keyword">function</span>(x){
+<span class="hljs-keyword">if</span> (is.numeric(x)) !is.finite(x)
+}
+
+<span class="hljs-comment"># apply this function to the data frame.</span>
+
+sapply(df, is.special)</code></pre>
+<pre><code class="hljs">##       col1  col2
+## [1,] FALSE  TRUE
+## [2,]  TRUE  TRUE
+## [3,]  TRUE  TRUE
+## [4,]  TRUE  TRUE
+## [5,]  TRUE  TRUE
+## [6,]  TRUE FALSE</code></pre>
+<p>Here, the <code>is.special</code> function is applied to each column of <code>df</code> using <code>sapply</code>. <code>is.special</code> checks the data frame for numerical special values if the type is numeric, otherwise it only checks for <code>NA</code>.</p>
+</div>
+<div id="checking-for-obvious-inconsistencies-or-errors" class="section level1">
+<div name="checking_for_obvious_inconsistencies_or_errors" data-unique="checking_for_obvious_inconsistencies_or_errors"></div><h1>Checking for Obvious Inconsistencies or Errors</h1>
+<p>An obvious inconsistency occurs when a data record contains a value or combination of values that cannot correspond to a real-world situation. For example, a person’s age cannot be negative, a man cannot be pregnant and an under-aged person cannot possess a drivers license. Such knowledge can be expressed as rules or constraints. In data preprocessing literature these rules are referred to as <strong>edit rules</strong> or <strong>edits</strong>, in short. Checking for obvious inconsistencies can be done straightforwardly in R using logical indices.<br>
+</p>
+<p>For example, to check which elements of <code>x</code> obey the rule: <strong>“x must be non negative”</strong> one can simply use the following.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a vector called x</span>
+
+x &lt;- c( <span class="hljs-number">0</span>, -<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>)
+
+<span class="hljs-comment"># check the non negative elements</span>
+
+x_nonnegative &lt;- (x &gt;= <span class="hljs-number">0</span>)
+
+x_nonnegative</code></pre>
+<pre><code class="hljs">## [1]  TRUE FALSE  TRUE  TRUE</code></pre>
+<p>However, as the number of variables increases, the number of rules may increase and it may be a good idea to manage the rules separate from the data. For such cases, the <code>editrules</code> package allows us to define rules on categorical, numerical or mixed-type data sets which each record must obey. Furthermore, <code>editrules</code> can check which rules are obeyed or not and allows one to find the minimal set of variables to adapt so that all rules can be obeyed. This package also implements a number of basic rule operations allowing users to test rule sets for contradictions and certain redundancies.</p>
+<p>To illustrate I will use a small data set (<a href="http://rare-phoenix-161610.appspot.com/secured/data/datawitherrors.csv">datawitherrors.csv</a>) given below:</p>
+<pre class="r"><code class="hljs">datawitherrors &lt;- read.csv(<span class="hljs-string">"data/datawitherrors.csv"</span>)
+
+datawitherrors</code></pre>
+<pre><code class="hljs">##   no age agegroup height  status yearsmarried
+## 1  1  21    adult    178  single           -1
+## 2  2   2    child    147 married            0
+## 3  3  18    adult    167 married           20
+## 4  4 221  elderly    154 widowed            2
+## 5  5  34    child   -174 married            3</code></pre>
+<p>As you noticed, there are many inconsistencies/errors in this small data set (i.e., age = 221, height = -174 , years married = -1, etc.) . To begin with a simple case, let’s define a restriction on the age variable using <code>editset</code> functions. In order to use <code>editset</code> functions, we need to install and load the <code>editrules</code> package.</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"editrules"</span>)
+<span class="hljs-keyword">library</span>(editrules)</code></pre>
+<p>In the first rule, we will define the restriction on the age variable as $ 0 age 150 $ using <code>editset</code> function.</p>
+<pre class="r"><code class="hljs">(Rule1 &lt;- editset(c(<span class="hljs-string">"age &gt;= 0"</span>, <span class="hljs-string">"age &lt;= 150"</span>)))</code></pre>
+<pre><code class="hljs">## 
+## Edit set:
+## num1 : 0 &lt;= age
+## num2 : age &lt;= 150</code></pre>
+<p>The <code>editset</code> function parses the textual rules and stores them in an editset object. Each rule is assigned a name according to it’s type (numeric, categorical, or mixed) and a number. The data set can be checked against these rules using the <code>violatedEdits</code> function.</p>
+<pre class="r"><code class="hljs">violatedEdits(Rule1, datawitherrors)</code></pre>
+<pre><code class="hljs">##       edit
+## record  num1  num2
+##      1 FALSE FALSE
+##      2 FALSE FALSE
+##      3 FALSE FALSE
+##      4 FALSE  TRUE
+##      5 FALSE FALSE</code></pre>
+<p><code>violatedEdits</code> returns a logical array indicating for each row of the data, which rules are violated. From the output, it can be understood that the 4th record violates the second rule (age &lt;= 150).<br>
+</p>
+<p>One can also read rules, directly from a text file using the <code>editfile</code> function. As an example consider the contents of the following text file (also available <a href="http://rare-phoenix-161610.appspot.com/secured/data/editrules.txt">here</a>):</p>
+<p>1 # numerical rules<br>
+2 age &gt;= 0<br>
+3 height &gt; 0<br>
+4 age &lt;= 150<br>
+5 age &gt; yearsmarried<br>
+6<br>
+7 # categorical rules<br>
+8 status %in% c(“married”,“single”,“widowed”)<br>
+9 agegroup %in% c(“child”,“adult”,“elderly”)<br>
+10 if ( status == “married” ) agegroup %in% c(“adult”,“elderly”)<br>
+11<br>
+12 # mixed rules<br>
+13 if ( status %in% c(“married”,“widowed”)) age - yearsmarried &gt;= 17<br>
+14 if ( age &lt; 18 ) agegroup == “child”<br>
+15 if ( age &gt;= 18 &amp;&amp; age &lt;65 ) agegroup == “adult”<br>
+16 if ( age &gt;= 65 ) agegroup == “elderly”<br>
+</p>
+<p>These rules are numerical, categorical and mixed (both data types). Comments are written behind the usual <code>#</code> character. The rule set can be read using <code>editfile</code> function as follows:</p>
+<pre class="r"><code class="hljs">Rules &lt;- editfile(<span class="hljs-string">"data/editrules.txt"</span>, type = <span class="hljs-string">"all"</span>)
+
+Rules</code></pre>
+<pre><code class="hljs">## 
+## Data model:
+## dat6 : agegroup %in% c('adult', 'child', 'elderly')
+## dat7 : status %in% c('married', 'single', 'widowed') 
+## 
+## Edit set:
+## num1 : 0 &lt;= age
+## num2 : 0 &lt; height
+## num3 : age &lt;= 150
+## num4 : yearsmarried &lt; age
+## cat5 : if( agegroup == 'child' ) status != 'married'
+## mix6 : if( age &lt; yearsmarried + 17 ) !( status %in% c('married', 'widowed') )
+## mix7 : if( age &lt; 18 ) !( agegroup %in% c('adult', 'elderly') )
+## mix8 : if( 18 &lt;= age &amp; age &lt; 65 ) !( agegroup %in% c('child', 'elderly') )
+## mix9 : if( 65 &lt;= age ) !( agegroup %in% c('adult', 'child') )</code></pre>
+<pre class="r"><code class="hljs">violatedEdits(Rules, datawitherrors)</code></pre>
+<pre><code class="hljs">##       edit
+## record  num1  num2  num3  num4  dat6  dat7  cat5  mix6  mix7  mix8  mix9
+##      1 FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##      2 FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+##      3 FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+##      4 FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##      5 FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE</code></pre>
+<p>As the number of rules grows, looking at the full array produced by <code>violatedEdits</code> becomes complicated. For this reason, <code>editrules</code> offers methods to summarise or visualise the result as follows:</p>
+<pre class="r"><code class="hljs">Violated &lt;- violatedEdits(Rules, datawitherrors)
+
+<span class="hljs-comment"># summary of violated rules</span>
+
+summary(Violated)</code></pre>
+<pre><code class="hljs">## Edit violations, 5 observations, 0 completely missing (0%):
+## 
+##  editname freq rel
+##      cat5    2 40%
+##      mix6    2 40%
+##      num2    1 20%
+##      num3    1 20%
+##      num4    1 20%
+##      mix8    1 20%
+## 
+## Edit violations per record:
+## 
+##  errors freq rel
+##       0    1 20%
+##       1    1 20%
+##       2    2 40%
+##       3    1 20%</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># plot of violated rules</span>
+
+plot(Violated)</code></pre>
+<p><img src="./Module 5_files/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>Using the functions available in <code>editrules</code> package, users can detect the obvious errors and/or inconsistencies in the data set, and define edit rules to identify the inconsistent records.<br>
+</p>
+<p>Moreover, analysts may need to correct the obvious errors and/or inconsistencies in a data set. In the next section, I will introduce the <code>deducorrect</code> package (actually it is a former version of <code>deductive</code> package) functions to correct the obvious errors and inconsistencies.</p>
+</div>
+<div id="correction-of-obvious-inconsistencies-or-errors" class="section level1">
+<div name="correction_of_obvious_inconsistencies_or_errors" data-unique="correction_of_obvious_inconsistencies_or_errors"></div><h1>Correction of Obvious Inconsistencies or Errors</h1>
+<p>When the data you are analysing is generated by people rather than machines or measurement devices, certain typical human-generated errors are likely to occur. Given that data has to obey certain edit rules, the occurrence of such errors can sometimes be detected from raw data with (almost) certainty. Examples of errors that can be detected are typing errors in numbers, rounding errors in numbers, and sign errors.</p>
+<p>The <code>deducorrect</code> package has a number of functions available that can correct such errors. Consider the following data frame (<a href="http://rare-phoenix-161610.appspot.com/secured/data/datawitherrors2.csv">datawitherrors2.csv</a>):</p>
+<pre class="r"><code class="hljs">datawitherrors2 &lt;- read.csv(<span class="hljs-string">"data/datawitherrors2.csv"</span>)
+
+datawitherrors2</code></pre>
+<pre><code class="hljs">##   no height unit
+## 1  1 178.00   cm
+## 2  2   1.47    m
+## 3  3  70.00 inch
+## 4  4 154.00   cm
+## 5  5   5.92   ft</code></pre>
+<p>The task here is to standardise the lengths and express all of them in meters. The <code>deducorrect</code> package can correct this inconsistency using <code>correctionRules</code> function. For example, to perform the above task, one first specifies a file with correction rules as follows (also available <a href="http://rare-phoenix-161610.appspot.com/secured/data/editrules2.txt">here</a>).</p>
+<p>1 # convert centimeters<br>
+2 if ( unit == “cm” ){<br>
+3 height &lt;- height/100<br>
+4 }<br>
+5 # convert inches<br>
+6 if (unit == “inch” ){<br>
+7 height &lt;- height/39.37<br>
+8 }<br>
+9 # convert feet<br>
+10 if (unit == “ft” ){<br>
+11 height &lt;- height/3.28<br>
+12 }<br>
+13 # set all units to meter<br>
+14 unit &lt;- “m”<br>
+</p>
+<p>With <code>correctionRules</code> we can read these rules from the txt file using <code>.file</code> argument.<br>
+</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"deducorrect"</span>)
+
+<span class="hljs-keyword">library</span>(deducorrect)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># read rules from txt file using validate</span>
+
+Rules2 &lt;- correctionRules(<span class="hljs-string">"data/editrules2.txt"</span>)
+
+Rules2</code></pre>
+<pre><code class="hljs">## Object of class 'correctionRules'
+## ##  1-------
+##   if (unit == "cm") height &lt;- height/100 
+## ##  2-------
+##   if (unit == "inch") height &lt;- height/39.37 
+## ##  3-------
+##   if (unit == "ft") height &lt;- height/3.28 
+## ##  4-------
+##   unit &lt;- "m"</code></pre>
+<p>Now, we can apply them to the data frame and obtain a log of all actual changes as follows:<br>
+</p>
+<pre class="r"><code class="hljs">cor &lt;- correctWithRules(Rules2, datawitherrors2)
+
+cor</code></pre>
+<pre><code class="hljs">## $corrected
+##   no   height unit
+## 1  1 1.780000    m
+## 2  2 1.470000    m
+## 3  3 1.778004    m
+## 4  4 1.540000    m
+## 5  5 1.804878    m
+## 
+## $corrections
+##   row variable  old      new                                        how
+## 1   1   height  178     1.78     if (unit == "cm") height &lt;- height/100
+## 2   1     unit   cm        m                                unit &lt;- "m"
+## 3   3   height   70 1.778004 if (unit == "inch") height &lt;- height/39.37
+## 4   3     unit inch        m                                unit &lt;- "m"
+## 5   4   height  154     1.54     if (unit == "cm") height &lt;- height/100
+## 6   4     unit   cm        m                                unit &lt;- "m"
+## 7   5   height 5.92 1.804878    if (unit == "ft") height &lt;- height/3.28
+## 8   5     unit   ft        m                                unit &lt;- "m"</code></pre>
+<p>The returned value, <code>cor$corrected</code> will give a list containing the corrected data as follows:</p>
+<pre class="r"><code class="hljs">cor$corrected</code></pre>
+<pre><code class="hljs">##   no   height unit
+## 1  1 1.780000    m
+## 2  2 1.470000    m
+## 3  3 1.778004    m
+## 4  4 1.540000    m
+## 5  5 1.804878    m</code></pre>
+</div>
+<div id="additional-resources-and-further-reading" class="section level1">
+<div name="additional_resources_and_further_reading" data-unique="additional_resources_and_further_reading"></div><h1>Additional Resources and Further Reading</h1>
+<p>As mentioned before, the missing value analysis and the missing value imputation are broader concepts that would be a stand alone topic of another course. Interested readers may refer to the <a href="https://primo-direct-apac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=RMIT_ALMA2137428490001341&amp;context=L&amp;vid=RMITU&amp;search_scope=Books_articles_and_more&amp;isFrbr=true&amp;tab=default_tab&amp;lang=en_US">“Statistical analysis with missing data (<span class="citation">Little and Rubin (2014)</span>)”</a> and <a href="https://primo-direct-apac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=RMIT_ALMA5159878830001341&amp;context=L&amp;vid=RMITU&amp;search_scope=Books_articles_and_more&amp;tab=default_tab&amp;lang=en_US">“Flexible imputation of missing data (<span class="citation">Van Buuren (2012)</span>)”</a> for the theory behind the missing value mechanism and analysis.</p>
+<p>There are many good R tutorials for handling missing data using R. “<a href="http://www.jordicasanellas.com/data-science-blog/missing-data-impute-or-do-not-impute-r-examples">Missing Data: To impute or note to impute?</a>” and “<a href="https://livebook.datascienceheroes.com/data-preparation.html#missing_data">Data Science Live Book</a>” are only two of them. Moreover, the <a href="https://cran.r-project.org/web/packages/missForest/missForest.pdf"><code>missForest</code></a> and <a href="https://cran.r-project.org/web/packages/mice/mice.pdf"><code>mice</code></a> packages’ manuals provide detailed information on the missing value imputation using random forest algorithm and multiple imputation techniques, respectively.</p>
+<p>For checking and correcting errors and inconsistencies in the data, users can refer to the <a href="https://cran.r-project.org/web/packages/deducorrect/deducorrect.pdf"><code>deducorrect</code></a> , <a href="https://cran.r-project.org/web/packages/deductive/deductive.pdf"><code>deductive</code></a> and <a href="https://cran.r-project.org/web/packages/validate/validate.pdf"><code>validate</code></a> packages’ manuals and <a href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">“An introduction to data cleaning with R (<span class="citation">De Jonge and Loo (2013)</span>)”</a> discussion paper.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<div name="references" data-unique="references"></div><h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-de2013">
+<p>De Jonge, Edwin, and Mark van der Loo. 2013. “An Introduction to Data Cleaning with R.” <em>Heerlen: Statistics Netherlands</em>.</p>
+</div>
+<div id="ref-little2014">
+<p>Little, Roderick JA, and Donald B Rubin. 2014. <em>Statistical Analysis with Missing Data</em>. Vol. 333. John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-van2012">
+<p>Van Buuren, Stef. 2012. <em>Flexible Imputation of Missing Data</em>. CRC press.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>

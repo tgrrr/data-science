@@ -1,0 +1,38 @@
+/* Whole document: */
+body{
+  font-family: Tahoma;
+  font-size: 11pt;
+  text-align: justify;
+}
+
+h1 {
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size: 250%;
+    font-weight:bold;
+    margin-top: 16px;
+    text-align: left;
+}
+
+h2 {
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size: 200%;
+    font-weight:bold;
+    color: rgb(128,0,0);
+    margin-top: 14px;
+    text-align: left;
+}
+
+h2 {
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size: 125%;
+    font-weight:bold;
+    color: rgb(128,0,0);
+    margin-top: 14px;
+    text-align: left;
+}
+
+
+li {
+    text-align: left;
+}
+

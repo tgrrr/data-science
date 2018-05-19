@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://rare-phoenix-161610.appspot.com/secured/Module_08.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+<meta name="author" content="Dr. Anil Dolgun">
+
+
+<title>Module 8</title>
+
+<script src="./Module 8_files/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Module 8_files/cosmo.min.css" rel="stylesheet">
+<script src="./Module 8_files/bootstrap.min.js"></script>
+<script src="./Module 8_files/html5shiv.min.js"></script>
+<script src="./Module 8_files/respond.min.js"></script>
+<script src="./Module 8_files/jquery-ui.min.js"></script>
+<link href="./Module 8_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Module 8_files/jquery.tocify.js"></script>
+<script src="./Module 8_files/tabsets.js"></script>
+<link href="./Module 8_files/textmate.css" rel="stylesheet">
+<script src="./Module 8_files/highlight.js"></script>
+<link href="./Module 8_files/font-awesome.min.css" rel="stylesheet">
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Module 8_files/style.css" type="text/css">
+
+<script type="text/javascript" src="./Module 8_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="overview">Overview</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="summary">Summary</li><li class="tocify-item list-group-item" data-unique="learning_objectives">Learning Objectives</li></ul></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="getting_current_date_and_time">Getting current date and time</li></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="converting_strings_to_dates">Converting strings to dates</li></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="extract__manipulate_parts_of_dates">Extract &amp; manipulate parts of dates</li></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="date_arithmetic">Date arithmetic</li></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="dealing_with_charactersstrings">Dealing with Characters/Strings</li></ul><ul id="tocify-header7" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="character_string_basics">Character string basics</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="creating_strings">Creating Strings</li><li class="tocify-item list-group-item" data-unique="converting_to_strings">Converting to Strings</li><li class="tocify-item list-group-item" data-unique="printing_strings">Printing Strings</li><li class="tocify-item list-group-item" data-unique="concatenating_strings">Concatenating strings</li><li class="tocify-item list-group-item" data-unique="counting_string_elements_and_characters">Counting string elements and characters</li></ul></ul><ul id="tocify-header8" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="string_manipulation_with_base_r">String manipulation with Base R</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="simple_character_replacement">Simple Character Replacement</li><li class="tocify-item list-group-item" data-unique="string_abbreviations">String Abbreviations</li><li class="tocify-item list-group-item" data-unique="extractreplace_substrings">Extract/Replace Substrings</li><li class="tocify-item list-group-item" data-unique="set_operatons_for_character_strings">Set operatons for character strings</li></ul></ul><ul id="tocify-header9" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="string_manipulation_with_stringr">String manipulation with stringr</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="basic_operations">Basic operations</li><li class="tocify-item list-group-item" data-unique="duplicate_characters_within_a_string">Duplicate Characters within a String</li><li class="tocify-item list-group-item" data-unique="remove_leading_and_trailing_whitespace">Remove Leading and Trailing Whitespace</li><li class="tocify-item list-group-item" data-unique="pad_a_string_with_whitespace">Pad a String with Whitespace</li></ul></ul><ul id="tocify-header10" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="additional_resources_and_further_reading">Additional Resources and Further Reading</li></ul><ul id="tocify-header11" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="references">References</li></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://rare-phoenix-161610.appspot.com/secured/index.html">Data Preprocessing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-sticky-note-o"></span>
+     
+    Courseware
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html">Module 1 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html">Module 2 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html">Module 3 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html">Module 4 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html">Module 5 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html">Module 6 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07.html">Module 7 Notes</a>
+    </li>
+    <li class="active">
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html">Module 8 Notes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Skill Builders
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder.html">Module 1 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder_Answers.html">Module 1 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder.html">Module 2 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder_Answers.html">Module 2 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder.html">Module 3 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder_Answers.html">Module 3 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder.html">Module 4 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder_Answers.html">Module 4 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html">Module 5 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder_Answers.html">Module 5 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder.html">Module 6 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder_Answers.html">Module 6 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder.html">Module 7 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder_Answers.html">Module 7 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08_Skill_Builder.html">Module 8 Skill Builders</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-television"></span>
+     
+    Demos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_01_Demo.html">Week 1 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_02_Demo.html">Week 2 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_03_Demo.html">Week 3 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_04_Demo.html">Week 4 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_05_Demo.html">Week 5 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html">Week 6 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_07_Demo.html">Week 7 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_09_Demo.html">Week 9 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_10_Demo.html">Week 10 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_11_Demo.html">Week 11 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 12 Demonstration Slides</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    Worksheets
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet.html">Week 1 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet_answers.html">Week 1 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet.html">Week 2 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet_answers.html">Week 2 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet.html">Week 3 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet_answers.html">Week 3 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet.html">Week 4 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet_answers.html">Week 4 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet.html">Week 5 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet_answers.html">Week 5 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet.html">Week 6 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet_answers.html">Week 6 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet.html">Week 7 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet_answers.html">Week 7 Class Worksheet Answers</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet.html">Week 9 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet_answers.html">Week 9 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet.html">Week 10 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet_answers.html">Week 10 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_11_Worksheet.html">Week 11 Class Worksheet</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://drive.google.com/drive/folders/1ya4COg_QeZG4t6XNRUehAq8FrRxRuxHb?usp=sharing">
+    <span class="fa fa-folder-open"></span>
+     
+    Drive
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/secured/DataCamp.html">
+    <span class="fa fa-star"></span>
+     
+    DataCamp
+  </a>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://docs.google.com/document/d/177dgNO0PezpPfqEtXziUlkmVLxfq5dORDnxAb03YIRM/edit?usp=sharing">Course Information Pack</a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/1D9wnlYth2rJirg5CMBiwnuew0-ZjagCPNrBxmr2Qn8A/edit?usp=sharing">Course Feedback</a>
+    </li>
+    <li>
+      <a href="https://my.rmit.edu.au/">MyRMIT (Canvas)</a>
+    </li>
+    <li>
+      <a href="http://www1.rmit.edu.au/students/mydesktop">MyDesktop</a>
+    </li>
+    <li>
+      <a href="https://sites.google.com/rmit.edu.au/postgradanalytics">
+        <span class="fa fa-circle-o"></span>
+         
+        Portal
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://math2349.slack.com/">
+    <span class="fa fa-slack"></span>
+     
+    Slack
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/logout.htm">
+    <span class="fa fa-sign-out"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Module 8</h1>
+<h3 class="subtitle"><em>Special Operations: Dealing with date/time and character variables</em></h3>
+<h4 class="author"><em>Dr.&nbsp;Anil Dolgun</em></h4>
+<h4 class="date"><em>Last updated: 16 May, 2018</em></h4>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<div name="overview" data-unique="overview"></div><h1>Overview</h1>
+<div id="summary" class="section level2">
+<div name="summary" data-unique="summary"></div><h2>Summary</h2>
+<p>Often data sets we deal include date and time variables. Dealing with dates and time variables accurately can be a complicated task due to the variety in formats, time-zone differences and leap years. In this section you will be introduced to the basics of date manipulations (i.e., getting current date &amp; time, converting strings to dates, extracting and manipulating dates, and date arithmetic ) using Base R and <code>lubridate</code> functions.<br>
+</p>
+<p>String/character manipulations are often overlooked in data analysis because the focus typically remains on numeric values. However, the growth in text mining resulted in greater emphasis on handling, cleaning and processing character strings. In the second part of this module I will give the foundation of working with characters by covering string manipulation with Base R and <code>stringr</code> and the set operations for character strings.<br>
+</p>
+<p>In preparation of this section, I heavily used our recommended textbooks (<span class="citation">Boehmke (2016)</span> and <span class="citation">Wickham and Grolemund (2016)</span>), <a href="https://cran.r-project.org/web/packages/lubridate/lubridate.pdf">lubridate</a> and <a href="https://cran.r-project.org/web/packages/stringr/stringr.pdf">stringr</a> reference manuals.</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<div name="learning_objectives" data-unique="learning_objectives"></div><h2>Learning Objectives</h2>
+<p><img src="./Module 8_files/stringr.png" width="20%" align="right" alt="stringr"> <img src="./Module 8_files/module8.png" width="20%" align="right" alt="lubridate"></p>
+<p>The learning objectives of this module are as follows:<br>
+</p>
+<ul>
+<li>Apply basic date-time manipulations using Base R functions</li>
+<li>Apply basic date-time manipulations using <code>lubridate</code> functions</li>
+<li>Learn basic string manipulations using Base R functions</li>
+<li>Learn basic string manipulations using <code>stringr</code> functions</li>
+</ul>
+</div>
+</div>
+<div id="getting-current-date-and-time" class="section level1">
+<div name="getting_current_date_and_time" data-unique="getting_current_date_and_time"></div><h1>Getting current date and time</h1>
+<p>Base R has functions to get the current date and time. Also the <code>lubridate</code> package offers fast and user friendly parsing of date-time data. In this section I will use both Base R and <code>lubridate</code> functions to demonstrate date-time manipulations.<br>
+</p>
+<p>In order to get the current date and time information you can use <code>Sys.timezone()</code> , <code>Sys.Date()</code> and <code>Sys.time()</code> base R functions:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># get time zone information</span>
+
+Sys.timezone()</code></pre>
+<pre><code class="hljs">## [1] "Australia/Melbourne"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># get date information</span>
+
+Sys.Date()</code></pre>
+<pre><code class="hljs">## [1] "2018-05-16"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># get current time</span>
+
+Sys.time()</code></pre>
+<pre><code class="hljs">## [1] "2018-05-16 16:26:39 AEST"</code></pre>
+<p>You may also get the same information using the <code>lubridate</code> functions:</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"lubridate"</span>)
+<span class="hljs-keyword">library</span>(lubridate)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># get current time using `lubridate`</span>
+
+now()</code></pre>
+<pre><code class="hljs">## [1] "2018-05-16 16:26:39 AEST"</code></pre>
+</div>
+<div id="converting-strings-to-dates" class="section level1">
+<div name="converting_strings_to_dates" data-unique="converting_strings_to_dates"></div><h1>Converting strings to dates</h1>
+<p>When date and time data are imported into R they will often default to a character string (or factors if you are using <code>stringsAsFactors = FALSE</code> option). If this is the case, we need to convert strings to proper date format.</p>
+<p>To illustrate, let’s read in the candy production data which is available here <a href="http://rare-phoenix-161610.appspot.com/secured/data/candy_production.csv">candy_production.csv</a></p>
+<pre class="r"><code class="hljs">candy &lt;- read.csv(<span class="hljs-string">"data/candy_production.csv"</span>, stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+head(candy)</code></pre>
+<pre><code class="hljs">##   observation_date IPG3113N
+## 1       1972-01-01  85.6945
+## 2       1972-02-01  71.8200
+## 3       1972-03-01  66.0229
+## 4       1972-04-01  64.5645
+## 5       1972-05-01  65.0100
+## 6       1972-06-01  67.6467</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># check the structure</span>
+
+str(candy$observation_date)</code></pre>
+<pre><code class="hljs">##  chr [1:548] "1972-01-01" "1972-02-01" "1972-03-01" "1972-04-01" ...</code></pre>
+<p>The <code>observation_date</code> variable was read in as a character. In order to convert this to a date format, we can use different strategies. First one is to convert using <code>as.Date()</code> function under Base R.<br>
+</p>
+<pre class="r"><code class="hljs">candy$observation_date &lt;- as.Date(candy$observation_date)
+
+<span class="hljs-comment"># check the structure</span>
+
+str(candy$observation_date)</code></pre>
+<pre><code class="hljs">##  Date[1:548], format: "1972-01-01" "1972-02-01" "1972-03-01" "1972-04-01" "1972-05-01" ...</code></pre>
+<p>Note that the default date format is <strong>YYYY-MM-DD</strong>; therefore, if your string is of different format you must incorporate the <code>format</code> argument. There are multiple formats that dates can be in; for a complete list of formatting code options in R type <code>?strftime</code> in your console.</p>
+<p>Have a look at these two examples:</p>
+<pre class="r"><code class="hljs">x &lt;- c(<span class="hljs-string">"08/03/2018"</span>, <span class="hljs-string">"23/03/2016"</span>, <span class="hljs-string">"30/01/2018"</span>)
+y &lt;- c(<span class="hljs-string">"08.03.2018"</span>, <span class="hljs-string">"23.03.2016"</span>, <span class="hljs-string">"30.01.2018"</span>)</code></pre>
+<p>This time the string format is <strong>DD/MM/YYYY</strong> for <code>x</code> and <strong>DD.MM.YYYY</strong> for <code>y</code>; therefore, we need to specify the <code>format</code> argument explicitly.</p>
+<pre class="r"><code class="hljs">x_date &lt;- as.Date(x, format = <span class="hljs-string">"%d/%m/%Y"</span>)
+x_date</code></pre>
+<pre><code class="hljs">## [1] "2018-03-08" "2016-03-23" "2018-01-30"</code></pre>
+<pre class="r"><code class="hljs">y_date &lt;- as.Date(y, format = <span class="hljs-string">"%d.%m.%Y"</span>)
+y_date</code></pre>
+<pre><code class="hljs">## [1] "2018-03-08" "2016-03-23" "2018-01-30"</code></pre>
+<p>The <code>lubridate</code> package on the other hand can automatically recognise the common separators used when recording dates (<code>-</code>, <code>/</code>, <code>.</code>, and ` `). As a result, you only need to focus on specifying the order of the date elements to determine the parsing function applied. Here is the list of lubridate functions used for this purpose:</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Order of elements in date-time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ymd()</td>
+<td>year, month, day</td>
+</tr>
+<tr class="even">
+<td>ydm()</td>
+<td>year, day, month</td>
+</tr>
+<tr class="odd">
+<td>mdy()</td>
+<td>month, day, year</td>
+</tr>
+<tr class="even">
+<td>dmy()</td>
+<td>day, month, year</td>
+</tr>
+<tr class="odd">
+<td>hm()</td>
+<td>hour, minute</td>
+</tr>
+<tr class="even">
+<td>hms()</td>
+<td>hour, minute, second</td>
+</tr>
+<tr class="odd">
+<td>ymd_hms()</td>
+<td>year, month, day, hour, minute, second</td>
+</tr>
+</tbody>
+</table>
+<p>If the strings are in different formats like the following, the lubridate functions can easily handle these.</p>
+<pre class="r"><code class="hljs">z &lt;- c(<span class="hljs-string">"08.03.2018"</span>, <span class="hljs-string">"29062017"</span>, <span class="hljs-string">"23/03/2016"</span>, <span class="hljs-string">"30-01-2018"</span>)
+
+z &lt;- dmy(z)
+
+z</code></pre>
+<pre><code class="hljs">## [1] "2018-03-08" "2017-06-29" "2016-03-23" "2018-01-30"</code></pre>
+<p>As seen above, even if we used different separators within the same vector, <code>dmy()</code> function was able to fetch this information easily.</p>
+</div>
+<div id="extract-manipulate-parts-of-dates" class="section level1">
+<div name="extract__manipulate_parts_of_dates" data-unique="extract__manipulate_parts_of_dates"></div><h1>Extract &amp; manipulate parts of dates</h1>
+<p>Sometimes, instead of a single string, we will have the individual components of the date-time spread across multiple columns. Remember the flights data which is in the <code>nycflights13</code> package.</p>
+<pre class="r"><code class="hljs"><span class="hljs-keyword">library</span>(nycflights13)</code></pre>
+<pre class="r"><code class="hljs">head(flights)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 19
+##    year month   day dep_time sched_dep_time dep_delay arr_time
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+## 1  2013     1     1      517            515         2      830
+## 2  2013     1     1      533            529         4      850
+## 3  2013     1     1      542            540         2      923
+## 4  2013     1     1      544            545        -1     1004
+## 5  2013     1     1      554            600        -6      812
+## 6  2013     1     1      554            558        -4      740
+## # ... with 12 more variables: sched_arr_time &lt;int&gt;, arr_delay &lt;dbl&gt;,
+## #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,
+## #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+## #   time_hour &lt;dttm&gt;</code></pre>
+<p>This data frame includes 19 variables, for date manipulations, we will use only the <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code> and <code>minute</code> columns.</p>
+<pre class="r"><code class="hljs">flights_new &lt;- flights %&gt;%
+dplyr::select(year, month, day, hour, minute)
+
+head(flights_new)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 5
+##    year month   day  hour minute
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1  2013     1     1     5     15
+## 2  2013     1     1     5     29
+## 3  2013     1     1     5     40
+## 4  2013     1     1     5     45
+## 5  2013     1     1     6      0
+## 6  2013     1     1     5     58</code></pre>
+<p>As seen in the output, the components of the date information is given in multiple columns. To create a date/time from this sort of input, we can use <code>make_date()</code> for dates and <code>make_datetime()</code> for date-times.<br>
+</p>
+<pre class="r"><code class="hljs">flights_new&lt;- flights_new %&gt;% mutate(departure = make_datetime(year, month, day, hour, minute))
+
+head(flights_new)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 6
+##    year month   day  hour minute departure          
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dttm&gt;             
+## 1  2013     1     1     5     15 2013-01-01 05:15:00
+## 2  2013     1     1     5     29 2013-01-01 05:29:00
+## 3  2013     1     1     5     40 2013-01-01 05:40:00
+## 4  2013     1     1     5     45 2013-01-01 05:45:00
+## 5  2013     1     1     6      0 2013-01-01 06:00:00
+## 6  2013     1     1     5     58 2013-01-01 05:58:00</code></pre>
+<p>Now, let’s explore functions that let us get and set individual components of date and time.<br>
+</p>
+<p>We can extract individual parts of the date with the accessor functions in <code>lubridate</code>. Here is the list of available functions:<br>
+</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>Accessor Function</th>
+<th>Extracts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>year()</td>
+<td>year</td>
+</tr>
+<tr class="even">
+<td>month()</td>
+<td>month</td>
+</tr>
+<tr class="odd">
+<td>mday()</td>
+<td>day of the month</td>
+</tr>
+<tr class="even">
+<td>yday()</td>
+<td>day of the year</td>
+</tr>
+<tr class="odd">
+<td>wday()</td>
+<td>day of the week</td>
+</tr>
+<tr class="even">
+<td>hour()</td>
+<td>hour</td>
+</tr>
+<tr class="odd">
+<td>minute()</td>
+<td>minute</td>
+</tr>
+<tr class="even">
+<td>second()</td>
+<td>second</td>
+</tr>
+</tbody>
+</table>
+<p>For example to extract the year information of the <code>flights_new$departure</code> column we can use:<br>
+</p>
+<pre class="r"><code class="hljs">flights_new$departure %&gt;% year() %&gt;% head()</code></pre>
+<pre><code class="hljs">## [1] 2013 2013 2013 2013 2013 2013</code></pre>
+<p>For <code>month()</code> and <code>wday()</code> we can set <code>label = TRUE</code> argument to return the abbreviated name of the month or day of the week. We can also set <code>abbr = FALSE</code> to return the full name:</p>
+<pre class="r"><code class="hljs">flights_new$departure %&gt;% month(label = <span class="hljs-literal">TRUE</span>, abbr = <span class="hljs-literal">TRUE</span>) %&gt;% head()</code></pre>
+<pre><code class="hljs">## [1] Jan Jan Jan Jan Jan Jan
+## 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
+<pre class="r"><code class="hljs">flights_new$departure %&gt;% month(label = <span class="hljs-literal">TRUE</span>, abbr = <span class="hljs-literal">FALSE</span>) %&gt;% head()</code></pre>
+<pre><code class="hljs">## [1] January January January January January January
+## 12 Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; ... &lt; December</code></pre>
+<p>We can also use each accessor function to set the components of a date/time:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a date</span>
+datetime &lt;- ymd_hms(<span class="hljs-string">"2016-07-08 12:34:56"</span>)
+
+
+<span class="hljs-comment">#replace the year component with 2020</span>
+year(datetime) &lt;- <span class="hljs-number">2020</span>
+
+datetime</code></pre>
+<pre><code class="hljs">## [1] "2020-07-08 12:34:56 UTC"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># replace the month component with Jan</span>
+month(datetime) &lt;- <span class="hljs-number">01</span>
+
+datetime</code></pre>
+<pre><code class="hljs">## [1] "2020-01-08 12:34:56 UTC"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add one hour</span>
+
+hour(datetime) &lt;- hour(datetime) + <span class="hljs-number">1</span>
+
+datetime</code></pre>
+<pre><code class="hljs">## [1] "2020-01-08 13:34:56 UTC"</code></pre>
+</div>
+<div id="date-arithmetic" class="section level1">
+<div name="date_arithmetic" data-unique="date_arithmetic"></div><h1>Date arithmetic</h1>
+<p>Often we may require to compute a new variable from the date - time information. In this section, you will learn to create a sequence of dates and how arithmetic with dates works (including subtraction, addition, and division)&nbsp;</p>
+<p>For example, to create a sequence of dates we can use the <code>seq()</code> function with specifying the four arguments <code>seq(from, to, by, and length.out)</code>.<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a sequence of years from 1980 to 2018 by 2</span>
+
+even_years &lt;- seq(from = <span class="hljs-number">1980</span>, to=<span class="hljs-number">2018</span>, by = <span class="hljs-number">2</span>)
+even_years</code></pre>
+<pre><code class="hljs">##  [1] 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006
+## [15] 2008 2010 2012 2014 2016 2018</code></pre>
+<p>This can be applied for days, months, minutes, seconds, etc.<br>
+</p>
+<pre class="r"><code class="hljs">hour_list &lt;- seq (ymd_hm(<span class="hljs-string">"2018-1-1 9:00"</span>), ymd_hm(<span class="hljs-string">"2018-1-1 12:00"</span>), by = <span class="hljs-string">"hour"</span>)
+
+hour_list</code></pre>
+<pre><code class="hljs">## [1] "2018-01-01 09:00:00 UTC" "2018-01-01 10:00:00 UTC"
+## [3] "2018-01-01 11:00:00 UTC" "2018-01-01 12:00:00 UTC"</code></pre>
+<pre class="r"><code class="hljs">month_list &lt;- seq (ymd_hm(<span class="hljs-string">"2018-1-1 9:00"</span>), ymd_hm(<span class="hljs-string">"2018-12-1 9:00"</span>), by = <span class="hljs-string">"month"</span>)
+
+month_list</code></pre>
+<pre><code class="hljs">##  [1] "2018-01-01 09:00:00 UTC" "2018-02-01 09:00:00 UTC"
+##  [3] "2018-03-01 09:00:00 UTC" "2018-04-01 09:00:00 UTC"
+##  [5] "2018-05-01 09:00:00 UTC" "2018-06-01 09:00:00 UTC"
+##  [7] "2018-07-01 09:00:00 UTC" "2018-08-01 09:00:00 UTC"
+##  [9] "2018-09-01 09:00:00 UTC" "2018-10-01 09:00:00 UTC"
+## [11] "2018-11-01 09:00:00 UTC" "2018-12-01 09:00:00 UTC"</code></pre>
+<p>In R, when you subtract two dates, you get a <strong>time intervals/differences object</strong> (a.k.a <code>difftime</code> in R) . To illustrate let’s calculate my age using:</p>
+<pre class="r"><code class="hljs">my_age &lt;- today() - ymd(<span class="hljs-number">19810529</span>)
+my_age</code></pre>
+<pre><code class="hljs">## Time difference of 13501 days</code></pre>
+<p>Or, equivalently we can use:</p>
+<pre class="r"><code class="hljs">difftime(today(), ymd(<span class="hljs-number">19810529</span>))</code></pre>
+<pre><code class="hljs">## Time difference of 13501 days</code></pre>
+<p>As seen in the output, subtraction of two date-time objects gives an object of time difference class. In order to change the time difference to another unit we can use <code>units</code> argument:</p>
+<pre class="r"><code class="hljs">difftime(today(), ymd(<span class="hljs-number">19810529</span>), units = <span class="hljs-string">"weeks"</span>)</code></pre>
+<pre><code class="hljs">## Time difference of 1928.714 weeks</code></pre>
+<p>Logical comparisons are also available for date-time variables.</p>
+<pre class="r"><code class="hljs">your_age &lt;- today() - ymd(<span class="hljs-number">19890101</span>)
+your_age</code></pre>
+<pre><code class="hljs">## Time difference of 10727 days</code></pre>
+<pre class="r"><code class="hljs">your_age == my_age</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+<pre class="r"><code class="hljs">your_age &lt; my_age</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<p>We can also deal with time intervals/differences by using the duration functions in <code>lubridate</code>. Durations simply measure the time span between start and end dates. <code>lubridate</code> provides simplistic syntax to calculate durations with the desired measurement (seconds, minutes, hours, etc.).<br>
+</p>
+<p>It should be noted that the <code>lubridate</code> package uses seconds as the unit of calculation. Therefore, durations always record the time span in seconds. Larger units are created by converting minutes, hours, days, weeks, and years to seconds at the standard rate *(60 seconds in a minute, 60 minutes in an hour, 24 hours in day, 7 days in a week, 365 days in a year)**.<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a new duration (represented in seconds)</span>
+duration(<span class="hljs-number">1</span>)</code></pre>
+<pre><code class="hljs">## [1] "1s"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create durations for minutes</span>
+dminutes(<span class="hljs-number">1</span>)</code></pre>
+<pre><code class="hljs">## [1] "60s (~1 minutes)"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create durations for hours</span>
+dhours(<span class="hljs-number">1</span>)</code></pre>
+<pre><code class="hljs">## [1] "3600s (~1 hours)"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create durations for years</span>
+dyears(<span class="hljs-number">1</span>)</code></pre>
+<pre><code class="hljs">## [1] "31536000s (~52.14 weeks)"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add/subtract durations from date/time object</span>
+x &lt;- ymd_hms(<span class="hljs-string">"2015-09-22 12:00:00"</span>)
+x + dhours(<span class="hljs-number">10</span>)</code></pre>
+<pre><code class="hljs">## [1] "2015-09-22 22:00:00 UTC"</code></pre>
+<pre class="r"><code class="hljs">x + dhours(<span class="hljs-number">10</span>) + dminutes(<span class="hljs-number">33</span>) + dseconds(<span class="hljs-number">54</span>)</code></pre>
+<pre><code class="hljs">## [1] "2015-09-22 22:33:54 UTC"</code></pre>
+</div>
+<div id="dealing-with-charactersstrings" class="section level1">
+<div name="dealing_with_charactersstrings" data-unique="dealing_with_charactersstrings"></div><h1>Dealing with Characters/Strings</h1>
+<p>String/character manipulations are often overlooked in data analysis because the focus typically remains on numeric values. However, the growth in text mining resulted in greater emphasis on handling, cleaning and processing character strings. In the second part of this module I will give the foundation of working with characters by covering string manipulation with Base R and <code>stringr</code> and the set operations for character strings.</p>
+</div>
+<div id="character-string-basics" class="section level1">
+<div name="character_string_basics" data-unique="character_string_basics"></div><h1>Character string basics</h1>
+<p>This section includes how to create, convert and print character strings along with how to count the number of elements and characters in a string.</p>
+<div id="creating-strings" class="section level2">
+<div name="creating_strings" data-unique="creating_strings"></div><h2>Creating Strings</h2>
+<p>The most basic way to create strings is to use quotation marks and assign a string to an object similar to creating number sequences like this:</p>
+<pre class="r"><code class="hljs">a &lt;- <span class="hljs-string">"MATH2349"</span>    <span class="hljs-comment"># create string a</span>
+b &lt;- <span class="hljs-string">"is awesome"</span>     <span class="hljs-comment"># create string b</span></code></pre>
+<p>The <code>paste()</code> function under Base R is used for creating and building strings. It takes one or more R objects, converts them to character, and then it concatenates (pastes) them to form one or several character strings.</p>
+<p>Here are some examples of <code>paste()</code> function:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># paste together string a &amp; b</span>
+paste(a, b)</code></pre>
+<pre><code class="hljs">## [1] "MATH2349 is awesome"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># paste character and number strings (converts numbers to character class)</span>
+
+paste(<span class="hljs-string">"The life of"</span>, pi)           </code></pre>
+<pre><code class="hljs">## [1] "The life of 3.14159265358979"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># paste multiple strings</span>
+
+paste(<span class="hljs-string">"I"</span>, <span class="hljs-string">"love"</span>, <span class="hljs-string">"Data Preprocessing"</span>)            </code></pre>
+<pre><code class="hljs">## [1] "I love Data Preprocessing"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># paste multiple strings with a separating character</span>
+
+paste(<span class="hljs-string">"I"</span>, <span class="hljs-string">"love"</span>, <span class="hljs-string">"Data"</span>, <span class="hljs-string">"Preprocessing"</span>, sep = <span class="hljs-string">"-"</span>)  </code></pre>
+<pre><code class="hljs">## [1] "I-love-Data-Preprocessing"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># use paste0() to paste without spaces between characters</span>
+
+paste0(<span class="hljs-string">"I"</span>, <span class="hljs-string">"love"</span>,  <span class="hljs-string">"Data"</span>, <span class="hljs-string">"Preprocessing"</span>)  </code></pre>
+<pre><code class="hljs">## [1] "IloveDataPreprocessing"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># paste objects with different lengths</span>
+
+paste(<span class="hljs-string">"R"</span>, <span class="hljs-number">1</span>:<span class="hljs-number">5</span>, sep = <span class="hljs-string">" v1."</span>)       </code></pre>
+<pre><code class="hljs">## [1] "R v1.1" "R v1.2" "R v1.3" "R v1.4" "R v1.5"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment">## [1] "R v1.1" "R v1.2" "R v1.3" "R v1.4" "R v1.5"</span></code></pre>
+<p>Sorting character strings is very simple using using <code>sort()</code> function:</p>
+<pre class="r"><code class="hljs">a &lt;- c(<span class="hljs-string">"MATH2349"</span>, <span class="hljs-string">"MATH1324"</span>)   
+   
+sort(a)</code></pre>
+<pre><code class="hljs">## [1] "MATH1324" "MATH2349"</code></pre>
+</div>
+<div id="converting-to-strings" class="section level2">
+<div name="converting_to_strings" data-unique="converting_to_strings"></div><h2>Converting to Strings</h2>
+<p>Similar to the numerics, strings and characters can be tested with <code>is.character()</code> and any other data format can be converted into strings/characters with <code>as.character()</code> or with <code>toString()</code>.</p>
+<pre class="r"><code class="hljs">a &lt;- <span class="hljs-string">"The life of"</span>    
+b &lt;- pi
+
+is.character(a)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<pre class="r"><code class="hljs">is.character(b)</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+<pre class="r"><code class="hljs">c &lt;- as.character(b)
+is.character(c)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<pre class="r"><code class="hljs">toString(c(<span class="hljs-string">"Jul"</span>, <span class="hljs-number">25</span>, <span class="hljs-number">2017</span>))</code></pre>
+<pre><code class="hljs">## [1] "Jul, 25, 2017"</code></pre>
+</div>
+<div id="printing-strings" class="section level2">
+<div name="printing_strings" data-unique="printing_strings"></div><h2>Printing Strings</h2>
+<p>Printing strings/characters can be done with the following functions:<br>
+Function | Usage ———|——- <code>print()</code> | generic printing <code>noquote()</code> | print with no quotes <code>cat()</code> | concatenate and print with no quotes</p>
+<p>The primary printing function in R is print().</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># basic printing</span>
+
+a &lt;- <span class="hljs-string">"MATH2349 is awesome"</span>    
+
+print(a)</code></pre>
+<pre><code class="hljs">## [1] "MATH2349 is awesome"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># print without quotes</span>
+
+print(a, quote = <span class="hljs-literal">FALSE</span>)  </code></pre>
+<pre><code class="hljs">## [1] MATH2349 is awesome</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># alternative to print without quotes</span>
+
+noquote(a)</code></pre>
+<pre><code class="hljs">## [1] MATH2349 is awesome</code></pre>
+</div>
+<div id="concatenating-strings" class="section level2">
+<div name="concatenating_strings" data-unique="concatenating_strings"></div><h2>Concatenating strings</h2>
+<p>The <code>cat()</code> function allows us to concatenate objects and print them either on screen or to a file. The output result is very similar to <code>noquote()</code>; however, <code>cat()</code> does not print the numeric line indicator. As a result, <code>cat()</code> can be useful for printing nicely formated responses to users.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># basic printing (similar to noquote)</span>
+cat(a)                   </code></pre>
+<pre><code class="hljs">## MATH2349 is awesome</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># combining character strings</span>
+
+cat(a, <span class="hljs-string">"and I love R"</span>)           </code></pre>
+<pre><code class="hljs">## MATH2349 is awesome and I love R</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># basic printing of alphabet</span>
+
+cat(letters)             </code></pre>
+<pre><code class="hljs">## a b c d e f g h i j k l m n o p q r s t u v w x y z</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># specify a seperator between the combined characters</span>
+
+cat(letters, sep = <span class="hljs-string">"-"</span>)  </code></pre>
+<pre><code class="hljs">## a-b-c-d-e-f-g-h-i-j-k-l-m-n-o-p-q-r-s-t-u-v-w-x-y-z</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># collapse the space between the combine characters</span>
+
+cat(letters, sep = <span class="hljs-string">""</span>)   </code></pre>
+<pre><code class="hljs">## abcdefghijklmnopqrstuvwxyz</code></pre>
+<p>You can also format the line width for printing long strings using the <code>fill</code> argument:</p>
+<pre class="r"><code class="hljs">x &lt;- <span class="hljs-string">"Today I am learning how to manipulate strings."</span>
+y &lt;- <span class="hljs-string">"Tomorrow I plan to work on my assignment."</span>
+z &lt;- <span class="hljs-string">"The day after I will take a break and drink a beer :)"</span>
+
+
+<span class="hljs-comment"># No breaks between lines</span>
+
+cat(x, y, z, fill = <span class="hljs-literal">FALSE</span>)</code></pre>
+<pre><code class="hljs">## Today I am learning how to manipulate strings. Tomorrow I plan to work on my assignment. The day after I will take a break and drink a beer :)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Breaks between lines</span>
+
+cat(x, y, z, fill = <span class="hljs-literal">TRUE</span>)</code></pre>
+<pre><code class="hljs">## Today I am learning how to manipulate strings. 
+## Tomorrow I plan to work on my assignment. 
+## The day after I will take a break and drink a beer :)</code></pre>
+</div>
+<div id="counting-string-elements-and-characters" class="section level2">
+<div name="counting_string_elements_and_characters" data-unique="counting_string_elements_and_characters"></div><h2>Counting string elements and characters</h2>
+<p>To count the number of elements in a string use length():</p>
+<pre class="r"><code class="hljs">length(<span class="hljs-string">"How many elements are in this string?"</span>)</code></pre>
+<pre><code class="hljs">## [1] 1</code></pre>
+<pre class="r"><code class="hljs">length(c(<span class="hljs-string">"How"</span>, <span class="hljs-string">"many"</span>, <span class="hljs-string">"elements"</span>, <span class="hljs-string">"are"</span>, <span class="hljs-string">"in"</span>, <span class="hljs-string">"this"</span>, <span class="hljs-string">"string?"</span>))</code></pre>
+<pre><code class="hljs">## [1] 7</code></pre>
+<p>To count the number of characters in a string use <code>nchar()</code>:</p>
+<pre class="r"><code class="hljs">nchar(<span class="hljs-string">"How many characters are in this string?"</span>)</code></pre>
+<pre><code class="hljs">## [1] 39</code></pre>
+<pre class="r"><code class="hljs">nchar(c(<span class="hljs-string">"How"</span>, <span class="hljs-string">"many"</span>, <span class="hljs-string">"characters"</span>, <span class="hljs-string">"are"</span>, <span class="hljs-string">"in"</span>, <span class="hljs-string">"this"</span>, <span class="hljs-string">"string?"</span>))</code></pre>
+<pre><code class="hljs">## [1]  3  4 10  3  2  4  7</code></pre>
+</div>
+</div>
+<div id="string-manipulation-with-base-r" class="section level1">
+<div name="string_manipulation_with_base_r" data-unique="string_manipulation_with_base_r"></div><h1>String manipulation with Base R</h1>
+<p>Basic string manipulation typically inludes case conversion, simple character replacement, abbreviating, substring replacement, adding/removing whitespace, and performing set operations to compare similarities and differences between two character vectors.&nbsp;</p>
+<p>These operations can all be performed with base R functions; however, some operations are greatly simplified with the <code>stringr</code> package. Therefore, after illustrating base R string manipulation for case conversion, simple character replacement, abbreviating, and substring replacement, we will switch to <code>stringr</code> package to cover many of the other fundamental string manipulation tasks.<br>
+## Upper/lower case conversion</p>
+<p>To convert all upper case characters to lower case we will use <code>tolower()</code>:</p>
+<pre class="r"><code class="hljs">a &lt;- <span class="hljs-string">"MATH2349 is AWesomE"</span>
+
+tolower(a)</code></pre>
+<pre><code class="hljs">## [1] "math2349 is awesome"</code></pre>
+<p>To convert all lower case characters to upper case we will use <code>toupper()</code>:</p>
+<pre class="r"><code class="hljs">toupper(x)</code></pre>
+<pre><code class="hljs">## [1] "TODAY I AM LEARNING HOW TO MANIPULATE STRINGS."</code></pre>
+<div id="simple-character-replacement" class="section level2">
+<div name="simple_character_replacement" data-unique="simple_character_replacement"></div><h2>Simple Character Replacement</h2>
+<p>To replace a character (or multiple characters) in a string we can use <code>chartr()</code>:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># replace 'A' with 'a'</span>
+x &lt;- <span class="hljs-string">"This is A string."</span>
+chartr(old = <span class="hljs-string">"A"</span>, new = <span class="hljs-string">"a"</span>, x)</code></pre>
+<pre><code class="hljs">## [1] "This is a string."</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># multiple character replacements</span>
+<span class="hljs-comment"># replace any 'd' with 't' and any 'z' with 'a'</span>
+
+y &lt;- <span class="hljs-string">"Tomorrow I plzn do lezrn zbout dexduzl znzlysis."</span>
+chartr(old = <span class="hljs-string">"dz"</span>, new = <span class="hljs-string">"ta"</span>, y)</code></pre>
+<pre><code class="hljs">## [1] "Tomorrow I plan to learn about textual analysis."</code></pre>
+<p>Note that <code>chartr()</code> replaces every identified letter for replacement so you need to use it when you are certain that you want to change every possible occurence of that letter(s).</p>
+</div>
+<div id="string-abbreviations" class="section level2">
+<div name="string_abbreviations" data-unique="string_abbreviations"></div><h2>String Abbreviations</h2>
+<p>To abbreviate strings we can use <code>abbreviate()</code>:</p>
+<pre class="r"><code class="hljs">streets &lt;- c(<span class="hljs-string">"Victoria"</span>, <span class="hljs-string">"Yarra"</span>, <span class="hljs-string">"Russell"</span>, <span class="hljs-string">"Williams"</span>, <span class="hljs-string">"Swanston"</span>)
+
+<span class="hljs-comment"># default abbreviations</span>
+abbreviate(streets)</code></pre>
+<pre><code class="hljs">## Victoria    Yarra  Russell Williams Swanston 
+##   "Vctr"   "Yarr"   "Rssl"   "Wllm"   "Swns"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># set minimum length of abbreviation</span>
+abbreviate(streets, minlength = <span class="hljs-number">2</span>)</code></pre>
+<pre><code class="hljs">## Victoria    Yarra  Russell Williams Swanston 
+##     "Vc"     "Yr"     "Rs"     "Wl"     "Sw"</code></pre>
+</div>
+<div id="extractreplace-substrings" class="section level2">
+<div name="extractreplace_substrings" data-unique="extractreplace_substrings"></div><h2>Extract/Replace Substrings</h2>
+<p>To extract or replace substrings in a character vector there are two primary base R functions to use: <code>substr()</code> and <code>strsplit()</code>.&nbsp;</p>
+<p>The purpose of <code>substr()</code> is to extract and replace substrings with specified starting and stopping characters. Here are some examples on <code>substr()</code> usage:<br>
+</p>
+<pre class="r"><code class="hljs">alphabet &lt;- paste(LETTERS, collapse = <span class="hljs-string">""</span>)
+
+alphabet</code></pre>
+<pre><code class="hljs">## [1] "ABCDEFGHIJKLMNOPQRSTUVWXYZ"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># extract 18th character in alphabet</span>
+substr(alphabet, start = <span class="hljs-number">18</span>, <span class="hljs-keyword">stop</span> = <span class="hljs-number">18</span>)</code></pre>
+<pre><code class="hljs">## [1] "R"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># extract 18-24th characters in alphabet</span>
+substr(alphabet, start = <span class="hljs-number">18</span>, <span class="hljs-keyword">stop</span> = <span class="hljs-number">24</span>)</code></pre>
+<pre><code class="hljs">## [1] "RSTUVWX"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># replace 19-24th characters with `R`</span>
+
+substr(alphabet, start = <span class="hljs-number">19</span>, <span class="hljs-keyword">stop</span> = <span class="hljs-number">24</span>) &lt;- <span class="hljs-string">"RRRRRR"</span>
+alphabet</code></pre>
+<pre><code class="hljs">## [1] "ABCDEFGHIJKLMNOPQRRRRRRRYZ"</code></pre>
+<p>To split the elements of a character string we can use <code>strsplit()</code>. Here are some examples:</p>
+<pre class="r"><code class="hljs">z &lt;- <span class="hljs-string">"The day after I will take a break and drink a beer :)"</span>
+strsplit(z, split = <span class="hljs-string">" "</span>)</code></pre>
+<pre><code class="hljs">## [[1]]
+##  [1] "The"   "day"   "after" "I"     "will"  "take"  "a"     "break"
+##  [9] "and"   "drink" "a"     "beer"  ":)"</code></pre>
+<pre class="r"><code class="hljs">a &lt;- <span class="hljs-string">"Victoria-Yarra-Russell-Williams-Swanston"</span>
+strsplit(a, split = <span class="hljs-string">"-"</span>) </code></pre>
+<pre><code class="hljs">## [[1]]
+## [1] "Victoria" "Yarra"    "Russell"  "Williams" "Swanston"</code></pre>
+<p>Note that the output of <code>strsplit()</code> is a list. To convert the output to a simple atomic vector simply wrap in <code>unlist()</code>:</p>
+<pre class="r"><code class="hljs">unlist(strsplit(a, split = <span class="hljs-string">"-"</span>))</code></pre>
+<pre><code class="hljs">## [1] "Victoria" "Yarra"    "Russell"  "Williams" "Swanston"</code></pre>
+</div>
+<div id="set-operatons-for-character-strings" class="section level2">
+<div name="set_operatons_for_character_strings" data-unique="set_operatons_for_character_strings"></div><h2>Set operatons for character strings</h2>
+<p>There are also base R functions that allows for assessing the set union, intersection, difference, equality, and membership of two vectors.</p>
+<p>To obtain the elements of the union between two character vectors we can use <code>union()</code>:</p>
+<pre class="r"><code class="hljs">set_1 &lt;- c(<span class="hljs-string">"lagunitas"</span>, <span class="hljs-string">"bells"</span>, <span class="hljs-string">"dogfish"</span>, <span class="hljs-string">"summit"</span>, <span class="hljs-string">"odell"</span>)
+set_2 &lt;- c(<span class="hljs-string">"sierra"</span>, <span class="hljs-string">"bells"</span>, <span class="hljs-string">"harpoon"</span>, <span class="hljs-string">"lagunitas"</span>, <span class="hljs-string">"founders"</span>)
+
+union(set_1, set_2)</code></pre>
+<pre><code class="hljs">## [1] "lagunitas" "bells"     "dogfish"   "summit"    "odell"     "sierra"   
+## [7] "harpoon"   "founders"</code></pre>
+<p>To obtain the common elements of two character vectors we can use <code>intersect()</code>.</p>
+<pre class="r"><code class="hljs">intersect(set_1, set_2)</code></pre>
+<pre><code class="hljs">## [1] "lagunitas" "bells"</code></pre>
+<p>In order to obtain the non-common elements, or the difference, of two character vectors we can use <code>setdiff()</code>.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># returns elements in set_1 not in set_2</span>
+setdiff(set_1, set_2)</code></pre>
+<pre><code class="hljs">## [1] "dogfish" "summit"  "odell"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># returns elements in set_2 not in set_1</span>
+setdiff(set_2, set_1)</code></pre>
+<pre><code class="hljs">## [1] "sierra"   "harpoon"  "founders"</code></pre>
+<p>In order to test if two vectors contain the same elements regardless of order we can use <code>setequal()</code></p>
+<pre class="r"><code class="hljs">set_3 &lt;- c(<span class="hljs-string">"VIC"</span>, <span class="hljs-string">"NSW"</span>, <span class="hljs-string">"TAS"</span>)
+set_4 &lt;- c(<span class="hljs-string">"WA"</span>, <span class="hljs-string">"SA"</span>, <span class="hljs-string">"NSW"</span>)
+set_5 &lt;- c(<span class="hljs-string">"NSW"</span>, <span class="hljs-string">"SA"</span>, <span class="hljs-string">"WA"</span>)
+
+setequal(set_3, set_4)</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+<pre class="r"><code class="hljs">setequal(set_4, set_5)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<p>We can use <code>identical()</code> to test if two character vectors are equal in content and order.</p>
+<pre class="r"><code class="hljs">set_6 &lt;- c(<span class="hljs-string">"VIC"</span>, <span class="hljs-string">"NSW"</span>, <span class="hljs-string">"TAS"</span>)
+set_7 &lt;- c(<span class="hljs-string">"NSW"</span>, <span class="hljs-string">"VIC"</span>, <span class="hljs-string">"TAS"</span>)
+set_8 &lt;- c(<span class="hljs-string">"VIC"</span>, <span class="hljs-string">"NSW"</span>, <span class="hljs-string">"TAS"</span>)
+
+identical(set_6, set_7)</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+<pre class="r"><code class="hljs">identical(set_6, set_8)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<p>In order to test if an element is contained within a character vector use <code>is.element()</code> or <code>%in%</code>. Here are some examples:</p>
+<pre class="r"><code class="hljs">set_6 &lt;- c(<span class="hljs-string">"VIC"</span>, <span class="hljs-string">"NSW"</span>, <span class="hljs-string">"TAS"</span>)
+set_7 &lt;- c(<span class="hljs-string">"NSW"</span>, <span class="hljs-string">"VIC"</span>, <span class="hljs-string">"TAS"</span>)
+set_8 &lt;- c(<span class="hljs-string">"VIC"</span>, <span class="hljs-string">"NSW"</span>, <span class="hljs-string">"TAS"</span>)
+
+is.element(<span class="hljs-string">"VIC"</span>, set_8)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-string">"VIC"</span> %<span class="hljs-keyword">in</span>% set_8</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-string">"WA"</span> %<span class="hljs-keyword">in</span>% set_8</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+</div>
+</div>
+<div id="string-manipulation-with-stringr" class="section level1">
+<div name="string_manipulation_with_stringr" data-unique="string_manipulation_with_stringr"></div><h1>String manipulation with stringr</h1>
+<p>The <code>stringr</code> package was developed by Hadley Wickham to provide a consistent and simple wrappers to common string operations. Before using these functions, we need to install and load the <code>stringr</code> package.</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"stringr"</span>)
+<span class="hljs-keyword">library</span>(stringr)</code></pre>
+<div id="basic-operations" class="section level2">
+<div name="basic_operations" data-unique="basic_operations"></div><h2>Basic operations</h2>
+<p>There are three string functions that are closely related to their base R equivalents, but with a few enhancements. They are:</p>
+<ul>
+<li>Concatenate with <code>str_c()</code></li>
+<li>Number of characters with <code>str_length()</code></li>
+<li>Substring with <code>str_sub()</code></li>
+</ul>
+<p><code>str_c()</code> is equivalent to the <code>paste()</code> function in Base R.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># same as paste0()</span>
+
+str_c(<span class="hljs-string">"Learning"</span>, <span class="hljs-string">"to"</span>, <span class="hljs-string">"use"</span>, <span class="hljs-string">"the"</span>, <span class="hljs-string">"stringr"</span>, <span class="hljs-string">"package"</span>)</code></pre>
+<pre><code class="hljs">## [1] "Learningtousethestringrpackage"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># same as paste()</span>
+
+str_c(<span class="hljs-string">"Learning"</span>, <span class="hljs-string">"to"</span>, <span class="hljs-string">"use"</span>, <span class="hljs-string">"the"</span>, <span class="hljs-string">"stringr"</span>, <span class="hljs-string">"package"</span>, sep = <span class="hljs-string">" "</span>)</code></pre>
+<pre><code class="hljs">## [1] "Learning to use the stringr package"</code></pre>
+<p><code>str_length()</code> is similiar to the <code>nchar()</code> function; however, <code>str_length()</code> behaves more appropriately with missing <code>NA</code> values:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># some text with NA</span>
+text = c(<span class="hljs-string">"Learning"</span>, <span class="hljs-string">"to"</span>, <span class="hljs-literal">NA</span>, <span class="hljs-string">"use"</span>, <span class="hljs-string">"the"</span>, <span class="hljs-literal">NA</span>, <span class="hljs-string">"stringr"</span>, <span class="hljs-string">"package"</span>)
+
+<span class="hljs-comment"># compare `str_length()` with `nchar()`</span>
+nchar(text)</code></pre>
+<pre><code class="hljs">## [1]  8  2 NA  3  3 NA  7  7</code></pre>
+<pre class="r"><code class="hljs">str_length(text)</code></pre>
+<pre><code class="hljs">## [1]  8  2 NA  3  3 NA  7  7</code></pre>
+<p>As seen above, <code>str_length()</code> function returns <code>NA</code> for the missing values, where else, <code>nchar()</code> counts the number of characters in <code>NA</code> and returns 2 as a value.</p>
+</div>
+<div id="duplicate-characters-within-a-string" class="section level2">
+<div name="duplicate_characters_within_a_string" data-unique="duplicate_characters_within_a_string"></div><h2>Duplicate Characters within a String</h2>
+<p>The <code>stringr</code> provides a new functionality using <code>str_dup()</code> in which base R does not have a specific function for is character duplication.</p>
+<pre class="r"><code class="hljs">str_dup(<span class="hljs-string">"apples"</span>, times = <span class="hljs-number">4</span>)</code></pre>
+<pre><code class="hljs">## [1] "applesapplesapplesapples"</code></pre>
+<pre class="r"><code class="hljs">str_dup(<span class="hljs-string">"apples"</span>, times = <span class="hljs-number">1</span>:<span class="hljs-number">4</span>)</code></pre>
+<pre><code class="hljs">## [1] "apples"                   "applesapples"            
+## [3] "applesapplesapples"       "applesapplesapplesapples"</code></pre>
+</div>
+<div id="remove-leading-and-trailing-whitespace" class="section level2">
+<div name="remove_leading_and_trailing_whitespace" data-unique="remove_leading_and_trailing_whitespace"></div><h2>Remove Leading and Trailing Whitespace</h2>
+<p>In string processing, a common task is parsing text into individual words. Often, this results in words having blank spaces (whitespaces) on either end of the word. The <code>str_trim()</code> can be used to remove these spaces. Here are some examples:</p>
+<pre class="r"><code class="hljs">text &lt;- c(<span class="hljs-string">"Text "</span>, <span class="hljs-string">"  with"</span>, <span class="hljs-string">" whitespace "</span>, <span class="hljs-string">" on"</span>, <span class="hljs-string">"both "</span>, <span class="hljs-string">" sides "</span>)
+text</code></pre>
+<pre><code class="hljs">## [1] "Text "        "  with"       " whitespace " " on"         
+## [5] "both "        " sides "</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># remove whitespaces on the left side</span>
+str_trim(text, side = <span class="hljs-string">"left"</span>)</code></pre>
+<pre><code class="hljs">## [1] "Text "       "with"        "whitespace " "on"          "both "      
+## [6] "sides "</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># remove whitespaces on the right side</span>
+str_trim(text, side = <span class="hljs-string">"right"</span>)</code></pre>
+<pre><code class="hljs">## [1] "Text"        "  with"      " whitespace" " on"         "both"       
+## [6] " sides"</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># remove whitespaces on both sides</span>
+str_trim(text, side = <span class="hljs-string">"both"</span>)</code></pre>
+<pre><code class="hljs">## [1] "Text"       "with"       "whitespace" "on"         "both"      
+## [6] "sides"</code></pre>
+</div>
+<div id="pad-a-string-with-whitespace" class="section level2">
+<div name="pad_a_string_with_whitespace" data-unique="pad_a_string_with_whitespace"></div><h2>Pad a String with Whitespace</h2>
+<p>To add whitespace, or to pad a string, we will use <code>str_pad()</code>. We can also use <code>str_pad()</code> to pad a string with specified characters. The <code>width</code> argument will give width of padded strings and the <code>pad</code> argument will specify the padding characters. Here are some examples:</p>
+<pre class="r"><code class="hljs">str_pad(<span class="hljs-string">"apples"</span>, width = <span class="hljs-number">10</span>, side = <span class="hljs-string">"left"</span>)</code></pre>
+<pre><code class="hljs">## [1] "    apples"</code></pre>
+<pre class="r"><code class="hljs">str_pad(<span class="hljs-string">"apples"</span>, width = <span class="hljs-number">10</span>, side = <span class="hljs-string">"both"</span>)</code></pre>
+<pre><code class="hljs">## [1] "  apples  "</code></pre>
+<pre class="r"><code class="hljs">str_pad(<span class="hljs-string">"apples"</span>, width = <span class="hljs-number">10</span>, side = <span class="hljs-string">"right"</span>, pad = <span class="hljs-string">"!"</span>)</code></pre>
+<pre><code class="hljs">## [1] "apples!!!!"</code></pre>
+</div>
+</div>
+<div id="additional-resources-and-further-reading" class="section level1">
+<div name="additional_resources_and_further_reading" data-unique="additional_resources_and_further_reading"></div><h1>Additional Resources and Further Reading</h1>
+<p>For more information on <code>lubridate</code> and <code>stringr</code> packages and available functions, you can refer to the <a href="https://cran.r-project.org/web/packages/lubridate/lubridate.pdf"><code>lubridate</code> package manual</a> and the <a href="https://cran.r-project.org/web/packages/stringr/stringr.pdf"><code>stringr</code> package manual</a>.</p>
+<p>Our recommended textbooks (<span class="citation">Boehmke (2016)</span> and <span class="citation">Wickham and Grolemund (2016)</span>) are great resources for the basics of date and character manipulations. If you want to learn more on the high level text manipulations and text mining, you may refer to “Automated Data Collection with R: A practical guide to web scraping and text mining” (by <span class="citation">Munzert et al. (2014)</span>).</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<div name="references" data-unique="references"></div><h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-boehmke2016">
+<p>Boehmke, Bradley C. 2016. <em>Data Wrangling with R</em>. Springer.</p>
+</div>
+<div id="ref-munzert2014">
+<p>Munzert, Simon, Christian Rubba, Peter Meißner, and Dominic Nyhuis. 2014. <em>Automated Data Collection with R: A Practical Guide to Web Scraping and Text Mining</em>. John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-wickham2016r">
+<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. “ O’Reilly Media, Inc.”</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>

@@ -1,0 +1,164 @@
+---
+title: "Week 11 - Class Worksheet"
+subtitle: "Special Operations: Dealing with date/time and character variables"
+author: "Dr. Anil Dolgun"
+date: "16/05/2018"
+output: 
+  html_document:
+    number_sections: false
+    theme: cerulean
+    highligt: pygments
+---
+
+Class activities
+```{r}
+library("purrr")
+
+weekCount <- (10)
+
+weeklymeetings <- function(weekCount) {
+ (today() + dweeks(1:10)) %>%   return()
+}
+
+weeklymeetings()
+
+  map(.x = weekCount, .f = weeklymeetings())
+
+
+
+weeklymeetings(10)
+
+Map(f = ,)
+today() + dweeks(1)
+
+
+````
+
+
+
+## Required Packages 
+
+The following packages and the function will be required or may come in handy.
+
+```{r}
+library(readr)
+library(dplyr)
+library(lubridate)
+library(stringr)
+
+```
+
+## Exercises 
+
+
+### Pollution Data
+
+The following exercises 1-4 will be based on [Pollution.csv](../data/Pollution.csv) data from Kaggle <https://www.kaggle.com/nicapotato/pollution-in-atchison-village-richmond-ca/data>. Variables are self explanatory however it is expected to do checks on the type of the data and use the suitable transformations if necessary. 
+ 
+Here is a quick look of the `Pollution` data:
+
+
+1. Check the structure of the `Date` variable. Convert it to date format using the appropriate function. After the conversion it should look like this:
+
+```{r}
+pollution <- read.csv("~/code/tldr/data-science/datasets/Pollution.csv", header=FALSE)
+head(pollution)
+
+
+```
+
+
+2. Create year, month, day, hour and minute columns with using `mutate()`. Create a new column with combining year, month and day. 
+
+```{r}
+
+pollution %>% mutate(time = make_datetime()
+
+pollution_mutate <- pollution %>% mutate(departure = make_datetime(year, month, day, hour, minute)) 
+
+
+```
+
+
+3. Create a new column with Today's date and name it `newtime`. Add 2 years on the `Date` variable. Check the difference between `Date` and `newtime` variable in weeks, round it to 2. Check the duration of the `year` variable using appropriate `duration` function.
+
+`difftime` function
+
+```{r}
+
+lubridate
+
+date() + years()
+
+lubr
+
+my_age_days <- difftime(time1 = date(), time2 ="17082013")
+
+
+```
+
+
+4. Create a sequence of time starting from 6:00 am 1st of May 2015 ending 7:00 am 1st of October 2015 by hour. Check the length of this sequence. Create a subset of pollution data with the same length of the sequence and bind them. 
+
+
+```{r}
+
+```
+
+
+### NYC Jobs Data
+
+The following exercises 5-10 will be based on NYC Jobs data set [NYC_jobs.csv](../data/NYC_jobs.csv) from <https://data.cityofnewyork.us>. You can find the data description in <https://data.cityofnewyork.us/City-Government/NYC-Jobs/kpav-sd4t>.  Variables are self explanatory however it is expected to do checks on the type of the data and use the suitable transformations if necessary. Here is a quick look of the few variables of NYC Jobs data:
+
+
+
+5. Check the structures of the variables `Posting Date`, `Posting Updated` and `Process Date`. If any of the variables are in character format, convert it to date format. Hint: To do so you will need to use chartr() first for `Posting Date` to replace T with a blank.
+
+```{r}
+
+```
+
+
+
+6. Paste `Job Id` and `Title Code No` with a seperator "-", name this column as new_id. Use both `paste()` and `str_c()`.
+
+```{r}
+
+```
+
+
+7. Convert characters to lower for `Agency`, `Business title` and `Civil Service Title`. If you are looking for a challenge use `mutate_at()` function.
+
+```{r}
+
+```
+
+
+8. Trim white spaces for both ends and find string length for `Job Description` variable.
+
+```{r}
+
+```
+
+
+9. Pad the `Job Id` variable with a leading `1` and pick 7 for the width.
+
+```{r}
+
+```
+
+
+10. Extract the first characater of the `Salary Frequency`.
+
+```{r}
+
+```
+
+
+## Finished?
+
+If you have finished the above tasks, work through the weekly list of tasks posted on the Canvas announcement page.
+
+<center>
+**[Return to Data Preprocessing Website](../index.html)**
+</center>

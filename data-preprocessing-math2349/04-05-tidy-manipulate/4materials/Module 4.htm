@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://rare-phoenix-161610.appspot.com/secured/Module_04.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+<meta name="author" content="Dr. Anil Dolgun">
+
+
+<title>Module 4</title>
+
+<script src="./Module 4_files/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Module 4_files/cosmo.min.css" rel="stylesheet">
+<script src="./Module 4_files/bootstrap.min.js"></script>
+<script src="./Module 4_files/html5shiv.min.js"></script>
+<script src="./Module 4_files/respond.min.js"></script>
+<script src="./Module 4_files/jquery-ui.min.js"></script>
+<link href="./Module 4_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Module 4_files/jquery.tocify.js"></script>
+<script src="./Module 4_files/tabsets.js"></script>
+<link href="./Module 4_files/textmate.css" rel="stylesheet">
+<script src="./Module 4_files/highlight.js"></script>
+<link href="./Module 4_files/font-awesome.min.css" rel="stylesheet">
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Module 4_files/style.css" type="text/css">
+
+<script type="text/javascript" src="./Module 4_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="overview">Overview</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="summary">Summary</li><li class="tocify-item list-group-item" data-unique="learning_objectives">Learning Objectives</li></ul></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="tidy_data_principles">Tidy Data Principles</li></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="common_problems_with_messy_data_sets">Common problems with messy data sets</li></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="the_tidyr_package">The tidyr package</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="gather()_function">gather() function</li><li class="tocify-item list-group-item" data-unique="spread()_function">spread() function</li><li class="tocify-item list-group-item" data-unique="separate()_function">separate() function</li><li class="tocify-item list-group-item" data-unique="unite()_function">unite() function</li></ul></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="the_dplyr_package">The dplyr package</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="select()_function">select() function</li><li class="tocify-item list-group-item" data-unique="filter()_function">filter() function</li><li class="tocify-item list-group-item" data-unique="arrange()_function">arrange() function</li><li class="tocify-item list-group-item" data-unique="mutate()_function">mutate() function</li><li class="tocify-item list-group-item" data-unique="summarise()_(or_summarize()_)_function">summarise() (or summarize() ) function</li><li class="tocify-item list-group-item" data-unique="group_by()_+_summarise()_function">group_by() + summarise() function</li><li class="tocify-item list-group-item" data-unique="joining_data_sets">Joining data sets</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="mutating_joins">Mutating joins</li><li class="tocify-item list-group-item" data-unique="controlling_how_the_data_sets_are_matched">Controlling how the data sets are matched</li><li class="tocify-item list-group-item" data-unique="filtering_joins">Filtering Joins</li><li class="tocify-item list-group-item" data-unique="set_operations">Set operations</li></ul><li class="tocify-item list-group-item" data-unique="merging_data_sets">Merging data sets</li></ul></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="additional_resources_and_further_reading">Additional Resources and Further Reading</li></ul><ul id="tocify-header7" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="references">References</li></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://rare-phoenix-161610.appspot.com/secured/index.html">Data Preprocessing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-sticky-note-o"></span>
+     
+    Courseware
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html">Module 1 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html">Module 2 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html">Module 3 Notes</a>
+    </li>
+    <li class="active">
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html">Module 4 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html">Module 5 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html">Module 6 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07.html">Module 7 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html">Module 8 Notes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Skill Builders
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder.html">Module 1 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder_Answers.html">Module 1 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder.html">Module 2 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder_Answers.html">Module 2 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder.html">Module 3 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder_Answers.html">Module 3 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder.html">Module 4 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder_Answers.html">Module 4 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html">Module 5 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder_Answers.html">Module 5 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder.html">Module 6 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder_Answers.html">Module 6 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder.html">Module 7 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder_Answers.html">Module 7 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08_Skill_Builder.html">Module 8 Skill Builders</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-television"></span>
+     
+    Demos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_01_Demo.html">Week 1 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_02_Demo.html">Week 2 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_03_Demo.html">Week 3 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_04_Demo.html">Week 4 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_05_Demo.html">Week 5 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html">Week 6 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_07_Demo.html">Week 7 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_09_Demo.html">Week 9 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_10_Demo.html">Week 10 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_11_Demo.html">Week 11 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 12 Demonstration Slides</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    Worksheets
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet.html">Week 1 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet_answers.html">Week 1 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet.html">Week 2 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet_answers.html">Week 2 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet.html">Week 3 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet_answers.html">Week 3 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet.html">Week 4 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet_answers.html">Week 4 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet.html">Week 5 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet_answers.html">Week 5 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet.html">Week 6 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet_answers.html">Week 6 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet.html">Week 7 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet_answers.html">Week 7 Class Worksheet Answers</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet.html">Week 9 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet_answers.html">Week 9 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet.html">Week 10 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet_answers.html">Week 10 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_11_Worksheet.html">Week 11 Class Worksheet</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://drive.google.com/drive/folders/1ya4COg_QeZG4t6XNRUehAq8FrRxRuxHb?usp=sharing">
+    <span class="fa fa-folder-open"></span>
+     
+    Drive
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/secured/DataCamp.html">
+    <span class="fa fa-star"></span>
+     
+    DataCamp
+  </a>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://docs.google.com/document/d/177dgNO0PezpPfqEtXziUlkmVLxfq5dORDnxAb03YIRM/edit?usp=sharing">Course Information Pack</a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/1D9wnlYth2rJirg5CMBiwnuew0-ZjagCPNrBxmr2Qn8A/edit?usp=sharing">Course Feedback</a>
+    </li>
+    <li>
+      <a href="https://my.rmit.edu.au/">MyRMIT (Canvas)</a>
+    </li>
+    <li>
+      <a href="http://www1.rmit.edu.au/students/mydesktop">MyDesktop</a>
+    </li>
+    <li>
+      <a href="https://sites.google.com/rmit.edu.au/postgradanalytics">
+        <span class="fa fa-circle-o"></span>
+         
+        Portal
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://math2349.slack.com/">
+    <span class="fa fa-slack"></span>
+     
+    Slack
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/logout.htm">
+    <span class="fa fa-sign-out"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Module 4</h1>
+<h3 class="subtitle"><em>Tidy and Manipulate: Tidy Data Principles and Manipulating Data</em></h3>
+<h4 class="author"><em>Dr.&nbsp;Anil Dolgun</em></h4>
+<h4 class="date"><em>Last updated: 16 May, 2018</em></h4>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<div name="overview" data-unique="overview"></div><h1>Overview</h1>
+<div id="summary" class="section level2">
+<div name="summary" data-unique="summary"></div><h2>Summary</h2>
+<p>In this module, I will present Hadley Wickham’s “<strong>Tidy Data</strong>” principles (<span class="citation">Hadley Wickham and others (2014)</span>) and discuss the main benefits of following these principles. We will identify most common problems with messy data sets and explore the powerful <code>tidyr</code> package to tidy messy data sets. Lastly, we will cover the “<strong>Grammar of Data Manipulation</strong>” - the powerful <code>dplyr</code> package using examples.<br>
+</p>
+<p>In preparation of this section, I heavily used our recommended textbooks (<span class="citation">Boehmke (2016)</span> and <span class="citation">Hadley Wickham and Grolemund (2016)</span>), <a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">R Studio’s Data wrangling with R and RStudio webinar</a>, <a href="http://rare-phoenix-161610.appspot.com/secured/(https://cran.r-project.org/web/packages/tidyr/tidyr.pdf)">tidyr</a> and <a href="https://cran.r-project.org/web/packages/dplyr/dplyr.pdf">dplyr</a> reference manuals (<span class="citation">H Wickham (2014)</span>, <span class="citation">H Wickham et al. (2017)</span>).</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<div name="learning_objectives" data-unique="learning_objectives"></div><h2>Learning Objectives</h2>
+<p><img src="./Module 4_files/module4.png" width="20%" align="right" alt="dplyr"> <img src="./Module 4_files/tidyr.png" width="20%" align="right" alt="Tidyr"></p>
+<p>The learning objectives of this module are as follows:<br>
+</p>
+<ul>
+<li>Identify and understand the underlying tidy data principles.</li>
+<li>Identify common problems with messy data sets.</li>
+<li>Learn how to get your data into a tidy form using <code>tidyr</code> package tools.</li>
+<li>Learn data manipulation tasks (i.e., select, filter, arrange, join, merge) using the powerful <code>dplyr</code> package functions.</li>
+</ul>
+</div>
+</div>
+<div id="tidy-data-principles" class="section level1">
+<div name="tidy_data_principles" data-unique="tidy_data_principles"></div><h1>Tidy Data Principles</h1>
+<p>“<em>Happy families are all alike; every unhappy family is unhappy in its own way.</em>” —Leo Tolstoy<br>
+</p>
+<p>“<em>Tidy datasets are all alike, but every messy dataset is messy in its own way.</em>” —Hadley Wickham</p>
+<p>Hadley Wickham wrote a stellar article called “<a href="https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf">Tidy Data</a>” in Journal of Statistical Software to provide a standard way to organise data values within a dataset. In his paper, Wickham developed the framework of “<strong>Tidy Data Principles</strong>” to provide a standard and consistent way of storing data that makes transformation, visualization, and modeling easier. Along with the tidy data principles, he also developed the <code>tidyr</code> package, which provides a bunch of tools to help tidy up the messy data sets.</p>
+<p>In this section, I will give you a practical introduction to tidy data and the accompanying tools in the <code>tidyr</code> package. If you’d like to learn more about the underlying theory, you might enjoy the <a href="https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf">Tidy Data paper</a> published in the Journal of Statistical Software.</p>
+<p>Once you’ve imported and understand the structure of your data, it is a good idea to tidy it. Tidying your data means storing it in a consistent form that matches the semantics of the data set with the way it is stored.<br>
+</p>
+<p>In brief, there are three interrelated rules which make a dataset tidy (<span class="citation">Hadley Wickham and Grolemund (2016)</span>). In tidy data:</p>
+<ol style="list-style-type: decimal">
+<li>Each variable must have its own column.</li>
+<li>Each observation must have its own row.</li>
+<li>Each value must have its own cell.</li>
+</ol>
+<p>The following illustration taken from <span class="citation">Hadley Wickham and Grolemund (2016)</span> shows these three rules visually:&nbsp;</p>
+<img src="./Module 4_files/tidyrules.png" width="100%" align="center" alt="Tidy rules">
+<figcaption>
+Fig1. Tidy data rules: variables are in columns, observations are in rows, and values are in cells (taken from <span class="citation">Hadley Wickham and Grolemund (2016)</span>)
+</figcaption>
+<p><br>
+</p>
+<p>To demonstrate these rules, we will use a simple data set:</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>Student Name</th>
+<th>Math</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Anna</td>
+<td>86</td>
+<td>90</td>
+</tr>
+<tr class="even">
+<td>John</td>
+<td>43</td>
+<td>75</td>
+</tr>
+<tr class="odd">
+<td>Catherine</td>
+<td>80</td>
+<td>82</td>
+</tr>
+</tbody>
+</table>
+<p>In this simple data, actually there are three variables illustrated in the following table:</p>
+<p><img src="./Module 4_files/table1tidy.png" width="80%" align="center" alt="Untidy data"></p>
+<p>First variable is “Student Name”, the second is “Subject” that represents whether the subject is Maths or English, and the third one is the “Grade” information inside the data matrix.</p>
+<p>When we arrange each variable in columns and each student in a row then we will get the tidy version of the same data as follows:</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>No</th>
+<th>Student Name</th>
+<th>Subject</th>
+<th>Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Anna</td>
+<td>Math</td>
+<td>86</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>John</td>
+<td>Math</td>
+<td>43</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Catherine</td>
+<td>Math</td>
+<td>80</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Anna</td>
+<td>English</td>
+<td>90</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>John</td>
+<td>English</td>
+<td>75</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Catherine</td>
+<td>English</td>
+<td>82</td>
+</tr>
+</tbody>
+</table>
+<p>You can see that in this format, each variable forms a column and each student forms a row:</p>
+<p><img src="./Module 4_files/table2tidy.png" width="80%" align="center" alt="Tidy data"></p>
+<p><strong>The main advantage of using tidy principles</strong> is it allows R’s vectorised nature to shine. One can extract variables in a simple, standard way. Have a look at the following illustration. Which would you rather work with?</p>
+<p><img src="./Module 4_files/tidyvsuntidy.png" width="100%" align="center" alt="Tidy vs. Untidy data"></p>
+<p>Tidy data is important because the consistent structure lets you focus on questions about the data, not fighting to get the data into the right form for different functions.</p>
+</div>
+<div id="common-problems-with-messy-data-sets" class="section level1">
+<div name="common_problems_with_messy_data_sets" data-unique="common_problems_with_messy_data_sets"></div><h1>Common problems with messy data sets</h1>
+<p>Real data sets can, and often do, violate the three principles of tidy data. This section describes most common problems with messy datasets:</p>
+<ul>
+<li><strong>Column headers are values, not variable names:</strong> A common problem is a dataset where some (or all) of the column names are not names of variables, but values of a variable. Here is an illustration of this problem:</li>
+</ul>
+<p><img src="./Module 4_files/table3tidy2.png" width="90%" align="center" alt="Tidy data"></p>
+<p>In the example above, the column names 2011, 2012, and 2013 represent values of the year variable, and each row represents three observations, not one.</p>
+<ul>
+<li><strong>Multiple variables are stored in rows:</strong> The opposite of the first problem can also occur when the variables are stored in rows. In such cases, cells include the actual variables, not the observations. Here is an example:</li>
+</ul>
+<p><img src="./Module 4_files/table4tidy2.png" width="90%" align="center" alt="Tidy data"></p>
+<ul>
+<li><strong>Multiple variables are stored in one column:</strong> Sometimes, one column stores the information of two or more variables. Therefore, multiple variables can be extracted from one column. Here is an illustration of this problem:</li>
+</ul>
+<p><img src="./Module 4_files/table5tidy.png" width="90%" align="center" alt="Tidy data"></p>
+<p>In the example above, date variable actually stores three new variable information, namely; year, month, and day.</p>
+<ul>
+<li><strong>Multiple columns forms a variable:</strong> You may need to combine multiple columns into a single column to form a new variable. Here is an illustration of this problem:</li>
+</ul>
+<p><img src="./Module 4_files/table6tidy.png" width="90%" align="center" alt="Tidy data"></p>
+<p>In this example, the year, month, and day variables are given separately in the original data, but assume that we need to combine these three columns into a single variable called date for the time series analysis.</p>
+</div>
+<div id="the-tidyr-package" class="section level1">
+<div name="the_tidyr_package" data-unique="the_tidyr_package"></div><h1>The <code>tidyr</code> package</h1>
+<p>Most messy datasets can be tidied with a small set of tools. The <code>tidyr</code> package is a very useful package that reshapes the layout of data sets. In the next section you will be introduced the <code>tidyr</code> package and its functions with examples.</p>
+<p>We will use the subset of the data contained in the World Health Organization Global Tuberculosis Report (also given in <code>tidyr</code> package documentation) to illustrate the functions in the <code>tidyr</code> package. Before loading this dataset, we need to install and load the package using:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># install the tidyr package</span>
+
+install.packages(<span class="hljs-string">"tidyr"</span>)
+
+<span class="hljs-comment"># load the tidyr package</span>
+
+<span class="hljs-keyword">library</span>(tidyr)</code></pre>
+<p>The following example shows the same data organized in four different ways (<code>table1</code>, <code>table2</code>, <code>table3</code>, <code>table4a</code>, <code>table4b</code>). Each dataset shows the same values of four variables, <code>country</code>, <code>year</code>, <code>population</code>, and cases, but each dataset organizes the values in a different way as follows:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># load the example data organized in four different ways</span>
+
+table1</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<pre class="r"><code class="hljs">table2</code></pre>
+<pre><code class="hljs">## # A tibble: 12 x 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+<pre class="r"><code class="hljs">table3</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 3
+##   country      year rate             
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
+<pre class="r"><code class="hljs">table4a</code></pre>
+<pre><code class="hljs">## # A tibble: 3 x 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+<pre class="r"><code class="hljs">table4b</code></pre>
+<pre><code class="hljs">## # A tibble: 3 x 3
+##   country         `1999`     `2000`
+## * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan   19987071   20595360
+## 2 Brazil       172006362  174504898
+## 3 China       1272915272 1280428583</code></pre>
+<div id="gather-function" class="section level2">
+<div name="gather()_function" data-unique="gather()_function"></div><h2><code>gather()</code> function</h2>
+<p>When column names are values instead of variables, we need to gather or in other words, we need to transform data from wide to long format.</p>
+<img src="./Module 4_files/gather1.png" width="90%" align="center">
+<figcaption>
+Fig2. gather() – tidyr by <a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">RStudio</a>
+</figcaption>
+<p><br>
+To illustrate <code>gather()</code> function, let’s have a look at the data given in <code>table4a</code>:</p>
+<pre class="r"><code class="hljs">table4a</code></pre>
+<pre><code class="hljs">## # A tibble: 3 x 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+<p>To tidy a dataset like this, we need to gather those columns into a new pair of variables using <code>gather()</code> function. To describe that operation we need three parameters:</p>
+<ul>
+<li><p>The set of columns that represent values, not variables. In this example, those are the columns 1999 and 2000.</p></li>
+<li><p>The name of the variable whose values form the column names. The argument name <code>key</code> stands for that variable. For this example, the <code>key</code> argument is <code>year</code>.</p></li>
+<li><p>The name of the variable whose values are spread over the cells. The argument name <code>value</code> stands for that, in this example <code>value</code> argument is the number of cases.</p></li>
+</ul>
+<pre class="r"><code class="hljs">table4a %&gt;%
+gather(`1999`, `2000`, key = <span class="hljs-string">"year"</span>, value = <span class="hljs-string">"cases"</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 3
+##   country     year   cases
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+## 1 Afghanistan 1999     745
+## 2 Brazil      1999   37737
+## 3 China       1999  212258
+## 4 Afghanistan 2000    2666
+## 5 Brazil      2000   80488
+## 6 China       2000  213766</code></pre>
+<p>Note that in the R code below, I used the pipe (<code>%&gt;%</code>) operator to take the data first, then use the gather function. The <code>tidyr</code> package functions can also be used along with the pipe operator <code>%&gt;%</code> which is developed by Stefan Milton Bache in the R package <code>magrittr</code>. Remember that the functions in <code>tidyr</code> can be used without the pipe operator. For more information on the pipe operator, its pros and cons please refer to Dr.&nbsp;James Baglin’s <a href="https://astral-theory-157510.appspot.com/secured/RBootcamp_Course_01.html#pipes">R Bootcamp Course 1</a>.</p>
+</div>
+<div id="spread-function" class="section level2">
+<div name="spread()_function" data-unique="spread()_function"></div><h2><code>spread()</code> function</h2>
+<p>When multiple variables are stored in rows, the <code>spread()</code> function generates columns from rows. In other words, it transforms data from long to wide format. The <code>spread()</code> function is the opposite of <code>gather()</code> function.</p>
+<img src="./Module 4_files/spread1.png" width="90%" align="center">
+<figcaption>
+Fig3. spread() – tidyr by <a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">RStudio</a>
+</figcaption>
+<p><br>
+</p>
+<p>Let’s look at <code>table2</code> and assume that we are required to turn long formatted data into wide formatted data by generating columns from cases.</p>
+<pre class="r"><code class="hljs">table2</code></pre>
+<pre><code class="hljs">## # A tibble: 12 x 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+<p>To tidy this up, we first analyse the representation in a similar way to <code>gather()</code>. This time, however, we only need two parameters:</p>
+<ul>
+<li><p>The column that contains variable names, the key column. Here, it’s type.</p></li>
+<li><p>The column that contains values forms multiple variables, the value column. Here, it’s count.</p></li>
+</ul>
+<p>Once we’ve figured that out, we can use <code>spread()</code>:</p>
+<pre class="r"><code class="hljs">spread(table2, key = type, value = count)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>Now, <code>cases</code> and <code>population</code> are separate variables given in columns, therefore, generating a new variable from these two variables is super easy! Let’s calculate the Tuberculosis rate (rate = cases/population) using:</p>
+<pre class="r"><code class="hljs">rate = spread(table2, key = type, value = count)$cases / spread(table2, key = type, value = count)$population
+
+rate</code></pre>
+<pre><code class="hljs">## [1] 0.0000372741 0.0001294466 0.0002193930 0.0004612363 0.0001667495
+## [6] 0.0001669488</code></pre>
+</div>
+<div id="separate-function" class="section level2">
+<div name="separate()_function" data-unique="separate()_function"></div><h2><code>separate()</code> function</h2>
+<p>The <code>separate()</code> function is used when multiple variables are stored in one column and you want to split them according to the separator character. Take <code>table3</code> for example:</p>
+<pre class="r"><code class="hljs">table3</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 3
+##   country      year rate             
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
+<p>The rate column contains both cases and population variables, and we need to split it into two variables.</p>
+<pre class="r"><code class="hljs">table3 %&gt;%
+separate(rate, into = c(<span class="hljs-string">"cases"</span>, <span class="hljs-string">"population"</span>), sep = <span class="hljs-string">"/"</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 4
+##   country      year cases  population
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     
+## 1 Afghanistan  1999 745    19987071  
+## 2 Afghanistan  2000 2666   20595360  
+## 3 Brazil       1999 37737  172006362 
+## 4 Brazil       2000 80488  174504898 
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+</div>
+<div id="unite-function" class="section level2">
+<div name="unite()_function" data-unique="unite()_function"></div><h2><code>unite()</code> function</h2>
+<p><code>unite()</code> is the inverse of <code>separate()</code> function. One can use it to combine multiple columns into a single column.<br>
+Now let’s look at this data:</p>
+<pre class="r"><code class="hljs">table5</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 4
+##   country     century year  rate             
+## * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            
+## 1 Afghanistan 19      99    745/19987071     
+## 2 Afghanistan 20      00    2666/20595360    
+## 3 Brazil      19      99    37737/172006362  
+## 4 Brazil      20      00    80488/174504898  
+## 5 China       19      99    212258/1272915272
+## 6 China       20      00    213766/1280428583</code></pre>
+<p>In this data, assume that we want to combine the <code>century</code> and <code>year</code> variables into one variable called <code>new_year</code>. We can use <code>unite()</code> for this purpose:</p>
+<pre class="r"><code class="hljs">table5 %&gt;%
+unite(new_year, century, year)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 3
+##   country     new_year rate             
+##   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;            
+## 1 Afghanistan 19_99    745/19987071     
+## 2 Afghanistan 20_00    2666/20595360    
+## 3 Brazil      19_99    37737/172006362  
+## 4 Brazil      20_00    80488/174504898  
+## 5 China       19_99    212258/1272915272
+## 6 China       20_00    213766/1280428583</code></pre>
+<p>In this case we also need to use the <code>sep</code> argument. The default will place an underscore <code>(_)</code> between the values from different columns. Here we don’t want any separator so we use <code>sep=""</code> as follows:</p>
+<pre class="r"><code class="hljs">table5 %&gt;%
+unite(new_year, century, year, sep=<span class="hljs-string">""</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 6 x 3
+##   country     new_year rate             
+##   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;            
+## 1 Afghanistan 1999     745/19987071     
+## 2 Afghanistan 2000     2666/20595360    
+## 3 Brazil      1999     37737/172006362  
+## 4 Brazil      2000     80488/174504898  
+## 5 China       1999     212258/1272915272
+## 6 China       2000     213766/1280428583</code></pre>
+</div>
+</div>
+<div id="the-dplyr-package" class="section level1">
+<div name="the_dplyr_package" data-unique="the_dplyr_package"></div><h1>The <code>dplyr</code> package</h1>
+<p>Although there are many data manipulation packages/functions in R, most of them lack consistent coding and the ability to easily flow together. This leads to difficult-to-read nested functions and/or choppy code. Hadley Wickham developed the very popular <code>dplyr</code> package to make these data processing tasks more efficient along with a syntax that is consistent and easier to remember and read.</p>
+<p>The <code>dplyr</code> package is regarded as the “<strong>Grammar of Data Manipulation</strong>” in R and it originates from the popular <code>plyr</code> package, also developed by Hadley Wickham. The <code>plyr</code> package covers data manipulation for a range of data structures (i.e., data frames, lists, arrays) whereas <code>dplyr</code> is focused on data frames. In this section, I will focus on <code>dplyr</code>. We will cover primary functions inside <code>dplyr</code> for data manipulation. The full list of capabilities can be found in the <a href="https://cran.r-project.org/web/packages/dplyr/dplyr.pdf">dplyr reference manual</a>. I highly recommend going through it as there are many great functions provided by <code>dplyr</code> that I will not cover here.</p>
+<p>I will use the <code>nycflights13</code> package and the data sets to explore the basic data manipulation verbs of <code>dplyr</code>. First, we need to install and load the <code>dplyr</code> and <code>nycflights13</code> packages using:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># install the dplyr package</span>
+
+install.packages(<span class="hljs-string">"dplyr"</span>)
+
+<span class="hljs-comment"># load the dplyr package</span>
+
+<span class="hljs-keyword">library</span>(dplyr)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># install the nycflights13 package for the data set</span>
+
+install.packages(<span class="hljs-string">"nycflights13"</span>)
+
+<span class="hljs-comment"># load the nycflights13 package</span>
+
+<span class="hljs-keyword">library</span>(nycflights13)</code></pre>
+<p>The <code>nycflights13</code> package includes five data frames containing information on airlines, airports, flights, weather, and planes that departed from New York City in 2013. The data comes from the <a href="https://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&amp;Link=0">US Bureau of Transportation Statistics</a>. Let’s look at the <code>nycflights13::flights</code> data set:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># View the flights data set under the nycflights13 package</span>
+
+nycflights13::flights</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>You might notice that this data frame prints differently from other data frames you might have used in the past: it only shows the first few rows and all the columns that fit on one screen. It prints differently because it’s a tibble. Tibbles are a modern take on data frames. They are slightly tweaked to work better with <code>tidyr</code> and <code>dplyr</code> (and many others). For now, you don’t need to worry about the differences (you may refer to <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">here</a> to learn more on tibbles.</p>
+<div id="select-function" class="section level2">
+<div name="select()_function" data-unique="select()_function"></div><h2><code>select()</code> function</h2>
+<p>When working with a large data frame, often we want to only assess specific variables. The <code>select()</code> function allows us to select and/or rename variables.</p>
+<p>In addition to the existing functions like <code>:</code> and <code>c()</code>, there are a number of special functions that can work inside select. Some of them are given in the following table.</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>Functions</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-</code></td>
+<td>Select everything but</td>
+</tr>
+<tr class="even">
+<td><code>:</code></td>
+<td>Select range</td>
+</tr>
+<tr class="odd">
+<td><code>contains()</code></td>
+<td>Select columns whose name contains a character string</td>
+</tr>
+<tr class="even">
+<td><code>ends_with()</code></td>
+<td>Select columns whose name ends with a string</td>
+</tr>
+<tr class="odd">
+<td><code>everything()</code></td>
+<td>Select every column</td>
+</tr>
+<tr class="even">
+<td><code>matches()</code></td>
+<td>Select columns whose name matches a regular expression</td>
+</tr>
+<tr class="odd">
+<td><code>num_range()</code></td>
+<td>Select columns named x1, x2, x3, x4, x5</td>
+</tr>
+<tr class="even">
+<td><code>one_of()</code></td>
+<td>Select columns whose names are in a group of names</td>
+</tr>
+<tr class="odd">
+<td><code>starts_with()</code></td>
+<td>Select columns whose name starts with a character string</td>
+</tr>
+</tbody>
+</table>
+<p>To illustrate we will use the <code>flights</code> data. Let’s select year, month and day columns using:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Select columns: year, month and day</span>
+
+select(flights, year, month, day)</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # ... with 336,766 more rows</code></pre>
+<p>Like <code>tidyr</code>, <code>dplyr</code> can also work with the <code>%&gt;%</code> operator. Therefore, we can use the following code to do the same selection:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Select columns by name using the pipe operator</span>
+
+flights %&gt;%  select(year, month, day)</code></pre>
+<p>Here are other examples of using <code>select()</code>:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Select all columns between year and day (inclusive)</span>
+
+flights %&gt;% select(year:day)</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # ... with 336,766 more rows</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Select all columns except those from year to day (inclusive)</span>
+
+flights %&gt;% select( -(year:day) )</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 16
+##    dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay
+##       &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;
+##  1      517            515         2      830            819        11
+##  2      533            529         4      850            830        20
+##  3      542            540         2      923            850        33
+##  4      544            545        -1     1004           1022       -18
+##  5      554            600        -6      812            837       -25
+##  6      554            558        -4      740            728        12
+##  7      555            600        -5      913            854        19
+##  8      557            600        -3      709            723       -14
+##  9      557            600        -3      838            846        -8
+## 10      558            600        -2      753            745         8
+## # ... with 336,766 more rows, and 10 more variables: carrier &lt;chr&gt;,
+## #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
+## #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>For more information on available functions in <code>select</code>, type <code>?select</code>.</p>
+</div>
+<div id="filter-function" class="section level2">
+<div name="filter()_function" data-unique="filter()_function"></div><h2><code>filter()</code> function</h2>
+<p>The <code>filter()</code> function allows us to identify or select observations in which a particular variable matches a specific value/condition. The condition in the <code>filter()</code> function can be any kind of logical comparison and Boolean operators, such as:</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>Less than</td>
+</tr>
+<tr class="even">
+<td><code>&gt;</code></td>
+<td>Greater than</td>
+</tr>
+<tr class="odd">
+<td><code>==</code></td>
+<td>Equal to</td>
+</tr>
+<tr class="even">
+<td><code>&lt;=</code></td>
+<td>Less than or equal to</td>
+</tr>
+<tr class="odd">
+<td><code>&gt;=</code></td>
+<td>Greater than or equal to</td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td><code>%in%</code></td>
+<td>Group membership</td>
+</tr>
+<tr class="even">
+<td><code>is.na</code></td>
+<td>Is NA</td>
+</tr>
+<tr class="odd">
+<td><code>!is.na</code></td>
+<td>Is not NA</td>
+</tr>
+<tr class="even">
+<td><code>&amp;</code></td>
+<td>Boolean and</td>
+</tr>
+<tr class="odd">
+<td><code>|</code></td>
+<td>Boolean or</td>
+</tr>
+<tr class="even">
+<td><code>xor</code></td>
+<td>exactly or</td>
+</tr>
+<tr class="odd">
+<td><code>!</code></td>
+<td>not</td>
+</tr>
+<tr class="even">
+<td><code>any</code></td>
+<td>any true</td>
+</tr>
+<tr class="odd">
+<td><code>all</code></td>
+<td>all true</td>
+</tr>
+</tbody>
+</table>
+<p>For example, we can select all flights on January 1st using the following:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Filter the flights on January 1st</span>
+
+flights %&gt;%  filter( month == <span class="hljs-number">1</span>, day == <span class="hljs-number">1</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 842 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 832 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>When you run that line of code, <code>dplyr</code> executes the filtering operation and returns a new data frame. <code>dplyr</code> functions never modify their inputs, so if you want to save the result, you’ll need to use the assignment operator, <code>&lt;-</code>:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Filter the flights on January 1st and save this result </span>
+
+jan1 &lt;- flights %&gt;%  filter( month == <span class="hljs-number">1</span>, day == <span class="hljs-number">1</span>)</code></pre>
+<p>The following code finds all flights that departed in November <strong>or</strong> December:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Filter the flights departing in November or December</span>
+
+flights %&gt;%  filter( month == <span class="hljs-number">11</span> | month == <span class="hljs-number">12</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 55,403 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013    11     1        5           2359         6      352
+##  2  2013    11     1       35           2250       105      123
+##  3  2013    11     1      455            500        -5      641
+##  4  2013    11     1      539            545        -6      856
+##  5  2013    11     1      542            545        -3      831
+##  6  2013    11     1      549            600       -11      912
+##  7  2013    11     1      550            600       -10      705
+##  8  2013    11     1      554            600        -6      659
+##  9  2013    11     1      554            600        -6      826
+## 10  2013    11     1      554            600        -6      749
+## # ... with 55,393 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>If we want to find flights that aren’t delayed (on arrival or departure) by more than two hours, we can use either of the following two filters:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Filter the flights that aren't delayed (on arrival or departure) by more than two hours</span>
+
+flights %&gt;% filter( arr_delay &lt;= <span class="hljs-number">120</span>, dep_delay &lt;= <span class="hljs-number">120</span> )</code></pre>
+<pre><code class="hljs">## # A tibble: 316,050 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 316,040 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># gives the same result as above</span>
+
+flights %&gt;% filter( ! (arr_delay &gt; <span class="hljs-number">120</span> | dep_delay &gt; <span class="hljs-number">120</span>) )</code></pre>
+<p>For more information on available functions in <code>filter</code>, type <code>?filter</code>.</p>
+</div>
+<div id="arrange-function" class="section level2">
+<div name="arrange()_function" data-unique="arrange()_function"></div><h2><code>arrange()</code> function</h2>
+<p>The <code>arrange()</code> function allows us to order data by variables in ascending or descending order.<br>
+Let’s order the <code>flights</code> data in an ascending order using year, month and day.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Order the data set according to three variables</span>
+
+flights %&gt;% arrange( year, month, day )</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>We can also apply a descending argument to rank-order from highest to lowest. The following shows the same data but in descending order by applying <code>desc()</code> within the <code>arrange()</code> function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Order the data set according to departure time in a descending order</span>
+
+flights %&gt;% arrange( desc(dep_time) )</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013    10    30     2400           2359         1      327
+##  2  2013    11    27     2400           2359         1      515
+##  3  2013    12     5     2400           2359         1      427
+##  4  2013    12     9     2400           2359         1      432
+##  5  2013    12     9     2400           2250        70       59
+##  6  2013    12    13     2400           2359         1      432
+##  7  2013    12    19     2400           2359         1      434
+##  8  2013    12    29     2400           1700       420      302
+##  9  2013     2     7     2400           2359         1      432
+## 10  2013     2     7     2400           2359         1      443
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>Note that the missing values will always be sorted at the end.</p>
+</div>
+<div id="mutate-function" class="section level2">
+<div name="mutate()_function" data-unique="mutate()_function"></div><h2><code>mutate()</code> function</h2>
+<p>The <code>mutate()</code> function allows us to add new variables while preserving the existing variables. Here is the list of some useful functions used inside the <code>mutate()</code>.</p>
+<table style="width:67%;" class="table table-condensed">
+<colgroup>
+<col width="18%">
+<col width="48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Functions</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pmin()</code>, <code>pmax()</code></td>
+<td>Element wise min and max</td>
+</tr>
+<tr class="even">
+<td><code>cummin()</code>, <code>cummax()</code></td>
+<td>Cumulative min and max</td>
+</tr>
+<tr class="odd">
+<td><code>cumsum()</code>, <code>cumprod()</code></td>
+<td>Cumulative sum and product</td>
+</tr>
+<tr class="even">
+<td><code>between()</code></td>
+<td>Are values between a and b?</td>
+</tr>
+<tr class="odd">
+<td><code>cume_dist()</code></td>
+<td>Cumulative distribution of values</td>
+</tr>
+<tr class="even">
+<td><code>cumall()</code>, <code>cumany()</code></td>
+<td>Cumulative all and any</td>
+</tr>
+<tr class="odd">
+<td><code>cummean()</code></td>
+<td>Cumulative mean</td>
+</tr>
+<tr class="even">
+<td><code>lead()</code>, <code>lag()</code></td>
+<td>Copy with values one position</td>
+</tr>
+<tr class="odd">
+<td><code>ntile()</code></td>
+<td>Bin vector into n buckets</td>
+</tr>
+<tr class="even">
+<td><code>dense_rank()</code>, <code>min_rank()</code>, <code>percent_rank()</code>, <code>row_number()</code></td>
+<td>Various ranking methods</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Select specific variables from the data and store them in a new data frame</span>
+
+flights_sub&lt;- flights %&gt;% select(arr_delay, dep_delay, air_time)
+
+
+<span class="hljs-comment"># Create new variables "gain", "hours", and "gain_per_hour"</span>
+
+mutate(flights_sub,
+        gain = arr_delay - dep_delay,
+        hours = air_time / <span class="hljs-number">60</span>,
+        gain_per_hour = gain / hours
+)</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 6
+##    arr_delay dep_delay air_time  gain hours gain_per_hour
+##        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
+##  1        11         2      227     9 3.78           2.38
+##  2        20         4      227    16 3.78           4.23
+##  3        33         2      160    31 2.67          11.6 
+##  4       -18        -1      183   -17 3.05          -5.57
+##  5       -25        -6      116   -19 1.93          -9.83
+##  6        12        -4      150    16 2.5            6.4 
+##  7        19        -5      158    24 2.63           9.11
+##  8       -14        -3       53   -11 0.883        -12.5 
+##  9        -8        -3      140    -5 2.33          -2.14
+## 10         8        -2      138    10 2.3            4.35
+## # ... with 336,766 more rows</code></pre>
+<p>Note that the new variables will appear at the end of the <code>flights</code> data frame.<br>
+An alternative to <code>mutate()</code> is <code>transmute()</code> which creates a new variable and then drops the other variables. Essentially, it allows you to create a new data frame with only the new variables created.</p>
+<pre class="r"><code class="hljs">transmute(flights,
+          gain = arr_delay - dep_delay,
+          hours = air_time / <span class="hljs-number">60</span>,
+          gain_per_hour = gain / hours
+)</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 3
+##     gain hours gain_per_hour
+##    &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
+##  1     9 3.78           2.38
+##  2    16 3.78           4.23
+##  3    31 2.67          11.6 
+##  4   -17 3.05          -5.57
+##  5   -19 1.93          -9.83
+##  6    16 2.5            6.4 
+##  7    24 2.63           9.11
+##  8   -11 0.883        -12.5 
+##  9    -5 2.33          -2.14
+## 10    10 2.3            4.35
+## # ... with 336,766 more rows</code></pre>
+</div>
+<div id="summarise-or-summarize-function" class="section level2">
+<div name="summarise()_(or_summarize()_)_function" data-unique="summarise()_(or_summarize()_)_function"></div><h2><code>summarise()</code> (or <code>summarize()</code> ) function</h2>
+<p>The <code>summarise()</code> (a.k.a. <code>summarize()</code> ) function allows us to perform the majority of summary statistics when performing exploratory data analysis. Here is the list of some useful functions that can be used inside <code>summary()</code>.</p>
+<table class="table table-condensed">
+<thead>
+<tr class="header">
+<th>Functions</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>min()</code>, <code>max()</code></td>
+<td>Minimum and maximum values</td>
+</tr>
+<tr class="even">
+<td><code>mean()</code></td>
+<td>Mean value</td>
+</tr>
+<tr class="odd">
+<td><code>median()</code></td>
+<td>Median value</td>
+</tr>
+<tr class="even">
+<td><code>sum()</code></td>
+<td>Sum of values</td>
+</tr>
+<tr class="odd">
+<td><code>var()</code>, <code>sd()</code></td>
+<td>Variance and standard deviation of a vector</td>
+</tr>
+<tr class="even">
+<td><code>first()</code></td>
+<td>First value in a vector</td>
+</tr>
+<tr class="odd">
+<td><code>last()</code></td>
+<td>Last value in a vector</td>
+</tr>
+<tr class="even">
+<td><code>nth()</code></td>
+<td>Nth value in a vector</td>
+</tr>
+<tr class="odd">
+<td><code>n()</code></td>
+<td>The number of values in a vector</td>
+</tr>
+<tr class="even">
+<td><code>n_distinct()</code></td>
+<td>The number of distinct values in a vector</td>
+</tr>
+</tbody>
+</table>
+<p>All functions in this list takes a vector of values and returns a single summary value. We can get the average delay using:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Take the average of departure delay</span>
+
+summarise(flights, delay = mean(dep_delay, na.rm = <span class="hljs-literal">TRUE</span>))</code></pre>
+<pre><code class="hljs">## # A tibble: 1 x 1
+##   delay
+##   &lt;dbl&gt;
+## 1  12.6</code></pre>
+<p>The <code>na.rm = TRUE</code> argument in <code>mean()</code> function will allow us to ignore the missing values while computing the average. We will revisit <code>na.rm = TRUE</code> argument in the next section (in Module 5).<br>
+</p>
+</div>
+<div id="group_by-summarise-function" class="section level2">
+<div name="group_by()_+_summarise()_function" data-unique="group_by()_+_summarise()_function"></div><h2><code>group_by()</code> + <code>summarise()</code> function</h2>
+<p>If we want to take the summary statistics grouped by a variable, then we need to use another function called <code>group_by()</code>. <code>group_by()</code> along with <code>summarise()</code> functions will allow us to take and compare summary statistics grouped by a factor variable.<br>
+</p>
+<p>For example, if we applied exactly the same code to a data frame grouped by destination, we can get the average delay for each destination.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Group by destination and use summarise to calculate the mean delay</span>
+
+flights %&gt;% group_by(dest) %&gt;% summarise(mean_delay = mean(dep_delay, na.rm = <span class="hljs-literal">TRUE</span>))</code></pre>
+<pre><code class="hljs">## # A tibble: 105 x 2
+##    dest  mean_delay
+##    &lt;chr&gt;      &lt;dbl&gt;
+##  1 ABQ        13.7 
+##  2 ACK         6.46
+##  3 ALB        23.6 
+##  4 ANC        12.9 
+##  5 ATL        12.5 
+##  6 AUS        13.0 
+##  7 AVL         8.19
+##  8 BDL        17.7 
+##  9 BGR        19.5 
+## 10 BHM        29.7 
+## # ... with 95 more rows</code></pre>
+</div>
+<div id="joining-data-sets" class="section level2">
+<div name="joining_data_sets" data-unique="joining_data_sets"></div><h2>Joining data sets</h2>
+<p>Often we have separate data frames that can have common and differing variables for similar observations. These types of data sets are referred as relational data sets.</p>
+<p>We will revisit the <code>nycflights13</code> package. The <code>nycflights13</code> package contains the following data sets:</p>
+<ul>
+<li><code>airlines</code> includes the names of airline companies and their abbreviated code:</li>
+</ul>
+<pre class="r"><code class="hljs">airlines</code></pre>
+<pre><code class="hljs">## # A tibble: 16 x 2
+##    carrier name                       
+##    &lt;chr&gt;   &lt;chr&gt;                      
+##  1 9E      Endeavor Air Inc.          
+##  2 AA      American Airlines Inc.     
+##  3 AS      Alaska Airlines Inc.       
+##  4 B6      JetBlue Airways            
+##  5 DL      Delta Air Lines Inc.       
+##  6 EV      ExpressJet Airlines Inc.   
+##  7 F9      Frontier Airlines Inc.     
+##  8 FL      AirTran Airways Corporation
+##  9 HA      Hawaiian Airlines Inc.     
+## 10 MQ      Envoy Air                  
+## 11 OO      SkyWest Airlines Inc.      
+## 12 UA      United Air Lines Inc.      
+## 13 US      US Airways Inc.            
+## 14 VX      Virgin America             
+## 15 WN      Southwest Airlines Co.     
+## 16 YV      Mesa Airlines Inc.</code></pre>
+<ul>
+<li><code>airports</code> gives information about each airport, identified by the airport code (<code>faa</code>):</li>
+</ul>
+<pre class="r"><code class="hljs">airports</code></pre>
+<pre><code class="hljs">## # A tibble: 1,458 x 8
+##    faa   name                   lat    lon   alt    tz dst   tzone        
+##    &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;        
+##  1 04G   Lansdowne Airport     41.1  -80.6  1044    -5 A     America/New_…
+##  2 06A   Moton Field Municip…  32.5  -85.7   264    -6 A     America/Chic…
+##  3 06C   Schaumburg Regional   42.0  -88.1   801    -6 A     America/Chic…
+##  4 06N   Randall Airport       41.4  -74.4   523    -5 A     America/New_…
+##  5 09J   Jekyll Island Airpo…  31.1  -81.4    11    -5 A     America/New_…
+##  6 0A9   Elizabethton Munici…  36.4  -82.2  1593    -5 A     America/New_…
+##  7 0G6   Williams County Air…  41.5  -84.5   730    -5 A     America/New_…
+##  8 0G7   Finger Lakes Region…  42.9  -76.8   492    -5 A     America/New_…
+##  9 0P2   Shoestring Aviation…  39.8  -76.6  1000    -5 U     America/New_…
+## 10 0S9   Jefferson County In…  48.1 -123.    108    -8 A     America/Los_…
+## # ... with 1,448 more rows</code></pre>
+<ul>
+<li><code>planes</code> gives information about each plane, identified by its tail number (<code>tailnum</code>):</li>
+</ul>
+<pre class="r"><code class="hljs">planes</code></pre>
+<pre><code class="hljs">## # A tibble: 3,322 x 9
+##    tailnum  year type      manufacturer  model  engines seats speed engine
+##    &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
+##  1 N10156   2004 Fixed wi… EMBRAER       EMB-1…       2    55    NA Turbo…
+##  2 N102UW   1998 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+##  3 N103US   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+##  4 N104UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+##  5 N10575   2002 Fixed wi… EMBRAER       EMB-1…       2    55    NA Turbo…
+##  6 N105UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+##  7 N107US   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+##  8 N108UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+##  9 N109UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+## 10 N110UW   1999 Fixed wi… AIRBUS INDUS… A320-…       2   182    NA Turbo…
+## # ... with 3,312 more rows</code></pre>
+<ul>
+<li><code>weather</code> gives the weather conditions at each NYC airport for each hour:</li>
+</ul>
+<pre class="r"><code class="hljs">weather</code></pre>
+<pre><code class="hljs">## # A tibble: 26,130 x 15
+##    origin  year month   day  hour  temp  dewp humid wind_dir wind_speed
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1 EWR     2013     1     1     0  37.0  21.9  54.0      230      10.4 
+##  2 EWR     2013     1     1     1  37.0  21.9  54.0      230      13.8 
+##  3 EWR     2013     1     1     2  37.9  21.9  52.1      230      12.7 
+##  4 EWR     2013     1     1     3  37.9  23    54.5      230      13.8 
+##  5 EWR     2013     1     1     4  37.9  24.1  57.0      240      15.0 
+##  6 EWR     2013     1     1     6  39.0  26.1  59.4      270      10.4 
+##  7 EWR     2013     1     1     7  39.0  27.0  61.6      250       8.06
+##  8 EWR     2013     1     1     8  39.0  28.0  64.4      240      11.5 
+##  9 EWR     2013     1     1     9  39.9  28.0  62.2      250      12.7 
+## 10 EWR     2013     1     1    10  39.0  28.0  64.4      260      12.7 
+## # ... with 26,120 more rows, and 5 more variables: wind_gust &lt;dbl&gt;,
+## #   precip &lt;dbl&gt;, pressure &lt;dbl&gt;, visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>Therefore, for <code>nycflights13</code>:</p>
+<ul>
+<li><code>flights</code> connects to <code>planes</code> via a single variable, <code>tailnum</code>.</li>
+<li><code>flights</code> connects to <code>airlines</code> through the <code>carrier</code> variable.</li>
+<li><code>flights</code> connects to <code>airports</code> in two ways: via the <code>origin</code> and <code>dest</code> variables.</li>
+<li><code>flights</code> connects to <code>weather</code> via <code>origin</code> (the location), and <code>year</code>, <code>month</code>, <code>day</code>, and <code>hour</code> (the time).</li>
+</ul>
+<p>The following illustration (adapted from <span class="citation">Hadley Wickham and Grolemund (2016)</span>) shows the relationship between <code>flights</code>, <code>airlines</code>, <code>airports</code> and <code>weather</code> data sets, and the key variables connecting them.</p>
+<img src="./Module 4_files/relational.png" width="90%" align="centre" alt="nycflights13">
+<figcaption>
+Fig4. Chain of relations between the data sets in <code>nycflights13</code> (taken from <span class="citation">Hadley Wickham and Grolemund (2016)</span>)
+</figcaption>
+<p><br>
+</p>
+<p>The <code>dplyr</code> package offers three sets of joining functions to provide alternative ways to join data frames. These are:</p>
+<ul>
+<li><p><strong>Mutating joins:</strong> This group of functions add new variables to one data frame from matching observations in another.</p></li>
+<li><p><strong>Filtering joins:</strong> This group of functions filter observations from one data frame based on whether or not they match an observation in the other table.</p></li>
+<li><p><strong>Set operations:</strong> This group of functions treat observations as if they were set elements.</p></li>
+</ul>
+<div id="mutating-joins" class="section level3">
+<div name="mutating_joins" data-unique="mutating_joins"></div><h3>Mutating joins</h3>
+<p>The first set of functions to combine data sets is called “<strong>mutating joins</strong>”. <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, and <code>full_join()</code> functions are in this group. The mutating join functions allow you to combine variables from two tables and add variables to the right (like <code>mutate</code>).</p>
+<p>Note that, mutating join functions add variables to the right. Therefore if you have a lot of variables already in the data, the new variables won’t get printed out. As <code>flights</code> data set has many variables, I will first create a narrower data set named <code>flights2</code> to easily show you what’s going on in the examples.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Create a new data set named flights2 including year - day, hour, origin, destination, tailnum and carrier variables</span>
+
+flights2 &lt;- flights %&gt;% select(year:day, hour, origin, dest, tailnum, carrier)
+
+flights2</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 8
+##     year month   day  hour origin dest  tailnum carrier
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  
+##  1  2013     1     1     5 EWR    IAH   N14228  UA     
+##  2  2013     1     1     5 LGA    IAH   N24211  UA     
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA     
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6     
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL     
+##  6  2013     1     1     5 EWR    ORD   N39463  UA     
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6     
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV     
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6     
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA     
+## # ... with 336,766 more rows</code></pre>
+<p>Imagine you want to add the full airline name (from airlines) to the <code>flights2</code> data. You can combine the <code>airlines</code> and <code>flights2</code> data frames using <code>left_join()</code>. Remember that we will need a key variable and the key variable will be the <code>carrier</code> variable to join these two data sets.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># joining flights2 and airlines using the carrier name.</span>
+
+flights2 %&gt;% left_join(airlines, by = <span class="hljs-string">"carrier"</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 9
+##     year month   day  hour origin dest  tailnum carrier name              
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;             
+##  1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Lines …
+##  2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Lines …
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlines…
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways   
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines I…
+##  6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Lines …
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways   
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlin…
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways   
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines…
+## # ... with 336,766 more rows</code></pre>
+</div>
+<div id="controlling-how-the-data-sets-are-matched" class="section level3">
+<div name="controlling_how_the_data_sets_are_matched" data-unique="controlling_how_the_data_sets_are_matched"></div><h3>Controlling how the data sets are matched</h3>
+<p>Each mutating join takes an argument <code>by</code> that controls which variables are used to match observations in the two data sets. There are a few ways to specify it:<br>
+</p>
+<ul>
+<li><code>NULL</code>: The default value. <code>dplyr</code> will will use all variables that appear in both tables, a natural join. For example, the <code>flights</code> and <code>weather</code> data sets match on their common variables: <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code> and <code>origin</code>.</li>
+</ul>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># joining flights2 and weather using the default key = NULL.</span>
+
+flights2 %&gt;% left_join(weather)</code></pre>
+<pre><code class="hljs">## Joining, by = c("year", "month", "day", "hour", "origin")</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 18
+##     year month   day  hour origin dest  tailnum carrier  temp  dewp humid
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  2013     1     1     5 EWR    IAH   N14228  UA       NA    NA    NA  
+##  2  2013     1     1     5 LGA    IAH   N24211  UA       NA    NA    NA  
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA       NA    NA    NA  
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6       NA    NA    NA  
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  26.1  57.3
+##  6  2013     1     1     5 EWR    ORD   N39463  UA       NA    NA    NA  
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6       39.0  26.1  59.4
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV       39.9  26.1  57.3
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6       39.0  26.1  59.4
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA       39.9  26.1  57.3
+## # ... with 336,766 more rows, and 7 more variables: wind_dir &lt;dbl&gt;,
+## #   wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,
+## #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<ul>
+<li>A character vector, <code>by = "x"</code>. For example, <code>flights</code> and <code>planes</code> have <code>tailnum</code> in common.</li>
+</ul>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># joining flights2 and planes using the tailnum.</span>
+flights2 %&gt;% left_join(planes, by = <span class="hljs-string">"tailnum"</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 16
+##    year.x month   day  hour origin dest  tailnum carrier year.y type      
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;     
+##  1   2013     1     1     5 EWR    IAH   N14228  UA        1999 Fixed win…
+##  2   2013     1     1     5 LGA    IAH   N24211  UA        1998 Fixed win…
+##  3   2013     1     1     5 JFK    MIA   N619AA  AA        1990 Fixed win…
+##  4   2013     1     1     5 JFK    BQN   N804JB  B6        2012 Fixed win…
+##  5   2013     1     1     6 LGA    ATL   N668DN  DL        1991 Fixed win…
+##  6   2013     1     1     5 EWR    ORD   N39463  UA        2012 Fixed win…
+##  7   2013     1     1     6 EWR    FLL   N516JB  B6        2000 Fixed win…
+##  8   2013     1     1     6 LGA    IAD   N829AS  EV        1998 Fixed win…
+##  9   2013     1     1     6 JFK    MCO   N593JB  B6        2004 Fixed win…
+## 10   2013     1     1     6 LGA    ORD   N3ALAA  AA          NA &lt;NA&gt;      
+## # ... with 336,766 more rows, and 6 more variables: manufacturer &lt;chr&gt;,
+## #   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+<ul>
+<li>A named character vector: <code>by = c("a" = "b")</code>. This will match variable <code>a</code> in table <code>x</code> to variable <code>b</code> in table <code>y</code>. This is useful when the key variables in both data sets are not given the same name. For example, flights data set has the destination airport code (<code>dest</code>) and the airports data set has the <code>faa</code> code. Essentially these two are equivalent. Therefore we can use the following to join these two data sets:</li>
+</ul>
+<pre class="r"><code class="hljs">flights2 %&gt;% left_join(airports, c(<span class="hljs-string">"dest"</span> = <span class="hljs-string">"faa"</span>))</code></pre>
+<pre><code class="hljs">## # A tibble: 336,776 x 15
+##     year month   day  hour origin dest  tailnum carrier name     lat   lon
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1  2013     1     1     5 EWR    IAH   N14228  UA      Georg…  30.0 -95.3
+##  2  2013     1     1     5 LGA    IAH   N24211  UA      Georg…  30.0 -95.3
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami…  25.8 -80.3
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6      &lt;NA&gt;    NA    NA  
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL      Harts…  33.6 -84.4
+##  6  2013     1     1     5 EWR    ORD   N39463  UA      Chica…  42.0 -87.9
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6      Fort …  26.1 -80.2
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV      Washi…  38.9 -77.5
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6      Orlan…  28.4 -81.3
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Chica…  42.0 -87.9
+## # ... with 336,766 more rows, and 4 more variables: alt &lt;int&gt;, tz &lt;dbl&gt;,
+## #   dst &lt;chr&gt;, tzone &lt;chr&gt;</code></pre>
+<p>To help you learn how different types of <code>xxx_join()</code> functions work, I’m going to use Hadley Wickham’s visual representation (<span class="citation">Hadley Wickham and Grolemund (2016)</span>):</p>
+<p><img src="./Module 4_files/mutatingjoin.png" width="90%" align="centre" alt="Mutating Joins"><br>
+</p>
+</div>
+<div id="filtering-joins" class="section level3">
+<div name="filtering_joins" data-unique="filtering_joins"></div><h3>Filtering Joins</h3>
+<p>Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types of filtering joins: <code>semi_join()</code> and anti_join().<br>
+</p>
+<ul>
+<li><p><code>semi_join(x, y)</code>: keeps all observations in x that have a match in y.</p></li>
+<li><p><code>anti_join(x, y)</code>: drops all observations in x that have a match in y.</p></li>
+</ul>
+<p>Anti-joins are useful for diagnosing join mismatches. For example, when connecting <code>flights</code> and <code>planes</code>, you might be interested to know that there are many flights that don’t have a match in planes:</p>
+<pre class="r"><code class="hljs">flights %&gt;% anti_join(planes, by = <span class="hljs-string">"tailnum"</span>) %&gt;% count(tailnum, sort = <span class="hljs-literal">TRUE</span>)</code></pre>
+<pre><code class="hljs">## # A tibble: 722 x 2
+##    tailnum     n
+##    &lt;chr&gt;   &lt;int&gt;
+##  1 &lt;NA&gt;     2512
+##  2 N725MQ    575
+##  3 N722MQ    513
+##  4 N723MQ    507
+##  5 N713MQ    483
+##  6 N735MQ    396
+##  7 N0EGMQ    371
+##  8 N534MQ    364
+##  9 N542MQ    363
+## 10 N531MQ    349
+## # ... with 712 more rows</code></pre>
+<p>Here is a visual representation of these two filtering joins.</p>
+<p><img src="./Module 4_files/filteringjoin.png" width="90%" align="centre" alt="Filtering Joins"></p>
+</div>
+<div id="set-operations" class="section level3">
+<div name="set_operations" data-unique="set_operations"></div><h3>Set operations</h3>
+<p>Set operations expect the x and y inputs to have the same variables and treat the observations like sets. There are three types of set operations:<br>
+</p>
+<ul>
+<li><p><code>intersect(x, y)</code>: return only observations in both x and y.</p></li>
+<li><p><code>union(x, y)</code>: return unique observations in x and y.</p></li>
+<li><p><code>setdiff(x, y)</code>: return observations in x, but not in y.</p></li>
+</ul>
+<p><img src="./Module 4_files/setoperators.png" width="90%" align="centre" alt="Set operators"><br>
+</p>
+</div>
+</div>
+<div id="merging-data-sets" class="section level2">
+<div name="merging_data_sets" data-unique="merging_data_sets"></div><h2>Merging data sets</h2>
+<p>Often you may just need to merge data frames by row and column. The <code>bind_rows()</code> and <code>bind_cols()</code> bind the multiple data frames by row and column, respectively.<br>
+</p>
+<ul>
+<li><p><code>bind_rows(x, y)</code>: Append y to x as new rows.</p></li>
+<li><p><code>bind_cols(x, y)</code>: Append y to x as new columns.</p></li>
+</ul>
+<p><img src="./Module 4_files/mergindatasets.png" width="90%" align="centre" alt="Merging Data sets"><br>
+</p>
+</div>
+</div>
+<div id="additional-resources-and-further-reading" class="section level1">
+<div name="additional_resources_and_further_reading" data-unique="additional_resources_and_further_reading"></div><h1>Additional Resources and Further Reading</h1>
+<p>You can refer to the <a href="https://cran.r-project.org/web/packages/tidyr/tidyr.pdf"><code>tidyr</code> package manual</a> (<span class="citation">H Wickham (2014)</span>) and the <a href="https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf">Tidy Data paper</a> for a detailed information on tidy data principles and <code>tidyr</code> package.</p>
+<p>Our recommended textbooks (<span class="citation">Boehmke (2016)</span> and <span class="citation">Hadley Wickham and Grolemund (2016)</span>), <a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">R Studio’s Data wrangling with R and RStudio webinar</a>, and <a href="https://cran.r-project.org/web/packages/dplyr/dplyr.pdf">dplyr</a> reference manual (<span class="citation">H Wickham (2014)</span>, <span class="citation">H Wickham et al. (2017)</span>) are great resources to excel your knowledge in Data Manipulation with <code>dplyr</code>.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<div name="references" data-unique="references"></div><h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-boehmke2016">
+<p>Boehmke, Bradley C. 2016. <em>Data Wrangling with R</em>. Springer.</p>
+</div>
+<div id="ref-wickham2014tidyr">
+<p>Wickham, H. 2014. “Tidyr: Easily Tidy Data with Spread () and Gather () Functions. R Package.” <em>Version 0.2. 0. Available at Http://CRAN. R-Project. Org/Package= Tidyr [Verified 7 June 2016]</em>.</p>
+</div>
+<div id="ref-wickham2017dplyr">
+<p>Wickham, H, R Francois, L Henry, and K Müller. 2017. “Dplyr: A Grammar of Data Manipulation. R Package Version 0.7. 0.” URL https://CRAN. R-project. org/package= dplyr.</p>
+</div>
+<div id="ref-wickham2016r">
+<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. “ O’Reilly Media, Inc.”</p>
+</div>
+<div id="ref-wickham2014tidy">
+<p>Wickham, Hadley, and others. 2014. “Tidy Data.” <em>Journal of Statistical Software</em> 59 (10). Foundation for Open Access Statistics: 1–23.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>

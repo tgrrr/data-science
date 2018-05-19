@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://rare-phoenix-161610.appspot.com/secured/Module_02.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+<meta name="author" content="Dr. Anil Dolgun">
+
+
+<title>Module 2</title>
+
+<script src="./Module 2_files/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Module 2_files/cosmo.min.css" rel="stylesheet">
+<script src="./Module 2_files/bootstrap.min.js"></script>
+<script src="./Module 2_files/html5shiv.min.js"></script>
+<script src="./Module 2_files/respond.min.js"></script>
+<script src="./Module 2_files/jquery-ui.min.js"></script>
+<link href="./Module 2_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Module 2_files/jquery.tocify.js"></script>
+<script src="./Module 2_files/tabsets.js"></script>
+<link href="./Module 2_files/textmate.css" rel="stylesheet">
+<script src="./Module 2_files/highlight.js"></script>
+<link href="./Module 2_files/font-awesome.min.css" rel="stylesheet">
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Module 2_files/style.css" type="text/css">
+
+<script type="text/javascript" src="./Module 2_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="overview">Overview</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="summary">Summary</li><li class="tocify-item list-group-item" data-unique="learning_objectives">Learning Objectives</li></ul></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="readingimporting_data">Reading/Importing Data</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="reading_data_from_text_files">Reading Data from Text Files</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="base_r_functions">Base R functions</li><li class="tocify-item list-group-item" data-unique="readr_package_functions">readr package functions</li></ul></ul></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="reading_data_from_excel_files">Reading Data from Excel files</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="the_xlsx_package">The xlsx Package</li><li class="tocify-item list-group-item" data-unique="the_readxl_package">The readxl Package</li></ul></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="importing_data_from_statistical_software">Importing Data from statistical software</li></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="reading_from_databases">Reading from Databases</li></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="scraping_data_from_web">Scraping Data from Web</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="importing_tabular_and_excel_files_stored_online">Importing Tabular and Excel files Stored Online</li><li class="tocify-item list-group-item" data-unique="scraping_html_table_data">Scraping HTML Table Data</li></ul></ul><ul id="tocify-header7" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="exporting_data">Exporting Data</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="exporting_data_to_text_files">Exporting Data to text files</li><ul class="tocify-subheader list-group" data-tag="3"><li class="tocify-item list-group-item" data-unique="base_r_functions19">Base R functions</li><li class="tocify-item list-group-item" data-unique="the_readr_package">The readr Package</li></ul><li class="tocify-item list-group-item" data-unique="exporting_data_to_excel_files">Exporting Data to Excel files</li></ul></ul><ul id="tocify-header8" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="saving_data_as_an_r_object_file">Saving Data as an R object File</li></ul><ul id="tocify-header9" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="additional_resources_and_further_reading">Additional Resources and Further Reading</li></ul><ul id="tocify-header10" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="references">References</li></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://rare-phoenix-161610.appspot.com/secured/index.html">Data Preprocessing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-sticky-note-o"></span>
+     
+    Courseware
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html">Module 1 Notes</a>
+    </li>
+    <li class="active">
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html">Module 2 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html">Module 3 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html">Module 4 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html">Module 5 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html">Module 6 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07.html">Module 7 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html">Module 8 Notes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Skill Builders
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder.html">Module 1 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder_Answers.html">Module 1 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder.html">Module 2 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder_Answers.html">Module 2 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder.html">Module 3 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder_Answers.html">Module 3 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder.html">Module 4 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder_Answers.html">Module 4 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html">Module 5 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder_Answers.html">Module 5 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder.html">Module 6 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder_Answers.html">Module 6 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder.html">Module 7 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder_Answers.html">Module 7 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08_Skill_Builder.html">Module 8 Skill Builders</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-television"></span>
+     
+    Demos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_01_Demo.html">Week 1 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_02_Demo.html">Week 2 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_03_Demo.html">Week 3 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_04_Demo.html">Week 4 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_05_Demo.html">Week 5 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html">Week 6 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_07_Demo.html">Week 7 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_09_Demo.html">Week 9 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_10_Demo.html">Week 10 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_11_Demo.html">Week 11 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 12 Demonstration Slides</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    Worksheets
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet.html">Week 1 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet_answers.html">Week 1 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet.html">Week 2 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet_answers.html">Week 2 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet.html">Week 3 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet_answers.html">Week 3 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet.html">Week 4 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet_answers.html">Week 4 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet.html">Week 5 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet_answers.html">Week 5 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet.html">Week 6 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet_answers.html">Week 6 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet.html">Week 7 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet_answers.html">Week 7 Class Worksheet Answers</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet.html">Week 9 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet_answers.html">Week 9 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet.html">Week 10 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet_answers.html">Week 10 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_11_Worksheet.html">Week 11 Class Worksheet</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://drive.google.com/drive/folders/1ya4COg_QeZG4t6XNRUehAq8FrRxRuxHb?usp=sharing">
+    <span class="fa fa-folder-open"></span>
+     
+    Drive
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/secured/DataCamp.html">
+    <span class="fa fa-star"></span>
+     
+    DataCamp
+  </a>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://docs.google.com/document/d/177dgNO0PezpPfqEtXziUlkmVLxfq5dORDnxAb03YIRM/edit?usp=sharing">Course Information Pack</a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/1D9wnlYth2rJirg5CMBiwnuew0-ZjagCPNrBxmr2Qn8A/edit?usp=sharing">Course Feedback</a>
+    </li>
+    <li>
+      <a href="https://my.rmit.edu.au/">MyRMIT (Canvas)</a>
+    </li>
+    <li>
+      <a href="http://www1.rmit.edu.au/students/mydesktop">MyDesktop</a>
+    </li>
+    <li>
+      <a href="https://sites.google.com/rmit.edu.au/postgradanalytics">
+        <span class="fa fa-circle-o"></span>
+         
+        Portal
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://math2349.slack.com/">
+    <span class="fa fa-slack"></span>
+     
+    Slack
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/logout.htm">
+    <span class="fa fa-sign-out"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Module 2</h1>
+<h3 class="subtitle"><em>Get: Importing, Scraping and Exporting Data with R</em></h3>
+<h4 class="author"><em>Dr.&nbsp;Anil Dolgun</em></h4>
+<h4 class="date"><em>Last updated: 16 May, 2018</em></h4>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<div name="overview" data-unique="overview"></div><h1>Overview</h1>
+<div id="summary" class="section level2">
+<div name="summary" data-unique="summary"></div><h2>Summary</h2>
+<p>All statistical work begins with data, and most data are stuck inside files and databases. Data are arriving from multiple sources at an alarming rate and analysts and organisations are seeking ways to leverage these new sources of information. Consequently, analysts need to understand how to get data from these sources. Module 2 will cover the process of importing data, scraping data from web, and exporting data. First we will cover the basics of importing tabular and spreadsheet data (i.e., .txt, .xls, .csv files). Then, we will cover how to acquire data sets from other statistical software (i.e., Stata, SPSS, or SAS) and databases. As the modern data analysis techniques often include scraping data files stored online, we will also cover the fundamentals of web scraping using R. Lastly, the equally important process of getting data out of R, in other words, exporting data will be covered.</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<div name="learning_objectives" data-unique="learning_objectives"></div><h2>Learning Objectives</h2>
+<p><img src="./Module 2_files/module2.png" width="20%" align="right" alt="readr"></p>
+<p>The learning objectives of this module are as follows:</p>
+<ul>
+<li>Understand how to get data from tabular and spreadsheet files</li>
+<li>Understand how to get data from statistical software and databases</li>
+<li>Learn how to scrape data files stored online</li>
+<li>Learn how to export to tabular and spreadsheet files</li>
+<li>Learn how to save R objects</li>
+</ul>
+</div>
+</div>
+<div id="readingimporting-data" class="section level1">
+<div name="readingimporting_data" data-unique="readingimporting_data"></div><h1>Reading/Importing Data</h1>
+<p>The first step in any data preprocessing task is to “<strong>GET</strong>” the data. Data can come from many resources but two of the most common format of the data sources include text and Excel files. In addition to text and Excel files, there are other ways that data can be stored and exchanged. Commercial statistical software such as SPSS, SAS, Stata, and Minitab often have the option to store data in a specific format for that software. In addition, analysts commonly use databases to store large quantities of data. R has good support to work with these additional options. In this section, we will cover how to import data into R by reading data from text files, Excel spreadsheets, commercial statistical software data files and databases. Moreover, we will cover how to load data from saved R object files for holding or transferring data that has been processed in R. In addition to the commonly used base R functions to perform data importing, we will also cover functions from the popular <code>readr</code>, <code>xlsx</code>, <code>readxl</code> and <code>foreign</code> packages.</p>
+<div id="reading-data-from-text-files" class="section level2">
+<div name="reading_data_from_text_files" data-unique="reading_data_from_text_files"></div><h2>Reading Data from Text Files</h2>
+<p>Text files are a popular way to hold and exchange tabular data as almost any data application supports exporting data to the CSV (or other text file) formats. Text file formats use delimiters to separate the different elements in a line, and each line of data is in its own line in the text file. Therefore, importing different kinds of text files can follow a fairly consistent process once you have identified the delimiter.<br>
+</p>
+<p>There are two main groups of functions that we can use to read in text files:<br>
+</p>
+<ul>
+<li><strong>Base R functions</strong>: The Base R functions are the built-in functions that are already available when you download R and RStudio. Therefore, in order to use Base R functions, you do not need to install or load any packages before using them.<br>
+</li>
+<li><strong><code>readr</code> package functions</strong>: Compared to the equivalent base functions, <code>readr</code> functions are around 10× faster. In order to use <code>readr</code> package functions, you need to install and load the <code>readr</code> package using the following commands:</li>
+</ul>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"readr"</span>)
+<span class="hljs-keyword">library</span>(readr)</code></pre>
+<div id="base-r-functions" class="section level3">
+<div name="base_r_functions" data-unique="base_r_functions"></div><h3>Base R functions</h3>
+<p><code>read.table()</code> is a multi-purpose function in base R for importing data. The functions <code>read.csv()</code> and <code>read.delim()</code> are special cases of <code>read.table()</code> in which the defaults have been adjusted for efficiency. To illustrate these functions let’s work with a CSV (.csv comma separated values) file called iris.csv which is located in our data repository. Before running any command note that we need to save this data set into our working directory or we need to explicitly define the location of this data set.<br>
+</p>
+<p>In the first example, let’s assume that we have already downloaded iris.csv data and saved it in our working directory. Then, the following command will read iris.csv data and store it in the <code>iris1</code> object in R as a data frame:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># The following command assumes that the iris.csv file is located in the working directory</span>
+
+iris1 &lt;- read.csv(<span class="hljs-string">"iris.csv"</span>)</code></pre>
+<p>Now we can view the header of the <code>iris1</code> object using <code>head()</code> function as follows:</p>
+<pre class="r"><code class="hljs">head(iris1)</code></pre>
+<pre><code class="hljs">##   X Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1 1          5.1         3.5          1.4         0.2  setosa
+## 2 2          4.9         3.0          1.4         0.2  setosa
+## 3 3          4.7         3.2          1.3         0.2  setosa
+## 4 4          4.6         3.1          1.5         0.2  setosa
+## 5 5          5.0         3.6          1.4         0.2  setosa
+## 6 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>In the second example, let’s assume that the iris.csv data is located in another file path (i.e.&nbsp;on desktop under data folder) “~/Desktop/data/iris.csv”. Now we need to provide a direct path to our .csv file depending on where it is located:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># The following command assumes that the iris.csv file is located in the "~/Desktop/data/iris.csv" path</span>
+
+iris2 &lt;- read.csv(file=<span class="hljs-string">"~/Desktop/data/iris.csv"</span>)</code></pre>
+<p>Another suggested option is to set the working directory where the data is located. To illustrate, assume that the iris.csv is located on your desktop under data folder and you want to set this directory as the working directory. The <code>setwd()</code> function will set the working directory to the folder “data”:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Set the working directory to "~/Desktop/data"</span>
+
+setwd(<span class="hljs-string">"~/Desktop/data"</span>)</code></pre>
+<p>Remember that you must use the forward slash <em>/</em> or double backslash <em>\\</em> in R while specifying the file path. The Windows format of single backslash will not work.</p>
+<p>After that you can read the iris.csv data using:</p>
+<pre class="r"><code class="hljs">iris3 &lt;- read.csv(<span class="hljs-string">"iris.csv"</span>)</code></pre>
+<p>Let’s check the header of the <code>iris3</code> object:</p>
+<pre class="r"><code class="hljs">head(iris3)</code></pre>
+<pre><code class="hljs">##   X Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1 1          5.1         3.5          1.4         0.2  setosa
+## 2 2          4.9         3.0          1.4         0.2  setosa
+## 3 3          4.7         3.2          1.3         0.2  setosa
+## 4 4          4.6         3.1          1.5         0.2  setosa
+## 5 5          5.0         3.6          1.4         0.2  setosa
+## 6 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>You can also compactly display the structure of an R object using <code>str()</code> function.</p>
+<pre class="r"><code class="hljs">str(iris3)</code></pre>
+<pre><code class="hljs">## 'data.frame':    150 obs. of  6 variables:
+##  $ X           : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>Note that when we assess the structure of the iris data set that we read in, <code>Species</code> is automatically coerced to a factor variable with three levels.<br>
+</p>
+<p>However, we may want to read in <code>Species</code> as a character variable rather than a factor. We can take care of this by changing the <code>stringsAsFactors</code> argument. The default has <code>stringsAsFactors = TRUE</code>; however, setting it equal to FALSE will read in the variable as a character variable.</p>
+<pre class="r"><code class="hljs">iris4 &lt;- read.csv(<span class="hljs-string">"iris.csv"</span>, stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+str(iris4)</code></pre>
+<pre><code class="hljs">## 'data.frame':    150 obs. of  6 variables:
+##  $ X           : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : chr  "setosa" "setosa" "setosa" "setosa" ...</code></pre>
+<p>Now, you can see that the variable <code>Species</code> is a character variable.<br>
+</p>
+<p>As previously stated <code>read.csv</code> is just a wrapper for <code>read.table</code> but with adjusted default arguments. Therefore, we can use <code>read.table</code> to read in this same data. The two arguments we need to be aware of are the field separator (<code>sep</code>) and the argument indicating whether the file contains the names of the variables as its first line (<code>header</code>). In <code>read.table</code> the defaults are <code>sep = ""</code> and <code>header = FALSE</code> whereas in <code>read.csv</code> the defaults are <code>sep = ","</code> and <code>header = TRUE</code>.</p>
+<p>Therefore, we can also use the <code>read.table</code> function to read the iris.csv data. The extra thing we need to specify is the separator and the header arguments. As the data is comma separated and the first line contains the names of the variables, we will use <code>sep = ","</code> and <code>header = TRUE</code> options:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># provides same results as read.csv above</span>
+iris5 &lt;- read.table(<span class="hljs-string">"iris.csv"</span>, sep=<span class="hljs-string">","</span>, header = <span class="hljs-literal">TRUE</span>, stringsAsFactors = <span class="hljs-literal">FALSE</span>)</code></pre>
+<p>Sometimes, it could happen that the file extension is .csv, but the data is not comma separated; rather, a semicolon (;) or any other symbol is used as a separator. In that case, we can still use the <code>read.csv()</code> function, but in this case we have to specify the separator.<br>
+</p>
+<p>Let’s look at the example with a semicolon-separated file named iris_semicolon.csv which is located under our data repository. After downloading and saving this data file in our working directory we can use:</p>
+<pre class="r"><code class="hljs">iris6 &lt;- read.csv(<span class="hljs-string">"iris_semicolon.csv"</span>, sep=<span class="hljs-string">";"</span>, stringsAsFactors = <span class="hljs-literal">FALSE</span>)</code></pre>
+<p>Similarly, if the values are tab separated (.txt file), we can use <code>read.csv()</code> with <code>sep= "\t"</code>. Alternatively, we can use <code>read.table()</code>. The following is an example:</p>
+<pre class="r"><code class="hljs">iris7 &lt;- read.csv(<span class="hljs-string">"iris_tab.txt"</span>,sep=<span class="hljs-string">"\t"</span>)
+
+<span class="hljs-comment"># provides same results as read.csv above</span>
+
+iris8 &lt;- read.table(<span class="hljs-string">"iris_tab.txt"</span>,header=<span class="hljs-literal">TRUE</span>)</code></pre>
+<p>Notice that here when we used <code>read.table()</code>, we had to specify whether the variable name is present or not, using the argument <code>header=TRUE</code>.</p>
+</div>
+<div id="readr-package-functions" class="section level3">
+<div name="readr_package_functions" data-unique="readr_package_functions"></div><h3><code>readr</code> package functions</h3>
+<p>Compared to the equivalent base functions, <code>readr</code> functions are around 10× faster. This will make a remarkable difference in reading time if you have a very large data set. They bring consistency to importing functions, they produce data frames in a data.table format which are easier to view for large data sets. The default settings for <code>readr</code> function removes the hassles of <code>stringsAsFactors</code>, and they are more flexible in column specification.<br>
+</p>
+<p><code>read_csv()</code> function is equivalent to base R ’s <code>read.csv()</code> function (note the distinction between these two function names!). According to <span class="citation">Boehmke (2016)</span>, there are two main differences between <code>read_csv()</code> and base R ’s <code>read.csv()</code> functions:<br>
+</p>
+<ul>
+<li><p><code>read_csv()</code> maintains the full variable name whereas, <code>read.csv</code> eliminates any spaces in variable names and fills it with ‘.’</p></li>
+<li><p><code>read_csv()</code> automatically sets <code>stringsAsFactors = FALSE</code>, which can be a controversial topic.</p></li>
+</ul>
+<p>Let’s read the <code>iris.csv</code> file using <code>read_csv</code> function. Note that the <code>readr</code> package needs to be installed and loaded before using this function.</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"readr"</span>)
+<span class="hljs-keyword">library</span>(readr)</code></pre>
+<pre class="r"><code class="hljs">iris9 &lt;- read_csv(<span class="hljs-string">"iris.csv"</span>)</code></pre>
+<pre><code class="hljs">## Parsed with column specification:
+## cols(
+##   X1 = col_integer(),
+##   Sepal.Length = col_double(),
+##   Sepal.Width = col_double(),
+##   Petal.Length = col_double(),
+##   Petal.Width = col_double(),
+##   Species = col_character()
+## )</code></pre>
+<p>When we use <code>read_csv</code> function, “Parsed with column specification” information will be reported. Note that this is not a warning and nothing is wrong with your code. You can use this information to check the variable types in your data set. If you want to make adjustments in the variable types, you can use additional arguments inside this function. For more information on <code>read_csv</code> function and its arguments type <code>help(read_csv)</code>.</p>
+<p>The good news is RStudio has the built in “<strong>Import Dataset</strong>” dialog box on the upper-right “<strong>Environment</strong>” pane. You can also use this dialog box to import a wide range of file types including csv, Excel, SPSS, SAS and Stata data files. The following slides (taken from Dr.&nbsp;James Baglin’s <a href="https://astral-theory-157510.appspot.com/secured/RBootcamp_Course_02.html#importing_and_exporting_data">R Bootcamp notes</a>) will briefly explain the process of importing a csv data set into RStudio.</p>
+<iframe width="560" height="315" align="center" src="./Module 2_files/embed.html" frameborder="0" allowfullscreen="" style="display:block;margin:5px auto;text-align:center;">
+</iframe>
+<p>More information on <code>readr</code> package can be found here: <a href="https://cran.r-project.org/web/packages/readr/readr.pdf" class="uri">https://cran.r-project.org/web/packages/readr/readr.pdf</a></p>
+</div>
+</div>
+</div>
+<div id="reading-data-from-excel-files" class="section level1">
+<div name="reading_data_from_excel_files" data-unique="reading_data_from_excel_files"></div><h1>Reading Data from Excel files</h1>
+<p>Excel is the most commonly used spreadsheet software. Therefore, it’s important to be able to efficiently import and export data from Excel. Often, users prefer to export the Excel data file as a .csv file and then import into R using <code>read.csv</code> or <code>read_csv</code>. However, this is not an efficient way to import Excel files. In this section, you will learn how to import data directly from Excel using two different packages, the <code>xlsx</code> and <code>readxl</code> packages.</p>
+<div id="the-xlsx-package" class="section level2">
+<div name="the_xlsx_package" data-unique="the_xlsx_package"></div><h2>The <code>xlsx</code> Package</h2>
+<p>If the dataset is stored in the .xls or .xlsx format, we have to use certain R packages to import those files; one of the packages is <code>xlsx</code>, which is designed to read files formatted as .xlsx.</p>
+<p>To illustrate, we will use the same data from the previous section which is saved as an .xlsx file in our working directory. To import the Excel data we simply install and load <code>xlsx</code> package and use the <code>read.xlsx()</code> function:</p>
+<pre class="r"><code class="hljs">install.packages(xlsx)
+<span class="hljs-keyword">library</span>(xlsx)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># read in xlsx worksheet using a sheet index or name</span>
+
+iris10&lt;- read.xlsx(<span class="hljs-string">"iris.xlsx"</span>, sheetName = <span class="hljs-string">"iris"</span>)</code></pre>
+<p>Often people make notes, comments, headers, etc. at the beginning or end of the Excel files which we may not want to include. If we want to read in data that starts further down in the Excel worksheet we can include the <code>startRow</code> argument.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># read in xlsx worksheet starting from third row.</span>
+
+iris11&lt;- read.xlsx(<span class="hljs-string">"iris.xlsx"</span>, sheetName = <span class="hljs-string">"iris"</span>, startRow = <span class="hljs-number">3</span>)</code></pre>
+<p>If we have a specific range of rows or columns to include we can use the <code>rowIndex</code> or <code>colIndex</code> arguments as follows:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># read in xlsx worksheet including columns 1-4 and rows 3-5.</span>
+
+iris12&lt;- read.xlsx(<span class="hljs-string">"iris.xlsx"</span>, sheetName = <span class="hljs-string">"iris"</span>, rowIndex = <span class="hljs-number">3</span>:<span class="hljs-number">5</span>, colIndex = <span class="hljs-number">1</span>:<span class="hljs-number">4</span>)</code></pre>
+<p>Another useful argument is <code>keepFormulas</code> which allows you to see the text of any formulas in the Excel spreadsheet. For more information on <code>read.xlsx</code> function and its arguments type <code>help(read.xlsx)</code>.</p>
+</div>
+<div id="the-readxl-package" class="section level2">
+<div name="the_readxl_package" data-unique="the_readxl_package"></div><h2>The <code>readxl</code> Package</h2>
+<p><code>readxl</code> was developed by Hadley Wickham and the RStudio team who also developed the <code>readr</code> package. This package works with both .xls and .xlsx formats. Unlike <code>xlsx</code> package, the <code>readxl</code> package has no external dependencies (like Java or Perl), so you can use it to read Excel data on any platform. Moreover, <code>readxl</code> has the ability to load dates and times, it automatically drops blank columns, reads in character variables as characters, and returns outputs as data.table format which is more convenient for viewing large data sets.</p>
+<p>To read in Excel data with <code>readxl</code> you can use the <code>read_excel()</code> function which has very similar operations and arguments as <code>read.xlsx</code>. Here are some examples:</p>
+<pre class="r"><code class="hljs">install.packages(readxl)
+<span class="hljs-keyword">library</span>(readxl)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># read in xlsx worksheet using a sheet index or name</span>
+
+iris13&lt;- read_excel(<span class="hljs-string">"iris.xlsx"</span>, sheet = <span class="hljs-string">"iris"</span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># read in xlsx worksheet and change variable names by skipping the first row</span>
+<span class="hljs-comment"># and using col_names to set the new names</span>
+
+iris14&lt;- read_excel(<span class="hljs-string">"iris.xlsx"</span>, sheet = <span class="hljs-string">"iris"</span>, skip = <span class="hljs-number">1</span>, col_names = paste (<span class="hljs-string">"Var"</span>, <span class="hljs-number">1</span>:<span class="hljs-number">6</span>))</code></pre>
+<p>More information on <code>read_excel</code> function and <code>readxl</code> package can be found here: <a href="https://cran.r-project.org/web/packages/readxl/readxl.pdf" class="uri">https://cran.r-project.org/web/packages/readxl/readxl.pdf</a>.</p>
+</div>
+</div>
+<div id="importing-data-from-statistical-software" class="section level1">
+<div name="importing_data_from_statistical_software" data-unique="importing_data_from_statistical_software"></div><h1>Importing Data from statistical software</h1>
+<p>The <code>foreign</code> package provides functions that help you read data files from other statistical software such as SPSS, SAS, Stata, and others into R. To import an SPSS data file (.sav) into R, we need to call the <code>foreign</code> library and then use the <code>read.spss()</code> function. Similarly, if we want to import a STATA data file, the corresponding function will be <code>read.dta()</code>. Here is an example of importing an SPSS data file:</p>
+<pre class="r"><code class="hljs">install.packages(<span class="hljs-string">"foreign"</span>)
+<span class="hljs-keyword">library</span>(foreign)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># read in spss data file and store it as data frame </span>
+
+iris_spss &lt;- read.spss(<span class="hljs-string">"iris.sav"</span>, to.data.frame = <span class="hljs-literal">TRUE</span>)</code></pre>
+<p>Note that we set the <code>to.data.frame = TRUE</code> option in order to have a data frame format, otherwise, the defaults (<code>to.data.frame = FALSE</code>) will read in the data as a list.</p>
+<p>More information on <code>foreign</code> package can be found here: <a href="https://cran.r-project.org/web/packages/foreign/foreign.pdf" class="uri">https://cran.r-project.org/web/packages/foreign/foreign.pdf</a></p>
+<p>Remember that you can also use the “<strong>Import Dataset</strong>” dialog box on the upper-right “<strong>Environment</strong>” pane to import SPSS, SAS and Stata data files instead of using the <code>foreign</code> package.</p>
+</div>
+<div id="reading-from-databases" class="section level1">
+<div name="reading_from_databases" data-unique="reading_from_databases"></div><h1>Reading from Databases</h1>
+<p>A data set can be stored in any format whereas large-scale data sets are generally stored in database software. Commonly, large organisations and companies keep their data in relational databases. Therefore, we may need to import and process large-scale data sets in R.&nbsp;</p>
+<p>One of the best approaches for working with data from a database is to export the data to a text file and then import the text file into R. According to <span class="citation">Adler (2010)</span>, importing data into R at a much faster rate from text files than you can from database connections, especially when dealing with very large data sets (1 GB or more). This approach is considered to be the best approach if you plan to import a large amount of data once and then analyse. However, if you need to produce regular reports or to repeat an analysis many times, then it might be better to import data into R directly through a database connection.<br>
+</p>
+<p>There are some packages in order to connect directly to a database from R. The packages you need to install would depend on the database(s) to which you want to connect and the connection method you want to use. There are two sets of database interfaces available in R:<br>
+</p>
+<ul>
+<li><p><code>RODBC</code>: The <code>RODBC</code> package allows R to fetch data from Open DataBase Connectivity (ODBC) connections. ODBC provides a standard interface for different programs to connect to databases. Before using RODBC, you need to i) install the RODBC package in R, ii) install the ODBC drivers for your platform, iii) configure an ODBC connection to your database. <span class="citation">Adler (2010)</span> provides a comprehensive list of where to find ODBC drivers for different databases and operating systems.</p></li>
+<li><p><code>DBI</code>: The <code>DBI</code> package allows R to connect to databases using native database drivers or JDBC drivers. This package provides a common database abstraction for R software. You must install additional packages to use the native drivers for each particular database(s).</p></li>
+</ul>
+<p>The process of creating a connection is huge and beyond the scope of this course. Here, I will provide a list of additional resources to learn about data importing from these specific databases:<br>
+</p>
+<ul>
+<li><p>MySQL: [<a href="https://cran.r-project.org/web/packages/RMySQL/index.html" class="uri">https://cran.r-project.org/web/packages/RMySQL/index.html</a>](<a href="https://cran.r-project.org/web/packages/RMySQL/index.html" class="uri">https://cran.r-project.org/web/packages/RMySQL/index.html</a></p></li>
+<li><p>Oracle: <a href="https://cran.r-project.org/web/packages/ROracle/index.html" class="uri">https://cran.r-project.org/web/packages/ROracle/index.html</a></p></li>
+<li><p>PostgreSQL: <a href="https://cran.r-project.org/web/packages/RPostgreSQL/index.html" class="uri">https://cran.r-project.org/web/packages/RPostgreSQL/index.html</a></p></li>
+<li><p>SQLite: <a href="https://cran.r-project.org/web/packages/RSQLite/index.html" class="uri">https://cran.r-project.org/web/packages/RSQLite/index.html</a></p></li>
+<li><p>Open Database Connectivity databases: <a href="https://cran.rstudio.com/web/packages/RODBC">https://cran.rstudio.com/web/packages/ RODBC</a></p></li>
+</ul>
+<p>Also, R data import/export manual <a href="https://cran.r-project.org/doc/manuals/R-data.html" class="uri">https://cran.r-project.org/doc/manuals/R-data.html</a> is a comprehensive source for configuring database connections and importing data from databases.</p>
+</div>
+<div id="scraping-data-from-web" class="section level1">
+<div name="scraping_data_from_web" data-unique="scraping_data_from_web"></div><h1>Scraping Data from Web</h1>
+<p>As a result of rapid growth of the World Wide Web, vast amount of information is now being stored online, both in structured and unstructured forms. Collecting data from the web is not an easy process as there are many technologies used to distribute web content (i.e., HTML, XML, JSON). Therefore, dealing with more advanced web scraping requires familiarity in accessing data stored in these technologies via R.<br>
+</p>
+<p>In this section, I will provide an introduction to some of the fundamental tools required to perform basic web scraping. This includes importing spreadsheet data files stored online and scraping HTML table data. In order to advance your knowledge in web scraping, I highly recommend getting copies of “XML and Web Technologies for Data Sciences with R” (by <span class="citation">Deborah and Ducan (2014)</span>) and “Automated Data Collection with R” (by <span class="citation">Munzert et al. (2014)</span>).</p>
+<div id="importing-tabular-and-excel-files-stored-online" class="section level2">
+<div name="importing_tabular_and_excel_files_stored_online" data-unique="importing_tabular_and_excel_files_stored_online"></div><h2>Importing Tabular and Excel files Stored Online</h2>
+<p>The most basic form of getting data from online is to import tabular (i.e. . txt , .csv) or Excel files that are being hosted online. Importing tabular data is especially common for the many types of government data available online.<br>
+</p>
+<p>To illustrate we will use “Domestic Airlines - On Time Performance” data which is available online at <a href="https://data.gov.au/dataset/29128ebd-dbaa-4ff5-8b86-d9f30de56452/resource/cf663ed1-0c5e-497f-aea9-e74bfda9cf44/download/otptimeseriesweb.csv" class="uri">https://data.gov.au/dataset/29128ebd-dbaa-4ff5-8b86-d9f30de56452/resource/cf663ed1-0c5e-497f-aea9-e74bfda9cf44/download/otptimeseriesweb.csv</a>. This .csv file covers monthly punctuality and reliability data of major domestic and regional airlines operating between Australian airports.<br>
+</p>
+<p>We can use <code>read.csv</code> or <code>read.table</code> functions to read online data depending upon the format of the data file. In fact, reading online .csv or .txt file is just like reading tabular data. The only difference is, we need to provide the URL of the data instead of the file name as follows:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># the url for the online csv file</span>
+
+url &lt;- <span class="hljs-string">"https://data.gov.au/dataset/29128ebd-dbaa-4ff5-8b86-d9f30de56452/resource/cf663ed1-0c5e-497f-aea9-e74bfda9cf44/download/otptimeseriesweb.csv"</span></code></pre>
+<p>Next, as the online data is a .csv file, we can read this data file using <code>read.csv</code> function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># use read.csv to import</span>
+
+ontime_data &lt;- read.csv(url, stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+
+<span class="hljs-comment"># display first six rows and four variables in the data</span>
+
+ontime_data[<span class="hljs-number">1</span>:<span class="hljs-number">6</span>,<span class="hljs-number">1</span>:<span class="hljs-number">4</span>]</code></pre>
+<pre><code class="hljs">##                 Route Departing_Port Arriving_Port      Airline
+## 1   Adelaide-Brisbane       Adelaide      Brisbane All Airlines
+## 2   Adelaide-Canberra       Adelaide      Canberra All Airlines
+## 3 Adelaide-Gold Coast       Adelaide    Gold Coast All Airlines
+## 4  Adelaide-Melbourne       Adelaide     Melbourne All Airlines
+## 5      Adelaide-Perth       Adelaide         Perth All Airlines
+## 6     Adelaide-Sydney       Adelaide        Sydney All Airlines</code></pre>
+<p>Importing Excel spreadsheets hosted online can be performed just as easily. Recall that there is no base R function for importing Excel data; however, several packages exist to import .xls and .xlsx files. One package that works smoothly with pulling Excel data from URLs is <code>gdata</code>. With <code>gdata</code> we can use <code>read.xls()</code> to import Excel files hosted online.<br>
+</p>
+<p>To illustrate, we will use the “Australians’ Interest and Engagement with Science” data set available at <a href="http://www.data.vic.gov.au/data/dataset/5b9b9dd5-7250-49ef-8c02-dfd12a8c1821/resource/dc730e2d-f6af-47c9-844c-9cd6299ffb8e/download/.filesdbisciencereportsurveydata20120723.xlsx" class="uri">http://www.data.vic.gov.au/data/dataset/5b9b9dd5-7250-49ef-8c02-dfd12a8c1821/resource/dc730e2d-f6af-47c9-844c-9cd6299ffb8e/download/.filesdbisciencereportsurveydata20120723.xlsx</a>.</p>
+<p>First, we need to install and load the <code>gdata</code> package, then we can read the online Excel file using <code>read.xls</code> function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># first install and load the gdata package</span>
+
+install.packages(<span class="hljs-string">"gdata"</span>)
+<span class="hljs-keyword">library</span>(gdata)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># the url for the online Excel file</span>
+
+url &lt;- <span class="hljs-string">"http://www.data.vic.gov.au/data/dataset/5b9b9dd5-7250-49ef-8c02-dfd12a8c1821/resource/dc730e2d-f6af-47c9-844c-9cd6299ffb8e/download/.filesdbisciencereportsurveydata20120723.xlsx"</span>
+
+<span class="hljs-comment"># use read.xls to import</span>
+
+science_data &lt;- read.xls(url)
+
+<span class="hljs-comment"># display the first six rows and eight variables in the data</span>
+
+science_data[<span class="hljs-number">1</span>:<span class="hljs-number">6</span>, <span class="hljs-number">1</span>:<span class="hljs-number">8</span>]</code></pre>
+<pre><code class="hljs">##   ID AGE AGE.BAND AGE.BAND.2 POSTCODE State          SES GENDER
+## 1  1  32  25-34yo   Under 35     3131   VIC   Middle SES      F
+## 2  2  37  35-44yo        35+     2830   NSW     High SES      M
+## 3  3  44  35-44yo        35+     5158    SA   Middle SES      M
+## 4  4  30  25-34yo   Under 35     4005   QLD     High SES      F
+## 5  5  42  35-44yo        35+       NA  #N/A Unclassified      M
+## 6  6  32  25-34yo   Under 35     3128   VIC   Middle SES      F</code></pre>
+<p>Note that, you will get an error when you try to read from an URL starting with <strong>https</strong> as the <code>read.xls</code> function does not support <strong>https</strong>. If you simply replace the <strong>https</strong> with <strong>http</strong> in the url, <code>read.xls</code> function will be able to import the file.</p>
+</div>
+<div id="scraping-html-table-data" class="section level2">
+<div name="scraping_html_table_data" data-unique="scraping_html_table_data"></div><h2>Scraping HTML Table Data</h2>
+<p>Sometimes, web pages contain several HTML tables and we may want to read the data from that HTML table. The simplest approach to scraping HTML table data directly into R is by using the <code>rvest</code> package. Recall that. HTML tables are contained within <code>&lt;table&gt;</code> tags; therefore, to extract the tables, we need to use the <code>html_nodes()</code> function to select the <code>&lt;table&gt;</code> nodes.</p>
+<p>To illustrate, I will use the example from the help page for <code>rvest</code>, which loads all tables from the U.S. Social Security webpage: <a href="https://www.ssa.gov/oact/babynames/numberUSbirths.html" class="uri">https://www.ssa.gov/oact/babynames/numberUSbirths.html</a></p>
+<p>First, we will install and load the <code>rvest</code> package:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># first install and load the rvest package</span>
+
+install.packages(<span class="hljs-string">"rvest"</span>)
+<span class="hljs-keyword">library</span>(rvest)</code></pre>
+<p>We will use <code>read_html</code> to locate the URL of the HTML table. When we use <code>read_html</code>, all table nodes that exist on the webpage will be captured.</p>
+<pre class="r"><code class="hljs">births &lt;- read_html(<span class="hljs-string">"https://www.ssa.gov/oact/babynames/numberUSbirths.html"</span>)</code></pre>
+<p>In this example, using the <code>length</code> function we can see that the <code>html_nodes</code> captures 2 HTML tables.</p>
+<pre class="r"><code class="hljs">length(html_nodes(births, <span class="hljs-string">"table"</span>))</code></pre>
+<pre><code class="hljs">## [1] 2</code></pre>
+<p>This includes data from a few additional tables used to format other parts of the page (i.e.&nbsp;table of contents, table of figures, advertisements, etc.). The second table on the webpage is the place where our data is located, thus, we will select the second element of the <code>html_nodes</code>.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># select the second element of the html_nodes</span>
+births_data&lt;- html_table(html_nodes(births, <span class="hljs-string">"table"</span>)[[<span class="hljs-number">2</span>]])
+
+<span class="hljs-comment"># view the header of the births_data</span>
+
+head(births_data)</code></pre>
+<pre><code class="hljs">##   Year ofbirth    Male  Female   Total
+## 1         1880 118,400  97,605 216,005
+## 2         1881 108,282  98,855 207,137
+## 3         1882 122,031 115,695 237,726
+## 4         1883 112,477 120,059 232,536
+## 5         1884 122,738 137,586 260,324
+## 6         1885 115,945 141,948 257,893</code></pre>
+</div>
+</div>
+<div id="exporting-data" class="section level1">
+<div name="exporting_data" data-unique="exporting_data"></div><h1>Exporting Data</h1>
+<p>Exporting data out of R is equally important as importing data into R. In this section, we will cover how to export data to text files, Excel files and save to R data objects. In addition to the commonly used base R functions to export data, we will also cover functions from the popular <code>readr</code> and <code>xlsx</code> packages.</p>
+<div id="exporting-data-to-text-files" class="section level2">
+<div name="exporting_data_to_text_files" data-unique="exporting_data_to_text_files"></div><h2>Exporting Data to text files</h2>
+<p>Similar to the previous examples provided in the importing text files section, in this section I will introduce the base R and <code>readr</code> package functions to export data to text files.</p>
+<div id="base-r-functions-1" class="section level3">
+<div name="base_r_functions19" data-unique="base_r_functions19"></div><h3>Base R functions</h3>
+<p><code>write.table()</code> is the multi-purpose function in base R for exporting data. The function <code>write.csv()</code> is a special case of <code>write.table()</code> in which the defaults have been adjusted for efficiency. To illustrate, let’s create a data frame and export it to a CSV file in our working directory.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create a data frame and assign it to an object named df</span>
+
+df &lt;- data.frame (cost = c(<span class="hljs-number">10</span>, <span class="hljs-number">25</span>, <span class="hljs-number">40</span>),
+                  color = c (<span class="hljs-string">"blue"</span>, <span class="hljs-string">"red"</span>, <span class="hljs-string">"green"</span>),
+                  suv = c (<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>),
+                  row.names = c (<span class="hljs-string">"car1"</span>, <span class="hljs-string">"car2"</span>, <span class="hljs-string">"car3"</span>))
+
+df</code></pre>
+<pre><code class="hljs">##      cost color   suv
+## car1   10  blue  TRUE
+## car2   25   red  TRUE
+## car3   40 green FALSE</code></pre>
+<p>To export <code>df</code> to a CSV file we will use <code>write.csv()</code>.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a csv file in our working directory</span>
+
+write.csv(df, file = <span class="hljs-string">"cars_csv"</span>)</code></pre>
+<p>If you want to save the data frame in a different directory we will use:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a csv and save in a different directory (i.e., ~/Desktop)</span>
+
+write.csv(df, file = <span class="hljs-string">"~/Desktop/cars_csv"</span>)</code></pre>
+<p>This function have additional arguments which will allow you to exclude row/column names, specify what to use for missing values, add or remove quotations around character strings, etc.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a csv file without row names</span>
+
+write.csv(df, file = <span class="hljs-string">"cars_csv"</span>, row.names = <span class="hljs-literal">FALSE</span>)</code></pre>
+<p>In addition to CSV files, we can also write to other text formats using <code>write.table()</code> by specifying the <code>sep</code> argument.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a tab delimited text file</span>
+
+write.table(df, file = <span class="hljs-string">"cars_txt"</span>, sep=<span class="hljs-string">"\t"</span>)</code></pre>
+</div>
+<div id="the-readr-package" class="section level3">
+<div name="the_readr_package" data-unique="the_readr_package"></div><h3>The <code>readr</code> Package</h3>
+<p>The <code>readr</code> package functions, <code>write_csv</code> and <code>write_delim</code> are twice as fast as base R functions and they are very similar in usage.</p>
+<p>Let’s use the same example to illustrate the usage of `<code>write_csv</code> and <code>write_delim</code></p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># load the library</span>
+
+<span class="hljs-keyword">library</span>(readr)
+
+<span class="hljs-comment"># write to a csv file in the working directory</span>
+
+write_csv(df, path = <span class="hljs-string">"cars_csv2"</span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a csv and save in a different directory (i.e., ~/Desktop)</span>
+
+write_csv(df, path = <span class="hljs-string">"~/Desktop/export_csv2"</span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a csv file without column names</span>
+
+write_csv(df, path = <span class="hljs-string">"export_csv2"</span>, col_names = <span class="hljs-literal">FALSE</span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a txt file in the working directory</span>
+
+write_delim(df, path = <span class="hljs-string">"export_txt2"</span>)</code></pre>
+<p>Note that the base R write functions use the <code>file =</code> argument whereas, <code>readr</code> write functions use <code>path =</code> to specify the name of the file.</p>
+</div>
+</div>
+<div id="exporting-data-to-excel-files" class="section level2">
+<div name="exporting_data_to_excel_files" data-unique="exporting_data_to_excel_files"></div><h2>Exporting Data to Excel files</h2>
+<p>Since we covered importing data with the <code>xlsx</code> package, we will use the same package for exporting data to Excel. However, the <code>readxl</code> package which I demonstrated in the importing data section does not have a function to export to Excel, therefore I will skip it here.</p>
+<p>We will use the <code>write.xlsx()</code> function in the <code>xlsx</code> package to export the previous example to a xlsx file.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># load the library</span>
+
+<span class="hljs-keyword">library</span>(xlsx)</code></pre>
+<pre><code class="hljs">## Loading required package: rJava</code></pre>
+<pre><code class="hljs">## Loading required package: xlsxjars</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a .xlsx file in the working directory</span>
+
+write.xlsx(df, file = <span class="hljs-string">"cars.xlsx"</span>)</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># write to a .xlsx file without row names in the working directory</span>
+
+write.xlsx(df, file = <span class="hljs-string">"cars.xlsx"</span>, row.names = <span class="hljs-literal">FALSE</span>)</code></pre>
+<p>In some cases we may wish to create a .xlsx file that contains multiple data frames. In this case you can just create an empty workbook and save the data frames on separate worksheets within the same workbook. Let’s try it using the built in mtcars and iris data sets. First, we will create an empty workbook using createWorkbook() function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create empty workbook using createWorkbook() function</span>
+
+multiple_df &lt;- createWorkbook()</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># create worksheets within workbook</span>
+
+car_df &lt;- createSheet(wb = multiple_df, sheetName = <span class="hljs-string">"Cars"</span>)
+iris_df &lt;- createSheet(wb = multiple_df, sheetName = <span class="hljs-string">"Iris"</span>)</code></pre>
+<p>We will use <code>addDataFrame()</code> to add the data frames into the worksheets as follows:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># add data frames to worksheets</span>
+
+addDataFrame(x = mtcars, sheet = car_df)
+
+addDataFrame(x = iris, sheet = iris_df)</code></pre>
+<p>Lastly, we will save it as a .xlsx file using <code>saveWorkbook()</code>.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># save as a .xlsx file in the working directory</span>
+
+saveWorkbook(multiple_df, file = <span class="hljs-string">"combined.xlsx"</span>)</code></pre>
+</div>
+</div>
+<div id="saving-data-as-an-r-object-file" class="section level1">
+<div name="saving_data_as_an_r_object_file" data-unique="saving_data_as_an_r_object_file"></div><h1>Saving Data as an R object File</h1>
+<p>Sometimes we may need to save data or other R objects outside of the workspace or may want to store, share, or transfer between computers. Basically, we can use the .rda or .RData file types when we want to save several, or all, objects and functions that exist in the global environment. On the other hand, if we only want to save a single R object such as a data frame, function, or statistical model results, it is best to use the .rds file type. Still, we can use .rda or .RData to save a single object but the benefit of .rds is it only saves a representation of the object and not the name whereas .rda and .RData save both the object and its name. As a result, with .rds the saved object can be loaded into a named object within R that is different from the name it had when originally saved.</p>
+<p>To illustrate let’s create two objects named x and y and save them to a .RData file using <code>save()</code> function.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># generate random numbers from uniform and normal distribution and assign them to objects named x and y, respectively.</span>
+
+x &lt;- runif(<span class="hljs-number">10</span>)
+y &lt;- rnorm(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># Save both objects in .RData format in the working directory</span>
+
+save(x, y, file = <span class="hljs-string">"xy.RData"</span>)</code></pre>
+<p>Also, the <code>save.image()</code> function will save your all current workspace as .RData.</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># save all objects in the global environment</span>
+
+save.image()</code></pre>
+<p>The following examples will illustrate how a single object will be saved using <code>saveRDS()</code></p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># save a single object to file</span>
+
+saveRDS(x, <span class="hljs-string">"x.rds"</span>)
+
+<span class="hljs-comment"># restore it under a different name</span>
+
+x2 &lt;- readRDS(<span class="hljs-string">"x.rds"</span>)
+
+<span class="hljs-comment"># check if x and x2 are identical</span>
+
+identical(x, x2)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+</div>
+<div id="additional-resources-and-further-reading" class="section level1">
+<div name="additional_resources_and_further_reading" data-unique="additional_resources_and_further_reading"></div><h1>Additional Resources and Further Reading</h1>
+<p>R data import/export manual <a href="https://cran.r-project.org/doc/manuals/R-data.html" class="uri">https://cran.r-project.org/doc/manuals/R-data.html</a> (R <span class="citation">Team (2000)</span>) is a comprehensive source for all types of data importing and exporting tasks in R. Also, RStudio’s “<a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">Data Import Cheatsheet</a>” is a compact resource for all importing functions available in the <code>readr</code> package.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<div name="references" data-unique="references"></div><h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-adler2010">
+<p>Adler, Joseph. 2010. <em>R in a Nutshell: A Desktop Quick Reference</em>. “ O’Reilly Media, Inc.”</p>
+</div>
+<div id="ref-boehmke2016">
+<p>Boehmke, Bradley C. 2016. <em>Data Wrangling with R</em>. Springer.</p>
+</div>
+<div id="ref-deborah2014">
+<p>Deborah, Nolan, and TL Ducan. 2014. “XML and Web Technologies for Data Sciences with R.” <em>N. Deborah, &amp; TL Ducan, XML and Web Technologies for Data Sciences with R</em>, 581–618.</p>
+</div>
+<div id="ref-munzert2014">
+<p>Munzert, Simon, Christian Rubba, Peter Meißner, and Dominic Nyhuis. 2014. <em>Automated Data Collection with R: A Practical Guide to Web Scraping and Text Mining</em>. John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-team2000">
+<p>Team, R Core. 2000. “R Data Import/Export.”</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>

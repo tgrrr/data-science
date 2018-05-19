@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://rare-phoenix-161610.appspot.com/secured/Module_06.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="generator" content="pandoc">
+
+
+<meta name="author" content="Dr. Anil Dolgun">
+
+
+<title>Module 6</title>
+
+<script src="./Module 6_files/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Module 6_files/cosmo.min.css" rel="stylesheet">
+<script src="./Module 6_files/bootstrap.min.js"></script>
+<script src="./Module 6_files/html5shiv.min.js"></script>
+<script src="./Module 6_files/respond.min.js"></script>
+<script src="./Module 6_files/jquery-ui.min.js"></script>
+<link href="./Module 6_files/jquery.tocify.css" rel="stylesheet">
+<script src="./Module 6_files/jquery.tocify.js"></script>
+<script src="./Module 6_files/tabsets.js"></script>
+<link href="./Module 6_files/textmate.css" rel="stylesheet">
+<script src="./Module 6_files/highlight.js"></script>
+<link href="./Module 6_files/font-awesome.min.css" rel="stylesheet">
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="./Module 6_files/style.css" type="text/css">
+
+<script type="text/javascript" src="./Module 6_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+<ul id="tocify-header1" class="tocify-header list-group"><li class="tocify-item list-group-item active" data-unique="overview">Overview</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="summary">Summary</li><li class="tocify-item list-group-item" data-unique="learning_objectives">Learning Objectives</li></ul></ul><ul id="tocify-header2" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="outliers">Outliers</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="types_of_outliers">Types of Outliers</li><li class="tocify-item list-group-item" data-unique="most_common_causes_of_outliers">Most Common Causes of Outliers</li></ul></ul><ul id="tocify-header3" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="detecting_outliers">Detecting Outliers</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="univariate_outlier_detection_methods">Univariate Outlier Detection Methods</li><li class="tocify-item list-group-item" data-unique="multivariate_outlier_detection_methods">Multivariate Outlier Detection Methods</li></ul></ul><ul id="tocify-header4" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="approaches_to_handling_outliers">Approaches to Handling Outliers</li><ul class="tocify-subheader list-group" data-tag="2"><li class="tocify-item list-group-item" data-unique="excluding_or_deleting_outliers">Excluding or Deleting Outliers</li><li class="tocify-item list-group-item" data-unique="imputing">Imputing</li><li class="tocify-item list-group-item" data-unique="capping_(aka_winsorising)">Capping (a.k.a Winsorising)</li><li class="tocify-item list-group-item" data-unique="transforming_and_binning_values:">Transforming and binning values:</li></ul></ul><ul id="tocify-header5" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="additional_resources_and_further_reading">Additional Resources and Further Reading</li></ul><ul id="tocify-header6" class="tocify-header list-group"><li class="tocify-item list-group-item" data-unique="references">References</li></ul></div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://rare-phoenix-161610.appspot.com/secured/index.html">Data Preprocessing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown active">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-sticky-note-o"></span>
+     
+    Courseware
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01.html">Module 1 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02.html">Module 2 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03.html">Module 3 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04.html">Module 4 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05.html">Module 5 Notes</a>
+    </li>
+    <li class="active">
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html">Module 6 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07.html">Module 7 Notes</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08.html">Module 8 Notes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Skill Builders
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder.html">Module 1 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_01_Skill_Builder_Answers.html">Module 1 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder.html">Module 2 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_02_Skill_Builder_Answers.html">Module 2 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder.html">Module 3 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_03_Skill_Builder_Answers.html">Module 3 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder.html">Module 4 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_04_Skill_Builder_Answers.html">Module 4 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder.html">Module 5 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_05_Skill_Builder_Answers.html">Module 5 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder.html">Module 6 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06_Skill_Builder_Answers.html">Module 6 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder.html">Module 7 Skill Builders</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_07_Skill_Builder_Answers.html">Module 7 Skill Builder Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/Module_08_Skill_Builder.html">Module 8 Skill Builders</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-television"></span>
+     
+    Demos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_01_Demo.html">Week 1 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_02_Demo.html">Week 2 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_03_Demo.html">Week 3 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_04_Demo.html">Week 4 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_05_Demo.html">Week 5 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_06_Demo.html">Week 6 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_07_Demo.html">Week 7 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_09_Demo.html">Week 9 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_10_Demo.html">Week 10 Demonstration Slides</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/demos/Week_11_Demo.html">Week 11 Demonstration Slides</a>
+    </li>
+    <li class="dropdown-header">Week 12 Demonstration Slides</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-file-text-o"></span>
+     
+    Worksheets
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet.html">Week 1 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_01_Worksheet_answers.html">Week 1 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet.html">Week 2 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_02_Worksheet_answers.html">Week 2 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet.html">Week 3 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_03_Worksheet_answers.html">Week 3 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet.html">Week 4 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_04_Worksheet_answers.html">Week 4 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet.html">Week 5 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_05_Worksheet_answers.html">Week 5 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet.html">Week 6 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_06_Worksheet_answers.html">Week 6 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet.html">Week 7 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_07_Worksheet_answers.html">Week 7 Class Worksheet Answers</a>
+    </li>
+    <li class="dropdown-header">Week 8 NO CLASS, Anzac Day</li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet.html">Week 9 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_09_Worksheet_answers.html">Week 9 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet.html">Week 10 Class Worksheet</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_10_Worksheet_answers.html">Week 10 Class Worksheet Answers</a>
+    </li>
+    <li>
+      <a href="http://rare-phoenix-161610.appspot.com/secured/worksheets/Week_11_Worksheet.html">Week 11 Class Worksheet</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://drive.google.com/drive/folders/1ya4COg_QeZG4t6XNRUehAq8FrRxRuxHb?usp=sharing">
+    <span class="fa fa-folder-open"></span>
+     
+    Drive
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/secured/DataCamp.html">
+    <span class="fa fa-star"></span>
+     
+    DataCamp
+  </a>
+</li>
+<li class="dropdown">
+  <a href="http://rare-phoenix-161610.appspot.com/secured/Module_06.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-wrench"></span>
+     
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://docs.google.com/document/d/177dgNO0PezpPfqEtXziUlkmVLxfq5dORDnxAb03YIRM/edit?usp=sharing">Course Information Pack</a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/1D9wnlYth2rJirg5CMBiwnuew0-ZjagCPNrBxmr2Qn8A/edit?usp=sharing">Course Feedback</a>
+    </li>
+    <li>
+      <a href="https://my.rmit.edu.au/">MyRMIT (Canvas)</a>
+    </li>
+    <li>
+      <a href="http://www1.rmit.edu.au/students/mydesktop">MyDesktop</a>
+    </li>
+    <li>
+      <a href="https://sites.google.com/rmit.edu.au/postgradanalytics">
+        <span class="fa fa-circle-o"></span>
+         
+        Portal
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://math2349.slack.com/">
+    <span class="fa fa-slack"></span>
+     
+    Slack
+  </a>
+</li>
+<li>
+  <a href="http://rare-phoenix-161610.appspot.com/logout.htm">
+    <span class="fa fa-sign-out"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Module 6</h1>
+<h3 class="subtitle"><em>Scan: Outliers</em></h3>
+<h4 class="author"><em>Dr.&nbsp;Anil Dolgun</em></h4>
+<h4 class="date"><em>Last updated: 16 May, 2018</em></h4>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<div name="overview" data-unique="overview"></div><h1>Overview</h1>
+<div id="summary" class="section level2">
+<div name="summary" data-unique="summary"></div><h2>Summary</h2>
+<p>In statistics, an outlier is defined as an observation which stands far away from the most of other observations. An outlier can be a result of an measurement error and the inclusion of that error would have a great impact on the analysis results. Therefore, every data set should be scanned for possible outliers before conducting any statistical analysis. Like missing values, detecting outliers and dealing with them are also crucial in the data preprocessing. In this module, first you will learn how to identify univariate and multivariate outliers using descriptive, graphical and distance based methods. Then, you will learn different approaches to deal with these values using R.</p>
+</div>
+<div id="learning-objectives" class="section level2">
+<div name="learning_objectives" data-unique="learning_objectives"></div><h2>Learning Objectives</h2>
+<p><img src="./Module 6_files/module6.png" width="20%" align="right" alt="Outliers"></p>
+<p>The learning objectives of this module are as follows:<br>
+</p>
+<ul>
+<li>Identify the outlier(s) in the data set.</li>
+<li>Apply descriptive methods to identify univariate outliers</li>
+<li>Apply graphical approaches to scan for univariate or multivariate outliers</li>
+<li>Apply distance based metrics to identify univariate or multivariate outliers</li>
+<li>Learn commonly used approaches to handle outliers.</li>
+</ul>
+</div>
+</div>
+<div id="outliers" class="section level1">
+<div name="outliers" data-unique="outliers"></div><h1>Outliers</h1>
+<p>In statistics, an outlier is defined as an observation which stands far away from the most of the other observations. An outlier deviates so much from other observations as to arouse suspicion that is was generated by a different mechanism (<span class="citation">Hawkins (1980)</span>). Let’s take an example. Assume that we are interested in customer profiling and we find out that the average annual income of our customers is 800K. But, there are two customers having annual income of 3 and 3.2 million dollars. These two customers’ annual income is much higher than rest of the customers (see the box plot below). These two observations will be seen as outliers.<br>
+</p>
+<p><img src="./Module 6_files/unnamed-chunk-1-1.png" width="576" style="display: block; margin: auto;"></p>
+<div id="types-of-outliers" class="section level2">
+<div name="types_of_outliers" data-unique="types_of_outliers"></div><h2>Types of Outliers</h2>
+<p>Outlier can be univariate and multivariate. <strong>Univariate outliers</strong> can be found when looking at a distribution of values in a single variable. The example given above is an example of a univariate outlier as we only look at the distribution of income (i.e., one variable) among our customers. On the other hand, <strong>multivariate outliers</strong> can be found in a n-dimensional space (of n-variables). In order to find them, we need to look at distributions in multi-dimensions.<br>
+</p>
+<p>To illustrate multivariate outliers, let’s assume that we are interested in understanding the relationship between height and weight. Below, we have univariate and bivariate distribution for Height and Weight. When we look at the univariate distributions of Height and Weight (i.e., using box plots) separately, we don’t spot any abnormal cases (i.e.&nbsp;above and below the <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;1.5&lt;/mn&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 5.252em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.169em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1004.17em, 2.762em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mn" id="MathJax-Span-3" style="font-family: STIXGeneral-Regular;">1.5</span><span class="mo" id="MathJax-Span-4" style="font-family: STIXGeneral-Regular; padding-left: 0.273em;">×</span><span class="mi" id="MathJax-Span-5" style="font-family: STIXGeneral-Italic; padding-left: 0.273em;">I<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-6" style="font-family: STIXGeneral-Italic;">Q</span><span class="mi" id="MathJax-Span-7" style="font-family: STIXGeneral-Italic;">R</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.269em; border-left: 0px solid; width: 0px; height: 1.231em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1.5</mn><mo>×</mo><mi>I</mi><mi>Q</mi><mi>R</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">1.5\times IQR</script></span> fence). However, when we look at the bivariate (two dimensional) distribution of Height and Weight (using scatter plot), we can see that we have one observation whose weight is 45.19 kg and height is 185.09 (on the upper-left side of the scatter plot). This observation is far away from the most of the other weight and height combinations thus, will be seen as a multivariate outlier.<br>
+</p>
+<p><img src="./Module 6_files/unnamed-chunk-2-1.png" width="1152" style="display: block; margin: auto;"><img src="./Module 6_files/unnamed-chunk-2-2.png" width="1152" style="display: block; margin: auto;"></p>
+</div>
+<div id="most-common-causes-of-outliers" class="section level2">
+<div name="most_common_causes_of_outliers" data-unique="most_common_causes_of_outliers"></div><h2>Most Common Causes of Outliers</h2>
+<p>Often an outlier can be a result of data entry errors, measurement errors, experimental errors, intentional errors, data processing errors or due to the sampling (i.e., sampling error). The following are the most common causes of outliers (taken from: <a href="https://www.analyticsvidhya.com/blog/2016/01/guide-data-exploration/" class="uri">https://www.analyticsvidhya.com/blog/2016/01/guide-data-exploration/</a>)</p>
+<ul>
+<li><p><strong>Data Entry Errors: </strong> Outliers can arise because of the human errors during data collection, recording, or entry.</p></li>
+<li><p><strong>Measurement Errors:</strong> It is the most common source of outliers. This is caused when the measurement instrument used turns out to be faulty.</p></li>
+<li><p><strong>Experimental Error:</strong> Another cause of outliers is the experimental error. Experimental errors can arise during data extraction, experiment/survey planning and executing errors.</p></li>
+<li><p><strong>Intentional Error:</strong> This type of outlier is commonly found in self-reported measures that involves sensitive data. For example, teens would typically under report the amount of alcohol that they consume. Only a fraction of them would report actual value. Here actual values might look like outliers because rest of the teens are under reporting the consumption.</p></li>
+<li><p><strong>Data Processing Errors:</strong> Often, due to the data sets are extracted from multiple sources, it is possible that some manipulation or extraction errors may lead to outliers in the data set.</p></li>
+<li><p><strong>Sampling error:</strong> Sometimes, outliers can arise due to the sampling (taking samples from population) process. Typically, this type of outliers can be seen when we take a few observations as a sample.</p></li>
+</ul>
+</div>
+</div>
+<div id="detecting-outliers" class="section level1">
+<div name="detecting_outliers" data-unique="detecting_outliers"></div><h1>Detecting Outliers</h1>
+<p>Outliers can drastically change the results of the data analysis and statistical modelling. Some of the unfavourable impacts of outliers are;</p>
+<ul>
+<li>they increase the error variance,</li>
+<li>they reduce the power of statistical tests,</li>
+<li>they can bias or influence the estimates of model parameters that may be of substantive interest.<br>
+</li>
+</ul>
+<p>Therefore, one of the most important tasks in data preprocessing is to identify and properly handle the outliers.<br>
+</p>
+<p>There are many methods developed for outlier detection. Majority of them deal with numerical data. This module will introduce the most basic ones with their application using R packages.</p>
+<div id="univariate-outlier-detection-methods" class="section level2">
+<div name="univariate_outlier_detection_methods" data-unique="univariate_outlier_detection_methods"></div><h2>Univariate Outlier Detection Methods</h2>
+<p>One of the simplest methods for detecting univariate outliers is the use of box plots. A box plot is a graphical display for describing the distribution of the data using the median, the first (Q1) and third quartiles (Q3), and the inter-quartile range (<span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-8" style="width: 8.498em; display: inline-block;"><span style="display: inline-block; position: relative; width: 6.713em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.626em, 1006.6em, 2.762em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-9"><span class="mi" id="MathJax-Span-10" style="font-family: STIXGeneral-Italic;">I<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-11" style="font-family: STIXGeneral-Italic;">Q</span><span class="mi" id="MathJax-Span-12" style="font-family: STIXGeneral-Italic;">R</span><span class="mo" id="MathJax-Span-13" style="font-family: STIXGeneral-Regular; padding-left: 0.327em;">=</span><span class="mi" id="MathJax-Span-14" style="font-family: STIXGeneral-Italic; padding-left: 0.327em;">Q</span><span class="mn" id="MathJax-Span-15" style="font-family: STIXGeneral-Regular;">3</span><span class="mo" id="MathJax-Span-16" style="font-family: STIXGeneral-Regular; padding-left: 0.273em;">−</span><span class="mi" id="MathJax-Span-17" style="font-family: STIXGeneral-Italic; padding-left: 0.273em;">Q</span><span class="mn" id="MathJax-Span-18" style="font-family: STIXGeneral-Regular;">1</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.269em; border-left: 0px solid; width: 0px; height: 1.231em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>I</mi><mi>Q</mi><mi>R</mi><mo>=</mo><mi>Q</mi><mn>3</mn><mo>−</mo><mi>Q</mi><mn>1</mn></math></span></span><script type="math/tex" id="MathJax-Element-2">IQR = Q3 - Q1</script></span>). Below is an illustration of a typical box plot (taken from <a href="https://astral-theory-157510.appspot.com/secured/MATH1324_Module_02.html#box_plots">Dr.&nbsp;James Baglin’s Intro to Stats website</a> ).<br>
+</p>
+<center>
+<img src="./Module 6_files/boxplot.png" width="100%">
+</center>
+<p>In the box plot, the “<strong>Tukey’s method of outlier detection</strong>” is used to detect outliers. According to this method, outliers are defined as the values in the data set that fall beyond the range of <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-3-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1.5&lt;/mn&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-19" style="width: 6.063em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.819em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1004.82em, 2.762em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-20"><span class="mo" id="MathJax-Span-21" style="font-family: STIXGeneral-Regular;">−</span><span class="mn" id="MathJax-Span-22" style="font-family: STIXGeneral-Regular;">1.5</span><span class="mo" id="MathJax-Span-23" style="font-family: STIXGeneral-Regular; padding-left: 0.273em;">×</span><span class="mi" id="MathJax-Span-24" style="font-family: STIXGeneral-Italic; padding-left: 0.273em;">I<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-25" style="font-family: STIXGeneral-Italic;">Q</span><span class="mi" id="MathJax-Span-26" style="font-family: STIXGeneral-Italic;">R</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.269em; border-left: 0px solid; width: 0px; height: 1.231em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mn>1.5</mn><mo>×</mo><mi>I</mi><mi>Q</mi><mi>R</mi></math></span></span><script type="math/tex" id="MathJax-Element-3">-1.5 \times IQR</script></span> to <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-4-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;1.5&lt;/mn&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-27" style="width: 5.252em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.169em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1004.17em, 2.762em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-28"><span class="mn" id="MathJax-Span-29" style="font-family: STIXGeneral-Regular;">1.5</span><span class="mo" id="MathJax-Span-30" style="font-family: STIXGeneral-Regular; padding-left: 0.273em;">×</span><span class="mi" id="MathJax-Span-31" style="font-family: STIXGeneral-Italic; padding-left: 0.273em;">I<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-32" style="font-family: STIXGeneral-Italic;">Q</span><span class="mi" id="MathJax-Span-33" style="font-family: STIXGeneral-Italic;">R</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.269em; border-left: 0px solid; width: 0px; height: 1.231em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1.5</mn><mo>×</mo><mi>I</mi><mi>Q</mi><mi>R</mi></math></span></span><script type="math/tex" id="MathJax-Element-4">1.5 \times IQR</script></span>. These <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-5-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1.5&lt;/mn&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-34" style="width: 6.063em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.819em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1004.82em, 2.762em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-35"><span class="mo" id="MathJax-Span-36" style="font-family: STIXGeneral-Regular;">−</span><span class="mn" id="MathJax-Span-37" style="font-family: STIXGeneral-Regular;">1.5</span><span class="mo" id="MathJax-Span-38" style="font-family: STIXGeneral-Regular; padding-left: 0.273em;">×</span><span class="mi" id="MathJax-Span-39" style="font-family: STIXGeneral-Italic; padding-left: 0.273em;">I<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-40" style="font-family: STIXGeneral-Italic;">Q</span><span class="mi" id="MathJax-Span-41" style="font-family: STIXGeneral-Italic;">R</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.269em; border-left: 0px solid; width: 0px; height: 1.231em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mn>1.5</mn><mo>×</mo><mi>I</mi><mi>Q</mi><mi>R</mi></math></span></span><script type="math/tex" id="MathJax-Element-5">-1.5 \times IQR</script></span> and <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-6-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mn&gt;1.5&lt;/mn&gt;&lt;mo&gt;&amp;#x00D7;&lt;/mo&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mi&gt;Q&lt;/mi&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-42" style="width: 5.252em; display: inline-block;"><span style="display: inline-block; position: relative; width: 4.169em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.572em, 1004.17em, 2.762em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-43"><span class="mn" id="MathJax-Span-44" style="font-family: STIXGeneral-Regular;">1.5</span><span class="mo" id="MathJax-Span-45" style="font-family: STIXGeneral-Regular; padding-left: 0.273em;">×</span><span class="mi" id="MathJax-Span-46" style="font-family: STIXGeneral-Italic; padding-left: 0.273em;">I<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-47" style="font-family: STIXGeneral-Italic;">Q</span><span class="mi" id="MathJax-Span-48" style="font-family: STIXGeneral-Italic;">R</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.269em; border-left: 0px solid; width: 0px; height: 1.231em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1.5</mn><mo>×</mo><mi>I</mi><mi>Q</mi><mi>R</mi></math></span></span><script type="math/tex" id="MathJax-Element-6">1.5 \times IQR</script></span> limits are called “outlier fences” and any values lying outside the outlier fences are depicted using an “o” or a similar symbol on the box plot.<br>
+In order to illustrate the box plot, we will use the <a href="http://rare-phoenix-161610.appspot.com/secured/data/Diamonds.csv">Diamonds.csv</a> data set available under the data repository.<br>
+</p>
+<pre class="r"><code class="hljs">Diamonds &lt;- read.csv(<span class="hljs-string">"data/Diamonds.csv"</span>)
+head(Diamonds)</code></pre>
+<pre><code class="hljs">##   carat       cut color clarity depth table price    x    y    z
+## 1  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
+## 2  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
+## 3  0.23      Good     E     VS1  56.9    65   327 4.05 4.07 2.31
+## 4  0.29   Premium     I     VS2  62.4    58   334 4.20 4.23 2.63
+## 5  0.31      Good     J     SI2  63.3    58   335 4.34 4.35 2.75
+## 6  0.24 Very Good     J    VVS2  62.8    57   336 3.94 3.96 2.48</code></pre>
+<p>We can use <code>boxplot()</code> function (under Base graphics) to get the box plot of the <code>carat</code> variable:<br>
+</p>
+<pre class="r"><code class="hljs">Diamonds$carat %&gt;%  boxplot(main=<span class="hljs-string">"Box Plot of Diamond Carat"</span>, ylab=<span class="hljs-string">"Carat"</span>, col = <span class="hljs-string">"grey"</span>)</code></pre>
+<p><img src="./Module 6_files/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>According to the Tukey’s method, the <code>carat</code> variable seems to have many outliers. In the next section, we will discuss different approaches to handle these outliers.<br>
+</p>
+<p>There are also distance based methods to detect univariate outliers. One of them is to use the <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-7-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-49" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-50"><span class="mi" id="MathJax-Span-51" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-7">z</script></span>- scores (i.e., normal scores) method. In this method, a standardised score (<span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-8-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-52" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-53"><span class="mi" id="MathJax-Span-54" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-8">z</script></span>-score) of all observations are calculated using the following equation:<br>
+<span class="math display"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><div class="MathJax_Display" style="text-align: center;"><span class="MathJax" id="MathJax-Element-9-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;msub&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;msub&gt;&lt;mi&gt;X&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mover&gt;&lt;mi&gt;X&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00AF;&lt;/mo&gt;&lt;/mover&gt;&lt;/mrow&gt;&lt;/mrow&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;/mfrac&gt;&lt;/math&gt;" role="presentation" style="text-align: center; position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-55" style="width: 6.442em; display: inline-block;"><span style="display: inline-block; position: relative; width: 5.089em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(0.76em, 1005.09em, 3.304em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-56"><span class="msubsup" id="MathJax-Span-57"><span style="display: inline-block; position: relative; width: 0.652em; height: 0px;"><span style="position: absolute; clip: rect(3.412em, 1000.38em, 4.223em, -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-58" style="font-family: STIXGeneral-Italic;">z</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; top: -3.839em; left: 0.381em;"><span class="mi" id="MathJax-Span-59" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span><span class="mo" id="MathJax-Span-60" style="font-family: STIXGeneral-Regular; padding-left: 0.327em;">=</span><span class="mfrac" id="MathJax-Span-61" style="padding-left: 0.327em;"><span style="display: inline-block; position: relative; width: 2.871em; height: 0px; margin-right: 0.111em; margin-left: 0.111em;"><span style="position: absolute; clip: rect(2.979em, 1002.76em, 4.332em, -999.997em); top: -4.705em; left: 50%; margin-left: -1.404em;"><span class="mrow" id="MathJax-Span-62"><span class="msubsup" id="MathJax-Span-63"><span style="display: inline-block; position: relative; width: 0.869em; height: 0px;"><span style="position: absolute; clip: rect(3.195em, 1000.65em, 4.169em, -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-64" style="font-family: STIXGeneral-Italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; top: -3.839em; left: 0.598em;"><span class="mi" id="MathJax-Span-65" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span><span class="mo" id="MathJax-Span-66" style="font-family: STIXGeneral-Regular; padding-left: 0.273em;">−</span><span class="texatom" id="MathJax-Span-67" style="padding-left: 0.273em;"><span class="mrow" id="MathJax-Span-68"><span class="munderover" id="MathJax-Span-69"><span style="display: inline-block; position: relative; width: 0.652em; height: 0px;"><span style="position: absolute; clip: rect(3.195em, 1000.65em, 4.169em, -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-70" style="font-family: STIXGeneral-Italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; clip: rect(3.249em, 1000.33em, 3.628em, -999.997em); top: -4.218em; left: 0.219em;"><span class="mo" id="MathJax-Span-71" style="font-family: STIXGeneral-Regular;">¯</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; clip: rect(3.195em, 1000.49em, 4.169em, -999.997em); top: -3.298em; left: 50%; margin-left: -0.268em;"><span class="mi" id="MathJax-Span-72" style="font-family: STIXGeneral-Italic;">S<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; clip: rect(0.869em, 1002.87em, 1.247em, -999.997em); top: -1.296em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 2.871em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.085em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.951em; border-left: 0px solid; width: 0px; height: 2.935em;"></span></span></nobr><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>z</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>X</mi><mi>i</mi></msub><mo>−</mo><mrow class="MJX-TeXAtom-ORD"><mover><mi>X</mi><mo stretchy="false">¯</mo></mover></mrow></mrow><mi>S</mi></mfrac></math></span></span></div><script type="math/tex; mode=display" id="MathJax-Element-9"> z_i = \frac{X_i - \bar{X}}{S}</script></span></p>
+<p>In the equation below, <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-10-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;X&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-73" style="width: 1.085em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.869em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.356em, 1000.87em, 2.492em, -999.997em); top: -2.162em; left: 0em;"><span class="mrow" id="MathJax-Span-74"><span class="msubsup" id="MathJax-Span-75"><span style="display: inline-block; position: relative; width: 0.869em; height: 0px;"><span style="position: absolute; clip: rect(3.195em, 1000.65em, 4.169em, -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-76" style="font-family: STIXGeneral-Italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; top: -3.839em; left: 0.598em;"><span class="mi" id="MathJax-Span-77" style="font-size: 70.7%; font-family: STIXGeneral-Italic;">i</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.167em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.269em; border-left: 0px solid; width: 0px; height: 1.163em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>X</mi><mi>i</mi></msub></math></span></span><script type="math/tex" id="MathJax-Element-10">X_i</script></span> denotes the values of observations, <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-11-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mover&gt;&lt;mi&gt;X&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00AF;&lt;/mo&gt;&lt;/mover&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-78" style="width: 0.814em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.652em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.139em, 1000.65em, 2.33em, -999.997em); top: -2.162em; left: 0em;"><span class="mrow" id="MathJax-Span-79"><span class="texatom" id="MathJax-Span-80"><span class="mrow" id="MathJax-Span-81"><span class="munderover" id="MathJax-Span-82"><span style="display: inline-block; position: relative; width: 0.652em; height: 0px;"><span style="position: absolute; clip: rect(3.195em, 1000.65em, 4.169em, -999.997em); top: -4.002em; left: 0em;"><span class="mi" id="MathJax-Span-83" style="font-family: STIXGeneral-Italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span><span style="position: absolute; clip: rect(3.249em, 1000.33em, 3.628em, -999.997em); top: -4.218em; left: 0.219em;"><span class="mo" id="MathJax-Span-84" style="font-family: STIXGeneral-Regular;">¯</span><span style="display: inline-block; width: 0px; height: 4.007em;"></span></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.167em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.065em; border-left: 0px solid; width: 0px; height: 1.231em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow class="MJX-TeXAtom-ORD"><mover><mi>X</mi><mo stretchy="false">¯</mo></mover></mrow></math></span></span><script type="math/tex" id="MathJax-Element-11">\bar{X}</script></span> and <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-12-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-85" style="width: 0.652em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.49em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.626em, 1000.49em, 2.6em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-86"><span class="mi" id="MathJax-Span-87" style="font-family: STIXGeneral-Italic;">S<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.065em; border-left: 0px solid; width: 0px; height: 1.026em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>S</mi></math></span></span><script type="math/tex" id="MathJax-Element-12">S</script></span> are the sample mean and standard deviation, respectively. An observation is regarded as an outlier based on its <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-13-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-88" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-89"><span class="mi" id="MathJax-Span-90" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-13">z</script></span>-score, if the absolute value of its <strong><span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-14-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-91" style="width: 0.486em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.378em; height: 0px; font-size: 127%;"><span style="position: absolute; clip: rect(1.935em, 1000.34em, 2.794em, -1000.01em); top: -2.521em; left: 0em;"><span class="mrow" id="MathJax-Span-92"><span class="mi" id="MathJax-Span-93" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.526em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.201em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-14">z</script></span>-score is greater than 3</strong>.<br>
+</p>
+<p>In order to illustrate the <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-15-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-94" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-95"><span class="mi" id="MathJax-Span-96" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-15">z</script></span>- score approach, we will use the “<strong>outliers package</strong>”. The outliers package provides a number of useful functions to systematically extract outliers. Among those, the <code>scores()</code> function will calculate the <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-16-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-97" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-98"><span class="mi" id="MathJax-Span-99" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-16">z</script></span>-scores (in addition to the <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-17-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-100" style="width: 0.381em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.273em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.734em, 1000.27em, 2.6em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-101"><span class="mi" id="MathJax-Span-102" style="font-family: STIXGeneral-Italic;">t<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.065em; border-left: 0px solid; width: 0px; height: 0.822em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math></span></span><script type="math/tex" id="MathJax-Element-17">t</script></span>, chi-square, IQR, and Median absolute deviation scores) for the given data. Note that, there are many alternative functions in R for calculating <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-18-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-103" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-104"><span class="mi" id="MathJax-Span-105" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-18">z</script></span>-scores. You may also use these functions and detect the outliers.<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-keyword">library</span>(outliers)
+
+z.scores &lt;- Diamonds$carat %&gt;%  scores(type = <span class="hljs-string">"z"</span>)
+z.scores %&gt;% summary()</code></pre>
+<pre><code class="hljs">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -1.2614 -0.8395 -0.2066  0.0000  0.5107  8.8860</code></pre>
+<p>From the <code>summary()</code> output, we can see that the minimum z score is -1.26 and the maximum is 8.88.&nbsp;</p>
+<p>Using <code>which()</code>, we can also find the locations of the <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-19-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-106" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-107"><span class="mi" id="MathJax-Span-108" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-19">z</script></span>-scores whose absolute value is greater than 3.<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Finds the locations of outliers in the carat variable</span>
+
+which( abs(z.scores) &gt;<span class="hljs-number">3</span> )</code></pre>
+<pre><code class="hljs">##   [1] 13758 14139 15685 16284 16440 16638 17182 17197 17467 17561 17692
+##  [12] 17898 17957 19082 19340 19347 19599 19867 19895 19922 19947 20298
+##  [23] 20463 20839 20852 21567 21626 21759 21863 22005 22400 22414 22429
+##  [34] 22441 22541 22579 22609 22671 22742 22832 22871 22873 22998 23072
+##  [45] 23092 23098 23215 23219 23235 23496 23540 23581 23613 23645 23775
+##  [56] 23784 23878 23890 23940 23961 24115 24125 24132 24148 24182 24186
+##  [67] 24259 24274 24276 24279 24298 24329 24415 24435 24484 24495 24524
+##  [78] 24546 24581 24597 24605 24613 24617 24628 24674 24731 24745 24785
+##  [89] 24814 24817 24841 24863 24864 24991 25017 25054 25056 25062 25077
+## [100] 25114 25138 25140 25141 25143 25155 25192 25193 25203 25227 25231
+## [111] 25238 25259 25268 25276 25279 25284 25339 25340 25393 25402 25410
+## [122] 25416 25436 25441 25454 25457 25459 25461 25480 25481 25484 25497
+## [133] 25526 25530 25532 25533 25540 25564 25579 25580 25627 25628 25649
+## [144] 25650 25676 25723 25728 25730 25733 25736 25738 25739 25760 25763
+## [155] 25769 25771 25776 25779 25791 25793 25804 25816 25819 25836 25851
+## [166] 25860 25875 25878 25900 25901 25911 25922 25951 25965 25980 25999
+## [177] 26000 26006 26044 26048 26068 26083 26086 26089 26091 26101 26105
+## [188] 26108 26119 26124 26128 26130 26138 26139 26140 26178 26202 26213
+## [199] 26257 26267 26270 26271 26288 26289 26314 26321 26379 26400 26405
+## [210] 26412 26432 26445 26448 26451 26456 26460 26463 26465 26468 26469
+## [221] 26475 26476 26486 26495 26497 26505 26521 26524 26526 26529 26535
+## [232] 26536 26537 26538 26539 26553 26554 26555 26560 26561 26569 26570
+## [243] 26572 26585 26589 26593 26601 26605 26608 26609 26617 26631 26645
+## [254] 26653 26658 26660 26743 26744 26745 26750 26752 26757 26760 26767
+## [265] 26768 26793 26797 26804 26805 26807 26816 26818 26819 26820 26824
+## [276] 26865 26867 26871 26873 26876 26883 26886 26887 26905 26909 26910
+## [287] 26916 26917 26923 26925 26932 26933 26934 26938 26941 26943 26949
+## [298] 26957 26959 26964 26972 26975 26978 27000 27006 27008 27015 27017
+## [309] 27018 27019 27023 27024 27025 27027 27028 27066 27067 27071 27081
+## [320] 27082 27086 27095 27096 27108 27119 27120 27123 27131 27136 27147
+## [331] 27162 27164 27177 27179 27180 27186 27198 27203 27205 27210 27213
+## [342] 27221 27228 27239 27240 27247 27254 27257 27261 27266 27273 27285
+## [353] 27303 27315 27325 27335 27337 27341 27353 27354 27355 27396 27397
+## [364] 27404 27406 27408 27413 27416 27417 27421 27422 27425 27426 27429
+## [375] 27430 27431 27434 27442 27449 27450 27455 27457 27464 27477 27490
+## [386] 27497 27514 27515 27516 27517 27518 27519 27522 27523 27524 27541
+## [397] 27542 27544 27551 27552 27556 27560 27562 27564 27567 27583 27584
+## [408] 27587 27591 27599 27613 27617 27621 27622 27625 27630 27631 27632
+## [419] 27634 27635 27639 27640 27650 27651 27658 27664 27673 27675 27676
+## [430] 27680 27682 27685 27686 27727 27728 27732 27740 27745 27750</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Finds the total number of outliers according to the z-score</span>
+
+length (which( abs(z.scores) &gt;<span class="hljs-number">3</span> ))</code></pre>
+<pre><code class="hljs">## [1] 439</code></pre>
+<p>According to the <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-20-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-109" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-110"><span class="mi" id="MathJax-Span-111" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-20">z</script></span>-score method, the <code>carat</code> variable has 439 outliers.<br>
+</p>
+<p>There are also many statistical tests to detect outliers. Some of them are the Chi-square test for outliers, the Cochran’s test, the Dixon test and the Grubbs test, In this course, we won’t cover these statistical testing approaches used for detecting outliers. You may refer to the <a href="https://cran.r-project.org/web/packages/outliers/outliers.pdf"><code>outliers</code> package manual</a> which includes useful functions for the commonly used outlier tests as well as the distance based approaches.</p>
+</div>
+<div id="multivariate-outlier-detection-methods" class="section level2">
+<div name="multivariate_outlier_detection_methods" data-unique="multivariate_outlier_detection_methods"></div><h2>Multivariate Outlier Detection Methods</h2>
+<p>When we have only two variables, the bivariate visualisation techniques like bivariate box plots and scatter plots, can easily be used to detect any outliers.<br>
+To illustrate the bivariate box plot, we will assume that we are only interested in one numerical <code>carat</code> variable and a one factor (quantitative) <code>cut</code> variable in the Diamonds data set.<br>
+</p>
+<pre class="r"><code class="hljs">boxplot(Diamonds$carat ~ Diamonds$cut, main=<span class="hljs-string">"Diamond carat by cut"</span>, ylab = <span class="hljs-string">"Carat"</span>, xlab = <span class="hljs-string">"Cut"</span>)</code></pre>
+<p><img src="./Module 6_files/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>Using the univariate box plot approach, we can easily detect outliers in <code>carat</code> for a given <code>cut</code>.<br>
+Another bivariate visualisation method is the scatter plots. These plots are used to visualise the relationship between two quantitative variables. They are also very useful tools to detect obvious outliers for the two dimensional data (i.e., for two continuous variables).<br>
+The <code>plot()</code> function will be used to get the scatter plot and detect outliers in <code>carat</code> and <code>depth</code> variables:<br>
+</p>
+<pre class="r"><code class="hljs">Diamonds %&gt;% plot(carat ~ depth, data = ., ylab=<span class="hljs-string">"Carat"</span>, xlab=<span class="hljs-string">"Depth"</span>, main=<span class="hljs-string">"Carat by Depth"</span>)</code></pre>
+<p><img src="./Module 6_files/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>According to the scatter plot, there are some possible outliers on the lower left (the data points where both carat and depth is small) and lower right hand side of the scatter (the data points with larger depth but small carat values).<br>
+</p>
+<p>Scatter plots are useful methods to detect abnormal observations for a given pair of variables. However, when there are more than two variables, scatter plots can no longer be used. For such cases, multivariate distance based methods of outlier detection can be used.<br>
+<strong>The Mahalanobis distance</strong> is the most commonly used distance metric to detect outliers for the multivariate setting. The Mahalanobis distance is simply an extension of the univariate <span class="math inline"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-21-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;z&lt;/mi&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-112" style="width: 0.49em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.381em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.843em, 1000.38em, 2.654em, -999.997em); top: -2.432em; left: 0em;"><span class="mrow" id="MathJax-Span-113"><span class="mi" id="MathJax-Span-114" style="font-family: STIXGeneral-Italic;">z</span></span><span style="display: inline-block; width: 0px; height: 2.438em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.133em; border-left: 0px solid; width: 0px; height: 0.753em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>z</mi></math></span></span><script type="math/tex" id="MathJax-Element-21">z</script></span>-score, which also accounts for the correlation structure between all the variables. Mahalanobis distance follows a Chi-square distribution with n (number of variables) degrees of freedom, therefore <strong>any Mahalanobis distance greater than the critical chi-square value is treated as outliers</strong>.<br>
+I will not go into details of calculation of the Mahalanobis distance. We will use the <code>MVN</code> package to get these distances as it will also provide us the useful Mahalanobis distance vs.&nbsp;Chi-square quantile distribution plot (QQ plot) and contour plots. For more information on this package and its capabilities please refer to the paper on <a href="https://cran.r-project.org/web/packages/MVN/vignettes/MVN.pdf" class="uri">https://cran.r-project.org/web/packages/MVN/vignettes/MVN.pdf</a><br>
+</p>
+<p>To illustrate the usage of the MVN package to detect multivariate outliers, we will use a subset of the <a href="http://rare-phoenix-161610.appspot.com/secured/data/iris.csv">Iris data</a>, which is versicolor flowers, with the first three variables (<code>Sepal.Length</code>, <code>Sepal.Width</code> and <code>Petal.Length</code>).<br>
+</p>
+<p>First let’s read the data using:<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># load iris data and subset using versicolor flowers, with the first three variables</span>
+
+iris &lt;- read.csv(<span class="hljs-string">"data/iris.csv"</span>)
+
+versicolor &lt;- iris %&gt;%  filter( Species == <span class="hljs-string">"versicolor"</span> ) %&gt;%  dplyr::select(Sepal.Length, Sepal.Width, Petal.Length)
+
+head(versicolor)</code></pre>
+<pre><code class="hljs">##   Sepal.Length Sepal.Width Petal.Length
+## 1          7.0         3.2          4.7
+## 2          6.4         3.2          4.5
+## 3          6.9         3.1          4.9
+## 4          5.5         2.3          4.0
+## 5          6.5         2.8          4.6
+## 6          5.7         2.8          4.5</code></pre>
+<p>The <code>mvn()</code> function under MVN package (<span class="citation">Korkmaz, Goksuluk, and Zararsiz (2014)</span>) lets us to define the multivariate outlier detection method using the <code>multivariateOutlierMethod</code> argument. When we use <code>multivariateOutlierMethod = "quan"</code> argument, it detects the multivariate outliers using the chi-square distribution critical value approach mentioned above. The <code>showOutliers = TRUE</code> argument will depict any multivariate outliers and show them on the QQ plot.<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Multivariate outlier detection using Mahalanobis distance with QQ plots</span>
+
+results &lt;- mvn(data = versicolor, multivariateOutlierMethod = <span class="hljs-string">"quan"</span>, showOutliers = <span class="hljs-literal">TRUE</span>)</code></pre>
+<p><img src="./Module 6_files/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>As we can see on the QQ plot, the Mahalonobis distance suggests existence of two outliers for this subset of the iris data.&nbsp;</p>
+<p>If we would like to see the list of possible multivariate outliers, we can use <code>result$multivariateOutliers</code> to select only the results related to outliers as follows:<br>
+</p>
+<pre class="r"><code class="hljs">results$multivariateOutliers</code></pre>
+<pre><code class="hljs">##   Observation Mahalanobis Distance Outlier
+## 1           1               10.974    TRUE
+## 2           2                9.580    TRUE</code></pre>
+<p>This output is very useful in terms of providing the locations of outliers in the data set. In our example the 1st and 2nd observations are the suggested outliers for this subset of iris data.<br>
+</p>
+<p>The <code>mvn()</code> function has also different plot options to help discovering possible multivariate outliers. For example to get the bivariate contour plots, we can use <code>multivariatePlot = "contour"</code> argument. However note that contour plots can only be used for two variables.<br>
+Let’s illustrate the contour plots on the subset of setosa flowers, with the first two variables, <code>Sepal.Length</code> and <code>Sepal.Width</code>.<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># load iris data and subset using setosa flowers, with the first two variables</span>
+
+setosa &lt;- iris %&gt;%  filter( Species == <span class="hljs-string">"setosa"</span> ) %&gt;%  dplyr::select(Sepal.Length, Sepal.Width)
+head(setosa)</code></pre>
+<pre><code class="hljs">##   Sepal.Length Sepal.Width
+## 1          5.1         3.5
+## 2          4.9         3.0
+## 3          4.7         3.2
+## 4          4.6         3.1
+## 5          5.0         3.6
+## 6          5.4         3.9</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Multivariate outlier detection using Mahalanobis distance with contour plots</span>
+
+results &lt;- mvn(data = setosa, multivariateOutlierMethod = <span class="hljs-string">"quan"</span>, multivariatePlot = <span class="hljs-string">"contour"</span>)</code></pre>
+<p><img src="./Module 6_files/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"><img src="./Module 6_files/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;"></p>
+<p>From the contour plot, we can see one anomality on the left hand side of the plot, however, according to the QQ plot, this abnormal case doesn’t seem to be an outlier as its Mahanolobis distance didn’t exceed the threshold chi-square value.<br>
+</p>
+<p>Some applications of univariate and multivariate outlier detection can extend from fraud detection (i.e., unusual purchasing behaviour of a credit card owner), medicine (i.e.&nbsp;detection of unusual symptoms of a patient), sports statistics (i.e., abnormal performance for players may indicate doping), measurement errors (i.e., abnormal values could provide an indication of a measurement error), etc. Like missing value analysis, univariate and multivariate outlier analyses are also broader concepts. There are also different distance-based and probabilistic methods (like clustering analysis, genetic algorithm, etc.) that can be used to detect outliers in the high dimensional data sets. There is a huge theory behind the outlier detection methods and outlier analysis would be a stand alone topic of another course. Interested readers may refer to the “Outlier analysis, by Charu C. Aggarwal” for the theory behind the outlier detection methods (<span class="citation">Aggarwal (2015)</span>).<br>
+</p>
+</div>
+</div>
+<div id="approaches-to-handling-outliers" class="section level1">
+<div name="approaches_to_handling_outliers" data-unique="approaches_to_handling_outliers"></div><h1>Approaches to Handling Outliers</h1>
+<p>Most of the ways to deal with outliers are similar to the methods of missing values like deleting them or imputing some values (i.e., mean, median, mode) instead. There are also other approaches specific to dealing with outliers like capping, transforming, and binning them. Here, we will discuss the common techniques used to deal with outliers. Some of the methods mentioned in this Module (like transforming and binning) will be covered in the next module (Module 7: Transform), therefore I won’t go into the details of transforming and binning here.<br>
+</p>
+<div id="excluding-or-deleting-outliers" class="section level2">
+<div name="excluding_or_deleting_outliers" data-unique="excluding_or_deleting_outliers"></div><h2>Excluding or Deleting Outliers</h2>
+<p>Some authors recommend that if the outlier is due to data entry error, data processing error or outlier observations are very small in numbers, then leaving out or deleting the outliers would be used as a strategy. When this is the case, we can exclude/delete outliers in a couple different ways.<br>
+</p>
+<p>To illustrate, let’s revisit the outliers in the <code>carat</code> variable. Remember that we already found the locations of the outliers in the <code>carat</code> variable using <code>which()</code> function. Intuitively, we can exclude these observations from the data using:<br>
+</p>
+<pre class="r"><code class="hljs">Carat_clean&lt;- Diamonds$carat[ - which( abs(z.scores) &gt;<span class="hljs-number">3</span> )]</code></pre>
+<p>Let’s see another example on the previous <code>versicolor</code> data:<br>
+</p>
+<pre class="r"><code class="hljs">versicolor &lt;- iris %&gt;%  filter( Species == <span class="hljs-string">"versicolor"</span> ) %&gt;%  dplyr::select(Sepal.Length, Sepal.Width,Petal.Length )
+
+head(versicolor)</code></pre>
+<pre><code class="hljs">##   Sepal.Length Sepal.Width Petal.Length
+## 1          7.0         3.2          4.7
+## 2          6.4         3.2          4.5
+## 3          6.9         3.1          4.9
+## 4          5.5         2.3          4.0
+## 5          6.5         2.8          4.6
+## 6          5.7         2.8          4.5</code></pre>
+<pre class="r"><code class="hljs">results &lt;- mvn(data = versicolor, multivariateOutlierMethod = <span class="hljs-string">"quan"</span>, showOutliers = <span class="hljs-literal">TRUE</span>)</code></pre>
+<p><img src="./Module 6_files/SEPAL2-1.png" width="672" style="display: block; margin: auto;"></p>
+<pre class="r"><code class="hljs">results$multivariateOutliers</code></pre>
+<pre><code class="hljs">##   Observation Mahalanobis Distance Outlier
+## 1           1               10.974    TRUE
+## 2           2                9.580    TRUE</code></pre>
+<p>The Mahalonobis distance method provided us the locations of outliers in the data set. In our example the 1st and 2nd observations are the suggested outliers. Using the basic filtering and subsetting functions, we can easily exclude these two outliers:<br>
+</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Exclude 1th and 2nd observations</span>
+
+versicolor_clean &lt;- versicolor[ -c(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>), ]
+
+<span class="hljs-comment"># Check the dimension and see outliers are excluded</span>
+
+dim(versicolor_clean)</code></pre>
+<pre><code class="hljs">## [1] 48  3</code></pre>
+<p>Note that, the <code>mvn()</code> function also has an argument called <code>showNewData = TRUE</code> to exclude the outliers. One can simply detect and remove outliers using the following argument:</p>
+<pre class="r"><code class="hljs">versicolor_clean2 &lt;- mvn(data = versicolor, multivariateOutlierMethod = <span class="hljs-string">"quan"</span>, showOutliers = <span class="hljs-literal">TRUE</span>, showNewData = <span class="hljs-literal">TRUE</span>)</code></pre>
+<p><img src="./Module 6_files/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;"></p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Prints the data without outliers</span>
+
+dim(versicolor_clean2$newData)</code></pre>
+<pre><code class="hljs">## [1] 48  3</code></pre>
+</div>
+<div id="imputing" class="section level2">
+<div name="imputing" data-unique="imputing"></div><h2>Imputing</h2>
+<p>Like imputation of missing values, we can also impute outliers. We can use mean or median imputation methods to replace outliers. Before imputing values, we should analyse whether the outlier is a result of data entry/processing error. If the outlier is due to a data entry/processing error, we can go with imputing values.<br>
+</p>
+<p>Let’s replace the two outlier values in <code>carat</code> variable with its mean by using Base R functions:<br>
+</p>
+<pre class="r"><code class="hljs">Diamonds &lt;- read.csv(<span class="hljs-string">"data/Diamonds.csv"</span>)
+
+Diamonds$carat[ which( abs(z.scores) &gt;<span class="hljs-number">3</span> )] &lt;- mean(Diamonds$carat, na.rm = <span class="hljs-literal">TRUE</span>)</code></pre>
+<p>Replacing outliers with the median or a user specified value can also be done using a similar approach. Note that, you may also prefer to write your own functions to deal with outliers.</p>
+</div>
+<div id="capping-a.k.a-winsorising" class="section level2">
+<div name="capping_(aka_winsorising)" data-unique="capping_(aka_winsorising)"></div><h2>Capping (a.k.a Winsorising)</h2>
+<p>Capping or winsorising involves replacing the outliers with the nearest neighbours that are not outliers. For example, for outliers that lie outside the outlier fences on a box-plot, we can cap it by replacing those observations outside the lower limit with the value of 5th percentile and those that lie above the upper limit, with the value of 95th percentile.</p>
+<p>In order to cap the outliers we can use a user-defined function as follows (taken from: <a href="https://stackoverflow.com/questions/13339685/how-to-replace-outliers-with-the-5th-and-95th-percentile-values-in-r?utm_medium=organic&amp;utm_source=google_rich_qa&amp;utm_campaign=google_rich_qa">Stackoverflow</a>):</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Define a function to cap the values outside the limits</span>
+
+cap &lt;- <span class="hljs-keyword">function</span>(x){
+    quantiles &lt;- quantile( x, c(<span class="hljs-number">.05</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.75</span>, <span class="hljs-number">.95</span> ) )
+    x[ x &lt; quantiles[<span class="hljs-number">2</span>] - <span class="hljs-number">1.5</span>*IQR(x) ] &lt;- quantiles[<span class="hljs-number">1</span>]
+    x[ x &gt; quantiles[<span class="hljs-number">3</span>] + <span class="hljs-number">1.5</span>*IQR(x) ] &lt;- quantiles[<span class="hljs-number">4</span>]
+    x
+}</code></pre>
+<p>To illustrate capping we will use the Diamond data set. In order to cap the outliers in the <code>carat</code> variable, we can simply apply our user-defined function to the <code>carat</code> variable as follows:</p>
+<pre class="r"><code class="hljs">Diamonds &lt;- read.csv(<span class="hljs-string">"data/Diamonds.csv"</span>)
+
+carat_capped &lt;- Diamonds$carat %&gt;% cap()</code></pre>
+<p>We can also apply this function to a data frame using <code>sapply</code> function. Here is an example of applying <code>cap()</code> function to a subset of the Diamonds data frame:</p>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Take a subset of Diamonds data using quantitative variables</span>
+
+Diamonds_sub &lt;- Diamonds %&gt;%  dplyr::select(carat, depth, price)
+
+<span class="hljs-comment"># See descriptive statistics</span>
+
+summary(Diamonds_sub)</code></pre>
+<pre><code class="hljs">##      carat            depth           price      
+##  Min.   :0.2000   Min.   :43.00   Min.   :  326  
+##  1st Qu.:0.4000   1st Qu.:61.00   1st Qu.:  950  
+##  Median :0.7000   Median :61.80   Median : 2401  
+##  Mean   :0.7979   Mean   :61.75   Mean   : 3933  
+##  3rd Qu.:1.0400   3rd Qu.:62.50   3rd Qu.: 5324  
+##  Max.   :5.0100   Max.   :79.00   Max.   :18823</code></pre>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Apply a user defined function "cap" to a data frame</span>
+
+Diamonds_capped &lt;- sapply(Diamonds_sub, FUN = cap)
+
+<span class="hljs-comment"># Check summary statistics again</span>
+
+summary(Diamonds_capped)</code></pre>
+<pre><code class="hljs">##      carat            depth           price      
+##  Min.   :0.2000   Min.   :58.80   Min.   :  326  
+##  1st Qu.:0.4000   1st Qu.:61.00   1st Qu.:  950  
+##  Median :0.7000   Median :61.80   Median : 2401  
+##  Mean   :0.7821   Mean   :61.75   Mean   : 3812  
+##  3rd Qu.:1.0400   3rd Qu.:62.50   3rd Qu.: 5324  
+##  Max.   :2.0000   Max.   :64.70   Max.   :13107</code></pre>
+</div>
+<div id="transforming-and-binning-values" class="section level2">
+<div name="transforming_and_binning_values:" data-unique="transforming_and_binning_values:"></div><h2>Transforming and binning values:</h2>
+<p>Transforming variables can also eliminate outliers. Natural logarithm of a value reduces the variation caused by outliers. Binning is also a form of variable transformation. Transforming and binning will be covered in details in the next module (Module 7: Transform).</p>
+</div>
+</div>
+<div id="additional-resources-and-further-reading" class="section level1">
+<div name="additional_resources_and_further_reading" data-unique="additional_resources_and_further_reading"></div><h1>Additional Resources and Further Reading</h1>
+<p>As mentioned before, univariate and multivariate outlier analysis are broader concepts. Interested readers may refer to the “Outlier analysis, by Charu C. Aggarwal” for the theory behind the outlier detection methods (<span class="citation">Aggarwal (2015)</span>). Another useful resource is “R and Data Mining: Examples and Case Studies” by Yanchang Zhao (also available <a href="https://cran.r-project.org/doc/contrib/Zhao_R_and_data_mining.pdf">here</a>). Chapter 7 of this book covers univariate and multivariate outlier detection methods, outlier detection using clustering and outlier detection in time series.</p>
+<p>The <a href="https://cran.r-project.org/web/packages/outliers/outliers.pdf"><code>outliers</code> package manual</a> includes useful functions for the commonly used outlier tests and the distance based approaches. This package can be used to detect univariate outliers.</p>
+<p>I find the MVN package useful for detecting multivariate outliers as it provides many alternative visualisations in addition to the distance based metrics. The MVN package also includes different types of univariate and multivariate tests for normality. For more information and capabilities of the MVN package please refer to the paper by <span class="citation">Korkmaz, Goksuluk, and Zararsiz (2014)</span>, which is available <a href="https://cran.r-project.org/web/packages/MVN/vignettes/MVN.pdf">here</a>.</p>
+<p>There are also other R packages for outlier detection and all might give different results. <a href="http://blog.revolutionanalytics.com/2018/03/outliers.html">This blog by Antony Unwin</a> compares different outlier detection methods available in R using the <code>OutliersO3</code> package.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<div name="references" data-unique="references"></div><h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-aggarwal2015outlier">
+<p>Aggarwal, Charu C. 2015. “Outlier Analysis.” In <em>Data Mining</em>, 237–63. Springer.</p>
+</div>
+<div id="ref-hawkins1980">
+<p>Hawkins, Douglas M. 1980. <em>Identification of Outliers</em>. Vol. 11. Springer.</p>
+</div>
+<div id="ref-korkmaz2014">
+<p>Korkmaz, Selcuk, Dincer Goksuluk, and Gokmen Zararsiz. 2014. “MVN: An R Package for Assessing Multivariate Normality.” <em>The R Journal</em> 6 (2): 151–62.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>

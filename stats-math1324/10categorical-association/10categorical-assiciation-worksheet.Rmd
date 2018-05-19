@@ -1,0 +1,119 @@
+---
+title: "5/9/2018MATH1324 Introduction to Statistics Week 10 - Class"
+output: html_notebook
+---
+
+
+```{r}
+drunks <- read.csv("~/code/tldr/data-science/datasets/stats-math1324-csv/Drunkswalk - Drunkswalk.csv")
+head(drunks)
+library("mosaic")
+
+```
+
+MATH1324 - Class Worksheet
+Week 10 - Chi-square Goodness of Fit Test and Chi-square Test of Association
+Complete the following exercises after watching the Module 8 video demostration.
+
+Datasets: Drunkswalk.csv (see Data Repository)
+Gender and Drunken Stumbling
+Activity Description
+Reanalyse the Drunkswalk.csv data, but this time 
+
+## determine whether gender (0 = females , 1 = males) was associated with the probability of stumbling to the side of a drunk’s dominant hand.
+
+```{r}
+
+drunks$Gender <- factor(drunks$Gender,levels = c(0,1), labels=c("hello ladies", "drunk gents"))
+
+drunks$Match <- factor(drunks$Match,levels = c(0,1), labels=c("Non-dominant", "Dominant"))
+tally(~Match, data = drunks, margins = TRUE)
+
+tally(~Match | Gender, data = drunks, margins = TRUE, format="proportion")
+
+tally(~Match | Gender, data = drunks, margins = TRUE, format="proportion")
+
+```
+
+
+Produce a crosstabulation of the counts and proportions of males and females stumbling to their dominant and nondominant side.
+
+Visualise the association between gender and whether a drunk stumbled to their dominant or nondominant side using a clustered bar chart. Comment on the association.
+
+Perform an appropriate hypothesis test to determine if a drunk’s direction of stumble, to either the side of their dominant or nondominant hand, was associated with gender. Use the 0.05 level of significance.
+State the Null and Alternate hypothesis for the appropriate hypothesis test. State any assumptions.
+
+Report the test statistic, df, and p-value from the results of the hypothesis test. Comment on any assumption checked.
+
+Use the p-value to make a decision about the Null hypothesis.
+
+Conclude whether or not the results of the hypothesis test were statistically significant and draw a conclusion in the context of the example.
+Fair Die
+Activity Description
+The following table shows the outcomes of 1200 rolls of a die. Are the die fair?
+
+Outcome
+1
+2
+3
+4
+5
+6
+Count
+207
+189
+224
+193
+215
+172
+ 
+
+Load the count data into RStudio as a numeric vector named count.
+
+Create another numeric vector named fair which contains the expected proportion for each outcome of a die assuming the die are fair.
+
+Perform an appropriate hypothesis test to determine if die are fair. Use the 0.05 level of significance.
+State the Null and Alternate hypothesis for the appropriate hypothesis test. State any assumptions.
+
+Report the test statistic, df, and p-value from the results of the hypothesis test. Comment on any assumption checked.
+
+Use the p-value to make a decision about the Null hypothesis.
+
+Conclude whether or not the results of the hypothesis test were statistically significant and draw a conclusion in the context of the example.
+R Hints
+Use this example R code if you get stuck:
+Gender and Drunken Stumbling
+> Drunkswalk$Match<-factor(Drunkswalk$Match,
+levels = c(0,1),labels=c("Non-dominant",
+"Dominant"))
+
+> Drunkswalk$Gender<-factor(Drunkswalk$Gender, levels = c(0,1), 
+labels = c("Female","Male"))
+
+> tally(~Match | Gender, data = Drunkswalk,margins = TRUE)
+
+> tally(~Match | Gender, data = Drunkswalk,
+margins = TRUE,format="proportion")
+
+> table2<-tally(~Match | Gender, data = Drunkswalk,format="proportion")
+
+> barplot(table2, 
+        main = "Stumble Side by Gender",ylab="Proportion within Gender",
+        ylim=c(0,1),legend=rownames(table2),beside=TRUE,
+        args.legend=c(x = "topright",horiz=TRUE,title="Stumble Direction"),
+        xlab="Gender")
+> grid()
+
+> xchisq.test(tally(~Match | Gender, data = Drunkswalk))
+
+Fair Die
+> count<-c(207,189,224,193,215,172)
+
+> fair<-rep(1/6,6)
+
+> xchisq.test(count,p = fair)
+
+
+ non-dominant sideusing a clustered bar chart.Exercise 5
+5/9/2018MATH1324 Introduction to Statistics Week 10- Class Worksheetfile://rmit.internal/USRHome/el7/E24447/Downloads/Week_10_Class_Worksheet_Answers%20(1).html5/6a- State the Null and Alternate hypothesis for the appropriate hypothesis test. State any assumptions.# H0: There is no association between gender and whether a drunk stumbles to their dominant hand side# HA: There is an association between gender and whether a drunk stumbles to their dominant hand side# Assumption: No more than 25% of expected cell counts are below 5b- Report the  statistic, , and -value from the results of the hypothesis test. Comment on any assumption checked.Perform an appropriate hypothesis test to determine if a drunk’s direction of stumble, to either the side of theirdominant or non-dominant hand, was associated with gender. Use the 0.05 level of significance.Exercise 6χ2dfp
+5/9/2018MATH1324 Introduction to Statistics Week 10- Class Worksheetfile://rmit.internal/USRHome/el7/E24447/Downloads/Week_10_Class_Worksheet_Answers%20(1).html6/6chi2 <-chisq.test(tab1)chi2## ##  Pearson's Chi-squared test with Yates' continuity correction## ## data:  tab1## X-squared = 4.7654e-31, df = 1, p-value = 1chi2$expected##               ##                  Female     Male##   Non-dominant 24.18543 19.81457##   Dominant     58.81457 48.18543# There are no cells with expected counts below 5.c- Use the -value to make a decision about the Null hypothesis.# p = 1, fail to reject H0.d- Conclude whether or not the results of the hypothesis test were statistically significant and draw a conclusion in the context of the example.# The Chi-square test of association was not statistically significant. There was no evidence of an association between gender and whether a drunk stumbled to the side of their dominant hand. Males and females stumbled to the side of their dominant hand a similar proportion of the time.Return to Introduction to Statistics Website (https://astral-theory-157510.appspot.com/secured/index.html)p
