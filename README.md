@@ -1,7 +1,13 @@
 # data-science
 *WIP - This is a work in progress*
 
-Notes from Data Science Masters at RMIT
+Notes from Data Science Masters
+
+
+----------
+
+
+ at RMIT
 
 ## Stats 
 #### Math1324
@@ -9,5 +15,5 @@ Notes from Data Science Masters at RMIT
 ## Data Preprocessing
 #### Math2349 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODQ3Mjc3OTIwXX0=
+eyJoaXN0b3J5IjpbLTE0Nzg3NzEwOTIsODQ3Mjc3OTIwXX0=
 -->
