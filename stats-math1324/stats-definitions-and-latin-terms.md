@@ -1,3 +1,11 @@
+# Latin Terms
+# Stats terms
+
+Point estimator is single value of sample mean
+
+[integrated learners] aka kinds of regression techniques
+
+[integrated learners]: https://mlr-org.github.io/mlr-tutorial/release/html/integrated_learners/
 
 todo:
 what are equal variances?

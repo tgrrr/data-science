@@ -1,0 +1,12 @@
+---
+title: "11 Revision"
+# output: html_notebook
+---
+
+```{r}
+
+name <- function(variables) { x - (min(x))/ 
+  
+}
+
+```

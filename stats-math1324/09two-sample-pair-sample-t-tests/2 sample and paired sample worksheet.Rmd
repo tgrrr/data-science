@@ -3,9 +3,7 @@ title: "Week 9 - Two-sample and paired samples t-tests MATH1324 - Class Workshee
 output: html_notebook
 ---
 
-
 Working in small groups or pairs, complete the following exercises.
-
 Datasets: Reaction Time Practice.csv and Battery.csv (see Data Repository)
 
 ```{r}
@@ -21,7 +19,7 @@ Reaction Time Practice
 Activity Description
 Does reaction time improve with practice? Export the Reaction Time Practice.csv dataset collected in class (see Data Repository) and import into RStudio. Complete the following exercises.
 
-1. Summarise the First and Second reaction time variables and comment on the trend. 
+1. Summarise the First and Second reaction time variables and comment on the trend.
 
 ```{r}
 
@@ -51,7 +49,7 @@ a. State the Null and Alternate hypothesis for the appropriate hypothesis test.
 
 ```
 
-b. Report the test statistic, df, p-value and 95% CI of the mean difference from the results of the hypothesis test. 
+b. Report the test statistic, df, p-value and 95% CI of the mean difference from the results of the hypothesis test.
 
 ```{r}
 
@@ -71,15 +69,15 @@ d. Conclude whether or not the results of the hypothesis test were statistically
 
 ## Battery
 Activity Description
-Reanalyse the Battery.csv data used in the demonstration, but, this time, by comparing the mean number of pulses to reach 1.3 V between brands. Assume the data are normally distributed in the population. 
+Reanalyse the Battery.csv data used in the demonstration, but, this time, by comparing the mean number of pulses to reach 1.3 V between brands. Assume the data are normally distributed in the population.
 
-Summarise the mean pulses to reach 1.30 V between brands. 
+Summarise the mean pulses to reach 1.30 V between brands.
 
 
 Visualise the data using an appropriate plot. Comment on the difference between brands.
 
 
-Test the assumption of equal variance using the Levene’s test. 
+Test the assumption of equal variance using the Levene’s test.
 
 
 Perform an appropriate hypothesis test compare the mean pulses to reach 1.30 V between brands. Use the 0.05 level of significance.
@@ -87,7 +85,7 @@ State the Null and Alternate hypothesis for the appropriate hypothesis test.
 
 
 
-Report the test statistic, df, p-value and 95% CI of the difference between means from the results of the hypothesis test. 
+Report the test statistic, df, p-value and 95% CI of the difference between means from the results of the hypothesis test.
 
 
 
@@ -103,11 +101,11 @@ Reaction Time Practice
 
 > Reaction.Time.Practice$d <- Reaction.Time.Practice$Average.RT.Second -Reaction.Time.Practice$Average.RT.First #Add column of differences
 
-Reaction.Time.Practice_filtered <-subset(Reaction.Time.Practice, 
+Reaction.Time.Practice_filtered <-subset(Reaction.Time.Practice,
                                          subset = Average.RT.Second < 800)
 
 
-> favstats(~d, data = Reaction.Time.Practice) #Mean difference 
+> favstats(~d, data = Reaction.Time.Practice) #Mean difference
 
 > qqPlot(Reaction.Time.Practice$d, dist="norm") #Check normality if required
 
@@ -117,7 +115,7 @@ Reaction.Time.Practice_filtered <-subset(Reaction.Time.Practice,
 > library(granova)
 
 > granova.ds(data.frame(Reaction.Time.Practice$Average.RT.First,
-Reaction.Time.Practice$Average.RT.Second), 
+Reaction.Time.Practice$Average.RT.Second),
              		xlab = "Reaction Time - First",
              		ylab = "Reaction Time - After")
 Battery
@@ -130,13 +128,13 @@ Battery
 
 > leveneTest(Pulses ~ Brand, data = Battery_sub) #Levene’s test
 
-> t.test(~Pulses | Brand, data = Battery_sub) #Two-sample t-test 
+> t.test(~Pulses | Brand, data = Battery_sub) #Two-sample t-test
 
 
 Solutions and Answers
 Reaction Time Practice
 
-Summarise the First and Second reaction time variables and comment on the trend. 
+Summarise the First and Second reaction time variables and comment on the trend.
 
 > favstats(~Average.RT.First, data = Reaction.Time.Practice) #RT first try
  min    Q1 median  Q3 max     mean       sd  n missing
@@ -145,14 +143,14 @@ Summarise the First and Second reaction time variables and comment on the trend.
  min  Q1 median  Q3 max     mean       sd  n missing
  230 292    334 394 823 363.1481 124.2175 27       0
 
-Note the outlier at 823. 
+Note the outlier at 823.
 
 Visualise the data using an appropriate plot (see Module 7 course notes for some ideas). Comment on the trend of the data.
 
 With outliers removed...
 
 > granova.ds(data.frame(Reaction.Time.Practice_filtered$Average.RT.First,
-Reaction.Time.Practice_filtered$Average.RT.Second), 
+Reaction.Time.Practice_filtered$Average.RT.Second),
             	 xlab = "Reaction Time - First",
            	 	 ylab = "Reaction Time - Second")
 
@@ -168,7 +166,7 @@ Note the outlier at 313.
 
 Filter data to remove outliers.
 
-> Reaction.Time.Practice_filtered <-subset(Reaction.Time.Practice, 
+> Reaction.Time.Practice_filtered <-subset(Reaction.Time.Practice,
                                          subset = Average.RT.Second < 800 & d > -200)
 
 
@@ -180,9 +178,9 @@ The statistical hypotheses for the paired samples t-test are as follows:
 H0: uΔ = 0
 HA: uΔ ≠  0
 
-The paired samples t-test was used because the data was paired and we were analysing the average difference between first and second attempts. 
+The paired samples t-test was used because the data was paired and we were analysing the average difference between first and second attempts.
 
-Report the test statistic, df, p-value and 95% CI of the mean difference from the results of the hypothesis test. 
+Report the test statistic, df, p-value and 95% CI of the mean difference from the results of the hypothesis test.
 
 > t.test(Reaction.Time.Practice_filtered$d, mu = 0, alternative = "two.sided")
 
@@ -194,22 +192,22 @@ alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
  -36.94665285  -0.01334715
 sample estimates:
-mean of x 
-   -18.48 
+mean of x
+   -18.48
 
 Use the p-value and 95% CI of the mean to make a decision about the Null hypothesis.
 
-Assuming the data are normally distributed in the population (for which there might be doubts), we reject H0 as the p-value < 0.05 and the 95% CI [-36.95, -0.01] does not capture H0: uΔ = 0. 
+Assuming the data are normally distributed in the population (for which there might be doubts), we reject H0 as the p-value < 0.05 and the 95% CI [-36.95, -0.01] does not capture H0: uΔ = 0.
 
 Conclude whether or not the results of the hypothesis test were statistically significant and draw a conclusion within the context of the example.
 
-The results of the paired samples t-test were statistically significant. If the normality assumption holds, the findings suggest that test takers significantly improve their reaction time ratings on their second attempt. 
+The results of the paired samples t-test were statistically significant. If the normality assumption holds, the findings suggest that test takers significantly improve their reaction time ratings on their second attempt.
 
-Battery 
-Summarise the mean pulses to reach 1.30 V between brands. 
+Battery
+Summarise the mean pulses to reach 1.30 V between brands.
 
 > Battery_sub <- subset(Battery, subset = (Voltage == 1.30))
-> 
+>
 > favstats(~Pulses | Brand, data = Battery_sub)
       Brand min Q1 median Q3 max     mean       sd n missing
 1 Energizer  15 17     19 24  25 19.66667 3.741657 9       0
@@ -220,7 +218,7 @@ Visualise the data using an appropriate plot. Comment on the difference between 
 
 > boxplot(Pulses ~ Brand, data = Battery_sub,ylab = "Pulses")
 
-Test the assumption of equal variance using the Levene’s test. 
+Test the assumption of equal variance using the Levene’s test.
 
 > leveneTest(Pulses ~ Brand, data = Battery_sub)
 
@@ -229,15 +227,15 @@ Levene's Test for Homogeneity of Variance (center = median)
 group  1  1.8756 0.1898
       16  
 
-Equal variance may be assumed because the p-value of the Levene’s test was not statistically significant. However, we will still use the Welch two-sample t-test. 
+Equal variance may be assumed because the p-value of the Levene’s test was not statistically significant. However, we will still use the Welch two-sample t-test.
 
 Perform an appropriate hypothesis test compare the mean pulses to reach 1.30 V between brands. Use the 0.05 level of significance.
 State the Null and Alternate hypothesis for the appropriate hypothesis test.
 
 H0: uEnergizer- uUltracell= 0
-HA: uEnergizer- uUltracell≠ 0 
+HA: uEnergizer- uUltracell≠ 0
 
-Report the test statistic, df, p-value and 95% CI of the difference between means from the results of the hypothesis test. 
+Report the test statistic, df, p-value and 95% CI of the difference between means from the results of the hypothesis test.
 
 > t.test(~Pulses | Brand, data = Battery_sub)
 
@@ -249,8 +247,8 @@ alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
  -10.719534  -4.169354
 sample estimates:
-mean in group Energizer mean in group Ultracell 
-               19.66667                27.11111 
+mean in group Energizer mean in group Ultracell
+               19.66667                27.11111
 
 Use the p-value and 95% CI of the mean to make a decision about the Null hypothesis.
 

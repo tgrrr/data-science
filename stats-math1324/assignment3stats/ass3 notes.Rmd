@@ -1,0 +1,78 @@
+---
+title: "OLD for ass3"
+output: html_notebook
+---
+
+```{r}
+male <- subset(body, Sex == "male")
+female <- subset(body, Sex == "female")
+(male$BFP_Brozek %>% mean()) < (female$BFP_Brozek %>% mean()) # True
+(male$BFP_Siri %>% mean()) < (female$BFP_Siri %>% mean()) # True
+# or:
+subset(body, Sex == "male")$BFP_Brozek %>% mean() < subset(body, Sex == "female")$BFP_Brozek %>% mean()
+subset(body, Sex == "male")$BFP_Siri %>% mean() < subset(body, Sex == "female")$BFP_Siri %>% mean()
+
+favstats(~ BFP_Brozek | Sex, data = body)
+favstats(~ BFP_Siri | Sex, data = body)
+
+```
+
+OLD:
+<!-- #### 1. Problem Statement: -->
+<!-- - This paper examins the wrist girth of male and females from the dataset [Heinz G, Peterson LJ, Johnson RW, Kerk CJ. 2003. Exploring Relationships in Body Dimensions. Journal of Statistics Education 11(2).](https://ww2.amstat.org/publications/jse/v11n2/datasets.heinz.html).  -->
+<!-- - The examined the factors are `wri.di` wrist girth (in cm) and `sex` (male or female) -->
+<!-- - I compare the differences in body dimensions between male and females against the normal disntribution of the population of the dataset. -->
+
+
+```{r}
+
+
+# Two sample sample 
+# We don't have the population standard deviation, so we use the t test
+
+# favstats(~ | Brand, data = body)
+
+body$Sex <- factor(body$Sex, levels = c(0,1), labels=c("female", "male")) # TODO: check Sex
+
+body_fat_male <-
+  subset(x = body,
+         select = BFP_Brozek,
+    subset= Sex =="male") #Subset male data
+
+qqPlot(body_fat_male$BFP_Brozek, dist="norm")
+
+# Doesn't work yet:
+body <- mutate(
+  body,
+  Sex=factor(
+    Sex,
+    levels = c(0,1),
+    labels=c("female", "male")
+    )) %>%
+
+
+#wrist_measurements <- select(body_measurements, wri.gi, sex) %>% as.data.frame()
+#colnames(wrist_measurements) <- c("wrist.girth", "sex")
+#wrist_measurements <- mutate(wrist_measurements, sex=factor(sex, labels=c("female", "male")))
+#wrist_measurements %>% head()
+
+```
+
+```{r}
+# Formulas I might use
+
+ confint(t.test( ~ Body_temp, data = Body_temp))
+qqPlot(body, dist="norm") #Check normality if required
+
+# Todo: should I be doing this for Brozek?
+favstats(~BFP_Brozek, data = body)
+numberOfCases <- length(body$Case) # number of cases
+mean <- mean(body$BFP_Brozek) %>% print()
+standardDeviation <- sd(body$BFP_Brozek)
+boxplot(body$BFP_Brozek, ylab = "body temp Brozek")
+
+standardError <- standardDeviation/sqrt(n) #Calculate se
+mu + (t*se) #Determine critical mean
+mean + (t * se)
+
+```
