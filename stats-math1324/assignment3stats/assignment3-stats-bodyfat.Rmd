@@ -215,8 +215,44 @@ _Write down your null and alternative hypothesis clearly, express your conclusio
  Reject H0 if P-value for F statistics < ɑ.
 
 ```{r echo=TRUE}
-body %>% .[-c(1, length(.))] -> bodyCorrelation # remove sex and case number for correlation
+body %>% .[-c(1,3:5,length(.))] -> bodyCorrelation # remove sex and case number for correlation
+bivariate <- as.matrix(bodyCorrelation)  %>% round(digits = 2)
+# Correlation
+# cor(bivariate)
+# P Variable
+rcorr(x = bivariate, type = "pearson")
+```
 
+```{r}
+
+# getCorrelation <- function(.) {
+#   bivariate <- bodyCorrelation %>% colnames() %>% as.matrix()
+#   rcorr(bivariate, type = "pearson")
+#   foo <- .[, lapply(., is.numeric) %>% unlist()] %>%
+#     rcorr(foo, type = "pearson") %>% round(digits = 2)
+#   foo %>% as.data.frame()
+# }
+
+# This orders by highest bodyCorrelation, we don't need this
+bodyCorrelation %>% .[order(-bodyCorrelation$BFP_Brozek), 1:15]
+# [1:9,1:9]
+
+# 
+# orderedCorrelation <-
+#   bodyCorrelations[,1:19] %>%
+#   .[orderedBodyCorrelations, orderedBodyCorrelations]
+# orderedCorrelation # TODO: Problem that the correlation numbers don't come out right
+# 
+# 
+
+pairs.panels(bodyCorrelation[,c(1:15)],method = "pearson", hist.col = "#00AFBB", density = TRUE,  ellipses = TRUE, cor =T, ci=T, digits = 2,rug = F,breaks = 20, stars = T)
+
+# pairs.panels(orderedCorrelation[,c(1,3:12)], method="pearson", hist.col="#00AFBB", density=T, ellipses=T, cor =T, ci=T)
+
+
+```
+
+```{r}
 getCorrelation <- function(.) {
   bivariate <- bodyCorrelation %>% colnames() %>% as.matrix()
   rcorr(bivariate, type = "pearson")
@@ -226,6 +262,10 @@ getCorrelation <- function(.) {
 }
 bodyCorrelation %>% getCorrelation()
 
+```
+
+
+```{r}
 # broken
 # bodyCorrelations <- body %>% getCorrelation()
 #  bodyCorrelations[order(-bodyCorrelations$BFP_Brozek), 2:10][1:9,1:9]
