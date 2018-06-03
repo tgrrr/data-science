@@ -2,10 +2,10 @@
 
 # Possible Datasets
 
-- Education dataset
-  - matched with funding
-  - matched with area
-- 
+Links:
+[Github]
+[assignment notes]
+[How do work on R Markdown and Rpubs]
 
 Instructions:
 https://docs.google.com/document/d/1dgDg_sD-G4ZX_N38X03XbCPhGFFAqAZ5ZI5QfNoFND4/edit#
@@ -191,3 +191,7 @@ You are permitted to discuss and collaborate on the assignment with your classma
 
 
 [R Markdown Template - Assignment 3]: ./MATH2349_1810_Assignment_3_Template.rmd
+
+[Github]:https://github.com/tgrrr/data-preprocessing-assignment3/
+[assignment notes]: https://drive.google.com/open?id=1dgDg_sD-G4ZX_N38X03XbCPhGFFAqAZ5ZI5QfNoFND4
+[How do work on R Markdown and Rpubs]: (https://astral-theory-157510.appspot.com/secured/RBootcamp_Course_04.html#creating_an_r_markdown_document_in_r_studio) - add this RPubs link to the comments/description section in Turnitin while uploading your report.

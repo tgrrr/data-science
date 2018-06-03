@@ -1,14 +1,15 @@
 ---
-title: "Predicting Body Fat Percentage - MATH1324 Introduction to Statistics Assignment 3"
+title: Predicting Body Fat Percentage - MATH1324 Introduction to Statistics Assignment
+  3
 author: "Phil Steinke s3725547"
----
 output:
   html_notebook:
     code_folding: none
     number_sections: yes
     theme: flatly
-editor_options:
+editor_options: 
   chunk_output_type: inline
+---
 
 What's involved
 
@@ -16,7 +17,7 @@ Hypothesis
 Null hypothesis
 compare two things to see if there's a link
 
-```{r, echo = TRUE, message=FALSE, warnings=0}
+```{r echo = F, message=F, warnings=0, results='hide'}
 packagesList <- c("readr", "base", "readxl", "dplyr", "mosaic", "gridExtra", "latticeExtra", "epitools", "qqplotr", "car", "ggplot2", "kableExtra", "mosaic", "psychometric", "psych", "Hmisc")
 lapply(packagesList, require, character.only = TRUE)
 setwd("~/code/tldr/data-science/stats-math1324/assignment3stats")
@@ -34,21 +35,18 @@ The Body(2).csv dataset is posted on the Assignment 3 website. It contains the p
 
 ## The Assignment
 
-### 1. two-sample t-test - Test whether the mean body fat percentage for males and females are the same
+# 1. two-sample t-test - Test whether the mean body fat percentage for males and females are the same
 
 **Hypothesis for testing mean of two populations:**
 H<sub>0</sub>: μ1 -μ2 = 0.0
 H<sub>a</sub>: μ1 -μ2 ≠ 0.0
 
+
 ```{r}
-# body %>% tail() %>% kable("html")
-favstats(~ BFP_Brozek | Sex, data = body)
-#%>% kable("html")
+favstats(~ BFP_Brozek | Sex, data = body) %>% kable("html") %>% kable_styling(full_width=F, bootstrap_options="striped")
 ```
-**Test the assumption of normality:**
+#### Test the assumption of normality
 ```{r}
-# TODO: titles
-qqPlot(body$BFP_Brozek, dist="norm") #Check normality if required # gives a weird answer
 qqPlot(BFP_Brozek ~ Sex, data = body, dist="norm") #Check normality if required # gives a weird answer
 ```
 
@@ -56,6 +54,12 @@ Homogeneity Levene’s test
 ```{r}
 leveneTest(BFP_Brozek ~ Sex, data = body)
 ```
+TODO: add hypothesis test for Levene test
+
+We assume that 
+.13 > .05 (significance level alpha)
+therefore don't reject
+
 Output:
 
 My Notes:
@@ -63,83 +67,18 @@ The p-value for the Levene's test of equal variance for body weight between male
 
 ```{r}
 # class t.test(Body_temp~ Gender, data = Body_temp,var.equal=FALSE,alternative="two.sided")
-t.test(BFP_Brozek~ Sex, data = body,var.equal=FALSE,alternative="two.sided") # Works
+t.test(BFP_Brozek~ Sex, data = body,var.equal=T ,alternative="two.sided") # Works
 ```
-Output:
+-> fail reject
 
-	Welch Two Sample t-test
-
-data:  BFP_Brozek by Sex
-t = -0.72434, df = 169.45, p-value = 0.4699
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -2.841769  1.316117
-sample estimates:
-  mean in group Male mean in group Female
-            18.66000             19.42283
-
-#### 2. Confidence Interval - Module 6
+# 2. Confidence Interval - Module 6
 Estimate the 99% confidence interval for the mean body fat percentage in the population.
 ```{r}
-confint(
-  t.test(
-    ~ BFP_Brozek,
-    data = body
-    ),
-    conf.level=0.99)
-# %>% kable("html")
+confint(t.test(~ BFP_Brozek, data = body),conf.level=0.99)
 
 boxplot(body$BFP_Brozek, ylab = "The label goes here") # TODO:
-
-
 ```
-Output:
-  mean of x    lower   upper level
-1  18.93849 17.97689 19.9001  0.95
-
-## Male
 ```{r}
-confint(
-  t.test(
-    ~ BFP_Brozek,
-    data =
-      subset(
-        body,
-        subset=(Sex=="Male")),
-      conf.level=0.99))
-```
-
-```{r}
-confint(
-  t.test(
-    ~ BFP_Brozek,
-    data =
-      subset(
-        body,
-        subset=(Sex=="Female")),
-      conf.level=0.99))
-```
-
-```{r}
-cis<-data.frame(Group = c("Male","Female"),
-                Means = c(18.66, 19.42283),
-                LB = c(17.15, 17.11),
-                UB = c(20.17, 21.73))
-# TODO:
-p <- ggplot(body, aes(Group, y = BFP_Brozek)) +
-  geom_dotplot(binaxis = "y", stackdir = "center",alpha = 0.3) +
-
-  stat_summary(data = cis, geom = "point", fun.y = "mean", colour = "red", size = 4)
-
-
-
-+  layer(data = cis,mapping = aes(x = Group, y = Means),
-        geom = "point", size = 4, color = "red")
-# TODO:
-+
-  stat_function(data = cis,mapping = aes(x = Group, y = Means, ymin = LB, ymax = UB),
-        geom = "errorbar", size = 1, color = "red", width = 0.2)
-p # layer or stat_function
 
 # TODO:
 # from plot cheatsheet https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
@@ -206,16 +145,32 @@ ie. circumference, electronics, submersion.
 -
 -
 
-# 1 sample T Test - 1 tail
-#### 3. - Researchers believe that average body fat percentage is less than 12.5. Test this claim.
+# 3. One sample T Test - One tail
+#### Researchers believe that average body fat percentage is less than 12.5. Test this claim.
+
+H<sub>0</sub>: μ = 12.5
+H<sub>a</sub>: μ < 12.5
 
 ```{r}
 # TODO; test assumption of normality
-t.test(~ BFP_Brozek, data=body, mu = 12.5, alternative="less")
-
+t.test(~ BFP_Brozek, data=body, mu = 12.5, alternative = "less")
+# todo add Confidence level
+favstats(~ BFP_Brozek, data = body)
+filter(.data = body, BFP_Brozek == 0)
 # P value = 1 !!!
 
 ```
+
+We could do a further test by
+- a two tailed test
+- the Ha being mu > 12.5
+- testing a different mu based on further research
+
+
+if we changed it to t.test(~ BFP_Brozek, data=body, mu = 12.5, alternative = "greater")
+it works
+
+
 Out:
 data:  BFP_Brozek
 t = 13.187, df = 251, p-value = 1
@@ -239,15 +194,17 @@ _Write down your null and alternative hypothesis clearly, express your conclusio
 -
 -
 -
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 ## Regression modeling
+
 ### 4. Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
 - maybe do the pearson correlation first to see which has the strongest linear relationship and then do the
 - SLR testing?
 
 # TODO:
- H0: The data does not fit to linear regression model.
- HA: The data fits to linear regression model.
+ H<sub>0</sub>: The data does not fit to linear regression model.
+ H<sub>a</sub>: The data fits to linear regression model.
  We test the overall model using F-test.
  Assumptions:
  Independence (check research design)
@@ -258,30 +215,41 @@ _Write down your null and alternative hypothesis clearly, express your conclusio
  Reject H0 if P-value for F statistics < ɑ.
 
 ```{r echo=TRUE}
+body %>% .[-c(1, length(.))] -> bodyCorrelation # remove sex and case number for correlation
+
 getCorrelation <- function(.) {
-  orderedCorrelation <- .[, lapply(., is.numeric) %>% unlist()] %>% rcorr( type = "pearson") %>% round(digits = 2) %>% as.data.frame()
-} 
-bodyCorrelations <- body %>% getCorrelation()
-bodyCorrelations
-# orderedBodyCorrelations <- order(-bodyCorrelations$BFP_Brozek)
-orderedCorrelation <- 
-  bodyCorrelations[,1:19] %>% 
-  .[orderedBodyCorrelations, orderedBodyCorrelations]
-orderedCorrelation # TODO: Problem that the correlation numbers don't come out right
+  bivariate <- bodyCorrelation %>% colnames() %>% as.matrix()
+  rcorr(bivariate, type = "pearson")
+  foo <- .[, lapply(., is.numeric) %>% unlist()] %>%
+    rcorr(foo, type = "pearson") %>% round(digits = 2)
+  foo %>% as.data.frame()
+}
+bodyCorrelation %>% getCorrelation()
 
-# Selecting plots with a pearson correlation > 0.5
-pairs.panels(orderedCorrelation[,c(1,3:12)], method="pearson", hist.col="#00AFBB", density=T, ellipses=T, cor =T, ci=T)
+# broken
+# bodyCorrelations <- body %>% getCorrelation()
+#  bodyCorrelations[order(-bodyCorrelations$BFP_Brozek), 2:10][1:9,1:9]
+# bodyCorrelations
+# 
+# orderedCorrelation <-
+#   bodyCorrelations[,1:19] %>%
+#   .[orderedBodyCorrelations, orderedBodyCorrelations]
+# orderedCorrelation # TODO: Problem that the correlation numbers don't come out right
+# 
+# 
+# pairs.panels(bodyCorrelations[,c(2,5:10)],method = "pearson", hist.col = "#00AFBB", density = TRUE,  ellipses = TRUE, cor =T, ci=T, digits = 2,rug = F,breaks = 20, stars = T)
+# # pairs.panels(orderedCorrelation[,c(1,3:12)], method="pearson", hist.col="#00AFBB", density=T, ellipses=T, cor =T, ci=T)
+
 ```
-- The pearson correlating factors to BFP_Brozek in order are 
-Abdomen, Adiposity_index, Chest, Hip, Weight, Thigh and so on
 
 ```{r}
-
-
-```
-
-```{r}
-#Class:
+# bivariate<-as.matrix(select(body, ~Height)) #Create a matrix of the variables to be correlated
+# 
+# qqPlot(body$BFP_Brozek, dist="norm") #Check normality if required # gives a weird answer
+# rcorr(bivariate, type = "pearson") #Create a matrix of the variables to be correlated
+# 
+# bivariate<-as.matrix(select(OUES, VO2_Max,OUES_3)) #Create a matrix of the variables to be correlated
+# 
 
 ```
 
