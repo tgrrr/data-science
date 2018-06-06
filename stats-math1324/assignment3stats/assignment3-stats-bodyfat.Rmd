@@ -54,7 +54,7 @@ bodyCorrelationOrderedByPearson <- bodyCorrelation %>% as.matrix() %>% rcorr(typ
 
 #bodyCorrelationOrderedByPearson %>% colnames() # <- Pearson correlation in order
 bodyCorrelationOrderedByPearson$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat=bodyCorrelationOrderedByPearson$p, sig.level = 1, insig = "blank")
-# Showing body 
+# Showing body
 pairs.panels(bodyCorrelation[1:8], method = "pearson", hist.col = "#00AFBB", density = T, ellipses = F, cor = T, ci = T, digits = 2, rug = F, breaks = 20, stars = F, show.points=F)
 ```
 <!-- ```{r message=TRUE, warning=TRUE, include=FALSE, warnings=0}
@@ -67,6 +67,82 @@ pairs.panels(bodyCorrelation[1:8], method = "pearson", hist.col = "#00AFBB", den
 #### 4.2 Use the best predictor to determine a model that can convert a person’s body circumference measurement to an estimated body fat percentage.
 
 #### 4.3 Ensure you test the model parameters and any assumptions.
+
+```{r}
+
+bodyAbdomenMaxModel <- lm(Abdomen ~ BFP_Brozek, data = body)
+msummary(bodyAbdomenMaxModel)
+```
+
+intercept ɑ is 71.11688
+slope β is 1.13204
+P- value to test if ɑ =0.0 is <2e-16***
+
+P-value to test if β =0.0 <2e-16 ***
+H<sub>0</sub>: β = 0
+H<sub>A/sub>: β ≠ 0
+
+H<sub>0</sub>: The data do not fit the linear regression model
+H<sub>A/sub>: The data fit the linear regression model
+
+#### Normal plot of residuals
+```{r}
+qqPlot(body$BFP_Brozek, dist = "norm") # Check normality if required # gives a weird answer
+```
+
+#### Testing Assumption of Homoscedasticity
+```{r}
+mplot(bodyAbdomenMaxModel, 1)
+```
+
+
+
+
+```{r}
+xyplot(Abdomen ~ BFP_Brozek, data = body, ylab = "Abdomen", xlab = "BFP_Brozek", panel=panel.lmbands)
+
+```
+
+
+```{r}
+# From class
+
+F-statistic: 489.9 on 1 and 250 DF,  p-value: < 2.2e-16
+> pf(FStatistic, lowerDF, upperDF, )
+pf(489.9,1,250,lower.tail = FALSE, ) # 7.71020869865819e-61
+
+p < confidence
+
+p (7.71020869865819e-61) is less than the  Confidence Level
+
+```
+TODO: is it definitely lower tail false?
+
+```{r}
+confint(bodyAbdomenMaxModel, level = .99)
+```
+
+### Confidence Interval
+
+#### Test Intercept (α)
+
+H<sub>0</sub>: α = 0
+H<sub>a</sub>: α ≠ 0
+
+The 99% Confidence Interval (CI) for α is [68.4010649, 73.832686]
+H<sub>0</sub>: α = 0 is not captured between this interval, so we reject H<sub>0</sub>.
+
+#### Testing the Slope (β)
+
+H<sub>0</sub>: β = 0
+H<sub>A/sub>: β ≠ 0
+
+The 99% Confidence Interval (CI) for β is [0.9992825, 1.264792]
+H<sub>0</sub>: β = 0 is not captured between this interval, so we reject H<sub>0</sub>.
+
+```{r}
+coef(summary(bodyAbdomenMaxModel))
+```
 
 #### 4.4 Critique the predictive ability of the model and
 
@@ -106,25 +182,12 @@ Linearity(Check scatter plot)
 Normality of residuals(check after model is fitted)
 Homoscedasticity (check after model is fitted)
 Decision Rules:
-Reject H0 if P-value for F statistics < ɑ.
+Reject H<sub>0</sub> if P-value for F statistics < ɑ.
 
 
 
 
 
-```{r}
-bivariate <- as.matrix(select(body, ~ Height)) # Create a matrix of the variables to be correlated
-
-qqPlot(body$BFP_Brozek, dist = "norm") # Check normality if required # gives a weird answer
-rcorr(bivariate, type = "pearson") # Create a matrix of the variables to be correlated
-
-bivariate <- as.matrix(select(OUES, VO2_Max, OUES_3)) # Create a matrix of the variables to be correlated
-```
-
-```{r}
-
-xyplot(Abdomen ~ BFP_Brozek, data = body, ylab = "Abdoment", xlab = "BFP_Brozek")
-```
 
 
 [JSE-DA]: http://www.amstat.org/publications/jse/jse_data_archive.htm
