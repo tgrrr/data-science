@@ -5,9 +5,11 @@ author: "Phil Steinke s3725547"
 output:
   html_notebook:
     code_folding: none
-    number_sections: yes
-    theme: flatly
-editor_options: 
+    fig_caption: yes
+    fig_width: 8
+    highlight: espresso
+    theme: paper
+editor_options:
   chunk_output_type: inline
 ---
 
@@ -16,13 +18,13 @@ What's involved
 Hypothesis
 Null hypothesis
 compare two things to see if there's a link
-
-```{r echo = F, message=F, warnings=0, results='hide'}
-packagesList <- c("readr", "base", "readxl", "dplyr", "mosaic", "gridExtra", "latticeExtra", "epitools", "qqplotr", "car", "ggplot2", "kableExtra", "mosaic", "psychometric", "psych", "Hmisc")
+TODO: update this output before printing
+```{r load packages and data, message=F, warning=FALSE, include=FALSE, paged.print=FALSE}
+packagesList <- c("readr", "base", "readxl", "dplyr", "mosaic", "gridExtra", "latticeExtra", "epitools", "qqplotr", "car", "ggplot2", "kableExtra", "mosaic", "psychometric", "psych", "Hmisc", "corrplot")
 lapply(packagesList, require, character.only = TRUE)
 setwd("~/code/tldr/data-science/stats-math1324/assignment3stats")
 body <- read_excel("data/Body (2) Assignment 3 data.xlsx", sheet = "Body (2) Assignment 3 data") %>% as.data.frame()
-body$Sex <- factor(body$Sex, levels = c(1,0), labels = c("Male","Female")) #Sex: “1” for male and “0” for female
+body$Sex <- factor(body$Sex, levels = c(1, 0), labels = c("Male", "Female")) # Sex: “1” for male “0” for female
 ```
 
 #### Overview
@@ -33,6 +35,110 @@ The Body(2).csv dataset is posted on the Assignment 3 website. It contains the p
 - (original source: [JSE-DA]).
 
 
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+## Regression modelling
+
+### 4. Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
+
+```{r name of package, echo=TRUE}
+bodyCorrelation <- body %>% .[-c(1, 3:5, length(.))] # remove sex and case number for correlation. ONLY RUN ONCE!
+bivariate <- bodyCorrelation %>% as.matrix() # TODO: possibly refactor this
+unorderedBivariateRcorr <- bivariate %>% rcorr(type = "pearson") # Unordered
+
+# Order our factors by Pearson correlation with with BFP_Brozek
+bodyCorrelationFactorOrder <- unorderedBivariateRcorr$r %>% as.data.frame() %>% .[1] %>% order(decreasing = T)
+bodyCorrelation <- bodyCorrelation[bodyCorrelationFactorOrder] # TODO: refactor this if I don't know bodyCorrelation
+bodyCorrelationOrderedByRcorr <- bodyCorrelation %>% as.matrix() %>% rcorr(type = "pearson") # Ordered R Correlation
+
+# Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
+#bodyCorrelationOrderedByRcorr$r %>% colnames() # Here they are by Pearson correlation in order
+bodyCorrelationOrderedByRcorr
+bodyCorrelationOrderedByRcorr$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat=bodyCorrelationOrderedByRcorr$p, sig.level = 1, insig = "blank")
+pairs.panels(bodyCorrelation[1:8], method = "pearson", hist.col = "#00AFBB", density = T, ellipses = F, cor = T, ci = T, digits = 2, rug = F, breaks = 20, stars = F, show.points=F)
+```
+The best factor for body fat percentage via the Brozek method is Abdomen with an .81*** Pearson correlation
+<!-- ```{r message=TRUE, warning=TRUE, include=FALSE, warnings=0}
+``` -->
+
+#### The actual question:
+
+#### 4.1 Write a report that explains your method for identifying the single best predictor.
+
+#### 4.2 Use the best predictor to determine a model that can convert a person’s body circumference measurement to an estimated body fat percentage.
+
+#### 4.3 Ensure you test the model parameters and any assumptions.
+
+#### 4.4 Critique the predictive ability of the model and
+
+#### 4.5 Draw an overall conclusion to help the investigators
+
+
+- maybe do the pearson correlation first to see which has the strongest linear relationship and then do the
+- SLR testing?
+
+STEPS FOR GETTING IT DONESKY Module 9
+Regression, y = ɑ + ɓx
+Test for a significant relationship between y and x
+Null: no relationship
+Alternate: is a relationship
+Look at p value for F statistic
+Small p, reject null
+Describe strength of relationship
+Look at R value
+R may be negative or positive
+R > 0.75 – yes there is a strong relationship
+ɓ = slope
+Can be positive or negative
+Change in y per unit x
+ɑ = significance in model
+ɑ = 0 vs ɑ ≠ 0
+Will be given p value in R
+Your residual must be normal
+Mean = 0
+Variance = σ2
+
+H<sub>0</sub>: The data does not fit to linear regression model.
+H<sub>a</sub>: The data fits to linear regression model.
+We test the overall model using F-test.
+Assumptions:
+Independence (check research design)
+Linearity(Check scatter plot)
+Normality of residuals(check after model is fitted)
+Homoscedasticity (check after model is fitted)
+Decision Rules:
+Reject H0 if P-value for F statistics < ɑ.
+
+
+
+
+
+```{r}
+bivariate <- as.matrix(select(body, ~ Height)) # Create a matrix of the variables to be correlated
+
+qqPlot(body$BFP_Brozek, dist = "norm") # Check normality if required # gives a weird answer
+rcorr(bivariate, type = "pearson") # Create a matrix of the variables to be correlated
+
+bivariate <- as.matrix(select(OUES, VO2_Max, OUES_3)) # Create a matrix of the variables to be correlated
+```
+
+```{r}
+
+xyplot(Abdomen ~ BFP_Brozek, data = body, ylab = "Abdoment", xlab = "BFP_Brozek")
+```
+
+
+[JSE-DA]: http://www.amstat.org/publications/jse/jse_data_archive.htm
+
+
+```{r}
+save.image()
+rm(list = ls())
+```
+(no paired t-test)
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 ## The Assignment
 
 # 1. two-sample t-test - Test whether the mean body fat percentage for males and females are the same
@@ -43,11 +149,11 @@ H<sub>a</sub>: μ1 -μ2 ≠ 0.0
 
 
 ```{r}
-favstats(~ BFP_Brozek | Sex, data = body) %>% kable("html") %>% kable_styling(full_width=F, bootstrap_options="striped")
+favstats(~ BFP_Brozek | Sex, data = body) %>% kable("html") %>% kable_styling(full_width = F, bootstrap_options = "striped")
 ```
 #### Test the assumption of normality
 ```{r}
-qqPlot(BFP_Brozek ~ Sex, data = body, dist="norm") #Check normality if required # gives a weird answer
+qqPlot(BFP_Brozek ~ Sex, data = body, dist = "norm") # Check normality if required # gives a weird answer
 ```
 
 Homogeneity Levene’s test
@@ -56,7 +162,7 @@ leveneTest(BFP_Brozek ~ Sex, data = body)
 ```
 TODO: add hypothesis test for Levene test
 
-We assume that 
+We assume that
 .13 > .05 (significance level alpha)
 therefore don't reject
 
@@ -67,14 +173,14 @@ The p-value for the Levene's test of equal variance for body weight between male
 
 ```{r}
 # class t.test(Body_temp~ Gender, data = Body_temp,var.equal=FALSE,alternative="two.sided")
-t.test(BFP_Brozek~ Sex, data = body,var.equal=T ,alternative="two.sided") # Works
+t.test(BFP_Brozek ~ Sex, data = body, var.equal = T, alternative = "two.sided") # Works
 ```
 -> fail reject
 
 # 2. Confidence Interval - Module 6
 Estimate the 99% confidence interval for the mean body fat percentage in the population.
 ```{r}
-confint(t.test(~ BFP_Brozek, data = body),conf.level=0.99)
+confint(t.test(~ BFP_Brozek, data = body), conf.level = 0.99)
 
 boxplot(body$BFP_Brozek, ylab = "The label goes here") # TODO:
 ```
@@ -87,15 +193,14 @@ boxplot(body$BFP_Brozek, ylab = "The label goes here") # TODO:
 # f + geom_dotplot(binaxis = "y", stackdir =
 # "center"), x, y, alpha, color, fill, group
 # f + geom_violin(scale = "area"), x, y, alpha, color, fill, group, linetype, size, weight
-
 ```
 
 - ? We could be testing for normal standard distribution
 
 1.
 ```{r}
-favstats(~BFP_Brozek | Sex, data=body)
-histogram(~BFP_Brozek | Sex, data=body,layout=c(1,2))
+favstats(~ BFP_Brozek | Sex, data = body)
+histogram(~ BFP_Brozek | Sex, data = body, layout = c(1, 2))
 ```
 Output:
      Sex min     Q1 median    Q3  max     mean       sd   n missing
@@ -122,8 +227,11 @@ confint(
     data =
       subset(
         body,
-        subset=(Sex=="Male")),
-      conf.level=0.99))
+        subset = (Sex == "Male")
+      ),
+    conf.level = 0.99
+  )
+)
 ```
   mean of x   lower   upper level
 1     18.66 17.1455 20.1745  0.99
@@ -153,12 +261,11 @@ H<sub>a</sub>: μ < 12.5
 
 ```{r}
 # TODO; test assumption of normality
-t.test(~ BFP_Brozek, data=body, mu = 12.5, alternative = "less")
+t.test(~ BFP_Brozek, data = body, mu = 12.5, alternative = "less")
 # todo add Confidence level
 favstats(~ BFP_Brozek, data = body)
 filter(.data = body, BFP_Brozek == 0)
 # P value = 1 !!!
-
 ```
 
 We could do a further test by
@@ -194,128 +301,3 @@ _Write down your null and alternative hypothesis clearly, express your conclusio
 -
 -
 -
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
-## Regression modeling
-
-### 4. Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
-- maybe do the pearson correlation first to see which has the strongest linear relationship and then do the
-- SLR testing?
-
-# TODO:
- H<sub>0</sub>: The data does not fit to linear regression model.
- H<sub>a</sub>: The data fits to linear regression model.
- We test the overall model using F-test.
- Assumptions:
- Independence (check research design)
- Linearity(Check scatter plot)
- Normality of residuals(check after model is fitted)
- Homoscedasticity (check after model is fitted)
- Decision Rules:
- Reject H0 if P-value for F statistics < ɑ.
-
-```{r echo=TRUE}
-body %>% .[-c(1,3:5,length(.))] -> bodyCorrelation # remove sex and case number for correlation
-bivariate <- as.matrix(bodyCorrelation)  %>% round(digits = 2)
-# Correlation
-# cor(bivariate)
-# P Variable
-rcorr(x = bivariate, type = "pearson")
-```
-
-```{r}
-
-# getCorrelation <- function(.) {
-#   bivariate <- bodyCorrelation %>% colnames() %>% as.matrix()
-#   rcorr(bivariate, type = "pearson")
-#   foo <- .[, lapply(., is.numeric) %>% unlist()] %>%
-#     rcorr(foo, type = "pearson") %>% round(digits = 2)
-#   foo %>% as.data.frame()
-# }
-
-# This orders by highest bodyCorrelation, we don't need this
-bodyCorrelation %>% .[order(-bodyCorrelation$BFP_Brozek), 1:15]
-# [1:9,1:9]
-
-# 
-# orderedCorrelation <-
-#   bodyCorrelations[,1:19] %>%
-#   .[orderedBodyCorrelations, orderedBodyCorrelations]
-# orderedCorrelation # TODO: Problem that the correlation numbers don't come out right
-# 
-# 
-
-pairs.panels(bodyCorrelation[,c(1:15)],method = "pearson", hist.col = "#00AFBB", density = TRUE,  ellipses = TRUE, cor =T, ci=T, digits = 2,rug = F,breaks = 20, stars = T)
-
-# pairs.panels(orderedCorrelation[,c(1,3:12)], method="pearson", hist.col="#00AFBB", density=T, ellipses=T, cor =T, ci=T)
-
-
-```
-
-```{r}
-getCorrelation <- function(.) {
-  bivariate <- bodyCorrelation %>% colnames() %>% as.matrix()
-  rcorr(bivariate, type = "pearson")
-  foo <- .[, lapply(., is.numeric) %>% unlist()] %>%
-    rcorr(foo, type = "pearson") %>% round(digits = 2)
-  foo %>% as.data.frame()
-}
-bodyCorrelation %>% getCorrelation()
-
-```
-
-
-```{r}
-# broken
-# bodyCorrelations <- body %>% getCorrelation()
-#  bodyCorrelations[order(-bodyCorrelations$BFP_Brozek), 2:10][1:9,1:9]
-# bodyCorrelations
-# 
-# orderedCorrelation <-
-#   bodyCorrelations[,1:19] %>%
-#   .[orderedBodyCorrelations, orderedBodyCorrelations]
-# orderedCorrelation # TODO: Problem that the correlation numbers don't come out right
-# 
-# 
-# pairs.panels(bodyCorrelations[,c(2,5:10)],method = "pearson", hist.col = "#00AFBB", density = TRUE,  ellipses = TRUE, cor =T, ci=T, digits = 2,rug = F,breaks = 20, stars = T)
-# # pairs.panels(orderedCorrelation[,c(1,3:12)], method="pearson", hist.col="#00AFBB", density=T, ellipses=T, cor =T, ci=T)
-
-```
-
-```{r}
-# bivariate<-as.matrix(select(body, ~Height)) #Create a matrix of the variables to be correlated
-# 
-# qqPlot(body$BFP_Brozek, dist="norm") #Check normality if required # gives a weird answer
-# rcorr(bivariate, type = "pearson") #Create a matrix of the variables to be correlated
-# 
-# bivariate<-as.matrix(select(OUES, VO2_Max,OUES_3)) #Create a matrix of the variables to be correlated
-# 
-
-```
-
-```{r}
-
-xyplot(Abdomen ~ BFP_Brozek, data = body, ylab ="Abdoment",xlab="BFP_Brozek")
-
-
-```
-
-
-#### Write a report that explains your method for identifying the single best predictor.
-
-#### Use the best predictor to determine a model that can convert a person’s body circumference measurement to an estimated body fat percentage.
-
-#### Ensure you test the model parameters and any assumptions.
-
-#### Critique the predictive ability of the model and
-
-#### Draw an overall conclusion to help the investigators
-
-[JSE-DA]: http://www.amstat.org/publications/jse/jse_data_archive.htm
-
-
-```{r}
-save.image()
-rm(list=ls())
-```
-(no paired t-test)
