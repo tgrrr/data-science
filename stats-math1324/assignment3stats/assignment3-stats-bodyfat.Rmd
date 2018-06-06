@@ -13,19 +13,14 @@ editor_options:
   chunk_output_type: inline
 ---
 
-What's involved
-
-Hypothesis
-Null hypothesis
-compare two things to see if there's a link
 TODO: update this output before printing
 ```{r load packages and data, message=F, warning=FALSE, include=FALSE, paged.print=FALSE}
-packagesList <- c("readr", "base", "readxl", "dplyr", "mosaic", "gridExtra", "latticeExtra", "epitools", "qqplotr", "car", "ggplot2", "kableExtra", "mosaic", "psychometric", "psych", "Hmisc", "corrplot")
+packagesList <- c("readr", "base", "readxl", "dplyr", "mosaic", "gridExtra", "latticeExtra", "epitools", "qqplotr", "car", "ggplot2", "kableExtra", "mosaic", "psychometric", "psych", "Hmisc", "corrplot", "gridExtra", "grDevices")
 lapply(packagesList, require, character.only = TRUE)
 setwd("~/code/tldr/data-science/stats-math1324/assignment3stats")
 body <- read_excel("data/Body (2) Assignment 3 data.xlsx", sheet = "Body (2) Assignment 3 data") %>% as.data.frame()
 body$Sex <- factor(body$Sex, levels = c(1, 0), labels = c("Male", "Female")) # Sex: “1” for male “0” for female
-bodyCorrelation <- body %>% .[-c(1, 3:5, length(.))] # remove sex and case number for correlation. ONLY RUN ONCE!
+bodyCorrelation <- body %>% .[-c(1, 3:5, length(.))] # remove sex and case number for correlation
 ```
 
 #### Overview
@@ -53,12 +48,10 @@ bodyCorrelation <- bodyCorrelation[bodyCorrelationFactorOrdered] # TODO: refacto
 bodyCorrelationOrderedByPearson <- bodyCorrelation %>% as.matrix() %>% rcorr(type = "pearson") # Ordered R Correlation
 
 #bodyCorrelationOrderedByPearson %>% colnames() # <- Pearson correlation in order
-bodyCorrelationOrderedByPearson$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat=bodyCorrelationOrderedByPearson$p, sig.level = 1, insig = "blank")
+# bodyCorrelationOrderedByPearson$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat = bodyCorrelationOrderedByPearson$p, sig.level = 1, insig = "blank") # TODO: can probably remove this
 # Showing body
-pairs.panels(bodyCorrelation[1:8], method = "pearson", hist.col = "#00AFBB", density = T, ellipses = F, cor = T, ci = T, digits = 2, rug = F, breaks = 20, stars = F, show.points=F)
+pairs.panels(bodyCorrelation[1:5], method = "pearson", hist.col = "#00AFBB", density = T, ellipses = F, cor = T, ci = T, digits = 2, rug = F, breaks = 20, stars = F, show.points = F)
 ```
-<!-- ```{r message=TRUE, warning=TRUE, include=FALSE, warnings=0}
-``` -->
 
 #### The actual question:
 
@@ -69,7 +62,6 @@ pairs.panels(bodyCorrelation[1:8], method = "pearson", hist.col = "#00AFBB", den
 #### 4.3 Ensure you test the model parameters and any assumptions.
 
 ```{r}
-
 bodyAbdomenMaxModel <- lm(Abdomen ~ BFP_Brozek, data = body)
 msummary(bodyAbdomenMaxModel)
 ```
@@ -86,8 +78,15 @@ H<sub>0</sub>: The data do not fit the linear regression model
 H<sub>A/sub>: The data fit the linear regression model
 
 #### Normal plot of residuals
-```{r}
+# ```{r}
+```{r side by side, fig.align='center', fig.height=3, fig.show='hold', fig.width=3, out.width='.49\\linewidth'}
 qqPlot(body$BFP_Brozek, dist = "norm") # Check normality if required # gives a weird answer
+mplot(bodyAbdomenMaxModel, 1)
+
+# TODO: possible image export here
+# png(filename="data/foo.png")
+# grid.arrange(x,y, ncol =2)
+# dev.off()
 ```
 
 #### Testing Assumption of Homoscedasticity
@@ -95,7 +94,7 @@ qqPlot(body$BFP_Brozek, dist = "norm") # Check normality if required # gives a w
 mplot(bodyAbdomenMaxModel, 1)
 ```
 
-
+?save
 
 
 ```{r}
@@ -105,15 +104,15 @@ xyplot(Abdomen ~ BFP_Brozek, data = body, ylab = "Abdomen", xlab = "BFP_Brozek",
 
 
 ```{r}
+
+# F-statistic: 489.9 on 1 and 250 DF,  p-value: < 2.2e-16
+# > pf(FStatistic, lowerDF, upperDF, )
+pf(489.9,1,250,lower.tail = FALSE ) # 7.71020869865819e-61
+
+# p is < confidence
+
 # From class
-
-F-statistic: 489.9 on 1 and 250 DF,  p-value: < 2.2e-16
-> pf(FStatistic, lowerDF, upperDF, )
-pf(489.9,1,250,lower.tail = FALSE, ) # 7.71020869865819e-61
-
-p < confidence
-
-p (7.71020869865819e-61) is less than the  Confidence Level
+# p (7.71020869865819e-61) is less than the  Confidence Level
 
 ```
 TODO: is it definitely lower tail false?
@@ -193,12 +192,6 @@ Reject H<sub>0</sub> if P-value for F statistics < ɑ.
 [JSE-DA]: http://www.amstat.org/publications/jse/jse_data_archive.htm
 
 
-```{r}
-save.image()
-rm(list = ls())
-```
-(no paired t-test)
-
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 ## The Assignment
 
@@ -214,7 +207,8 @@ favstats(~ BFP_Brozek | Sex, data = body) %>% kable("html") %>% kable_styling(fu
 ```
 #### Test the assumption of normality
 ```{r}
-qqPlot(BFP_Brozek ~ Sex, data = body, dist = "norm") # Check normality if required # gives a weird answer
+# TODO: can possible remove this
+# qqPlot(BFP_Brozek ~ Sex, data = body, dist = "norm") # Check normality if required # gives a weird answer
 ```
 
 Homogeneity Levene’s test
@@ -243,17 +237,8 @@ Estimate the 99% confidence interval for the mean body fat percentage in the pop
 ```{r}
 confint(t.test(~ BFP_Brozek, data = body), conf.level = 0.99)
 
-boxplot(body$BFP_Brozek, ylab = "The label goes here") # TODO:
-```
-```{r}
-
-# TODO:
-# from plot cheatsheet https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf
-# http://ggplot2.tidyverse.org/reference/
-# https://rpubs.com/hadley/ggplot2-layers
-# f + geom_dotplot(binaxis = "y", stackdir =
-# "center"), x, y, alpha, color, fill, group
-# f + geom_violin(scale = "area"), x, y, alpha, color, fill, group, linetype, size, weight
+# boxplot(body$BFP_Brozek, ylab = "The label goes here") 
+# TODO: can possibly remove this
 ```
 
 - ? We could be testing for normal standard distribution
@@ -261,20 +246,13 @@ boxplot(body$BFP_Brozek, ylab = "The label goes here") # TODO:
 1.
 ```{r}
 favstats(~ BFP_Brozek | Sex, data = body)
-histogram(~ BFP_Brozek | Sex, data = body, layout = c(1, 2))
+histogram(~ BFP_Brozek | Sex, data = body, bins=100, nint=30, layout = c(1, 2))
+# TODO: can possibly remove this or do side by side
 ```
 Output:
      Sex min     Q1 median    Q3  max     mean       sd   n missing
 1   Male 4.6 13.100  19.05 24.05 38.2 18.66000 7.348052 160       0
 2 Female 0.0 12.775  18.75 25.35 45.1 19.42283 8.425499  92       0
-
-
-???
-```{r}
-body$BFP_Brozek %>% mean() # why?
-```
-Output:
-[1] 18.93849
 
 ???
 Output
@@ -362,3 +340,8 @@ _Write down your null and alternative hypothesis clearly, express your conclusio
 -
 -
 -
+
+```{r}
+save.image()
+rm(list = ls())
+```
