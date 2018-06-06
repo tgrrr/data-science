@@ -25,6 +25,7 @@ lapply(packagesList, require, character.only = TRUE)
 setwd("~/code/tldr/data-science/stats-math1324/assignment3stats")
 body <- read_excel("data/Body (2) Assignment 3 data.xlsx", sheet = "Body (2) Assignment 3 data") %>% as.data.frame()
 body$Sex <- factor(body$Sex, levels = c(1, 0), labels = c("Male", "Female")) # Sex: “1” for male “0” for female
+bodyCorrelation <- body %>% .[-c(1, 3:5, length(.))] # remove sex and case number for correlation. ONLY RUN ONCE!
 ```
 
 #### Overview
@@ -40,25 +41,22 @@ The Body(2).csv dataset is posted on the Assignment 3 website. It contains the p
 
 ## Regression modelling
 
-### 4. Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
+### 4.0 Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
 
+The best factor for body fat percentage via the Brozek method is Abdomen with an .81*** Pearson correlation
 ```{r name of package, echo=TRUE}
-bodyCorrelation <- body %>% .[-c(1, 3:5, length(.))] # remove sex and case number for correlation. ONLY RUN ONCE!
-bivariate <- bodyCorrelation %>% as.matrix() # TODO: possibly refactor this
-unorderedBivariateRcorr <- bivariate %>% rcorr(type = "pearson") # Unordered
+bodyCorrelationRcorrUnordered <- bodyCorrelation %>% as.matrix() %>% rcorr(type = "pearson") # Unordered bivariate
 
 # Order our factors by Pearson correlation with with BFP_Brozek
-bodyCorrelationFactorOrder <- unorderedBivariateRcorr$r %>% as.data.frame() %>% .[1] %>% order(decreasing = T)
-bodyCorrelation <- bodyCorrelation[bodyCorrelationFactorOrder] # TODO: refactor this if I don't know bodyCorrelation
-bodyCorrelationOrderedByRcorr <- bodyCorrelation %>% as.matrix() %>% rcorr(type = "pearson") # Ordered R Correlation
+bodyCorrelationFactorOrdered <- bodyCorrelationRcorrUnordered$r %>% as.data.frame() %>% .[1] %>% order(decreasing = T)
+bodyCorrelation <- bodyCorrelation[bodyCorrelationFactorOrdered] # TODO: refactor this if I don't need bodyCorrelation
+bodyCorrelationOrderedByPearson <- bodyCorrelation %>% as.matrix() %>% rcorr(type = "pearson") # Ordered R Correlation
 
-# Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
-#bodyCorrelationOrderedByRcorr$r %>% colnames() # Here they are by Pearson correlation in order
-bodyCorrelationOrderedByRcorr
-bodyCorrelationOrderedByRcorr$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat=bodyCorrelationOrderedByRcorr$p, sig.level = 1, insig = "blank")
+#bodyCorrelationOrderedByPearson %>% colnames() # <- Pearson correlation in order
+bodyCorrelationOrderedByPearson$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat=bodyCorrelationOrderedByPearson$p, sig.level = 1, insig = "blank")
+# Showing body 
 pairs.panels(bodyCorrelation[1:8], method = "pearson", hist.col = "#00AFBB", density = T, ellipses = F, cor = T, ci = T, digits = 2, rug = F, breaks = 20, stars = F, show.points=F)
 ```
-The best factor for body fat percentage via the Brozek method is Abdomen with an .81*** Pearson correlation
 <!-- ```{r message=TRUE, warning=TRUE, include=FALSE, warnings=0}
 ``` -->
 
