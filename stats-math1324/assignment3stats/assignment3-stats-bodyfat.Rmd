@@ -13,8 +13,6 @@ editor_options:
   chunk_output_type: inline
 ---
 
-
-
 # Overview
 <!-- TODO:  -->
 The Body(2).csv dataset is posted on the Assignment 3 website. It contains the percentage of body fat, age, weight, height, and ten body circumference measurements (e.g., abdomen) for a sample of 252 men and women.  Body fat, as measured using the Brozek method, is estimated through a time consuming underwater weighing technique to measure a person's density.
@@ -79,11 +77,15 @@ Homoscedasticity (check after model is fitted)
 Decision Rules:
 Reject H<sub>0</sub> if P-value for F statistics < ɑ.
 
+! NOTES:
+H<sub>0</sub>: The data do not fit the linear regression model
+H<sub>A/sub>: The data fit the linear regression model
+
+
 STARTS HERE:
 
 ### 4.0 Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
 
-The best factor for body fat percentage via the Brozek method is Abdomen with an .81*** Pearson correlation
 ```{r name of package, echo=TRUE}
 bodyCorrelationRcorrUnordered <- bodyCorrelation %>% as.matrix() %>% rcorr(type = "pearson") # Unordered bivariate
 
@@ -98,13 +100,44 @@ bodyCorrelationOrderedByPearson <- bodyCorrelation %>% as.matrix() %>% rcorr(typ
 pairs.panels(bodyCorrelation[1:6], method = "pearson", hist.col = "#00AFBB", density = T, ellipses = F, cor = T, ci = T, digits = 2, rug = F, breaks = 20, stars = F, show.points = F)
 
 ```
-**Correlation** - Pearson Correlation of top 5 factors
+The **Correlation** - Pearson Correlation of top 5 factors
 
-# The actual question:
+### The actual question:
 
 #### 4.1 Write a report that explains your method for identifying the single best predictor.
 
+Abdomen was found to be the best predictor for body fat percentage via the Brozek method,
+with an 0.81* correlation. It was found using the Pearson correlation using the `rcorr()` function.
+
 TODO:
+- Reference pairplot diagram
+
+
+!!! FROM lecture
+- Prior to fitting the regression, a scatterplot assessing the bivariate relationship between TODO and TODO  was inspected.
+- The scatterplot demonstrated evidence of a positive linear relationship.
+- The overall regression model was statistically significant, F(1, 48) = 103.92, p < .001
+- The results show that OUES 3 minutes explains 68.4% of the variability in V02 max, R2 = .684. The estimated regression equation was VO2 = 2106.84 + .609*OUES
+- Theirs: The positive slope for TODO: was statistically significant,
+b = 0.609, t(48) = 10.194, p < .001, 95% CI [0.488, 0.729].
+
+mine: b =1.132 , t(250) = 22.13, p < .001, 99% CI [ , ].
+
+My data:
+Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 71.11688    1.04630   67.97   <2e-16 ***
+BFP_Brozek   1.13204    0.05115   22.13   <2e-16 ***
+
+CONF INT
+0.5 %	99.5 %
+(Intercept)	68.4010649	73.832686
+BFP_Brozek	0.9992825	1.264792
+
+Residual standard error: 6.28 on 250 degrees of freedom
+Multiple R-squared:  0.6621,	Adjusted R-squared:  0.6608
+F-statistic: 489.9 on 1 and 250 DF,  p-value: < 2.2e-16
+
+- Final inspection of the residuals supported normality and homoscedasticity.
 
 #### 4.2 Use the best predictor to determine a model that can convert a person’s body circumference measurement to an estimated body fat percentage.
 
@@ -126,11 +159,6 @@ P- value to test if ɑ =0.0 is <2e-16***
 P-value to test if β =0.0 <2e-16 ***
 H<sub>0</sub>: β = 0
 H<sub>A/sub>: β ≠ 0
-
-! NOTES:
-H<sub>0</sub>: The data do not fit the linear regression model
-H<sub>A/sub>: The data fit the linear regression model
-
 
 #### Testing Assumption of Homoscedasticity
 ```{r}
