@@ -64,3 +64,19 @@ Biceps: Extended biceps circumference (cm)
 Forearm: Forearm circumference (cm)
 Wrist: Wrist circumference (cm) "distal to the styloid processes"
 Sex: “1” for male and “0” for female
+
+#### How to put images side by side
+
+#### Normal plot of residuals
+```{r}
+# ```{r side by side, fig.align='center', fig.height=3, fig.show='hold', fig.width=3, out.width='.49\\linewidth'}
+qqPlot(body$BFP_Brozek, dist = "norm") # Check normality if required # gives a weird answer
+mplot(bodyAbdomenMaxModel, 1)
+
+# TODO: possible image export here
+# png(filename="data/foo.png")
+# grid.arrange(x,y, ncol =2)
+# dev.off()
+# ![](https://sebastiansauer.github.io/images/2017-10-12/img1.png){ width=30% } ![](https://sebastiansauer.github.io/images/2017-10-12/img2.png){ width=40% }
+# https://sebastiansauer.github.io/two-plots-rmd/ -->
+```
