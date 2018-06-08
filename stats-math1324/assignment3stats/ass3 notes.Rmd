@@ -27,7 +27,7 @@ OLD:
 ```{r}
 
 
-# Two sample sample 
+# Two sample sample
 # We don't have the population standard deviation, so we use the t test
 
 # favstats(~ | Brand, data = body)
@@ -74,5 +74,27 @@ boxplot(body$BFP_Brozek, ylab = "body temp Brozek")
 standardError <- standardDeviation/sqrt(n) #Calculate se
 mu + (t*se) #Determine critical mean
 mean + (t * se)
+
+```
+
+
+```{r}
+#  maybe do this, to get the difference of each row
+# foo <- favstats(~ BFP_Brozek | Sex, data = body)
+# foo
+#
+#
+# bar <- data.frame(diff(as.matrix(foo[2:length(foo)])))
+# bar <- cbind("difference", bar)
+#
+# me <- rbind(foo, bar)
+# bar
+#
+# me
+#
+# %>%
+#   kable("html") %>% kable_styling(full_width = F, bootstrap_options = "striped")
+#
+# aggregate(~ BFP_Brozek | Sex, FUN=sum, data=body)
 
 ```

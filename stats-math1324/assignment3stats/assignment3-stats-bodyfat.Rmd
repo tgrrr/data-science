@@ -9,23 +9,59 @@ output:
     fig_width: 8
     highlight: espresso
     theme: paper
+  pdf_document: default
+  html_document:
+    df_print: paged
 editor_options:
   chunk_output_type: inline
 ---
 
-# Overview
-<!-- TODO:  -->
-The Body(2).csv dataset is posted on the Assignment 3 website. It contains the percentage of body fat, age, weight, height, and ten body circumference measurements (e.g., abdomen) for a sample of 252 men and women.  Body fat, as measured using the Brozek method, is estimated through a time consuming underwater weighing technique to measure a person's density.
-- **Investigators want to determine if a general, easy to determine, body circumference measurement could be used as a general indicator for body fat percentage**.
-- **If so, the investigators want to establish a formula that can convert a body circumference measurement to a predicted body fat percentage **
-- **and also understand how well this prediction will hold.**
-- (original source: [JSE-DA]).
+### Executive Summary
+- This report investigates if there is a general, easy to determine, body circumference measurement that could be used as a general indicator for body fat percentage.
+
+#### Goals
+- Establish a formula that can convert a body circumference measurement to a predicted body fat percentage
+- Understand how well this prediction will hold
+
+#### Data
+- **Data:** A sample of 252 men and women from was obtained from [JSE-DA]
+- **Factors:** *percentage* of body fat measured using the Brozek method - underwater weighing technique of density. Ten other body circumference measures (e.g. abdomen) are included as factors.
+
+- To find this...
+
+# Process:
+**NOT MINE BELOW**
+- The data which was collected was then visualised to find any potential outliers.
+- This data visualisation also helped us to formulate the hypothesis which we would test.
+- To test the hypothesis that there is a difference between product prices between Coles and Woolworths, a paired-samples t-test was used.
+- This test was chosen as the observations made on one sample (i.e. the price of a good at Coles) will be inherently linked to an observation made on the other sample (i.e. the price of a good at Woolworths), as they are both related to the product in question.
+- We found that the average price at Coles supermarkets was statistically significantly higher than the average price at Woolworths supermarkets, as the p-value was less than 5% and the null mean (i.e. zero) did not fall within the 95% confidence interval. As such the null hypothesis was rejected.
+- Further investigation of the difference in the prices by category of groceries was also tested.
+- We found that although the majority of categories followed the general mean and were more expensive in Coles, Fruits and Vegetables were less expensive in Coles supermarkets, and this difference was statistically significant.
 
 [JSE-DA]: http://www.amstat.org/publications/jse/jse_data_archive.htm
 
+**NOT MINE ABOVE**
+- (original source: [JSE-DA]).
 
+- This report investigates if there is a general, easy to determine, body circumference measurement that could be used as a general indicator for body fat percentage.
+- Data was obtained by ...
+- To find this...
+- The data includes ...
+- problems with the data
+This report attempted to find if the prices at Coles and Woolworths are significantly different and, if they are, which supermarket has the cheaper average price. To find this, a large sample of groceries data was assessed with regards to the associated prices from both supermarkets. Data was obtained by scraping pages from http://www.grocerycop.com.au/products. The pages contained information on specific items that both Woolworths and Coles stocked, including the price and unit size of each. This sampling technique must be considered convenience sampling as our data collection did not rely on random sampling. We believe that this shortcoming in data collection is somewhat accounted for in the varied sample collected, which included a wide range of products and a wide range of prices.
 
-```{r message=F, warning=FALSE,include=FALSE, paged.print=FALSE}
+- The data which was collected was then visualised to find any potential outliers.
+- This data visualisation also helped us to formulate the hypothesis which we would test.
+- To test the hypothesis that there is a difference between product prices between Coles and Woolworths, a paired-samples t-test was used.
+- This test was chosen as the observations made on one sample (i.e. the price of a good at Coles) will be inherently linked to an observation made on the other sample (i.e. the price of a good at Woolworths), as they are both related to the product in question.
+- We found that the average price at Coles supermarkets was statistically significantly higher than the average price at Woolworths supermarkets, as the p-value was less than 5% and the null mean (i.e. zero) did not fall within the 95% confidence interval. As such the null hypothesis was rejected.
+- Further investigation of the difference in the prices by category of groceries was also tested.
+- We found that although the majority of categories followed the general mean and were more expensive in Coles, Fruits and Vegetables were less expensive in Coles supermarkets, and this difference was statistically significant.
+
+**NOT MINE ABOVE**
+
+```{r Packages and Data import, message=F, warning=FALSE,include=FALSE, paged.print=FALSE}
 packagesList <- c("readr", "base", "readxl", "dplyr", "mosaic", "gridExtra", "latticeExtra", "epitools", "qqplotr", "car", "ggplot2", "kableExtra", "mosaic", "psychometric", "psych", "Hmisc", "corrplot", "gridExtra", "grDevices")
 lapply(packagesList, require, character.only = TRUE)
 setwd("~/code/tldr/data-science/stats-math1324/assignment3stats")
@@ -35,17 +71,126 @@ bodyCorrelation <- body %>% .[-c(1, 3:5, length(.))] # remove sex and case numbe
 #TODO: update this output before printing
 ```
 
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+### 1. two-sample t-test - Test whether the mean body fat percentage for males and females are the same
+
+#### Test the assumption of normality
+```{r}
+ qqPlot(BFP_Brozek ~ Sex, data = body, dist = "norm")
+```
+There is a slight s shape to the distribution, so would warrant further investigation
+
+#### Outliers
+```{r}
+boxplot(body$BFP_Brozek, ylab = "Outliers in Brozek score")
+```
+- There's an outlier at `> 40` and a minimum score in `BFP_Brozek` of `0`
+
+#### Homogeneity Levene’s test
+
+H<sub>0</sub>: σ<sup>2</sup><sub>1</sub> = σ<sup>2</sup><sub>2</sub>
+
+H<sub>a</sub>: σ<sup>2</sup><sub>1</sub> ≠ σ<sup>2</sup><sub>2</sub>
+
+```{r}
+leveneTest(BFP_Brozek ~ Sex, data = body)
+```
+H<sub>0</sub>, p > .05
+H<sub>a</sub>, p < .05
+
+`p = 0.1395`
+`p > .05`
+The p-value for the Levene's test of equal variance for body weight between males and females was greater than `.05`
+We fail to reject the null hypothesis
+
+#### Two-sample t-test - Assuming Equal Variance
+
+- H<sub>0</sub>: μ<sub>male</sub> - μ<sub>female</sub> = 0.0
+- H<sub>a</sub>: μ<sub>male</sub> - μ<sub>female</sub> ≠ 0.0
+
+```{r}
+t.test(BFP_Brozek ~ Sex, data = body, var.equal = T, alternative = "two.sided")
+```
+The mean of male `(18.66)` is not the same as female `(19.42)`, so fail to reject the null hypothesis
+
+# 2. Confidence Interval
+Estimate the `99% confidence interval` for the mean body fat percentage in the population.
+
+H<sub>0</sub>: α = 0
+H<sub>a</sub>: α ≠ 0
+
+```{r}
+confint(t.test(~ BFP_Brozek, data = body), conf.level = 0.99)
+```
+α is not captured α < 18.93849 < 19.9001
+So is not captured between the upper and lower confidence interval, therefore we reject the null hypothesis.
+
+```{r}
+favstats(~ BFP_Brozek | Sex, data = body)
+histogram(~ BFP_Brozek | Sex, data = body, bins=100, nint=30, layout = c(1, 2))
+# TODO: can possibly remove this or do side by side
+```
+
+
+```{r}
+confint(t.test(~ BFP_Brozek, data = subset(body, subset = (Sex == "Male")), conf.level = 0.99))
+```
+TODO: do I need hypothesis here?
+
+```{r}
+binom.approx(44, 109, conf.level = 0.99)
+```
+TODO: do I need hypothesis here?
+
+#### Is there any assumption for the body fat percentage distribution that we need to investigate?
+
+- The accuracy of how the other 10 factors (like abdomen) are measured.
+
+### Explain your reason (s).
+-
+-
+-
+
+# 3. One sample T Test - One tail
+#### Researchers believe that average body fat percentage is less than 12.5. Test this claim.
+
+H<sub>0</sub>: μ = 12.5
+H<sub>a</sub>: μ < 12.5
+
+```{r}
+t.test(~ BFP_Brozek, data = body, mu = 12.5, alternative = "less")
+favstats(~ BFP_Brozek, data = body)
+filter(.data = body, BFP_Brozek == 0)
+```
+- P value = 1 !!!
+
+<!-- # todo add Confidence level -->
+
+We could do a further test by:
+- a two tailed test
+- the H<sub>a</sub> being μ > 12.5
+- testing a different mu based on further research
+- If we test the upper tail: `t.test(~ BFP_Brozek, data=body, mu = 12.5, alternative = "greater")`
+
+We could be testing for
+- normal standard distribution
+- We could
+- problems with the data:
+   - Siri and Density are also included, making the initial dataset multivariate
+   - Includes a minimum of `0` in `BFP_Brozek`
+
+### Conclusion
+
+### Reasons
+
+-
+-
+-
 
 # Regression modelling
 
-DEATHLIST:
-- SLR testing
 - 4.4 Critique the predictive ability of the model and
 - 4.5 Draw an overall conclusion to help the investigators
 
-# TODO: Check I've done all of this:
-STEPS FOR GETTING IT DONESKY Module 9
 Regression, y = ɑ + ɓx
 Test for a significant relationship between y and x
 Null: no relationship
@@ -81,9 +226,6 @@ Reject H<sub>0</sub> if P-value for F statistics < ɑ.
 H<sub>0</sub>: The data do not fit the linear regression model
 H<sub>A/sub>: The data fit the linear regression model
 
-
-STARTS HERE:
-
 ### 4.0 Find the single best predictor of body fat percentage (Brozek method) using the body circumference data.
 
 ```{r name of package, echo=TRUE}
@@ -95,25 +237,21 @@ bodyCorrelation <- bodyCorrelation[bodyCorrelationFactorOrdered] # TODO: refacto
 bodyCorrelationOrderedByPearson <- bodyCorrelation %>% as.matrix() %>% rcorr(type = "pearson") # Ordered R Correlation
 
 #bodyCorrelationOrderedByPearson %>% colnames() # <- Pearson correlation in order
-# bodyCorrelationOrderedByPearson$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat = bodyCorrelationOrderedByPearson$p, sig.level = 1, insig = "blank") # TODO: can probably remove this
-# Showing body
+# bodyCorrelationOrderedByPearson$r %>% corrplot(method = "circle", type = "upper", tl.col = "darkblue", tl.srt = 45,  p.mat = bodyCorrelationOrderedByPearson$p, sig.level = 1, insig = "blank") #
 pairs.panels(bodyCorrelation[1:6], method = "pearson", hist.col = "#00AFBB", density = T, ellipses = F, cor = T, ci = T, digits = 2, rug = F, breaks = 20, stars = F, show.points = F)
-
 ```
 The **Correlation** - Pearson Correlation of top 5 factors
-
-### The actual question:
 
 #### 4.1 Write a report that explains your method for identifying the single best predictor.
 
 Abdomen was found to be the best predictor for body fat percentage via the Brozek method,
 with an 0.81* correlation. It was found using the Pearson correlation using the `rcorr()` function.
 
+The top 5 correlating factors are shown above on the pairplot diagram
+
 TODO:
-- Reference pairplot diagram
+Scatter plot of regression
 
-
-!!! FROM lecture
 - Prior to fitting the regression, a scatterplot assessing the bivariate relationship between TODO and TODO  was inspected.
 - The scatterplot demonstrated evidence of a positive linear relationship.
 - The overall regression model was statistically significant, F(1, 48) = 103.92, p < .001
@@ -121,7 +259,7 @@ TODO:
 - Theirs: The positive slope for TODO: was statistically significant,
 b = 0.609, t(48) = 10.194, p < .001, 95% CI [0.488, 0.729].
 
-mine: b =1.132 , t(250) = 22.13, p < .001, 99% CI [ , ].
+mine: b =1.132 , t(250) = 22.13, p < .001, 99% CI [68.4010649 ,73.832686].
 
 My data:
 Estimate Std. Error t value Pr(>|t|)    
@@ -221,158 +359,8 @@ TODO:
 
 TODO:
 
-
-
-
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-## The Assignment
 
-# 1. two-sample t-test - Test whether the mean body fat percentage for males and females are the same
-
-**Hypothesis for testing mean of two populations:**
-H<sub>0</sub>: μ1 -μ2 = 0.0
-H<sub>a</sub>: μ1 -μ2 ≠ 0.0
-
-
-```{r}
-favstats(~ BFP_Brozek | Sex, data = body) %>% kable("html") %>% kable_styling(full_width = F, bootstrap_options = "striped")
-```
-#### Test the assumption of normality
-```{r}
-# TODO: can possible remove this
-# qqPlot(BFP_Brozek ~ Sex, data = body, dist = "norm") # Check normality if required # gives a weird answer
-```
-
-Homogeneity Levene’s test
-```{r}
-leveneTest(BFP_Brozek ~ Sex, data = body)
-```
-TODO: add hypothesis test for Levene test
-
-We assume that
-.13 > .05 (significance level alpha)
-therefore don't reject
-
-Output:
-
-My Notes:
-The p-value for the Levene's test of equal variance for body weight between males and females was p = 0.1395
-
-```{r}
-# class t.test(Body_temp~ Gender, data = Body_temp,var.equal=FALSE,alternative="two.sided")
-t.test(BFP_Brozek ~ Sex, data = body, var.equal = T, alternative = "two.sided") # Works
-```
--> fail reject
-
-# 2. Confidence Interval - Module 6
-Estimate the 99% confidence interval for the mean body fat percentage in the population.
-```{r}
-confint(t.test(~ BFP_Brozek, data = body), conf.level = 0.99)
-
-# boxplot(body$BFP_Brozek, ylab = "The label goes here")
-# TODO: can possibly remove this
-```
-
-- ? We could be testing for normal standard distribution
-
-1.
-```{r}
-favstats(~ BFP_Brozek | Sex, data = body)
-histogram(~ BFP_Brozek | Sex, data = body, bins=100, nint=30, layout = c(1, 2))
-# TODO: can possibly remove this or do side by side
-```
-Output:
-     Sex min     Q1 median    Q3  max     mean       sd   n missing
-1   Male 4.6 13.100  19.05 24.05 38.2 18.66000 7.348052 160       0
-2 Female 0.0 12.775  18.75 25.35 45.1 19.42283 8.425499  92       0
-
-???
-Output
-  mean of x    lower    upper level
-1  19.42283 17.11176 21.73389  0.99
-
-```{r}
-confint(
-  t.test(
-    ~ BFP_Brozek,
-    data =
-      subset(
-        body,
-        subset = (Sex == "Male")
-      ),
-    conf.level = 0.99
-  )
-)
-```
-  mean of x   lower   upper level
-1     18.66 17.1455 20.1745  0.99
-
-```{r}
-binom.approx(44, 109, conf.level = 0.99)
-```
-output:
-   x   n proportion    lower     upper conf.level
-1 44 109  0.4036697 0.282621 0.5247185       0.99
-
-### Is there any assumption for the body fat percentage distribution that we need to investigate?
-
-How it's measured.
-ie. circumference, electronics, submersion.
-
-### Explain your reason (s).
--
--
--
-
-# 3. One sample T Test - One tail
-#### Researchers believe that average body fat percentage is less than 12.5. Test this claim.
-
-H<sub>0</sub>: μ = 12.5
-H<sub>a</sub>: μ < 12.5
-
-```{r}
-# TODO; test assumption of normality
-t.test(~ BFP_Brozek, data = body, mu = 12.5, alternative = "less")
-# todo add Confidence level
-favstats(~ BFP_Brozek, data = body)
-filter(.data = body, BFP_Brozek == 0)
-# P value = 1 !!!
-```
-
-We could do a further test by
-- a two tailed test
-- the Ha being mu > 12.5
-- testing a different mu based on further research
-
-
-if we changed it to t.test(~ BFP_Brozek, data=body, mu = 12.5, alternative = "greater")
-it works
-
-
-Out:
-data:  BFP_Brozek
-t = 13.187, df = 251, p-value = 1
-alternative hypothesis: true mean is less than 12.5
-95 percent confidence interval:
-     -Inf 19.74458
-sample estimates:
-mean of x
- 18.93849
-
-_Write down your null and alternative hypothesis clearly, express your conclusion in words and provide your reason(s) for your final conclusion._
-
-TODO:
-### null hypothesis
-
-### alternative hypothesis
-
-### Conclusion
-
-### Reasons
-
--
--
--
 
 ```{r}
 save.image()
