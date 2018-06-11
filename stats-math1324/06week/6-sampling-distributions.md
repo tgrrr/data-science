@@ -1,3 +1,4 @@
+'6-sampling-distributions.md'
 6. Sampling distribution
 - stats week 6
 

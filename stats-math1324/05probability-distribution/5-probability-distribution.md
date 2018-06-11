@@ -1,6 +1,9 @@
 5. Probability Distributions: Random, but Predictable
 - Stats week 5
 - Module 4:
+
+
+
 Overview and Learning Objectives
 Despite the omnipresence of variability, many variables follow predicable patterns. That's not to say we can reliably predict an individual observation with great certainty, but over the course of many repeated observations of a variable, we can predict many useful features. This module introduces two discrete probability distributions and one continuous probability distribution which are know to model the behaviour of many real world random variables.
 
