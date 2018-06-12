@@ -1,0 +1,161 @@
+---
+title: "MATH2349 Semester 1, 2018"
+author: "Phil Steinke s3725547"
+subtitle: Assignment 1
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+---
+
+## Setup
+
+Install and load the necessary packages to reproduce the report here:
+
+```{r, echo = TRUE, warnings = FALSE}
+
+# This is a chunk where you can load the necessary packages required to reproduce the report 
+
+# Here are some example packages, you may add others if you require  
+
+library(readr) # Useful for importing data
+library(foreign) # Useful for importing SPSS, SAS, STATA etc. data files
+library(rvest) # Useful for scraping HTML data
+library(knitr) # Useful for creating nice tables
+
+setwd("~/Documents/code/data-science-apps/data-preprocessing/assignment1")
+
+
+```
+
+## Data Description
+
+Locate an open source of data from the web. This can be a tabular, spreadsheet data (i.e., .txt, .csv, .xls, .xlsx files), data sets from other statistical software (i.e., SPSS, SAS, Stata etc.), or you can scrape HTML table data.
+
+Some sources for open data are provided below, but I encourage you to find others:
+
+* [http://www.abs.gov.au/](http://www.abs.gov.au/)
+
+* [https://www.data.vic.gov.au/](https://www.data.vic.gov.au/) 	
+
+* [http://www.bom.gov.au/](http://www.bom.gov.au/)
+
+* [https://www.kaggle.com](https://www.kaggle.com) 
+
+As a minimum, your data set should include:
+
+* one numeric variable.
+* one qualitative (categorical) variable.
+
+There is no limit on the number of observations and number of variables. But keep in mind that when you have a very large data set, it will increase your reading time. **A clear description of data and its source should be provided in this section.** 
+
+
+## Read/Import Data
+
+- Read/Import the data into R, 
+- then save it as a data frame. 
+
+You can use Base R functions or readr, xlsx, readxl, foreign, rvest packages for this purpose. 
+
+You must also provide the R codes with outputs (i.e. `head()` of the data set) that you used to import/read/scrape the data set. You can provide the R codes with outputs using R chunks like this:
+
+```{r}
+
+# This is an R chunk for importing the data. Provide your R codes here:
+
+# Read/Import the data into R
+ok_cupid_data <- readRDS("data/parsed_data_public.rds")
+
+# save it as a dataframe
+# TODO:
+
+# You must also provide the R codes with outputs (i.e. `head()` of the data set) that you used to import/read/scrape the data set
+head(ok_cupid_data)
+
+
+
+ok_cupid_data_head <- readRDS("data/parsed_data_public.rds", function(x) head(x,2))
+head(ok_cupid_data_head)
+
+```
+
+
+Explain everything that you do in this step using regular text outside the R chunks. You may use bulleted lists like this:
+
+
+Here is an example of bulleted list:
+
+* Bullet 1
+* Bullet 2
+* ....
+
+
+
+## Inspect and Understand
+
+
+Inspect the data frame and variables using R functions. As a minimum, you should:
+
+* check the dimensions of the data frame.
+* check the data types (i.e., character, numeric, integer, factor, and logical) of the variables in the data set.
+* check the levels of factor variables, rename/rearrange them if required.
+* check the column names in the data frame, rename them if required.
+
+
+Provide your R codes with outputs and explain everything that you do in this step.
+
+
+```{r}
+
+# This is a chunk where you inspect the types of variables, data structures, check the attributes in the data.
+
+
+
+```
+
+## Subsetting I
+
+Subset the data frame using first 10 observations (include all variables). Then convert it to a matrix. Provide the R codes with outputs and explain everything that you do in this step. 
+
+
+
+```{r}
+
+# This is a chunk to subset your data and convert it to a matrix 
+
+
+```
+
+If you get an error, you won't be able to preview the notebook. To avoid this, you may use `eval = FALSE` option inside the R chunk like this:
+
+```{r, eval=FALSE}
+
+# With eval = FALSE option knitr won't run the R code but will display your codes on the notebook. 
+
+
+```
+
+Do not forget to explain why you got this error.
+
+## Subsetting II
+
+
+Subset the data frame including only first and the last variable in the data set, save it as an R object file (.RData). Provide the R codes with outputs and explain everything that you do in this step. 
+
+```{r}
+
+# This is a chunk to subset your data and convert it to an R object file 
+
+
+```
+
+
+## IMPORTANT NOTE: 
+
+This report must be uploaded to Turnitin as a PDF with your code chunks showing. The easiest way to achieve this is to Preview your notebook in HTML (by clicking Preview) → Open in Browser (Chrome) → Right click on the report in Chrome → Click Print and Select the Destination Option to Save as PDF. 
+
+
+**Feel free to DELETE the instructional text provided in the template.** If you have any questions regarding the assignment instructions and the R template, please post it on [Slack](https://math2349.slack.com) under the `#Assignment1` channel. 
+
+<br>
+<br>

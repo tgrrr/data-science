@@ -1,0 +1,183 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```r
+install.packages("readr")
+install.packages("rvest")
+install.packages("xlsx")
+
+setwd("~/Documents/code/data-science-apps/data-preprocessing/import-scraping-export-week2")
+
+dir.create("foo2")
+
+getwd()
+
+setwd("./.")
+
+getwd()
+
+iris <- read_csv("iris.csv")
+View(iris)
+
+str(iris)
+
+View(iris1)
+
+head(iris)
+
+# 3. Import csv version of Population dataset (population.csv) using Base R functions.
+
+base_population <- read.csv("population.csv")
+head(base_population)
+
+# 4.  Repeat exercise 3, this time use readr functions.
+
+install.packages("readr")
+library(readr)
+readr_population <- read_csv("population.csv")
+head(readr_population)
+
+# 5. Import spss version of Population data (population.sav) using foreign package.
+
+install.packages("foreign")
+library(foreign)
+```
+
+
+
+# 3. Import csv version of Population dataset (population.csv) using Base R functions.
+
+```{r}
+
+base_population <- read.csv("population.csv")
+head(base_population)
+```
+
+# 4.  Repeat exercise 3, this time use readr functions.
+
+
+```{r}
+install.packages("readr")
+library(readr)
+readr_population <- read_csv("population.csv")
+head(readr_population)
+```
+
+# 5. Import spss version of Population data (population.sav) using foreign package.
+
+```{r}
+install.packages("foreign")
+library(foreign)
+
+population_save <- read.spss("population.sav", to.data.frame = TRUE)
+
+ls()
+
+head(population_save, 10)
+
+```
+
+# Population - Migration Data
+Exercise 6 is based on population-migration dataset (population-migration.xls) which contains two sheets named “Population Density and Regional” and “Inter-regional Migration” in .xls format. “Inter-regional Migration” sheet contains 1564 rows of timeseries data between 2009 to 2016. This data set is also taken from OECD located at http://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR. The variables for population-migration data (“Inter-regional Migration” sheet) contains:
+
+Region [Character]: Region name
+
+Territory Level and Typology [Factor]: Description of the region (Country, Large regions, Small regions,… )
+
+2009, 2010, ...,2016 [Numeric]: Migration (All persons inflows minus outflows)
+
+**Import population-migration dataset (population-migration.xls) using xlsx or readxl functions. (Hint: Use  sheetName argument.)**
+
+```r
+
+install.packages("readxl")
+library(readxl)
+
+xl <- "population-migration.xls""
+
+population_migration_density <- read_excel(xl, 
+    sheet = "Population Density and Regional")
+
+View(population_migration_density)
+
+```
+
+## From the lecture:
+```r
+install.packages(readxl)
+library(readxl)
+# read in xlsx worksheet using a sheet index or name
+
+iris13<- read_excel("iris.xlsx", sheet = "iris")
+# read in xlsx worksheet and change variable names by skipping the first row
+# and using col_names to set the new names
+
+iris14<- read_excel("iris.xlsx", sheet = "iris", skip = 1, col_names = paste ("Var", 1:6))
+```
+
+## From the docs:
+```r
+# Usage
+read_excel(path, sheet = NULL, range = NULL, col_names = TRUE,
+col_types = NULL, na = "", trim_ws = TRUE, skip = 0, n_max = Inf,
+guess_max = min(1000, n_max))
+
+```
+
+## Most Popular Baby Names by Sex and Mother’s Ethnic Group, New York City Data
+The following exercises (exercise 7-9) is based on Popular Baby Names, NYC dataset which contains 22,035 rows of data recorded in 2011. This data set is taken from NYC Open Data which is located at https://data.cityofnewyork.us/Health/Most-Popular-Baby-Names-by-Sex-and-Mother-s-Ethnic/25th-nujf containing the following variables:
+
+BIRTHYEAR [Integer]: Year of birth
+
+GENDER [Character]: Gender
+
+ETHNICITY [Character]: Mother’s ethnicity (categories: HISPANIC, ASIAN AND PACIFIC ISLANDER, WHITE NON HISPANIC, BLACK NON HISPANIC)
+
+NAME [Character]: Child first name
+
+COUNT [Integer]: Count
+
+RANK [Integer]: Rank
+The url for the csv file is located at https://data.cityofnewyork.us/api/views/25th-nujf/rows.csv?accessType=DOWNLOAD
+
+## 7 Use the url for Popular Baby Names, NYC dataset to import in R.
+
+```r
+
+setwd("~/Documents/code/data-science-apps/data-preprocessing/import-scraping-export-week2")
+
+popular_baby_names_url <- "https://data.cityofnewyork.us/api/views/25th-nujf/rows.csv?accessType=DOWNLOAD"
+
+popular_baby_names <- read.csv(popular_baby_names_url, stringsAsFactors = FALSE)
+
+head(popular_baby_names)
+
+```
+
+## 8 After you import the dataset save it as a .csv file.
+
+```r
+
+setwd("~/Documents/code/data-science-apps/data-preprocessing/import-scraping-export-week2")
+
+popular_baby_names_url <- "https://data.cityofnewyork.us/api/views/25th-nujf/rows.csv?accessType=DOWNLOAD"
+
+popular_baby_names <- read.csv(popular_baby_names_url, stringsAsFactors = FALSE)
+
+head(popular_baby_names)
+
+```
+
+
+## 9 Repeat exercise 8, this time save it as .Rdata.
+
+```r
+
+```
+
+
+
+
+
