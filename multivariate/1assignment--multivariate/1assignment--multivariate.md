@@ -1,6 +1,6 @@
 # 1.
 
-```
+```SAS
 proc iml;
 reset print;
 
@@ -28,15 +28,30 @@ C_transposed = T(C);
 
 ## 1.a) C'B
 
-`Ctranspose_x_B = C_transpose * B;`
+`Ctransposed_x_B = C_transposed * B;`
+
+|  |  |
+| --- | --- |
+| 21 | 12 |
 
 ## 1.b) A'B'
 
 `A_transposed_x_B_transposed = A_transposed * B_transposed;`
 
+|  |  |  |
+| --- | --- | --- |
+| 9 | 10 | -4 |
+| 11 | 6 | 0 |
+
 ## 1.c) BA
 
 `B_x_A = B * A;`
+
+|  |  |
+| --- | --- |
+| 9 | 11 |
+| 10 | 6 |
+| -4 | 0 |
 
 ## 1.d) BA
 
@@ -55,7 +70,7 @@ Also, sass gives us this error:
 
 ## a) Calculate G = F'F
 
-```
+```SAS
 F = {
   4 0 0,
   0 9 0,
@@ -70,18 +85,22 @@ G = F * F_transpose;
 ## b) Eigenvalues
 
 
-```
+```SAS
 G_eigenvalues = eigval(G);
 ```
-Output:
-81,
-16,
-1
+
+|  |
+| --- |
+| 81, |
+| 16, |
+| 1 |
+
 ## b) Eigenvectors
 
-```
+```SAS
 G_eigenvector = eigvec(G);
 ```
+
 |  |  |  |
 | --- | --- | --- |
 | 0 | 1 | 0 |
@@ -90,50 +109,34 @@ G_eigenvector = eigvec(G);
 
 # QUESTION 3.
 
-You are given the
+You are given:
 
 #### random vector  
 
 `X'= [ X1 , X2 , X3 , X4 ]` with
 
 #### mean vector
-μ<sub>X</sub> = [ <br />
-4,<br />
-3,<br />
-2, <br />
-1  <br />
-]  
+
+μ<sub>X</sub> = [4, 3, 2, 1]  
 
 #### variance-covariance matrix =
 
-```
-Σ<sub>X</sub> =
+Σ<sub>X</sub> =<br />
 [2 0 2 4,<br/>
 2 1 9 2,<br/>
 0 1 1 0,<br/>
 3 0 2 2]
-```
-
-Partition X as
 
 
-x =
-
-X = [<br/>
-    X<sub>1</sub>,<br/>
-    X<sub>2</sub>,<br/>
-    X<sub>3</sub>,<br/>
-    X<sub>4</sub>,<br/>
-]
-
-= [<br/>
+Partition X as:<br/>
+x => X = [X<sub>1</sub>, X<sub>2</sub>,  X<sub>3</sub>, X<sub>4</sub>]
+=> [<br/>
   X<sup>a</sup><br/>
   ...<br/>
   X<sup>b</sup><br/>
 ]
 
   X<sup>a</sup><br/> =
-  
 
 Let
 A' = [1 −1] and
@@ -144,182 +147,156 @@ B = [
 0  1
 ]
 
-
 Consider the linear combinations AX<sup>(1)</sup> and BX<sup>b</sup> to find:
-
-
-
 
 ## a) E(X<sup>a</sup>) = μ<sub>x</sub>
 
 let X<sup>a</sup> include X<sub>1</sub> and X<sub>2</sub>
 
-μ<sub>1</sub> = 4
+μ<sub>1</sub> = 4<br />
 μ<sub>2</sub> = 3
 
 E(X<sup>a</sup>)
-= [<br />
-    4,<br />
-    3<br />
-]
+= [4, 3] // *from mean vector*
 
 ## b) E(AX<sup>a</sup>)
 
 A<sup>T</sup> = [1, -1] = [a, b]
 
-μ<sup>1</sup> = 4
-
+μ<sup>1</sup> = 4<br />
 μ<sup>2</sup> = 3
 
 E(AX<sup>(1)</sup>)<br />
 = a x μ<sup>1</sup> + b x μ<sup>2</sup><br/>
-= (1 x 4) + (3 x -1)                   // by substitution <br/>
+= (1 x 4) + (3 x -1) // *by substitution* <br/>
 = 1
 
 ## c) Cov(X<sup>a</sup>)
 
-Cov => {
+Cov => [
   3 0,
   0 1
-} </br>
-top left part of the covariance matrix grid
+] </br>
+*the top left quartile of the covariance matrix grid*
 
 ## d) Cov(AX<sup>a</sup>)
 
-Cov(A, X<sup>a</sup>)
-
+Cov(A, X<sup>a</sup>) <br/>
 = abσ<sub>12</sub><br/>
-= 1 x -1 x 0  (by substitution)<br/>
+= 1 x -1 x 0  // *by substitution*<br/>
 = 0
 
 ## e) E(X<sup>b</sup>)
 
 E(X<sup>b</sup>) = [2, 1]
+// *from mean vector*
 
 ## f) E(BX<sup>b</sup>)
 
-Transpose:
+// *transpose:* <br/>
 B<sup>T</sup> =
 [a, b] = {
   2 0,
 -1  1
-};
+}; <br />
 
-a' = [2 0]
+a' = [2 0] <br />
 b' = [-1 1]
 
-μ<sub>1</sub> = 2
+μ<sub>1</sub> = 2<br />
 μ<sub>2</sub> = 1
 
-E(AX<sup>a</sup>) = a x μ1 + b x μ2
-TODO: // by substitution
-= E( '[2, 0] x 2 ) + ( '[-1, 1] x 1)
-
-= E[4, 0] + [-1, 1]
-
+E(AX<sup>a</sup>) = a x μ1 + b x μ2 <br />
+// *by substitution* <br />
+= E( '[2, 0] x 2 ) + ( '[-1, 1] x 1) </br>
+= E[4, 0] + [-1, 1] </br>
 = E[3, 1]
 
 ## g) Cov(X<sup>b</sup>)
 
 Cov(X<sup>b</sup>) = [<br />
   9 -2,<br />
-  -2 4<br />
-]
+  -2 4 ] <br />
+*lower right quartile of covariance matrix*
 
 ## h) Cov(BX<sup>b</sup>)
 
-Cov(B X<sup>b</sup>) = T(B) x Cov(X<sup>b</sup>) x B
+Cov(B X<sup>b</sup>) = B'Cov(X<sup>b</sup>) B
 
-```
+```SAS
 B = {
 2 -1,
 0  1
 };
 
-J = T(B) * COV(B) * B;
+X_b = {
+9 -2,
+-2 4
+};
+
+H_Cov_B_Xb = T(B) * X_b * B;
 ```
 
 |  |  |
 | --- | --- |
-| 8 | -8 |
-| -8 | 8 |
+| 36 | -22 |
+| -22 | 17 |
+
 
 ## i) Cov(X<sup>a</sup>,X<sup>b</sup>)
 
-TODO:
+Formula:<br/>
+Cov(X, Y) = E{(X - E(X))(Y - E(Y)<sup>T</sup>)} = Cov(Y, X)<sup>T</sup>
 
-E(X<sup>a</sup>)
-= [<br />
-    4,<br />
-    3<br />
-]
+Cov(X<sup>a</sup>, X<sup>b</sup>) = E{(X<sup>a</sup> - E(X<sup>a</sup>))(X<sup>b</sup> - E(X<sup>b</sup>)<sup>T</sup>)}
 
-Cov(X<sup>a</sup>,X<sup>b</sup>)<br />
-= E{(X^a - E(X^a))(X^b-E(X^b)<sup>T</sup>)}<br />
-= E{(X^a - [4,3])(X^b - [2, 1]<sup>T</sup>)} //substitution from (a) and (e)<br />
-= E{(X^a - [4,3])(X^b - [2, 1]<sup>T</sup>)}<br />
+= E{(X<sup>a</sup> - [4,3])(X<sup>b</sup> - [2,1]<sup>T</sup>)}
+//*substitution from (a) and (e)<br />*
+
+
+*must be multiplied out to a 2 x 2 grid because it includes*
+
+[4,3] x [2 1]
+
+And we are trying to find how X<sup>a</sup> varies with X<sup>b</sup>
+
+*Where the Variances intersect in the top right quartile of the variance covariance matrix*
+
+|  |  |
+| --- | --- |
+| 2 | 2 |
+| 1 | 0 |
 
 ## j) Cov(AX<sup>a</sup>,BX<sup>b</sup>)
 
-TODO:
+![formlua for linear combination of random variables](./linear-combination-random-variables.png)
 
-a = [1, -1]
-b = B = [
-2 -1,
-0  1
-]
+From (i):
 
-From (c)
-Cov(X<sup>a</sup>) = [
-  3 0,
-  0 1
-]
+Cov(X<sup>a</sup>,X<sup>b</sup>) =
 
-From (g)
-Cov(X<sup>b</sup>) = [<br />
-  9 -2,<br />
-  -2 4<br />
-]
+|  |  |
+| --- | --- |
+| 2 | 2 |
+| 1 | 0 |
 
-Cov(aX<sub>1</sub>, bX<sub>2</sub>) = abσ<sub>12</sub>
+a x b x Cov(X<sup>a</sup>,X<sup>b</sup>)
 
-=>
+[1 −1] x [2 -1,0  1] x [2 2, 1 0]
+
+```SAS
+qI_Cov_A_x_Xa_B_x_Xb = T(A) * B * {2 2, 1 0};
 ```
-A = {
-	1,
-	-1
-	};
-B = {
-2 -1,
-0  1
-};
-A_x_B = T(A) * B;
-/* Output: [2, -2] */
 
-```
-[1, -1] x
-[
-2 -1,
-0  1
-] x
-Cov([
-  3 0,
-  0 1
-] x
-[
-  9 -2,
-  -2 4
-])
+Output:
 
-σ<sub>12</sub> = 0 (from the matrix)
-
-[2, -2] x 0
-
-= 0
+|  |  |
+| --- | --- |
+| 2 | 4 |
 
 # QUESTION 4
 
-```
+```SAS
 proc iml;
 reset print;
 
@@ -331,7 +308,7 @@ run;
 
 ## b) Produce the appropriate univariate descriptive statistics for each variable in the dataset using SAS code.
 
-```
+```SAS
 proc means data = iceland;
 var TEMP PSAL DOXY NTRA PHOS SLCA;
 run;
@@ -339,7 +316,7 @@ run;
 
 ## c) Choose an appropriate method to plot the dataset
 
-```
+```SAS
 proc sgplot data=iceland;
 var TEMP PSAL DOXY NTRA PHOS SLCA;
 scatter x=TEMP y=DOXY;
@@ -348,14 +325,14 @@ run;
 
 ## d) Produce the covariance matrix for the dataset
 
-```
+```SAS
 proc CORR DATA=iceland COV;
 var TEMP PSAL DOXY NTRA PHOS SLCA;
 run;
 ```
 ## e) Produce the correlation matrix for the dataset
 
-```
+```SAS
 proc corr data = iceland;
 var TEMP PSAL DOXY NTRA PHOS SLCA;
 run;
@@ -391,10 +368,14 @@ with p `<.0001` and multiple outliers. See attached plot.
 - The covariance matrix has 144 degrees of freedom.
 - TEMP[deg C] highest **positive** covariance correlation is with SLCA[umol/l] of `0.565673060`
 
+
+### Potential issues arising from the dataset
+
+- Covariance of Temperature with Silicate (SLCA) of -0.5656~
+and covariance with Salinity -0.557~ are close, demonstrate that the Silicate and Salinity variables may not have bivariate independence.
+- Unknown if data was not tested for normality, homoscedasticity
+- Possible errors with measuring temperature and variables across locations
+
+
 <a name="iceland"></a>
 [iceland.csv]: ICES Dataset on Ocean Hydrography. The International Council for the Exploration of the Sea, Copenhagen. 2014
-
-
-
-TODO:
-- Potential issues arising from the dataset
