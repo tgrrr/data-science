@@ -12,10 +12,13 @@ scrapy/
 *.ipynb
 *.Rout
 *.Rproj
+*.mp4
 python-and-machine-learning/
 .Rproj.user
 python/
-data-preprocessing-math2349/assignment2/
-data-preprocessing-math2349/assignment3/
-data-preprocessing-math2349/assignment3/README.md
+uni/2018/data-preprocessing-math2349/assignment2/
+uni/2018/data-preprocessing-math2349/assignment3/
 r-scraper-framework/
+tensorflow-1.4.1-cp36-cp36m-macosx_10_13_x86_64.whl
+study-other/python-udemy-with-nath/tensorflow
+# uni/2018/data-preprocessing-math2349/01-data-preprocessing-intro/materials/Module 1_files
