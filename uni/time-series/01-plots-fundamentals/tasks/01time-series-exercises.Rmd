@@ -1,0 +1,185 @@
+time series exercises, week1
+
+# Module 1: Tasks Basic Plots, Examples, and Fundamental Concepts
+
+```{r}
+rm(list = ls())
+# install.packages("TSA")
+library(magrittr)
+library("TSA")
+setwd("~/code/data-science/cheatsheet/source/includes/time-series/01-plots-fundamentals/tasks")
+```
+
+## 1. Plot stuff
+
+- [ ] Load the Melbourne Airport annual rainfall data (MelbourneAnnualRainfall.csv) into R. 
+
+```{r}
+# TODO: change to data and data.ts for reusability
+data <-
+  read.csv("./raw-data/MelbourneAnnualRainfall.csv", header = FALSE)
+rownames(data) <- seq(from = 1995, to = 2016)
+class(data)
+# Hint: “ts()” to convert the “data.frame” to timeSeries.
+# TODO: doConvertTimeSeries()
+data.ts <-
+  ts(as.vector(data),
+     start = 1995,
+     end = 2016) # Convert to the TS object!
+```
+
+#### produce the time series plot for the annual rainfall series in Melbourne Airport.
+```{r}
+plot(data.ts, type = 'o', ylab = 'Amount of annual rainfall')
+```
+
+#### Do you think there is a trend in the series?
+No obvious trend
+
+## TODO: 2. Random values
+
+#### - [x] Simulate a completely random process of `length 48` 
+- [ ] with `independent, normal values`. 
+- [ ] At this stage set the mean and variance of the normal distribution to `arbitrary values`.
+```{r}
+mu = 0
+sigma = 10 #0.1 #sqrt{Var}
+n = 48
+data_random = rnorm(n, mu, sigma)
+```
+
+### - [ ] Display the time series plot without converting the generated data to a time series object 
+```{r}
+plot(data_random)
+plot(ts(data_random))
+plot.ts(data_random, 
+  lty = 2 , 
+  type = 'o', 
+  ylab = 'Normal distributed process') 
+#without converting the generated data to a time series object
+```
+
+### TODO: check #converting the generated data to a time series object
+```{r}
+plot(ts(data_random) , type = 'o', ylab = 'Normal distributed process') #converting the generated data to a time series object
+```
+
+- [ ] Does it look “random?”
+
+TODO: wk1q2. Plot with random values
+- [ ] Display the time series plot without converting the generated data to a time series object 
+  - [ ] and by converting the generated data to a time series object.
+  - [ ] Does it look “random?”
+- [ ] Repeat this exercise several times with a new simulated dataset at each time. Does your view on the randomness of series change from one simulation to the other?
+- [ ] Repeat this exercise with standard deviations of 0.1 and 10. What is the effect of variance of series on the resulting time series plot?
+
+
+## TODO: 3. Chi Squared exercise
+3. Simulate a completely random process of `length 48` with independent, `chi-square distributed values`, `each with 2 degrees of freedom`.
+- Display the time series plot. Does it look “random?”
+- Repeat this exercise several times with a new simulated dataset at each time. Does your view on the randomness of series change from one simulation to the other?
+- Compare your results with those obtained in the second task.
+
+```{r}
+nu = 2
+n = 48
+data_chisq = rchisq(n, nu) # generate data
+data_chisq.ts <- ts(data_chisq) #convert to a time series object
+plot(
+  data_chisq.ts, 
+  type = 'o',
+  ylab = 'Chi-squre distributed process')   
+```
+
+4. Labelling monthly
+- Load the Melbourne Airport **monthly** rainfall data (MelbourneMonthlyRainfall.csv into R.
+
+```{r}
+data <-
+  MelbourneMonthlyRainfall <- 
+    read.csv(
+    "raw-data/MelbourneMonthlyRainfall.csv",
+    header = FALSE)
+# MelbourneMonthlyRainfall
+```
+
+- [ ] Construct a time series plot in a blank graphics window. Is the seasonal effect is clearly seen from the time series plot?
+
+
+- [ ] Construct a time series plot in a blank graphics window with monthly plotting symbols. 
+
+```{r}
+# TODO: WRONG: learn this. This breaks it, because data is wrong
+rownames(data) <- seq(from = 1995, to = 2016)
+colnames(data) <-
+  c("jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec")
+class(data)
+
+data <-
+  ts(
+    as.vector(as.matrix(data)),
+    start = c(1995, 1),
+    end = c(2016, 12),
+    frequency = 12
+  )
+data
+# Now the data read into R in an incorrect order!!! Check with the original CSV file!
+```
+
+### Right: This breaks it, because data is wrong
+```{r}
+# Right: This breaks it, because data is wrong
+
+# Read the raw data again
+data <- MelbourneMonthlyRainfall
+
+# Take the transpose of the matrix with t() to put in the correct order!!!
+data_fix_month_order.ts <-
+  ts(
+    as.vector(as.matrix(t(
+      data
+    ))),
+    start = c(1995, 1),
+    end = c(2016, 12),
+    frequency = 12
+  )
+data_fix_month_order.ts %>% head()
+
+class(data_fix_month_order.ts)
+```
+
+### Seasonal plot
+```{r}
+# --- open a new graphics window in Mac OS ---
+# x11()
+
+# --- open a new graphics window in Windows ---
+# win.graph(width = 4.875, height = 2.5, pointsize = 8)
+
+plot(data_fix_month_order.ts, type = 'o', ylab = 'Amount of monthly rainfall')
+points(
+  y = data_fix_month_order.ts,
+  x = time(data_fix_month_order.ts),
+  pch = as.vector(season(data_fix_month_order.ts))
+)
+```
+
+```{r}
+season_data = season(data_fix_month_order.ts)
+season_data %>% head(12)
+```
+
+- Is there any improvement in the ease of identification of the seasonal effect when the symbols are super-imposed onto the plot?
+
+Sure

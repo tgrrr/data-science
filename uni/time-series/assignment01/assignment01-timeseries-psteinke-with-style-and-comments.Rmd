@@ -1,0 +1,378 @@
+---
+title: "MATH1318 Time Series"
+author: "Phil Steinke s3725547"
+subtitle: "Assignment 1 - Semester 1, 2019"
+output:
+  html_document:
+    fig_width: 8
+    fig_height: 4
+    theme: paper
+    highlight: kate
+#    toc: true
+#    toc_float:
+#      collapsed: false
+#      smooth_scroll: true
+---
+
+# Executive Summary
+
+This report examines the decline of the thickness of Ozone layer over 90 years.
+
+To find this, data was collected from 1927 to 2016 in Dobson units (yearly changes). Where a negative value in the dataset represents a decrease in Ozone thickness and a positive value represents an Ozone increase in the thickness.
+
+
+#### TODOLATER: Hypothesis
+
+TODOLATER:
+H<sub>0</sub>: the stochastic component of model 2 is normally distributed
+H<sub>a</sub>: 
+
+H0:μΔ=0
+HA:μΔ≠0
+
+We found that ... TODOLATER:
+as the p-value was less than 5% and the null mean (i.e. zero) did not fall within the 95% confidence interval. As such the null hypothesis was rejected.
+
+#### Goals:
+
+> Your task is to analyse the data by using the analysis methods covered in the first two modules of MATH1318 Time Series Analysis course in this semester. 
+
+#### R code 15%
+
+```{r Setup, message=FALSE, warning=FALSE, include=FALSE, warnings=0}
+rm(list = ls()) 
+cat("\014") # clear everything
+setLocalWorkingDirectory <- "~/code/data-science/cheatsheet/source/includes/time-series/assignment01"
+# setwd("./.")
+InstallAndLoadPackages <- function(package, localWorkingDirectory){
+  print('# Check for installed packages, then install them')
+  setwd(localWorkingDirectory)
+  new.package <- package[!(package %in% installed.packages()[, 'Package'])]
+  if (length(new.package))
+    install.packages(new.package, dependencies = TRUE)
+    sapply(package, require, character.only = TRUE)
+}
+```
+
+```{r message=FALSE, warning=FALSE}
+packages <- c('beepr', 'RColorBrewer', 'tidyr', 'TSA', 'TTR', 'smooth')
+InstallAndLoadPackages(packages, setLocalWorkingDirectory)
+ozone <- read.csv("raw-data/data1.csv", header = FALSE)
+ozone.ts <- ts(as.vector(ozone), start = 1927, end = 2016) # convert to timeseries
+colourPallete <- brewer.pal(n = 10, name = "BrBG")
+# display.brewer.pal(10, 'BrBG')
+cat("\014")
+```
+
+```{r The data}
+# ozone.ts %>% tail(n = 5)
+ozone.ts %>% dim()
+```
+#### The Data
+
+The ozone thickness series is given by `dataset1.csv` which represents:
+
+- thickness of Ozone layer 1927 to 2016 in Dobson units (yearly changes)
+- A negative value in the dataset represents a decrease in Ozone thickness
+- A positive value represents an Ozone increase in the thickness
+- The dataset is timeseries and includes 90 records
+
+Data was obtained from our lecturer 'Haydar Demirhan'. Given there is only a single variable `thickness of Ozone layer`, and that the ozone layer varies in thickness around the globe, this statistic would either be from a single location, or an average around the globe.
+
+> The Dobson Unit is the most common unit for measuring ozone concentration. One Dobson Unit is the number of molecules of ozone that would be required to create a layer of pure ozone 0.01 millimeters thick at a temperature of 0 degrees Celsius and a pressure of 1 atmosphere (the air pressure at the surface of the Earth). Expressed another way, a column of air with an ozone concentration of 1 Dobson Unit would contain about 2.69x1016ozone molecules for every square centimeter of area at the base of the column. Over the Earth’s surface, the ozone layer’s average thickness is about 300 Dobson Units or a layer that is 3 millimeters thick.
+- https://ozonewatch.gsfc.nasa.gov/facts/dobson_SH.html
+
+#### Initial Plot Declare
+```{r fig.height=4, fig.width=8}
+
+t = time(ozone.ts) # Create time points for model fitting
+
+default_ylab = 'Ozone layer thickness (Dobson units)'
+default_subtitle = 'thickness of Ozone layer 1927 to 2016 in Dobson units - yearly changes'
+default_xlab = 'Year (1927-2016)'
+
+doTimeSeriesPlot <- function(
+  x, 
+  xlab = default_xlab,
+  y,
+  ylab = default_ylab,
+  lines,
+  type = 'o', 
+  title = ''
+  ) {
+  par(bg = colourPallete[5]) # plot background
+  plot( 
+    x,
+    y,
+    col = colourPallete[9],
+    pch = 19,
+    type = type,
+    xlab = xlab,
+    ylab = default_ylab)
+  title(
+    main = title,
+    sub = default_subtitle,
+    col.main = colourPallete[9],
+    font.main = 3)
+  points(x)
+  lines
+}
+```
+
+#### Ozone Layer Thickness
+```{r}
+doTimeSeriesPlot(
+  x = ozone.ts,
+  y = NULL,
+  title = 'Ozone layer thickness with simple moving average',
+  lines = lines(SMA(ozone.ts)))
+```
+- This plot shows a negative decreasing simple moving average in thickness of ozone layer over 90 years. 
+- We can see a continuous decreasing trend
+
+
+```{r}
+y = ozone.ts              # Read data into y
+x = zlag(ozone.ts)        # Generate first lag 
+index = 2:length(x)          # Create an index to get rid of the first NA value and the last 5 missing values in x
+cor(y[index], x[index])
+```
+A Correlation of 0.87 implies a strong positive relationship between the Ozone Layer thickness over time
+
+```{r}
+doTimeSeriesPlot(
+  x = zlag(ozone.ts), # Generate first lag of the series
+  xlab = 'zlag',
+  y = ozone.ts, # Read the data into y
+  ylab = 'ozone.ts',
+  title = "Compare ozone to previous/neighbouring year",
+  lines = NULL,
+  type='p')
+linearTrendModel_previousYear =
+  lm(ozone.ts~zlag(ozone.ts))
+abline(
+  linearTrendModel_previousYear,
+  col = colourPallete[1])
+```
+There is a strong positive autocorrolation of the data for concurrent years.
+
+# Linear Trend
+## Model 1
+
+#### Define Linear Trends Model
+
+```{r}
+linearTrendModel = lm(ozone.ts~t)
+```
+
+```{r}
+doTimeSeriesPlot(
+  lines = abline(
+            linearTrendModel,
+            col = colourPallete[1]),
+  title = "Linear Trend of Ozone ",
+  x = ozone.ts,
+  y = NULL
+)
+```
+Initial visual inspection shows a linear trend does not continue to fit the later years of the data
+
+#### Linear Residuals
+
+```{r}
+t = time(ozone.ts) # Create time points for model fitting
+linearTrendModel = lm(ozone.ts~t) # label the model as model1
+summary(linearTrendModel)
+```
+- a p-value < 0.05 shows that the model is significant
+- R<sup>2</sup> = 0.6655 shows the model is partially significant
+
+Slope: β̂<sub>1</sub>= -0.110029
+Intercept: β̂̂<sub>0</sb>0= 213.72015
+
+```{r}
+res.linearTrendModel = rstudent(linearTrendModel)
+
+doTimeSeriesPlot(
+  x = as.vector(time(ozone.ts)),
+  y = res.linearTrendModel,
+  title = 'Standardised Residuals of Linear Trends model with Simple moving average',
+  lines=NULL)
+```
+
+
+
+```{r}
+qqnorm(res.linearTrendModel)
+abline(linearTrendModel)
+qqline(
+  col = 2,
+  res.linearTrendModel,
+  lty = 2,
+  lwd = 1)
+```
+
+Q-Q plot shows significant skew indicating possible non-normality or bimodal data
+
+
+```{r}
+shapiro.test(res.linearTrendModel)
+```
+
+```{r}
+acf(res.linearTrendModel)
+```
+
+# Forecast for Linear
+**Task:** Give predictions of yearly changes for the next 5 years
+
+```{r}
+doForecast <- function(ourModel, start, plotTitle, ...) {
+  args <- list(...)
+  exist <- "t2" %in% names(args)
+  
+  t = c(2017:2021)
+  t2 = t ^ 2
+
+  if(exist) { new = data.frame(t, t2) } 
+  else { new = data.frame(t) }
+  
+  # Two-step algorithm
+  forecasts = predict(ourModel, new, interval = "prediction")
+  print(forecasts) # predicted interval
+
+  plot(
+    ozone.ts, 
+    xlim = c(1940,2022),
+    ylim = c(-15,3),
+    ylab = "")
+  lines(ts(as.vector(forecasts[,1]), start), col="red", type="l")
+  lines(ts(as.vector(forecasts[,2]), start), col="blue", type="l")
+  lines(ts(as.vector(forecasts[,3]), start), col="blue", type="l")
+  legend(
+    "bottomleft",
+    c("Data","5% forecast limits", "Forecasts"),
+    col=c("black","blue","red"), 
+    lty=1, 
+    pch=1, 
+    text.width = 20)
+    title(
+    main = plotTitle,
+    sub = 'thickness of Ozone layer 1927 to 2016 in Dobson units - yearly changes',
+    col.main = colourPallete[9],
+    font.main = 3)
+}
+```
+
+```{r}
+doForecast(linearTrendModel, 2016, 'Linear Trend Model')
+```
+
+# Quadratic time trends
+## Model 2
+- Use the least squares approach to fit a quadratic time trend to the Ozone data
+
+```{r quadratic trend model - time squared}
+# t = time(ozone.ts)
+t2 = t^2 # square it
+model.ozone.qa = 
+  lm(ozone.ts ~ t + t2) # label the quadratic trend model
+summary(model.ozone.qa)
+```
+
+**p:** 2.2e-16 < 0.05 <br />
+**F:** 87 DF <br />
+**R<sup>2</sup>:** 0.7331 <br /> shows the model is more significant than our linear model
+
+```{r}
+plot(
+  ts(fitted(model.ozone.qa)),
+  ylab = 'y TODOLATER:',
+  ylim = c(
+    min(c(
+      fitted(model.ozone.qa),
+      as.vector(ozone.ts)
+    )),
+    max(c(
+      fitted(model.ozone.qa),
+      as.vector(ozone.ts)
+    ))
+  ),
+  col = "red",
+  lty = 2,
+  main = "Fitted quadratic curve to ozone data",
+  type = "l",
+  lines = lines(as.vector(ozone.ts), type = "o")
+  )
+lines(as.vector(ozone.ts), type = "o")
+```
+
+Visual inspection shows a closer fit to the data
+
+#### Quadratic residuals
+```{r}
+res.model.ozone.qa = rstudent(model.ozone.qa)
+plot(
+  x = as.vector(time(ozone.ts)),
+  xlab = 'Years',
+  ylab = 'Standardized Residuals',
+  y = res.model.ozone.qa,
+  type = 'o')
+```
+
+Standardised residual shows a moving average
+
+```{r}
+qqnorm(res.model.ozone.qa)
+qqline(
+  res.model.ozone.qa,
+  col = 2,
+  lty = 2,
+  lwd = 1)
+```
+Q-Q plot has some skew towards the end. However, it is less skewed than the linear model
+
+```{r}
+acf(res.model.ozone.qa)
+```
+Shows 3 clear and 5 total outliers outside of the 0.2
+
+
+```{r}
+shapiro.test(res.model.ozone.qa)
+```
+
+## Forecast for Quadratic model
+
+```{r}
+doForecast(model.ozone.qa, 2016, '5 year forecast for quadratic model', t2=T)
+```
+
+
+# Harmonic Model
+
+```{r}
+har=harmonic(ozone.ts,0.45)
+model.ozone.har=lm(ozone.ts~har)
+summary(model.ozone.har)
+```
+- p-value = 0.4441 > 0.05, shows the model is insignificant
+- Cos = NA
+- No seasonality
+- Therefore warrants no further investigation
+
+## Conclusion
+
+### Best Fitting Trend model
+**Task:** Find the best fitting trend model to this dataset
+Of our three models, the quadratic trend model was the most successful fit because it better correlates with the decline towards the end of the series. 
+
+**Task:** Give predictions of yearly changes for the next 5 years
+Utilising the linear and quadratic models, graphs and numeric outputs with a 5% variance have been provided.
+
+
+The data shows an increased rate of decay over time. This does not appear to be a stationary series, with seasonal pattern and moving average. It would be ideal to find a better fit is warranted.
+
+```{r}
+beep(2)
+```
