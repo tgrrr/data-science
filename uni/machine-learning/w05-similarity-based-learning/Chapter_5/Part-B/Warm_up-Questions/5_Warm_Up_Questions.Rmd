@@ -1,0 +1,297 @@
+---
+title: 'Machine Learning: Chapter 5 - Part II'
+subtitle: 'Classification Task Basics'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Overview
+
+Using an open dataset, the goals of this warm-up example are:
+
+1. Configure a bagging wrapper of a decision-tree model using `mlr`
+2. Finetuning the hyperparameters in improving the bagged wrapper
+3. Introduce random forest and KNN learners in a very mininal coverage
+4. Benchmarking learners
+
+# Prerequisites
+
+We shall use the following packages
+
+* `mlr` [@mlr]  for machine learnong 
+* `tidyverse` [@hadley] for data visualisation and manipulation (which include `ggplot2` and `dplyr`) 
+
+```{r, message = FALSE, warning = FALSE}
+library(mlr)
+library(tidyverse)
+```
+
+In addition, we also rely on the learner packages below:
+
+* `rpart` [@rpart] for decision tree
+* `randomForest`  [@liaw] for random forests
+* `kknn` [@kknn] for k-Neareest Neighbors (KNN). Note that there are many KNN learner packages, such as `class`. We pick `kknn` because it allows us to make probability predictions.
+
+# Dataset Description
+
+The objective is to classify if the faulty types of a steel plate from the [Steel-plates-fault](https://www.openml.org/d/1504) dataset. It is accessible at https://www.openml.org/d/1504. It has:
+
+* Target feature: `Class`
+* 33 descriptive features labelled as `V1`, `V2`, ... `V33` where `V28` to `V33` are binary and the rest are numeric. 
+
+For details of data dictionary, visit the website. Let's read and process the data in `R`:
+```{r}
+data <- read.csv('steels.csv')
+```
+
+After checking the data by `str` function, given data description, we need to convert `V28` to `V33` and `Class` ($34^{th}$ column) to factor.
+
+```{r}
+data[c(28:34)] <- lapply(data[c(28:34)] , factor)
+summarizeColumns(data)
+
+```
+
+The table below shows an unbalanced target feature with more `Class = 1`.
+
+```{r}
+table(data$Class)
+```
+
+# Configuration
+
+## Classification Task
+
+Let's configure the classification task. Without extra information, we do not know which `Class` is positive. So, we do not specify extra argument in `makeClassifTask`.
+
+```{r}
+classif.task <- makeClassifTask(id = "steel", data = data, target = "Class")
+classif.task
+```
+
+## Learners
+
+Before we configure learners, we have to check if the learner packages have been installed.
+```{r, warning = FALSE}
+c('randomForest', 'rpart', 'kknn') %in% listLearners()$package
+
+```
+
+We can configure each individual learner by specifying `predict.type = 'response'` like below.
+
+```{r}
+rpart.lrn   <- makeLearner("classif.rpart", predict.type = 'response', 
+                           fix.factors.prediction = TRUE)
+rf.lrn      <- makeLearner("classif.randomForest", predict.type = 'response', 
+                           fix.factors.prediction = TRUE)
+kknn.lrn    <- makeLearner("classif.kknn", predict.type = 'response', 
+                           fix.factors.prediction = TRUE)
+
+rpart.lrn
+rf.lrn 
+kknn.lrn
+
+```
+
+Alternatively, we can make multiple learners as following.
+
+```{r}
+learners <- makeLearners(c('randomForest', 'rpart', 'kknn'), 
+                         type = "classif", predict.type = "prob")
+```
+
+The issue with `makeLearners` is that it returns a list of learners. Therefore, we cannot apply `train` on it. The workaround is to call each individual learner by using `$` slot. It gives some advantages when we benchmark their performance. In practice, it is only handy when we have too many learners.
+
+# Bagging
+
+We shall illustrate how to implement bagging wrapper on `rpart.lrn` as **base learner** in `mlr`. We shall leave `kknn.lrn` as an exercise. Side question: can we apply bagging on `randomForest` learners? In the R codes below, we choose `bw.iters = 100` (100 base learners) and `bw.feats = 0.5` (proportion of randomly selected features).
+
+```{r}
+wrapped.lrn <- makeBaggingWrapper(rpart.lrn, bw.iters = 100, bw.feats = 0.5)
+print(wrapped.lrn)
+
+```
+
+Hooray, we can use methods on this newly constructed learner like the `rpart.lrn`. For instance, we can train `rpart.lrn` by calling `mod = train(rpart.lrn, classif.task)`. We can do the same on `wrapped.lrn`.
+
+```{r}
+wrappedRpart.mod <- train(wrapped.lrn , classif.task)
+wrappedRpart.mod
+
+```
+
+Next, we would like to see if bagging yields in any improvement i.e. reduction in `mmce` (misclassification error rate). For such evaluation, we can call `benchmark` and bind the base learner and wrapped learner as follow:
+```{r}
+benchmark(tasks =  classif.task, 
+          learners = list(rpart.lrn, wrapped.lrn))
+
+```
+
+Unfortunately, in our example, the wrapped model underperforms the base learner. This is probably because of the small data set and limited number of descriptive features. Perhaps, we can improve the wrapped learner by tuning some hyperparameters in the next section.
+
+# Tuning Hyperparameters
+
+Let's have a view at the available hyperparameters of the wrapped learner:
+```{r}
+getParamSet(wrapped.lrn)
+
+```
+
+We choose to tune the parameters `minsplit` and `bw.feats` for the mmce using a random search in a 5-fold CV. 
+
+```{r}
+rdesc <- makeResampleDesc("CV", iters = 5)
+par.set = makeParamSet(
+  makeIntegerParam("minsplit", lower = 2, upper = 10),
+  makeNumericParam("bw.feats", lower = 0.35, upper = 1)
+)
+
+```
+
+In addition, we can specify how many iterations to search for locally optimal set of hypermeters in `mlr` by calling `makeTuneControlRandom`. For simplicity, we set `maxit` (maximum interations) to 2. In practice, 10 to 15 would be recommended when dealing with a larger dataset.
+
+```{r}
+ctrl  <- makeTuneControlRandom(maxit = 2)
+```
+
+In the last step, we apply the `makeTuneWrapper` function on the model we would like to improve, in this case, `wrapped.lrn` by specifying the following arguments. Let's name this new learner as `tuned.lrn`.
+
+```{r}
+tuned.lrn <- makeTuneWrapper(wrapped.lrn, rdesc, mmce, par.set, ctrl)
+print(tuned.lrn)
+```
+
+Like wrapped and base learners, we can traun the tuned learner and make prediction.
+
+```{r}
+
+tunedBaggedTreeMod <- train(tuned.lrn, task = classif.task)
+
+pred <- predict(tunedBaggedTreeMod, newdata = data)
+performance(pred)
+```
+
+# Benchmarking
+
+For completeness, we should benchmark all learners that we have configured in addition to the knn and random forest learners. 
+
+```{r, eval = FALSE}
+benchmark(tasks =  classif.task, 
+          learners = list(rf.lrn, tuned.lrn, wrapped.lrn, rpart.lrn, kknn.lrn))
+```
+
+Sometimes, we are interested in how well a learner performs by selecting a subset or some percentage of data. In our example, we have 33 descriptive features. We might want to ask if a decision tree performs better than a KNN model when we use only 5 % of the data. To evaluate this, we can do the following:
+
+```{r}
+lrnCurve <- generateLearningCurveData(task =  classif.task, 
+                                      learners = list(rf.lrn, rpart.lrn, kknn.lrn))
+
+```
+
+However, `generateLearningCurveData` cannot be applied on wrapped and tuned learners. `lrnCurve` returns a list of three items in which we need `lrnCurve$data`. Let's visualise and compare how each model performs with respect to percentage of data used.
+
+```{r}
+ggplot(lrnCurve$data, aes(x = percentage, y = mmce, color = learner)) + 
+  geom_point() + geom_line() + 
+  labs(x = 'Percentage of data used %', 
+       y = 'MMCE')
+```
+
+
+It appears that the `kknn` learner outperforms other learners with very few features, but starts trailing behind as the percentage grows. The `rpart` learners eventually converges to a zero `mmce` which is consistent with the findings in the previous section. 
+
+# References

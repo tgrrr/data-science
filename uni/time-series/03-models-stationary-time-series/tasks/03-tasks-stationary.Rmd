@@ -1,0 +1,162 @@
+---
+title: "Module 3: Tasks - Models for Stationary Time Series"
+---
+
+```{r}
+library(TSA)
+# set.seed(6452135)
+setwd("/Users/phil/code/data-science/cheatsheet/source/includes/time-series/03-models-stationary-time-series/tasks/raw-data")
+```
+
+#--- Task 1 --- 
+
+## 1. Simulate 100 observations from the following processes with variance of 1 using R and plot their sample ACF and PACF, and study the characteristics of the sample ACF and PACF to observe the true values of model parameters.
+
+
+```{r}
+n = 100
+```
+
+### a) AR(1) with  LaTeX: \phi = 0.6 
+ϕ = 0.6
+```{r}
+sim.data1 = arima.sim(list(order = c(1,0,0), ar = 0.6), n = n) 
+acf(sim.data1)
+pacf(sim.data1)
+# Set of possible models : {AR(1), ARMA(1,2)}
+```
+
+### b) AR(1) with  LaTeX: \phi = -0.6 
+ϕ = − 0.6
+```{r}
+sim.data2 = arima.sim(list(order = c(1,0,0), ar = -0.6), n = n) 
+acf(sim.data2)
+pacf(sim.data2)
+# Set of possible models : {ARMA(1,1), AR(1) = ARMA(1,0), MA(1) = ARMA(0,1)} 
+```
+
+<!-- TODO: c) AR(2) with LaTeX: \phi=[0.6, -0.6] ϕ = [ 0.6 , − 0.6 ] -->
+
+### d) MA(1) with LaTeX: \theta = 0.5 
+θ = 0.5
+```{r}
+sim.data3 = arima.sim(list(order = c(0,0,1), ma = 0.95), n = n) 
+acf(sim.data3)
+pacf(sim.data3)
+
+# Set of possible models : {MA(1), ARMA(2,1), ARMA(3,1), ARMA(4,1)}
+```
+
+### e) MA(1) with LaTeX: \theta = -0.5 
+θ = − 0.5
+```{r}
+sim.data4 = arima.sim(list(order = c(0,0,1), ma = -0.5), n = n) 
+acf(sim.data4)
+pacf(sim.data4)
+# Set of possible models : {MA(1), ARMA(1,1)}
+```
+
+<!-- TODO: f) MA(2) with LaTeX: \theta = [-0.5,0.5] θ = [ − 0.5 , 0.5 ] -->
+
+### g) ARMA(1,1) with LaTeX: \phi = 0.6; \theta = 0.5 
+ϕ = 0.6 
+θ = 0.5
+```{r}
+sim.data5 = arima.sim(list(order = c(1,0,1), ar = 0.6, ma = 0.5), n = n) 
+acf(sim.data5)
+pacf(sim.data5)
+# Set of possible models : {AR(2), ARMA(2,2), ARMA(2,3), , ARMA(2,4)}
+```
+
+### h) ARMA(1,1) with LaTeX: \phi=0.6; \theta=-0.5 
+ϕ = 0.6 ; 
+θ = − 0.5
+<!-- TODO: is 0.15 a typo? -->
+```{r}
+sim.data6 = arima.sim(list(order = c(1,0,1), ar = 0.6, ma = -0.15), n = n)
+acf(sim.data6)
+pacf(sim.data6)
+# Set of possible models : {ARMA(1,2), ARMA(1,1)}
+```
+
+### i) ARMA(1,1) with LaTeX: \phi=-0.6; \theta=0.5 
+ϕ = − 0.6; 
+θ = 0.5
+```{r}
+sim.data7 = arima.sim(list(order = c(1,0,1), ar = -0.6, ma = 0.5), n = n)
+plot(sim.data7)
+acf(sim.data7)
+pacf(sim.data7)
+# Set of possible models : {ARMA(1,2), ARMA(1,2)}
+```
+
+### j) ARMA(1,1) with LaTeX: \phi=-0.6; \theta=-0.5 
+ϕ = − 0.6; 
+θ = − 0.5
+```{r}
+sim.data8 = arima.sim(list(order = c(1,0,1), ar = -0.6, ma = -0.5), n = n)
+acf(sim.data8)
+pacf(sim.data8)
+# Set of possible models : {ARMA(2,2), ARMA(2,3), ARMA(1,2)}
+```
+
+<!-- TODO: ### k) ARMA(2,2) with  LaTeX: \phi=[0.6,-0.6]; \theta=[-0.5,0.5] -->
+
+## 2. Stationary ARMA Models
+- Load the simulated datasets into R. 
+- Then use time series, sample ACF and PACF plots to infer about stationarity and orders of a possible ARMA model for each dataset.
+
+### a) data.sim1 
+```{r fig.height=4, fig.width=6}
+#--- True Model: ARMA(2,3)
+arma.data1 = read.table(file="./raw-data/data.sim1.csv")
+arma.data1 = ts(arma.data1)
+plot(arma.data1, type = "o")
+acf(arma.data1)
+pacf(arma.data1)
+# Set of possible models : {ARMA(3,3), ARMA(2,3), ARMA(3,2)}
+```
+
+### b) data.sim2 
+```{r fig.height=4, fig.width=6}
+#--- True Model: AR(3)
+arma.data2 = read.table(file="./raw-data/data.sim2.csv")
+arma.data2 = ts(arma.data2)
+plot(arma.data2, type = "o")
+acf(arma.data2)
+pacf(arma.data2)
+# Set of possible models : {ARMA(2,0), ARMA(3,0)}
+```
+
+### c) data.sim3 
+```{r fig.height=4, fig.width=6}
+#--- True Model: AR(1)
+arma.data3 = read.table(file="./raw-data/data.sim3.csv")
+arma.data3 = ts(arma.data3)
+plot(arma.data3, type = "o")
+acf(arma.data3)
+pacf(arma.data3)
+# Set of possible models : {AR(1)}
+```
+
+### d) data.sim4 
+```{r fig.height=4, fig.width=6}
+#--- True Model: ARMA(2,4)
+arma.data4 = read.table(file="./raw-data/data.sim4.csv")
+arma.data4 = ts(arma.data4)
+plot(arma.data4, type = "o")
+acf(arma.data4)
+pacf(arma.data4)
+# Set of possible models : {ARMA(2,4) ARMA(2,2)}
+```
+
+### e) data.sim5 
+```{r fig.height=4, fig.width=6}
+#--- True Model: MA(2)
+arma.data5 = read.table(file="./raw-data/data.sim5.csv")
+arma.data5 = ts(arma.data5)
+plot(arma.data5, type = "o")
+acf(arma.data5)
+pacf(arma.data5)
+# Set of possible models : {ARMA(2,2), ARMA(1,2), ARMA(2,1), ARMA(1,1)}
+```

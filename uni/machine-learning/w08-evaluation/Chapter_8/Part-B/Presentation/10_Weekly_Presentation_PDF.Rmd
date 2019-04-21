@@ -1,0 +1,67 @@
+---
+title: "Machine Learning: Chapter 8 - Part II"
+author:
+date:
+output:
+  beamer_presentation:
+    incremental: no
+  slidy_presentation:
+    incremental: yes
+---
+
+# Cookie time!
+
+* Vijeta Tulsiyan for discovering that mlr does not allow visualise the feature selection by wrapper method
+* Chi Ting Low for recommending RCode - a lite and sleek environment for R (a competitor to RStudio):
+
+https://www.pgm-solutions.com/rcode
+
+* Extra cookie if anyone can find an elegant way to visualise the feature selection by wrapper method
+
+# Resampling with `mlr`
+
+In a formal approach, two main functions:
+
+1. `makeResampleDesc`
+2. `resample`
+
+# Resampling methods
+
+* Why do we need resampling?
+* Demonstration: Common resampling methods
+
+1. Holdout (training/test) ("Holdout")
+2. $k$-fold Cross-validation ("CV"),
+3. Leave-one-out cross-validation ("LOO"),
+4. Repeated CV ("RepCV")
+5. (Out-of-bag) bootstrapping ("Bootstrap"),
+
+* Other resampling methods
+
+1. Other bootstrapping variants ("Bootstrap"),
+2. Subsampling, also called Monte-Carlo cross-validaton ("Subsample").
+
+# Demonstration: Benchmarking with `mlr`
+
+**Steps**
+
+1. Define a `list` of tasks,
+2. Define a `list` of learners,
+3. Define a resampling strategy using `makeResampleDesc`,
+4. Define a list of measures,
+5. Call the `benchmark` function on the learner list, the task list and the measure list.
+
+**When do we need multiple tasks**?
+
+# Which baseline learner?
+
+* Classification problem: Naive Bayes
+* Regression problem: ? (2-Cookie question!)
+* Hint: mean and median
+
+# Cost-Sensitive Classification
+
+* Advanced topic
+* `mlr` claims that it is still "experimental"
+* Reference: [mlr tutorial](https://mlr-org.github.io/mlr-tutorial/devel/html/cost_sensitive_classif/index.html#cost-sensitive-classification)
+* Website: https://mlr-org.github.io/mlr-tutorial/devel/html/cost_sensitive_classif/index.html

@@ -1,0 +1,288 @@
+---
+title: 'Machine Learning: Chapter 6 - Part I'
+subtitle: 'Warm-Up Examples'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Overview
+
+Using an open dataset, the goal of this warm-up example is to run feature selection in `mlr` using:
+
+1. Filter methods
+2. Wrapper methods
+
+\color{red}Side question: what is the difference between filer and wrapper methods? \color{black}
+
+# Prerequisites
+
+We shall use the following packages
+
+* `mlr` [@mlr]  for machine learning 
+* `tidyverse` [@hadley] for data wrangling and visualisation
+* `rJava` [@rJava] for Java interface
+* `FSelector` [@FSelector] for feature selection used by `mlr`
+
+An optional package is
+
+* `ggvis` for visualisation in the shiny app
+
+```{r, message = FALSE, warning = FALSE}
+library(mlr)
+library(tidyverse) # for ggplot and data wrangly
+library(ggvis)     # ggplot visualisation in shiny app
+```
+
+```{r, echo = FALSE}
+options("java.home"="/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/lib")
+Sys.setenv(LD_LIBRARY_PATH='$JAVA_HOME/server')
+dyn.load('/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/lib/server/libjvm.dylib')
+
+```
+
+```{r}
+library(rJava)
+library(FSelector) 
+```
+
+# Dataset Description
+
+The objective is to find an optimal set of features to predict phishing websites from the [PhishingWebsites](https://www.openml.org/d/4534s) dataset provided by @hud19220. It is accessible at https://www.openml.org/d/4534. It has:
+
+* Target feature: `Result`. Note that the data dictionary does not tell which value represents a phishing website. We can assume `Result = -1` as a legitimate website where `Result = -1` means phishing.
+* 30 descriptive nominal features. For more details, see the website.
+
+# Feature Selection
+
+## Preparation
+
+Let's read and preprocess data.
+
+```{r, cache = TRUE}
+data          <- read.csv('PhishingWebsites.csv')
+data[c(1:31)] <- lapply(data[c(1:31)] , factor)  # All variables to nominal (PhishingWebsites)
+```
+
+Configure a classification task and specify `Result` as the target feature.
+
+```{r}
+classif.task <- makeClassifTask(id = "web", data = data, target = "Result")
+```
+
+## Filter Method
+
+Filter methods assign an importance value to each feature. The features are then ranked based on the importance values, resulting in a feature subset. To generate importance value, we can create an object named `fv` by calling `generateFilterValuesData` from `mlr` on `classif.task`. The default filter method is `randomForest.rfsrc`. Other methods include `information.gain`, `relief` and `chi.squared`. However, keep in mind that not all filter methods are applicable to `classif` task such as `rank.correlation`. The same goes with a regression task.
+
+```{r, cache = TRUE}
+fv <- generateFilterValuesData(classif.task)
+```
+
+`mlr` has a function named `plotFilterValues` which helps user generate a bar chart visualise the importance values of these features. If bar chart is too cluttered, add `coord_flip()` to flip it horizontally. So, what are most important features using `randomForest.rfsrc` in Figure \ref{fig1}?
+
+```{r fig1, fig.cap="\\label{fig1}Importance ranking by randomForest.rfsrc method", cache = TRUE}
+plotFilterValues(fv) + coord_flip()
+
+```
+
+We can launch the interactive mode by calling `plotFilterValuesGGVIS(fv)`. Sometimes, we need to apply multiple filter methods to discern any consistency in selecting the features. Say, we would like to information gain and chi squared. We can specify the methods in `generateFilterValuesData` function as follow and visualise them. Is there any (subtle) change in feature ranking in Figure \ref{fig2}? 
+
+```{r fig2, fig.cap="\\label{fig2}Importance ranking by multiple methods", cache = TRUE}
+mFV <- generateFilterValuesData(classif.task, 
+                                method = c('information.gain',
+                                           'chi.squared'))
+plotFilterValues(mFV) + coord_flip()
+```
+
+With `mlr`’s function `filterFeatures`, we can create a new `task` object by removing features of lower importance on the several ways below:
+
+1. Keep a certain absolute number (abs) of features with highest importance. 
+2. Keep a certain percentage (perc) of features with highest importance.
+3. Keep all features whose importance exceeds a certain threshold value (threshold).
+
+In our example, we can define the new tasks respectively:
+
+```{r, eval = FALSE}
+filteredTask1 <- filterFeatures(classif.task, abs = 5)               # Keep the 5 most important features
+filteredTask2 <- filterFeatures(classif.task, fval = fv, perc = 0.4) # Keep 40 % most important features
+filteredTask3 <- filterFeatures(classif.task, fval = fv, threshold = 0.025)
+```
+
+\newpage
+
+We can train the model by creating a learner with any of the filtered tasks above. However, by doing this, the learner is separate from the filter method process. So, we do not know how many features we should keep to train our model. Therefore, we might need "fuse" a learner with a filter method and train the model. For illustration, let's fuse a nearest neighbor classifier using `kknn` [@kknn] with the chi-squared method. 
+
+```{r}
+lrn   <- makeFilterWrapper(learner = "classif.kknn", fw.method = "chi.squared")
+```
+
+In addition, we can determine the optiomal percentage of features to keep by a 3-fold cross validation as below:
+
+```{r, cache = TRUE}
+ps    <-  makeParamSet(makeDiscreteParam("fw.perc", values = seq(0.2, 0.5, 0.05)))
+rdesc <-  makeResampleDesc("CV", iters = 3)
+res   <-  tuneParams(lrn, task = classif.task, 
+                     resampling = rdesc, 
+                     par.set = ps, 
+                     control = makeTuneControlGrid())
+```
+
+The optimal percentage and the corresponding misclasification error can be called via:
+
+```{r}
+res$x
+res$y
+```
+
+Lastly, we can fuse it with `fw` percentage by "wrapper" the `kknn` learner with the chi-squared method before we train the model:
+
+```{r, cache = TRUE}
+fusedLrn <- makeFilterWrapper(learner = "classif.kknn", 
+                              fw.method = "chi.squared", 
+                              fw.perc = res$x$fw.perc)
+mod      <- train(fusedLrn, classif.task)
+mod
+```
+
+To view the features selected by the fused learner, we can apply `getFilteredFeatures` on the trainned model
+
+```{r}
+getFilteredFeatures(mod)
+```
+
+
+## Wrapper methods
+
+`mlr` offers the following wrapper method
+
+1. Exhaustive search (`makeFeatSelControlExhaustive`),
+2. Genetic algorithm (`makeFeatSelControlGA`),
+3. Random search (`makeFeatSelControlRandom`),
+4. Deterministic forward or backward search (`makeFeatSelControlSequential`).
+
+Unfortunately, SPSA is not a part of mlr wrapper methods. For simplicity, let's try a random search with ten iterations on the `kknn` classifier and `classif.task`.
+
+```{r, cache=TRUE}
+randomCtrl <- makeFeatSelControlRandom(maxit = 10L)
+rdesc      <-  makeResampleDesc("CV", iters = 3)
+sfeats     <-  selectFeatures(learner = "classif.kknn", task = classif.task, 
+                          resampling = rdesc, control = randomCtrl, show.info = FALSE)
+
+```
+
+Which are important features?
+
+```{r}
+sfeats$x
+
+```
+
+How about the performance?
+
+```{r}
+sfeats$y
+```
+
+By comparing the misclassification error rates, a random search wrapper method underperformed the **chi-squared (filtered) method**. To fuse the wrapper method in a learner, we call `makeFeatSelWrapper` together with `makeFeatSelControlRandom` and `makeResampleDesc` objects.
+
+```{r, cache = TRUE}
+lrn  <- makeFeatSelWrapper("classif.kknn", resampling = rdesc,
+                           control = randomCtrl, show.info = FALSE)
+mod  <-  train(lrn, task = classif.task)
+```
+
+
+# References

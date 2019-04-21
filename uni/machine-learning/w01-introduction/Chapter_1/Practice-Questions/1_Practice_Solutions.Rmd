@@ -1,0 +1,245 @@
+---
+title: 'Machine Learning: Chapter 1'
+subtitle: 'Solutions to Very Optionl Practice Questions'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Practice Questions (OPTIONAL)
+
+## Conceptual Questions
+
+1. Which of the following is a **supervised machine learning**?
+
+\color{blue}
+
+> a. Yes. Forecast the electricity consumptions in Melbourne. \color{blue}Yes\color{black}
+> b. Yes. Predict the price of Bitcoin next month.
+> c. No. Identify unknown customer groups based on their spending habit.
+> d. No. Create a recommended YouTube playlist.
+> e. Yes. Classifying false news based on Tweets and Facebook newsfeed.
+
+> Items c and d are unsupervised machine learning problems as they do not have target response features.
+
+\color{black}
+
+2. What is **overfitting**?
+
+> \color{blue} Overfitting arises when the prediction model selected by the algorithm is too complex that it fits to the dataset too closely and becomes sensitive to the noise in the data.\color{black}
+
+3. What is **underfitting**?
+
+> \color{blue} Underfitting arises when the prediction model selected by the algorithm is too simplistic to represent the underlying relationship between the target feature and the descriptive features..\color{black}
+
+## Computational Questions
+
+**Question 1**
+
+Download, read and clean Table 1.2 @kelleher[, p. 6].
+
+\color{blue}
+
+Note that the last columns contains `\t`. We need to remove it. There are many approaches to do this. In the first approach, we can apply the `trimws` and `sub` functions on these columns.
+
+\color{black}
+
+```{r, eval = FALSE}
+library( tidyverse )
+scores2 <- read.csv('Table1-2.csv', skip = 2, stringsAsFactors = FALSE)
+scores2$Outcome    <- trimws(sub('\t', '', scores2$Outcome))
+scores2$Occupation <- trimws(sub('\t', '', scores2$Occupation))
+scores2$Property   <- trimws(sub('\t', '', scores2$Property))
+scores2$Type       <- trimws(sub('\t', '', scores2$Type))
+
+```
+
+\color{blue}
+
+In the second approach, we can use the `mutate` function from the `tidyverse` package.
+
+\color{black}
+
+```{r, eval = FALSE}
+scores2 <- scores2 %>% 
+  mutate( Outcome    = trimws(sub('\t', '', Outcome)) ,
+          Occupation = trimws(sub('\t', '', Occupation)),
+          Property   = trimws(sub('\t', '', Property)),
+          Type       = trimws(sub('\t', '', Type))
+  )
+```
+
+\color{blue}
+
+The third approach is to apply the `sapply` function with a user-defined function named `subAndTrim`. This approach might be a bit complex but it reduces potential syntax errors. The `apply` family is very useful in implementing the machine learning models. Type `?apply` in the `R` Console for more information and examples how to utilise the `apply` functions.
+
+\color{black}
+
+```{r, eval = FALSE}
+subAndTrim <- function( x ){
+  
+  x <- trimws(sub('\t', '',  x)) 
+  x <- factor( x )
+  return(x)
+}
+
+scores2[, sapply(scores, class) == 'character'] <- sapply( 
+  scores2[, sapply(scores, class) == 'character'], FUN = subAndTrim   )    
+
+```
+
+**Question 2**
+
+Apply Rule 1.1 on Table 1.2.
+
+```{r, echo = FALSE}
+scores2 <- read.csv('scores.csv')
+scores  <- read.csv('scores_short.csv')
+```
+
+```{r}
+rule1 <- function( data, k = 3){
+  
+  if(k < 0){
+    stop( 'k must be larger than zero.')
+  }
+  
+  data$pred <- ifelse( data$Ratio > k, 'default', 'repay')
+  data$pred <- as.factor(data$pred)
+  
+  return( data[, c('Outcome', 'pred')] )
+}
+
+mod1  <- rule1( scores2, k = 3 )
+head(mod1)
+table(mod1)
+```
+
+**Question 3**
+
+Write a function based on Rule 1.2. 
+
+\color{blue}
+
+We have more parameters in Rule 1.2. One approach is to apply the `ifelse` function. Another approach is to utilise the `case_when` function from the `dplyr` package. The expression of the `case_when` function is more readible. 
+
+\color{black}
+
+```{r, message = FALSE, warning = FALSE}
+library(dplyr)
+rule2 <- function( data, k1, k2, age, occupation ){
+  
+  data$pred <- case_when(
+    (data$Ratio < k1) ~ "repay",
+    (data$Ratio > k2) ~ "default",
+    (data$Age < age & data$Occupation == occupation) ~ "default",
+    TRUE ~ "repay"
+  )
+  
+  data$pred <- as.factor(data$pred)
+  
+  return( data[, c('Outcome', 'pred')] )
+}
+
+```
+
+**Question 4**
+
+Apply this function from previous question on Table 1.1 and Table 1.2. 
+
+```{r}
+mod1 <- rule2( scores, k1 = 1.5, k2 = 4, age = 40, occupation = 'industrial')
+mod2 <- rule2( scores2, k1 = 1.5, k2 = 4, age = 40, occupation = 'industrial')
+
+head(mod1)
+head(mod2)
+```
+
+
+\newpage
+
+# References

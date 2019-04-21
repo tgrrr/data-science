@@ -1,0 +1,126 @@
+---
+title: 'Machine Learning: Chapter 5 - Part II'
+subtitle: 'R Practice (OPTIONAL)'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Dataset Description
+
+Using mlr [@mlr], the objective is to predict phishing websites from the [PhishingWebsites](https://www.openml.org/d/4534s) dataset provided by @hud19220. It is accessible at https://www.openml.org/d/4534. It has:
+
+* Target feature: `Result`. Note that the data dictionary does not tell which value represents a phishing website. We can assume `Result = -1` as a legitimate website where `Result = -1` means phishing.
+* 30 descriptive nominal features. For more details, see the website.
+
+# Questions
+
+1. Read the data set and convert the descritpive features to nominal if necessary.
+2. Configure a classification task using `mlr`.
+3. Configure at least three classification learners including `randomForest`, `rpart`, and `kknn` with `predict.type = 'response'`.
+4. Train the models.
+5. Prune the `rpart` learner if necessary
+6. Fine-tune hyperparameter of the pruned `rpart` model.
+7. Fine-tune hyperparameter of other learners
+8. Benchmark the tuned models. Which model performs the best by `mmce`?
+
+# Challenging questions
+
+1. Try a classification learner using `mlr` with `predict.type = 'prob'`, Note that hyperparameter fine-tuning process will be different.
+2. Ensemble the tuned models with `mlr`. Hint: `makeStackedLearner()`
+3. Does the ensembled model improve the `mmce` of the best tuned model?
+
+# References

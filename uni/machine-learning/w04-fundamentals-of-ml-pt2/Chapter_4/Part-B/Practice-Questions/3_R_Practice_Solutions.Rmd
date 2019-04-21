@@ -1,0 +1,253 @@
+---
+title: 'Machine Learning: Chapter 4 (Part II)'
+subtitle: 'Solutions to Optional R Practice Questions'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Conceptual Questions
+
+
+1. Besides `NA`, list 3 other possible values to represent missing values in a given data set.
+
+\color{blue}
+
+> Excessive white space, "-99999" for strictly positive features, "NULL" 
+
+\color{black}
+
+2. Give an example where missing values contain information.
+
+\color{blue}
+
+> $X:=$ Your favorite AFL (Australian Football League) team. If the individual does not like football, $x = NA$. Therefore, any missing value likely indicates the individual does not like football.
+
+\color{black}
+
+3. Would scaling the continuous features change the correlation matrix? The scaling of a variable $x$ is defined as:
+
+$$x \longrightarrow \frac{x-\mu_x}{\sigma_x}$$
+
+\color{blue}
+
+> Correlation is invariant to linear scaling. However, note that correlation will change in non-linear transformation.
+
+\color{black}
+
+4. Give an example where two variables are non-linearly correlated but have a zero correlation.
+
+\color{blue}
+
+> Let $X$ be a standard normal distribution of zero mean and a variance of 1. That is $\mathbb{E}(X)=0$ and $\mathbb{E}(X^2)=1$. Consider $Y = X^2$. $X$ and $Y$ are quadratically related, but they have a zero correlation because:
+
+$$\text{Cov}(X, Y) = \text{Cov}(X, X^2) = \mathbb{E}(X \times X^2) - \mathbb{E}(X^2) \mathbb{E}(X) = 0 - 1\times0 = 0$$
+
+> Note that $\mathbb{E}(X^3) = 0$ as the skewness is zero for a standard normal random variable.
+
+\color{black}
+
+\newpage
+
+# Computational Questions
+
+## Pre-process and explore [Adult Census Income Data](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/) by @ron.
+
+\color{blue}
+
+See the sample project for Phase 1.
+
+\color{black}
+
+## (Optional) Replicate Table 3.3(b)
+
+Let's subset the data with the categorical features.
+
+```{r, warning=FALSE, message = FALSE}
+library(mlr)
+library(tidyverse)
+fraud                         <- read.csv('MotorInsuranceFraudClaimABTFull.csv')
+categorical_features          <- fraud[,  sapply( fraud, is.factor )]
+quality_report_categorical    <- summarizeColumns( categorical_features ) %>%
+  select(-type, -mean, -disp, -median, -mad , -min, -max)    # remove the unwanted columns
+
+```
+Before we append the first and the second modes to the quality report. Let's do some experiment on one categorical feature, say `Injury.Type`. We can create the table of `Injury.Type` and assign it as `x`
+
+```{r}
+x <- table( categorical_features$Injury.Type )
+x
+```
+
+To obtain the frequency of the first mode, we simply apply `max(x)` 
+
+```{r}
+max(x)
+```
+
+To obtain the first mode, we do the following:
+
+```{r}
+names(x)[x == max(x)]
+```
+
+Now let's utilise these tricks in the `sapply` function
+
+```{r}
+quality_report_categorical$modeFreq   <- sapply( categorical_features, function(x){ max(table(x)) }  )
+quality_report_categorical$mode       <- sapply( categorical_features, 
+                                               function(x){ y <- table(x); names(y)[y == max(y)]    }  )
+quality_report_categorical$modePercent<-quality_report_categorical$modeFreq/nrow(fraud)*100
+```
+
+How about the second mode? We can subset `x` by excluding `Broken Limb`
+
+```{r}
+z <- x[ x != max(x) ]
+```
+
+Hence, the second modes and its frequency can be compute as:
+
+```{r}
+
+names(z)[z == max(z)]
+max( z )
+```
+
+And, we can define a function named `gimmeSecondMode` and `gimmeSecondModeFreq` to return the second mode and its frequency as follow. (Note there is probably a more elegant solution). 
+```{r}
+gimmeSecondMode <- function( feature){
+  
+  tab  <- table( feature )
+  
+  tab  <- tab[ tab != max(tab) ]
+  
+  if( length(tab) == 0){
+    mode <- NA
+  }else{
+    mode <- names(tab)[tab == max(tab)]
+  }
+  
+
+  return( mode )
+}
+
+gimmeSecondModeFreq <- function( feature){
+  tab  <- table( feature )
+  tab  <- tab[ tab != max(tab) ]
+  
+  if( length(tab) == 0){
+    max <- NA
+  }else{
+    max <- max(tab)
+  }
+  
+
+  return( max )
+}
+```
+
+
+```{r}
+quality_report_categorical$modeFreq2    <- sapply( categorical_features, gimmeSecondModeFreq )
+quality_report_categorical$mode2        <- sapply( categorical_features, gimmeSecondMode     )
+quality_report_categorical$mode2Percent <-quality_report_categorical$modeFreq2/nrow(fraud)*100
+quality_report_categorical
+```
+
+
+# References
+

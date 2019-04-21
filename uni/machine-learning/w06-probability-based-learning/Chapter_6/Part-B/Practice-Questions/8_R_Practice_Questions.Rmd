@@ -1,0 +1,139 @@
+---
+title: 'Machine Learning: Chapter 6 - Part II'
+subtitle: 'R Practice (OPTIONAL): Naive Bayes'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Objective and Dataset Description
+
+The goal is to classify if a banknote is counterfeit or genuine based on its image information. The dataset is at available at [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/banknote+authentication), at the courtesy of Professor [Volker Lohweg](https://www.researchgate.net/profile/Volker_Lohweg) and Dr. Helene Doerksen from University of Applied Sciences, Ostwestfalen-Lippe, Germany. The dataset contains 1372 instances and the following features:
+
+1. Variance of Wavelet Transformed image (continuous) 
+2. Skewness of Wavelet Transformed image (continuous) 
+3. Curtosis of Wavelet Transformed image (continuous) 
+4. Entropy of image (continuous) 
+5. Class (1 means counterfeit; 0 means genuine) 
+
+The fifth feature is the target feature. The data were extracted from images taken during the evaluation of an authentication procedure for banknotes. Wavelet transform tools were used to extract features from images. The wavelet transformation is an image-processing technique to analyse and reconstruct multi-resolution images. 
+
+Image processing is beyond the scope of this course. But, we know that the first, second, and third features are statistical properties of the transformed images. Perhaps counterfeit and genuine notes have different variances. The entropy of image (the forth feature) measures the amount of information which must be coded for by a compression method. A low entropy image has very litte contrast, for example, a dark sky. Therefore, it is easier to compress the low entropy images. 
+
+
+# Questions
+
+We shall use the mean misclassifcation error (mmce) rate to evaluate the model performance.
+
+1. Read and load the data in R. Note that the data has no header. You need to specify `header=FALSE` in `read.csv` function. Process the data if necessary.
+2. Create classification task and configure a Naive Bayes learner. 
+3. Train the model without resampling.
+4. Create the confusion matrix. How many counterfeit notes are misclassified as genuine?
+5. Why we cannot apply Laplace smoothing on this dataset?
+6. Train the model with sampling. Suppose your learner and task are named as `learner1` and `classif.task`. First, create a three-folded stratified sampling using `makeResampleDesc` function. Let's name it `rdesc`. Then, create a resampled trained model object named `mod` by passing `rdesc` to `resample` function together with `learner1` and `classif.task`.
+
+```{r, eval = FALSE}
+rdesc <- makeResampleDesc("CV", iters = 3L, stratify = TRUE)
+mod   <- resample(learner1, classif.task, rdesc)
+```
+
+7. Obtain the prediction of resampled model as follow
+
+```{r, eval = FALSE}
+pred <- getRRPredictions(mod)
+```
+
+8. Find the optimal threshold to reduce mmce. Does this threshold also reduce the misclassification rate of counterfeit notes (class = 1)?

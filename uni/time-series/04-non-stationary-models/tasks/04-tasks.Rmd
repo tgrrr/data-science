@@ -1,0 +1,371 @@
+---
+title: "Models for Non-Stationary Time Series"
+subtitle: time-series tasks
+---
+
+# Module 4: Tasks
+## Models for Non-Stationary Time Series
+
+```{r Setup, message=FALSE, warning=FALSE, include=FALSE, warnings=0}
+rm(list = ls())
+cat("\014") # clear everything
+setLocalWorkingDirectory <-
+  "~/code/data-science/cheatsheet/source/includes/time-series/04-non-stationary-models/tasks"
+library('TSA')
+library('tidyr')
+library('knitr')
+# set.seed(6452135)
+setwd(setLocalWorkingDirectory)
+```
+
+### 1. data.cash.csv
+_The dataset given in `“data.cash.csv”` file contains yearly averages of monthly total values of ATM cash withdrawals ($ million) in Australia between 1994 and 2016. This dataset is available through_ 
+http://www.rba.gov.au/statistics/tables/#interest-rates
+
+```{r Load cash.csv, message=FALSE, warning=FALSE}
+# Load the dataset, convert it into a ts object and do the following tasks:
+data.cash <- 
+read.csv(
+"./raw-data/data.cash.csv", 
+header=FALSE
+)$V2
+# class(data.cash) # Numeric
+data.cash = 
+ts(data.cash,start = 1994) # convert to time series
+# class(data.cash) # now it's ts
+```
+
+- Display the time series plot for these data.
+
+```{r Los_Angelos_rainfall_series}
+library(knitr)
+plot(
+data.cash,
+type='o',
+ylab='Los Angelos rainfall series')
+```
+
+- What are the main characteristics of this time series plot?
+- Display ACF and PACF plots and notice the patterns in these plots.
+
+```{r fig.height=4, fig.width=6}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(data.cash)
+pacf(data.cash)
+par(mfrow=c(1,1)) 
+```
+
+```{r, Log liklelyhood, message=FALSE, warning=FALSE}
+# Log liklelyhood
+data.cash.transform = BoxCox.ar(data.cash)
+```
+
+```{r}
+data.cash.transform$ci
+```
+
+```{r}
+lambda = 0.75 # 0.001
+BC.data.cash = (data.cash^lambda-1)/lambda
+# First diff
+diff.BC.data.cash = diff(BC.data.cash,differences=1)
+plot(
+diff.BC.data.cash,
+type='o',
+ylab='Quarterly earnings ')
+```
+
+```{r}
+# Second diff
+diff.BC.data.cash = diff(BC.data.cash,differences=2)
+plot(
+diff.BC.data.cash,
+type='o',
+ylab='Quarterly earnings ')
+```
+
+```{r}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(diff.BC.data.cash)
+pacf(diff.BC.data.cash)
+par(mfrow=c(1,1)) 
+```
+_______________________________________________________________________________
+
+### 2. Seasons - Airpass 
+
+_The dataset “airpass” of TSA package contains international airline passenger monthly totals (in thousands) flown from January 1960 through December 1971. Load the dataset and do the following tasks:_
+
+```{r}
+# - Display the time series plot for these data.
+data("airpass")
+plot(airpass,
+  type='o',
+  ylab='Passenger monthly totals')
+```
+
+#### What are the main characteristics of this time series plot?
+
+- seasonality
+- upward trend
+- ?
+
+```{r}
+plot(
+  airpass,
+  type='o',
+  ylab='Passenger monthly totals')
+# Add monthly points
+points(
+  y=airpass, 
+  x=time(airpass), 
+  pch=as.vector(season(airpass)))
+```
+
+- Display ACF and PACF plots and notice the patterns in these plots.
+
+```{r}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(airpass, lag.max=50) # Notice the ripples
+pacf(airpass, lag.max=50)
+par(mfrow=c(1,1)) 
+# To show more lags, use lag.max argument
+```
+
+#### Homogenous - make distribution homogenous 
+
+- If you think the series is non-stationary or there is changing variance apply differencing and transformations to make the series stationary and more homogeneously distributed.
+
+```{r}
+log.airpass = log(airpass)
+plot(
+  log.airpass,
+  type='o',
+  ylab='Log-transformed passenger monthly totals')
+```
+
+```{r}
+# only one diff
+diff.log.airpass = diff(log(airpass))
+plot(diff.log.airpass,
+  type='o',
+  ylab='The first difference of log-transformed passenger monthly totals')
+```
+
+
+- ? Use ACF and PACF plots to determine orders p and q of ARIMA(p, d, q). 
+- What about the value of parameter d?
+
+- Compare the ACF and PACF plots obtained after differencing and transforming with those obtained in (b) 
+- and try to figure out the effect of trend in these plots.
+
+```{r}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(diff.log.airpass, lag.max=50) # Sine wave
+pacf(diff.log.airpass, lag.max=50)
+par(mfrow=c(1,1))
+```
+
+_______________________________________________________________________________
+
+
+### 3. `Larain` 
+
+_The dataset "larain" of TSA package contains the annual rainfall data for Los Angeles. Load the dataset and do the following tasks:_
+
+```{r}
+# Display the time series plot for these data.
+data(larain)
+plot(larain,type='o',ylab='Los Angelos rainfall series')
+```
+
+- TODO: What are the main characteristics of this time series plot?
+
+- Display appropriate plots and 
+- conduct suitable hypothesis test to infer about normality of this rainfall series.
+
+```{r}
+qqnorm(larain)
+qqline(larain, col = 2)
+```
+
+```{r}
+shapiro.test(larain)
+```
+
+- If you think that rainfall series is not normally distributed, apply a suitable transformation to ensure the normality. 
+- Use Box-Cox plot to identify a suitable transformation.
+
+```{r}
+larain.transform = BoxCox.ar(larain)
+```
+
+```{r}
+larain.transform$ci
+```
+
+```{r}
+lambda = 0.25
+BC.larain = (larain^lambda-1)/lambda #log(larain)
+qqnorm(BC.larain)
+qqline(BC.larain, col = 2)
+```
+
+```{r}
+shapiro.test(BC.larain)
+```
+
+```{r}
+# As another transformation I apply the log transformation
+log.larain = log(larain)
+plot(
+  log.larain,
+  type='o',
+  ylab='Log-transformed Los Angelos rainfall series')
+```
+
+```{r}
+qqnorm(log.larain)
+qqline(log.larain, col = 2)
+```
+
+```{r}
+shapiro.test(log.larain)
+```
+
+```{r}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(log.larain)
+pacf(log.larain)
+par(mfrow=c(1,1)) 
+```
+
+_______________________________________________________________________________
+
+
+4. The dataset “gold”of TSA package contains the daily price of gold (in dollars per troy ounce) for the 252 trading days of year 2005. Load the dataset and do the following tasks:
+
+```{r}
+# - Display the time series plot for these data. What are the main characteristics of this time series plot?
+data(gold)
+plot(
+  gold,
+  type='o',
+  ylab='Los Angelos rainfall series')
+```
+
+```{r}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(gold)
+pacf(gold)
+par(mfrow=c(1,1)) 
+```
+
+```{r}
+# - If you think the series is nonstationary or there is changing variance apply differencing and transformations to make the series stationary and more homogeneously distributed.
+gold.transform = BoxCox.ar(gold)
+```
+
+```{r}
+gold.transform$ci
+```
+
+```{r}
+lambda = -1.8
+BC.gold = (gold^lambda-1)/lambda
+qqnorm(BC.gold)
+qqline(BC.gold, col = 2)
+```
+
+```{r}
+shapiro.test(BC.gold)
+```
+
+```{r}
+diff.BC.gold = diff(BC.gold)
+plot(
+  diff.BC.gold,
+  type='o',
+  ylab='Quarterly earnings')
+```
+
+```{r}
+# - Use ACF and PACF plots to determine orders p and q of ARIMA(p, d, q). What about the value of parameter d?
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(diff.BC.gold)
+pacf(diff.BC.gold)
+par(mfrow=c(1,1)) 
+```
+
+_______________________________________________________________________________
+
+5. Load the simulated dataset “data.sim” on R and do the following tasks:
+
+```{r}
+# Load the simulated dataset “data.sim” on R and do the following tasks:
+data.sim <- 
+  read.table(
+    "./raw-data/data.sim.csv", 
+    quote="\"", 
+    comment.char="")
+data.sim = ts(data.sim)
+
+# Display the time series plot for these data.
+plot(
+  data.sim,type='o',
+  ylab='Simulated series')
+```
+
+- TODO: What are the main characteristics of this time series plot?
+
+- Display ACF and PACF plots and notice the patterns in these plots.
+```{r}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(data.sim)
+pacf(data.sim)
+par(mfrow=c(1,1)) 
+```
+
+- If you think the series is non-stationary or there is changing variance apply enough number of differencing and transformations to make the series stationary and more homogeneously distributed.
+```{r message=FALSE, warning=FALSE}
+# ERROR: data.sim.transform = BoxCox.ar(data.sim + abs(min(data.sim))+1) # You get an error saying the system is singular
+data.sim.transform = 
+  BoxCox.ar(
+    data.sim + abs(min(data.sim))+1, 
+    lambda = seq(-1, 1, 0.01)
+  )
+#You should change the range of lambda to get rid of this case using the lambda argument.
+```
+
+```{r}
+data.sim.transform$ci
+```
+
+```{r}
+lambda = 0.9
+BC.gold = (gold^lambda-1)/lambda
+qqnorm(BC.gold)
+qqline(BC.gold, col = 2)
+```
+
+```{r}
+shapiro.test(BC.gold)
+```
+
+```{r}
+diff.data.sim = diff(data.sim)
+plot(
+  diff.data.sim,
+  type='o',
+  ylab='Quarterly earnings')
+```
+
+- Use ACF and PACF plots to determine orders p and q of ARIMA(p, d, q). What about the value of parameter d?
+```{r}
+par(mfrow=c(1,2)) # To plot both ACF and PACF in the same panel of plots
+acf(diff.data.sim)
+pacf(diff.data.sim)
+par(mfrow=c(1,1)) 
+```
+
+- TODO: Compare the ACF and PACF plots obtained after differencing and transforming with those obtained in (b) and try to figure out the effect of trend in these plots.

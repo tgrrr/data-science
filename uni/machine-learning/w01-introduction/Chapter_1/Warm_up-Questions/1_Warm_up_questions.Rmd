@@ -1,0 +1,437 @@
+---
+title: 'Machine Learning: Chapter 1'
+subtitle: 'Warm-Up Examples (and Very Optional Practice Questions)'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Pre-Requisites and Introduction
+
+Before you start, we assume you know how to use the statistical programming language `R` [@Rcore]
+in the Integrated Developement Environment (IDE), [RStudio](https://www.rstudio.com). If you need a refresher in `R`, you can refer to the [R bootcamp](https://sites.google.com/a/rmit.edu.au/intro-to-stats/r-bootcamp) developed by [Dr James Baglin](https://www.rmit.edu.au/contract/staff-contracts/academic-staff/b/baglin-dr-james) (RMIT login identity is required).
+
+In most weeks, we shall prepare a set of "warm-up" examples using textbook examples and exercises. The warm-up examples are available on Canvas roughly a working week prior to the lecture. The last hour of the class will be used for solving `R` practical questions. The solutions to `R` questions will be released within next two days.
+
+```{r timeline, echo = FALSE, fig.cap='\\label{timeline}Sample Timeline for Warm-Up Questions, Lab Exercises, and Lab Solution over Weeks 2 and 3', include = FALSE}
+plot(1, type="n", xlab="", ylab="", xlim=c(-3.8, 2.5), ylim=c(-5.0, 2.7), axes = FALSE)
+
+rect(-3, 2.0, -2, 0, lwd = 1)
+rect(-1, 2.0,  0, 0, lwd = 1)
+rect(0.5, 2.0,  1.5, 0, lwd = 1)
+
+rect(-3, -1, -2, -3, lwd = 1)
+rect(-1, -1,  0, -3, lwd = 1)
+rect(0.5, -1,  1.5, -3, lwd = 1)
+
+rect(-3, 2.0, -2, 0, lwd = 1)
+rect(-1, 2.0,  0, 0, lwd = 1)
+rect(0.5, 2.0,  1.5, 0, lwd = 1)
+
+text(x = -3.5, y = 1, 'Week 2')
+text(x = -3.5, y = -2, 'Week 3')
+
+text(x = -2.5, y = 1, 'Warm-Up\nQuestions')
+text(x = -0.5, y = 1, 'Practical\nQuestions')
+text(x = 1, y = 1, 'Solution')
+
+text(x = -2.5, y = -2, 'Warm-Up\nQuestions')
+text(x = -0.5, y = -2, 'Practical\nQuestions')
+text(x = 1, y = -2, 'Solution')
+
+arrows(x0 = -2, y0 = 1, x1 = -1, code = 2, lwd = 2)
+arrows(x0 = 0, y0 = 1, x1 = 0.5, code = 2, lwd = 2)
+
+arrows(x0 = -2, y0 = -2, x1 = -1, code = 2, lwd = 2)
+arrows(x0 = 0, y0 = -2, x1 = 0.5, code = 2, lwd = 2)
+
+arrows(x0 = 1, y0 = 0, x1 = -2, y1 = -1, code = 2, lwd = 0.5)
+
+text(x = -2.5, y = 2.5, 'Sunday', col = 'navyblue')
+text(x = -1.5, y = 2.5, '... ...', lwd = 2)
+text(x = -0.5, y = 2.5, 'Friday', col = 'blue')
+text(x = 1,    y = 2.5, 'Saturday', col = 'skyblue')
+
+```
+
+# Warm-Up Example
+
+## Packages
+
+The usage of the `mlr` [@mlr] package is minimal here. However, as we shall see in coming chapters, the `mlr` package provides a unified and powerful framework to implement machine learning models in `R`. The `dplyr` package [@hadley2] offers a more flexible syntax of data manipulation.
+
+```{r, message = FALSE, warning = FALSE}
+library(mlr)
+library(dplyr)
+```
+
+## Problem Description
+
+@kelleher[, p. 4] illustrate how a very simple model can be applied on a credit scoring dataset (Table 1.1). The model aims to indicate whether a mortgage application repaid the loan in full or defaulted based on the following rule:
+
+<center>
+
+\color{blue}
+
+> **if** `LOAN-SALARY-RATIO` $> 3$ **then**
+
+>> `OUTCOME = ` *default* 
+
+> **else**
+
+>> `OUTCOME = ` *repay* 
+
+</center>
+
+\color{black}
+
+We can express the rule above mathematically as:
+
+\begin{align}
+  \text{OUTCOME}  & = 
+    \begin{cases}
+      \text{default} & \text{if LOAN-SALARY RATIO} > 3\\
+      \text{repay} & \text{otherwise}
+    \end{cases} \label{rule1}
+\end{align}
+
+The **task** is to build a model using Rule \ref{rule1} in `R`.
+
+## Data Processing
+
+Before we start building the model, let's read and clean the data. The data is `Table1-1.csv`, which is available on the [textbook website](machinelearningbook.com). In `R`, we use the `read.csv` function to load `Table1-1.csv` and assign it as `scores`. To see how the data looks like, we can use the `head` function to display the first 6 (the default) rows of the data.
+
+```{r}
+scores <- read.csv('Table1-1.csv')
+head(scores)
+```
+
+Notice that the header is comprised of the first two rows. That's ugly. Let's skip the first row. 
+
+```{r}
+scores <- read.csv('Table1-1.csv', skip = 1)
+```
+
+To check the internal structure of `scores`, we can apply the `str` function.
+
+```{r}
+str(scores)
+```
+
+The `outcome` and `Occupation` contain excessive whitespaces and tab `\t`. Let's remove these spaces and tabs using the `trimws` and `sub` functions.
+
+```{r}
+scores$Outcome    <- trimws(scores$Outcome)
+scores$Occupation <- trimws(sub('\t', '',scores$Occupation))
+
+str(scores)
+
+```
+
+After removing the whitespaces, these columns, unintentionally, become character variables. We must convert them to factor variables:
+
+```{r}
+scores$Outcome    <- factor(scores$Outcome)
+scores$Occupation <- factor(scores$Occupation )
+str(scores)
+
+```
+
+Hooray! The `scores` data are clean enough for predictive analytic modeling. Before we proceed further, the first step is to explore the data by visualising it and obtaining the summary statistics. There are many ways to compute summary statistics. The most common way is to apply the `summary` function in conjnction with the `str` function.
+
+```{r}
+summary(scores); str(scores)
+
+```
+
+Another convenient approach is to use the `summarizeColumns` function from the `mlr` package.
+
+```{r}
+summarizeColumns(scores)
+```
+
+As we can see, in a predictive analytics project, the 70 to 80 % of the works are devoted in understanding and processing data. In the next lab sessions, we shall present more techniques of how to process and explore the data.
+
+## Model-Building: First Attempt
+
+The most simple approach of implementing Rule \ref{rule1} is to create a new column `pred1` using the the `ifelse` function and convert the `pred1` column to a factor variable. In the `ifelse` function, the first argument is `scores$Ratio > 3` which is the condtion of:
+
+\color{blue}
+
+> **if** `LOAN-SALARY-RATIO` $> 3$
+
+\color{black}
+
+The second argument, `default`, corresponds to the outcome should the condition be met. The third argument, `repay`, corresponds to the outcome when the condtion is not met. That is, the `ifelse` function will return `default` when the application has a (loan-to-income) ratio above 3. Otherwise, it will return `repay`.
+
+```{r}
+scores$pred1 <- ifelse(scores$Ratio > 3, 'default', 'repay')
+scores$pred1 <- factor(scores$pred1)
+```
+
+If you prefer Hadley's style, you can use the `%>%` (pipeline) operator and the `mutate` function from the `dplyr` package to achieve the same purpose.
+
+```{r}
+scores <- scores %>% 
+  mutate( pred1 = ifelse( Ratio > 3, 'default', 'repay'),
+          pred1 = factor( pred1 ))
+```
+
+The previous codes have two problems:
+
+1. It directly alters the data structures; and
+2. We might need to rewrite them when we have a new set of rules, say:
+
+<center>
+
+\color{blue}
+
+> **if** `LOAN-SALARY-RATIO` $< 1.5$ **then**
+
+>> `OUTCOME = ` *repay* 
+
+> **else if** `LOAN-SALARY-RATIO` $> 4$ **then**
+
+>> `OUTCOME = ` *default* 
+
+> **else if** `AGE` $< 40$ **and** `OCCUPATION` $=$ *industrial* **then**
+
+>> `OUTCOME = ` *default* 
+
+> **else**
+
+>> `OUTCOME = ` *repay* 
+
+\color{black}
+
+</center>
+
+Compactly, it can be expressed as:
+
+\begin{align}
+  \text{OUTCOME}  & = 
+    \begin{cases}
+      \text{repay} & \text{if LOAN-SALARY RATIO} < 1.5\\
+      \text{default} & \text{if LOAN-SALARY RATIO} > 4\\
+      \text{default} & \text{if AGE} < 40 \text{ and OCCUPATION} = \text{industrial} \\
+      \text{repay} & \text{otherwise}
+    \end{cases} \label{rule2}
+\end{align}
+
+## Model Building: Second Attempt
+
+Why don't we write a "blackbox" or an algorithm to adopt any possible change in the model rule? Using the Rule \ref{rule1}, we will depict a step-by-step procedure how to "design" such blackbox in by defining a `function` in `R`. We shall leave the blackbox for the Rule \ref{rule2} as an exercise. An `R function` (object) has a set of `arguments` (inputs) and `value` (outputs). As for our case, the simple case will be:
+
+* `argument`: `data`, the dataset in which we will run the rule-based model;
+* `value`: `data` with the prediction column
+
+Firstly, we define a `function` object named `rule1` with an argument `data`. To avoid confusion, we name the argument as `data` to differentiate it from the `scores` data which is a `data.frame` object.
+
+```{r, eval = FALSE}
+rule1 <- function( data ){
+  
+  <code of rule to be added here>
+    
+}
+```
+
+Next, insert the codes of the rule-based model:
+
+```{r, eval = FALSE}
+rule1 <- function( data ){
+  
+  data$pred <- ifelse( data$Ratio > 3, 'default', 'repay')
+  data$pred <- factor(data$pred)
+
+}
+
+```
+
+Finally, we add `return(data)`. As the name suggests, the `return` function will output the data with the prediction column. Note that the `return` function is optional as we can simply write `data` instead since we have only one object as the output. The `return` function will be indispensably useful when we have more than one output or value.
+
+```{r}
+rule1 <- function( data ){
+  
+  data$pred <- ifelse( data$Ratio > 3, 'default', 'repay')
+  data$pred <- factor(data$pred)
+  
+  return(data)
+}
+
+```
+
+Let's apply our self-defined function on the `scores` data.
+
+```{r}
+rule1(scores)
+```
+
+Congratulations! You have just built and run your first machine learning blackbox in `R`. Sometimes, we would need only the actual and predicted outcomes as the output. In this case, we can modify the function by indexing these columns. We prefer not to overwrite the existing function. So, we decide to name the modified function as `rule1_2`. However, it is a choice of practicality whether we should overwrite it. 
+
+```{r}
+rule1_2 <- function( data ){
+  data$pred <- ifelse( data$Ratio > 3, 'default', 'repay')
+  data$pred <- as.factor(data$pred)
+  
+  return(data[, c('Outcome', 'pred')])
+}
+```
+
+Alternatively, we can created the `rule1_2` function by leveraging on the `rule1` function
+
+```{r}
+rule1_2 <- function( data ){
+  return( rule1(data)[, c('Outcome', 'pred')] )
+}
+```
+
+In practice, the bank would like to adopt a more stringent mortgage approval policy by lowering the threshold level of income-loan ratio, say 2. How do we reflect this change in the previous functions? What if the threshold level changes again in the future? To be adaptive, we can refine the function by addiing one argument named `k`, which represent the threshold level within the `()` of the `function`. Let's name it as `rule1_3`.
+
+```{r}
+rule1_3 <- function( data, k = 3 ){
+  
+  data$pred <- ifelse( data$Ratio > k, 'default', 'repay')
+  data$pred <- as.factor(data$pred)
+  
+  return( data[, c('Outcome', 'pred')] )
+}
+```
+
+In addition, we ought to add a conditional check on `k` to ensure it must be a non-negative value (as a negative loan-to-income ratio does not make any sense). The `stop` function helps throw an error message and stops executing the remaining codes if the value of `k` is mispecified. 
+
+```{r}
+rule1_3 <- function( data, k = 3){
+  
+  if(k < 0){
+    stop( 'k must be larger than zero.')
+  }
+  
+  data$pred <- ifelse( data$Ratio > k, 'default', 'repay')
+  data$pred <- as.factor(data$pred)
+  
+  return( data[, c('Outcome', 'pred')] )
+}
+
+```
+
+Let's apply when $k=2$.
+
+```{r}
+result <- rule1_3(scores, k = 2)
+result
+```
+
+The rule-based models shown are to illustrate the flexibility of `R` for statistical computing. Having said that, these models assume the column names remain intact. What if `Ratio` is renamed as `loan-income ratio`?  Fortunately, we shall see that we do not have build the black boxes from the stretch most of the time.
+
+\newpage
+
+# Practice Questions (OPTIONAL)
+
+## Conceptual Questions
+
+1. Which of the following is a **supervised machine learning**?
+
+> a. Forecast the electricity consumptions in Melbourne.
+> b. Predict the price of Bitcoin next month.
+> c. Identify unknown customer groups based on their spending habit.
+> d. Create a recommended YouTube playlist.
+> e. Classifying false news based on Tweets and Facebook newsfeed.
+
+2. What is **overfitting**?
+3. What is **underfitting**?
+
+## Computational Questions
+
+1. Download, read and clean Table 1.2 @kelleher[, p. 6].
+2. Apply Rule \ref{rule1} on Table 1.2.
+3. Write a function based on Rule \ref{rule2}. 
+4. Apply this function from previous question on Table 1.1 and Table 1.2. 
+
+
+\newpage
+
+# References

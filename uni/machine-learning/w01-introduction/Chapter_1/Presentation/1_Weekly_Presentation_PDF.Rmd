@@ -1,0 +1,76 @@
+---
+title: "R Practice: Chapter 1"
+author:
+date:
+output: 
+  beamer_presentation:
+    incremental: true
+---
+
+# Why R
+
+- Open source and free
+- Easy to use
+- Many packages
+- Generic functions. For example, you can use `plot` for any object
+
+```{r, eval = FALSE}
+x <- c(1:4)
+plot(x)
+```
+
+```{r, eval = FALSE}
+mod <- lm( y ~ x1 + x2)
+plot(mod)
+```
+
+# Why Not R
+
+- Open source and free: no technical support
+- Easy to use: not the strongly typed languages
+- (Too many) packages
+  + Not all packages are equally good
+  + Some packages have the similar purposes
+- Generic functions
+  + CS term: Polymorphic methods with dynamic dispatching
+  + Which objects where the `plot` function works?
+  + Example: try `plot` on `randomForest` object
+  
+# R's Frenemies
+
+* Open-Source: Python, C#, C++, Java (Weka), F#...
+* Commercial: SAS, MATLAB, IBM SPSS...
+* In practice, they can co-exist.
+* Be pragmatic.
+  + If you can do this in `R`, how can you do this in < >?
+  + If you can do this in < >, how can you do this in `R`?
+* This course is tailor-made for `R` users
+* However, we also accept projects in Python.
+
+# MLR package
+
+
+* A unified framework of all machine-learning packages in `R`
+* Similar to `scikit` from Python
+* It follows a more structured machine learning "pipeline"
+
+# R you ready?
+
+* Quick refresher: [R bootcamp](https://sites.google.com/a/rmit.edu.au/intro-to-stats/r-bootcamp) developed by [Dr James Baglin](https://www.rmit.edu.au/contract/staff-contracts/academic-staff/b/baglin-dr-james) (RMIT login identity is required).
+* Marathon: 
+  + `R` manuals available in `RStudio`
+  + `R` Cookbook: Proven Recipes for Data Analysis, Statistics, and Graphics" by Paul Teetor
+  + and more...
+
+# R Practices
+
+* Warm-Up examples before the class
+* R practices in the last hour of the lecture starting week 2
+* No grade on R practices
+* See Canvas for more details
+* Be patient with us as we are new to Canvas
+
+# Any Question?
+
+
+

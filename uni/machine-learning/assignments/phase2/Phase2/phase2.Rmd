@@ -1,0 +1,236 @@
+---
+title: 'Predicting Individual Income Using US Census Data'
+subtitle: 'MATH 2319 Machine Learning Applied Project Phase II'
+author: "Yong Kai Wong (s9999999) & Vural Aksakalli (s0000000)"
+date: 2 January 1900
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: no
+    toc_depth: 3
+linkcolor: blue
+documentclass: article
+references:
+- id: knitr
+  author:
+  - given: YiHui
+    family: Xie
+    title: Dynamic Documents with R and knitr
+    publisher: Chapman and Hall/CRC
+    issued:
+    - year: 2015
+- id: Breiman 
+  title: Random Forests
+  author:
+  - family: Breiman
+    given: L.
+  issued:
+  - year: 2001
+  volume: 45(1)
+  pages: 5-32
+  publisher: Machine Learning 
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+---
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+# Introduction \label{sec1}
+
+The objective of this project was to build classifiers to predict whether an individual earns more than USD 50,000 or less in a year from the 1994 US Census Data sourced from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Census+Income). In Phase I, we cleaned the data and re-categorised some descriptive features to be less granular. In Phase II, we built three binary-classifiers on the cleaned data. The rest of this report is organised as follow. Section 2 describes an overview of our methodology. Section 3 discusses the classifiers’ fine-tuning process and detailed performance analysis of each classifier. Section 4 compares the performance of the classifiers using the same resampling method. Section 5 critiques our methodology. The last section concludes with a summary.
+
+# Methodology
+
+We considered three classifiers - Naive Bayes (NB), Random Forest (RF), and $K$-Nearest Neighbour (KNN). The NB was the baseline classifier. Each classifier was trainned to make probability predictions so that we were able to adjust prediction threshold to refine the performance. We split the full data set into 70 % training set and 30 % test set. Each set resembled the full data by having the same proportion of target classes i.e. approximately 76 % of individuals earning less than USD 50,000 and 24 % earning higher. For fine-tuning process, we ran a five-folded cross-validation stratified sampling on each classifier. Stratified sampling was used to cater the slight imbalance class of the target feature.
+
+Next, for each classsifer, we determined the optimal probability threshold. Using the tuned hyperparameters and the optimal thresholds, we made predictions on the test data. During model training (hyperparameter tuning and threshold adjustment), we relied on mean misclassification error rate (mmce). In addition to mmce, we also used the confusion matrix on the test data to evaluate classifiers' performance. The modelling was implemented in `R` with the `mlr` package [@mlr].
+
+# Hyperparameter Tune-Fining
+
+## Naive Bayes
+
+Since the training set might have unwittingly excluded rare instances, the NB classifier might produce some fitted zero probabilities as predictions. To mitigate this, we ran a grid search to determine the optimal value of the Laplacian smoothing parameter. Using the stratified sampling discussed in the previous section, we experimented values ranging from 0 to 30. The optimal Laplacian parameter was 3.33 with a mean test error of 0.167.
+
+## Random Forest
+
+We tune-fined the number of variables randomly sampled as candidates at each split (i.e. `mtry`). For a classification problem, @Breiman suggests `mtry` = $\sqrt{p}$ where $p$ is the number of descriptive features. In our case, $\sqrt{p} = \sqrt{11}=3.31$. Therefore, we experimented `mtry` = 2, 3, and 4. We left other hyperparameters, such as the number of trees to grow at the default value. The result was 3 with a mean test error of 0.139.
+
+## $K$-Nearest Neighbour
+
+By using the optimal kernel, we ran a grid search on $k=2,3,...20$. The outcome was 20 with a mean test error of 0.165.
+
+## Threshold Adjustment
+
+```{r, message=FALSE, warning = FALSE, echo=FALSE, cache = TRUE}
+library(mlr)
+library(tidyverse)
+data <- read.csv('cleaned_adult.csv')
+
+# Remove the granular features
+data <- data %>% 
+  select(-workclass, -education, -marital_status, -native_country, -occupation)
+
+# Set a common random seed for reproducibility
+set.seed(1234)
+
+# Old school way to spliting the data into 70 % training & 30 % test data
+# This is not stratified sampling, which shall be used in model training
+# obtain index for training and test indices
+training_index <- sample(nrow(data)*0.70)
+test_index     <- setdiff(seq(1:nrow(data)), training_index )
+
+# Get the training data and test data
+training_data  <- data[training_index, ]
+test_data      <- data[test_index, ]
+
+
+# They are quite balanced and representative of the full dataset
+# We shall use training data for modeling
+# and test data for model evaluation
+
+# 2. Modeling ----
+# 2.1. Basic configuration ----
+# Configure classification task
+task <- makeClassifTask(data = training_data, target = 'income', id = 'adult')
+
+# Configure learners with probability type
+learner1 <- makeLearner('classif.naiveBayes', predict.type = 'prob')    # baseline learner
+learner2 <- makeLearner('classif.randomForest', predict.type = 'prob')
+learner3 <- makeLearner('classif.kknn', predict.type = 'prob')
+
+# 2.2 Model fine-tuning ----
+# For naiveBayes, we can fine-tune Laplacian
+ps1 <- makeParamSet(
+  makeNumericParam('laplace', lower = 0, upper = 30)
+)
+
+# For randomForest, we can fine-tune mtry i.e mumber of variables randomly 
+# sampled as candidates at each split. Following
+# Breiman, L. (2001), Random Forests, Machine Learning 45(1), 5-32,
+# we can try mtry = 2, 3, 4 as mtry = sqrt(p) where p = 11
+ps2 <- makeParamSet(
+  makeDiscreteParam('mtry', values = c(2,3,4))
+)
+
+
+# For kknn, we can fine-tune k = 2 to 20 
+ps3 <- makeParamSet(
+  makeDiscreteParam('k', values = seq(2, 20, by = 1))
+)
+
+# Configure tune control search and a 5-CV stratified sampling
+ctrl  <- makeTuneControlGrid()
+rdesc <- makeResampleDesc("CV", iters = 5L, stratify = TRUE)
+
+# Configure tune wrapper with tune-tuning settings
+tunedLearner1 <- makeTuneWrapper(learner1, rdesc, mmce, ps1, ctrl)
+tunedLearner2 <- makeTuneWrapper(learner2, rdesc, mmce, ps2, ctrl)
+tunedLearner3 <- makeTuneWrapper(learner3, rdesc, mmce, ps3, ctrl)
+
+# Train the tune wrappers
+tunedMod1  <- train(tunedLearner1, task)
+tunedMod2  <- train(tunedLearner2, task)
+tunedMod3  <- train(tunedLearner3, task)
+
+# Predict on training data
+tunedPred1 <- predict(tunedMod1, task)
+tunedPred2 <- predict(tunedMod2, task)
+tunedPred3 <- predict(tunedMod3, task)
+
+# 2.3 Obtain threshold values for each learner ----
+d1 <- generateThreshVsPerfData(tunedPred1, measures = list(mmce))
+d2 <- generateThreshVsPerfData(tunedPred2, measures = list(mmce))
+d3 <- generateThreshVsPerfData(tunedPred3, measures = list(mmce))
+
+```
+
+The following plots depict the value of mmce vs. the range of probability thresholds. The thresholds were approximately 0.60, 0.63, and 0.51 for NB, RF, and 20-KNN classifiers respectively. These thresholds were used to determine the probability of an individual earning more than USD 50,000.
+
+```{r, echo = FALSE}
+mlr::plotThreshVsPerf(d1) + ggplot2::labs(title = 'Threshold Adjustment for Naive Bayes', x = 'Threshold')
+mlr::plotThreshVsPerf(d2) + ggplot2::labs(title = 'Threshold Adjustment for Random Forest', x = 'Threshold')
+mlr::plotThreshVsPerf(d3) + ggplot2::labs(title = 'Threshold Adjustment for 20-KNN', x = 'Threshold')
+```
+
+# Evaluation
+
+```{r, echo = FALSE, cache = TRUE}
+# Get threshold for each learner
+threshold1 <- d1$data$threshold[ which.min(d1$data$mmce) ]
+threshold2 <- d2$data$threshold[ which.min(d2$data$mmce) ]
+threshold3 <- d3$data$threshold[ which.min(d3$data$mmce) ]
+
+# 3. Evaluation on test data ----
+# we shall use tuned wrapper models and optimal thresholds from previous sections
+testPred1 <- predict(tunedMod1, newdata = test_data)
+testPred2 <- predict(tunedMod2, newdata = test_data)
+testPred3 <- predict(tunedMod3, newdata = test_data)
+
+testPred1 <- setThreshold(testPred1, threshold1 )
+testPred2 <- setThreshold(testPred2, threshold2 )
+testPred3 <- setThreshold(testPred3, threshold3 )
+
+```
+
+Using the parameters and threshold levels, we calculated the confusion matrix for each classifier. The confusion matrix of NB classifer is as follow:
+
+```{r, echo = FALSE}
+calculateConfusionMatrix( testPred1,relative = TRUE)
+```
+
+The confusion matrix of RF classifer is as follow:
+
+```{r, echo = FALSE}
+calculateConfusionMatrix( testPred2,relative = TRUE)
+
+```
+
+The confusion matrix of 20-KNN classifer is as follow:
+
+```{r, echo = FALSE}
+calculateConfusionMatrix( testPred3,relative = TRUE)
+```
+
+All classifiers accurately predicted individual earning less than USD 50,000, but not high-income earners. The class accuracy difference was substantial. Based on class accuracy and mmce, we concluded that the RF classifer was the best model.
+
+# Discussion
+
+The previous section showed that all classifiers did not perform accurately in predicting the high-income earners despite the stratified sampling. This implies the imbalance class problem was prevalent. A better approach would be a cost-sensitive classification where we could have allocated more cost to true positive groups i.e. the correctly predicted high-income class. Another alternative would be under- or oversampling to adjust the class balance, despite the risk of inducing biases. 
+
+The NB model assumes the descriptive features to follow normality that are not necessarily true. The solution would be a transformation on numeric features. Based mmce, the KNN classifer underperformed the RF and NB classifier. This highlights the KNN classifier might not be appropriate given there were many categorical features in the data. The RF outperformed other models because it had the bagging mechanism (i.e. 500 trees) to improve its accuracy. Having said this, it was "unfair" to the NB and KNN classifiers because the RF was able to run multiple bagged models at each iteration during the resampling. 
+
+# Conclusion
+
+Among three classifiers, the Random Forest produces the best performance in predicting individuals earning more than USD 50,000. We split the data into training and test sets. Via a stratified sampling, we determined the optimal value of the selected hyperparameter of each classifier and the probability threshold. Despite this, the imbalance class issue still persisted and therefore reduced the class accuracy of the high-income earners. For future works, we proposed to consider cost-sensitive classification and under/over-sampling methods to mitigate the class imbalance.
+
+# References
+
+

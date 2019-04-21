@@ -1,0 +1,232 @@
+---
+title: 'Machine Learning: Chapter 8 - Part II'
+subtitle: 'Benchmarking with mlr'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Overview
+
+In a benchmark experiment, different learners are applied to one or several data sets so we can compare and rank them with respect to one or more performance measures. `mlr` makes benchmarking experiment seamless [@mlr]. The common steps are:
+
+1. Define a `list` of tasks,
+2. Define a `list` of learners,
+3. Define a resampling strategy using `makeResampleDesc`,
+4. Define a list of measures,
+5. Call the `benchmark` function on the learner list, the task list and the measure list.
+
+The `benchmark` function essentially executes resample for each combination of learner and task. We can also specify an individual resampling strategy for each task. In this note, we use "PhishingWebsites" dataset to illustrate how to benchmark three learners below:
+
+1. Naive Bayes (NB) as the baseline learner,
+2. K-Nearest Neighbour (KNN),
+3. Random Forest (RF)
+
+The dataset can be downloaded at https://www.openml.org/d/4534. This data has 31 categorical descriptive features and the target feature is `Result`. Let's read and process the data
+
+```{r, warning = FALSE, message = FALSE}
+library(mlr)
+data          <- read.csv('PhishingWebsites.csv')
+data[c(1:31)] <- lapply(data[c(1:31)] , factor)
+```
+
+# Benchmarking
+
+**Step 1**: Creating task(s)
+
+Since we aim to predict the phishing website, we have only one task. Let's configure the task as follow by specifying `positive = '1'` which represents a phishing website:
+
+```{r}
+classif.task <- makeClassifTask(id = "web", 
+                                data = data,
+                                target = "Result",
+                                positive = '1')
+classif.task
+
+```
+
+**Step 2**: creating a learner list
+
+Using the `list` function, we basically combine three learners. For consistency, we make the predict type to `prob` for each learner. The `id` is optional, but it is highly recommended to give each learner an id.
+
+```{r, warning = FALSE, message=FALSE}
+
+lrns <- list(
+  makeLearner("classif.naiveBayes", id = "NB", predict.type = 'prob'), 
+  makeLearner("classif.kknn", id = "kknn", predict.type = 'prob'),
+  makeLearner("classif.randomForest", id = "randomForest", predict.type = 'prob')
+)
+
+
+```
+
+**Steps 3 & 4**: Resampling and measure
+
+Here we shall apply a stratified 5-fold cross validation. We are interested in the overall misclassification rate, the true positive rate (tpr), and the false negative rate (fnr). Recall that the positive class is the "phishing" website. Therefore, we include the tpr because it assesses how correct a model in predicting phishing websites. It is also equally important to include the fnr to see how badly a model predict the "phishing" website as genuine.
+
+```{r}
+rdesc   <- makeResampleDesc("CV", iters = 5, stratify = TRUE)
+measure <-  list(mmce, tpr, fnr)
+
+```
+
+**Steps 5**: Benchmarking
+
+Let's put all pieces into the `benchmark` function and run it! While the output is self-explanatory, we shall use more handy functions to interpret and visualised `bmr` in next section.
+
+```{r}
+bmr     <- benchmark(lrns, classif.task, rdesc, measure)
+
+```
+
+# Assessing and visualising performance
+
+`mlr` offers some handy functions to:
+
+1. `getBMRPerformances` which returns the benchmark performances,
+2. `getBMRPredictions` which returns a list of predictions for each learner,
+3. `getBMRMeasures` which returns a list of predefined measures,
+4. `plotBMRBoxplots` to visualise the performance.
+
+`getBMRPerformances` basically displays the `bmr`'s output as a data frame object - which is convenient for reporting purposes.
+
+```{r}
+perf    <- getBMRPerformances(bmr, as.df = TRUE)
+perf
+
+```
+
+To evaluate performance of each, we can create an object named `pred` by `getBMRPredictions(bmr)`. 
+
+```{r}
+pred <- getBMRPredictions(bmr)
+
+```
+
+Then we can assess a learner's prediction by calling the slot `pred$web$<learner id>`. This is why it is highly recommended to give each learner an `id`. Finally, we can apply the functions such as `performance` and `calculateConfusionMatrix` on each learner's prediction.
+
+```{r}
+
+performance(pred$web$kknn)
+performance(pred$web$NB)
+performance(pred$web$randomForest)
+
+calculateConfusionMatrix( pred$web$kknn )
+calculateConfusionMatrix( pred$web$NB )
+calculateConfusionMatrix( pred$web$randomForest )
+
+```
+
+Let's visualise the benchmark performance. Without specifying the measure, `plotBMRBoxplots` will return the first measure. In this case, it is `mmce`. Note that `plotBMRBoxplots` can only return the measures specified. In our example, `plotBMRBoxplots` will throw error messages if we wish to visualise the performance with respect to `auc`, which is not included in **Step 4**. 
+
+```{r}
+plotBMRBoxplots(bmr)
+```
+
+How do the learners perform with respect to fnr and tpr? It appears that the random forest outperforms other learners as it yields the lowest mmce, the lowest fnr, and the highest fpr. It is also assuring that it beats the baseline learner - Naive Bayes!
+
+```{r}
+plotBMRBoxplots(bmr, measure = fnr)
+plotBMRBoxplots(bmr, measure = tpr)
+```
+
+# Final remarks
+
+So far, we have seen how to run a benchmark on one classification task with three learners. In practice, we can extend to multiple tasks and regression task. Here are some related questions:
+
+1. When and why do we need multiple tasks?
+2. For a classification problem, Naive Bayes is commonly used as a baseline learner. For regression problem, which baseline learner should we use for benchmarking?
+
+# References

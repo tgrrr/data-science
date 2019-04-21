@@ -1,0 +1,470 @@
+---
+title: 'Predicting Individual Income Using US Census Data'
+subtitle: 'MATH 2319 Machine Learning Applied Project Phase I'
+author: "Yong Kai Wong (s9999999) & Vural Aksakalli (s0000000)"
+date: 1 January 1900
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: no
+    toc_depth: 3
+linkcolor: blue
+documentclass: article
+references:
+- id: knitr
+  author:
+  - given: YiHui
+    family: Xie
+    title: Dynamic Documents with R and knitr
+    publisher: Chapman and Hall/CRC
+    issued:
+    - year: 2015
+---
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+# Introduction \label{sec1}
+
+The objective of this project was to build classifiers to predict whether an individual earns more than USD 50,000 or less in a year from the 1994 US Census Data. The data sets were sourced from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Census+Income). This project has two phases. Phase I focuses on data preprocessing and exploration, as covered in this report. We shall present model building in Phase II. The rest of this report is organised as follow. Section 2 describes the data sets and their attributes. Section 3 covers data pre-processing. In Section 4, we explore each attribute and their inter-relationships. The last section ends with a summary.
+
+# Data Set
+
+The [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Census+Income) provides five data sets, but only `adult.data`, `adult.test`, and `adult.names` were useful in this project. `adult.data` and `adult.test` are the training and test data sets respectively. `adult.names` contains the details of attributes or variables. The training data set has 32,561 training observations. Meanwhile, the test data set has 16,281 test observations. Both data sets consist of 14 descriptives features and one target feature. In this project, we combined both training and test data into one. In Phase II, we would build the classifiers from the combined the data set and evaluate their performance using cross-validation.
+
+## Target Feature
+
+The response feature is income which is given as:
+
+\begin{center}
+  \begin{align}
+    \text{income} & = 
+      \begin{cases} 
+        > 50K & \text{if the income exceeds USD 50,000} \\
+        \leq 50K & \text{otherwise}
+      \end{cases}
+  \end{align}
+\end{center}
+
+The target feature has two classes and hence it is a binary classification problem. To reiterate, The goal is to predict **whether a person makes over $50K a year**.
+
+## Descriptive Features
+
+The variable description is produced here from `adult.names` file:
+
+* age: continuous.
+* workclass: Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay,
+Never-worked.
+* fnlwgt: continuous.
+* education: Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-
+8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool.
+* education-num: continuous.
+* marital-status: Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-
+spouse-absent, Married-AF-spouse.
+* occupation: Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty,
+Handlers-cleaners, Machine-op-*inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-
+house-serv, Protective-serv, Armed-Forces.
+* relationship: Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried.
+* race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black.
+* sex: Female, Male.
+* capital-gain: continuous.
+* capital-loss: continuous.
+* hours-per-week: continuous.
+* native-country: United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-
+US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands.
+
+Most of the descriptive features are self-explanatory, except \textcolor{red}{fnlwgt} which stands for "Final Weight" defined by the US Census. The weight is an "estimate of the number of units in the target population that the responding unit represents". This feature aims to allocate similar weights to people with similar demographic characteristics. For more details, see [US Census](https://www.census.gov/programs- surveys/sipp/methodology/weighting.html).
+
+# Data Pre-processing[^0]
+
+[^0]: \color{red}In report submission, the code chunks are optional.\color{black}
+
+## Preliminaries (Optional)
+
+In this project, we used the following `R` packages.
+
+```{r, message = FALSE, warning=FALSE}
+library(knitr)
+library(mlr)
+library(tidyverse)
+library(GGally)
+library(cowplot)
+```
+
+We read and merged training and test datasets by treating the string values as characters. We would later convert the string columns to factor (categorical) after the data processing. For naming consistency with the data dictionary, we purposely skipped the headers and manually renamed the columns.
+
+```{r}
+train <- read.csv('Datasets/adult.data.txt', stringsAsFactors = FALSE, header = FALSE)
+test  <- read.csv('Datasets/adult.test.txt', stringsAsFactors = FALSE, skip = 1, header = FALSE)
+adult <- rbind(train, test)
+
+
+names( adult ) <- c('age', 'workclass', 'fnlwght', 'education', 'education_num',
+                    'marital_status', 'occupation', 'relationship', 'race', 'sex',
+                    'capital_gain', 'capital_loss', 'hours_per_week', 'native_country',
+                    'income')
+```
+
+## Data Cleaning and Transformation
+
+With `str` and `summarizeColumns` (see Table 1), we noticed the following anomalies:
+
+* All character columns contained excessive white space.
+* The target feature, `income` had a cardinality of 4, which was supposed to be 2 since `income` must be binary.
+* The `education_num` ranged from 1 to 16 which coincided with the cardinality of `education`. They might represent the same information.
+* The max value of `capital_gain` was 99999, potentially a value to represent missing value.
+* The max value of `hours_per_week` was 99. It could be a valid or missing value
+* On surface, each feature had no missing value, especially the character features.
+
+```{r}
+str(adult)
+```
+
+```{r}
+summarizeColumns(adult) %>% knitr::kable( caption =  'Feature Summary before Data Preprocessing')
+
+```
+
+Firstly, we removed the excessive white spaces for all character features.
+
+```{r}
+adult[, sapply( adult, is.character )] <- sapply( adult[, sapply( adult, is.character )], trimws)
+```
+
+Second, we found that some `income` values were encoded with "`.`" as revealed in Table 2 and we removed them so it became binary[^1]. Note that a higher proportion of people earning less than $50,000 in 1994. Therefore, we would require additional parameter-tuning in building models to cater such unbalanced class.
+
+[^1]: In fact, the "`.`" symbol is used to indicate target features from the test data.
+
+```{r}
+table(adult$income) %>% kable(caption = 'Number of Income Classes before Data Preprocessing')
+adult$income <- sub('K.', "K", adult$income)
+```
+
+We defined a new feature named `capital` which is `capital_gain` minus `capital_loss` because it is impossible that an individual had to pay taxes on capital gain from their financial investment and claim tax deductions from capital loss at the same time.
+
+```{r}
+adult$capital <- adult$capital_gain - adult$capital_loss
+adult$capital_gain <- NULL
+adult$capital_loss <- NULL
+
+```
+
+We were ambivalent in removing $99999$ values from `capital` because it could be a valid value. That is, an individual could see his or her investment increased in value by $99999. We decided to keep it as we could either bin it into categorical feature when deploying machine learning models which are robust to outliers in Phase II. Table 3 reports the summary statistics of `capital` after removing individuals with `capital` values of 99999. The maximum value drops substantially but the median is zero and far below the mean, suggesting presence of skewness. Consistent with the data exploration in later section, we shall show that scaling did not help solve the heavy skewness isssue. Table 4 reveals that individuals with `capital` values of 99999 were high income earners in 1994. Such finding is plausible and it explains why we were reluctant to remove these observations.
+
+```{r}
+adult %>% select( capital ) %>% filter ( capital < 99999 ) %>% 
+  summary() %>% kable(caption = 'Summary Statistics of Capital after Removing 99999')
+
+adult %>% filter ( capital == 99999 ) %>% 
+  select( income, capital) %>% table() %>%
+  kable(caption = 'Income Classes for Individuals with 99999 Capital Value')
+```
+
+We computed the level table for each character feature [^2]. The tables revealed:
+
+* The missing values were encoded as `?` in `workclass`, `occuptation`, `native_country`
+* Only 15 individuals worked in Armed Forces. 
+* `workclass` and `occupation` likely carried different information about the data. We reduced the cardinality of `workclass` by merging missing values, `Never-worked` and `Without=pay` as `Other` and grouping the government-related jobs as one.
+* For `marital_status`, we aggregated the levels with the prefix of `Married` as one category.
+* Almost all individuals were born in the United States. Therefore, we redefined `native_country` into two classes: `US` and `Non-US` [^3].
+* Almost 50 % of individuals were married.
+* There were more males than females.
+* Most of individuals attended high schools, followed by some colleges. However, it might depend on age groups as the elder generations had fewer opportunities to enroll in higher educations. We grouped the post-graduate levels such as `Doctorate` and `Masters` into one level.
+
+[^2]: \color{red}Vural/Yong Kai: it would be more organised if each table is presented in "tabular" forms instead of a list. \color{black}
+[^3]: Another approach would be classifcation by continents, such as Africa, America, Asia, and Europe
+
+```{r}
+sapply( adult[ sapply(adult, is.character)], table)
+```
+
+Note that we kept the original features intact by defining new features from them. Each newly defined feature ended with `1` to differentiate them from their respective original features. Such approach would allow us to evaluate the model performance with various granularity of the data.
+
+```{r}
+
+adult <- adult %>% 
+  mutate( workclass1 = ifelse( workclass %in% c('?', 'Never-worked', 'Without-pay'), "Other",
+                              ifelse( grepl('gov', workclass), 'gov', 
+                                      ifelse( grepl('Self-emp', workclass), 'Self-emp', workclass )) ),
+          
+          education1 = ifelse( grepl('th', education) | education == 'Preschool', 'Before-HS',
+                              ifelse( education %in% c('Doctorate', 'Masters', 'Prof-school'), 'Postgrad', 
+                                      ifelse( grepl( 'Assoc', education ), 'Assoc', education ) ) ),
+          
+          native_country1 = ifelse( native_country != 'United-States', 'Not US', 'United-States'),
+          marital_status1 = ifelse( grepl( 'Married', marital_status ), 'Married', marital_status),
+          occupation1 = ifelse( occupation == '?', 'Other', occupation)
+          )
+```
+
+Lastly, we converted all character features into factor and removed `fnlwght`.
+
+```{r}
+adult[, sapply( adult, is.character )] <- lapply( adult[, sapply( adult, is.character )], factor) 
+adult$fnlwght <- NULL
+```
+
+Table 5 presents the summary statistics after data-preprocessing.
+
+```{r}
+summarizeColumns(adult) %>% kable( caption = 'Feature Summary before Data Preprocessing' )
+```
+
+# Data Exploration[^4]
+
+We explored the data for each feature individually and split them by the classes of target features. Then we proceeded to multivariate visualisation.
+
+[^4]: \color{red}Yong Kai: Visualisation codes are hidden in the pdf version. See RMD version for codes.\color{black} 
+
+## Univariate Visualisation
+
+### Numerical Features
+
+#### Age
+
+Most of individuals aged between 25 and 50 with younger generation tended to earn less than $50,0000. The higher-income individuals' ages appeared to following a normal distribution whereas the lower income group had a skewed distribution of age. Therefore, age would be a predictive feature.
+
+```{r, echo = FALSE}
+p1 <- ggplot(adult, aes(x = age)) + geom_histogram(bins = 35) + labs(title = 'Histogram of Ages')
+p2 <- ggplot(adult, aes(x = age, fill = income)) + 
+  geom_histogram(bins = 35) + facet_grid(~income) + 
+  labs(title = 'Histogram of Age by Income Classes')
+plot_grid(p1, p2, ncol = 1)
+```
+
+#### Hours per week
+
+On aggregated level, individuals worked for approximately 40 hours per week, as indicated by the sharp kurtosis in the the histogram of `hours_per_week`. When we segregated by income classes, the kurtosis did not change much although the lower income group had fatter tails in the distribution of hours per week. The change in the shape could be explained by the workclass or occupations.
+
+```{r, echo = FALSE}
+p3 <- ggplot(adult, aes(x = hours_per_week)) + geom_histogram(bins = 20) +
+  labs(title = 'Histogram of Hours per Week')
+
+p4 <- ggplot(adult, aes(x = hours_per_week, fill = income)) + 
+  geom_histogram(bins = 20) + facet_grid(~income) + 
+  labs(title = 'Histogram of Hours per Week by Income Classes')
+
+plot_grid(p3, p4, ncol = 1)
+```
+
+#### Education Num
+
+We did not display any visualisation for `education_num` as we shall show that it carried the same information of `education` in the later section.
+
+#### Capital
+
+The histogram of `capital` was heavily skewed. The problem persisted even after scaling this variable or removing individuals with 99999 values.
+
+\newpage
+
+```{r, echo = FALSE, fig.height=8}
+p5 <- ggplot(adult, aes(x = capital)) + 
+  geom_histogram(bins = 20) +  
+  labs(title = 'Histogram of Capital',
+       subtitle = 'Before Removing 99999')
+
+p6 <- adult %>% mutate(capital = c( scale( capital ) )) %>%
+  ggplot( aes(x = capital) ) + geom_histogram(bins = 20) +
+  labs(title = 'Histogram of Scaled Capital',
+       subtitle = 'Before Removing 99999',
+       x = '')
+
+p7 <- adult %>% filter(capital < 99999) %>% 
+  mutate(capital = c( scale( capital ) )) %>%
+  ggplot( aes(x = capital) ) + geom_histogram(bins = 20) +
+  labs(title = '',
+       subtitle = 'After Removing 99999', x = 'Scaled Capital')
+
+plot_grid(p5, p6, p7, ncol = 1)
+```
+
+\newpage
+
+Due to skewness, we explored capital by binning it into three groups: "No gain/loss", "loss", and "gain" for both income classes. Although the higher income earners had more capital gains on a tiny margin, most of taxpayers had no gain or loss. Univariately, we suspected this feature would have little predictive power.
+
+```{r, echo = FALSE}
+adult %>% 
+  mutate(capital = ifelse( capital == 0 , 'No gain/loss', 
+                           ifelse(capital > 0, 'gain', 'loss'))) %>%
+  ggplot(aes(x = capital, fill = income)) + geom_bar() + facet_grid(~income) +
+  labs(title = 'Bar Chart of Capital Types by Income Classes')
+```
+
+### Categorical Features
+
+For categorical features, we shall present the newly defined categorical features.
+
+#### Work Class
+
+Individuals worked mostly in private sector. There was no clear distinction between two income classes.
+
+```{r, echo = FALSE}
+p8 <- ggplot(adult, aes(x = workclass1)) + geom_bar() + 
+  labs(title = 'Bar Chart of Workclass') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p9 <- ggplot(adult, aes(x = workclass1, fill = income)) + 
+  geom_bar() + facet_grid(income~.) +
+  labs(title = '') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+plot_grid(p8, p9, ncol = 2)
+```
+
+#### Education
+
+Segregating education by income classess showed that higher income earners were at least bachelor degree holders whereas the lower income groups were mostly graduated from high schools.
+
+```{r, echo = FALSE}
+p10 <- ggplot(adult, aes(x = education1)) + geom_bar() + 
+  labs(title = 'Bar Chart of Education') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p11 <- ggplot(adult, aes(x = education1, fill = income)) + 
+  geom_bar() + facet_grid(income~.) + 
+  labs(title = '') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+plot_grid(p10, p11, ncol = 2)
+```
+
+#### Marital Status
+
+Most taxpayers were married; however, number of never married individuals was signficantly lower in the lower income class. If, *on average* income level was proportional to years of working experience, it could imply never married individuals might be younger and had started their career.
+
+```{r, echo = FALSE, fig.height=6}
+p12 <- ggplot(adult, aes(x = marital_status1)) + geom_bar() +
+  labs(title = 'Bar Chart of Marital Status') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p13 <- ggplot(adult, aes(x = marital_status1, fill = income)) + geom_bar() + 
+  facet_grid(income~.) +
+  labs(title = '') +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+plot_grid(p12, p13, ncol = 2)
+
+```
+
+#### Occupation
+
+Occupation might be a predictive feature as higher income earners tended to be white-collar workers such as executive/managerial positions and professionals.
+
+```{r, echo = FALSE, fig.height=4}
+ggplot(adult, aes(x = occupation1)) + geom_bar() +
+  labs(title = 'Bar Chart of Occupations') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+```{r, echo = FALSE, fig.height=4}
+
+ggplot(adult, aes(x = occupation1, fill = income)) + 
+  geom_bar() + facet_grid(income~.) + 
+  labs(title = 'Bar Chart of Occupations by Incomes Classes') + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+#### Relationship
+
+Most of individuals were husbands, regardless income classes. Consistent with marital status, unmarried and not-in-family individuals tended to earn less than $50,000. Unfortunately, a significant number of individuals who had children were from the lower income class.
+
+```{r, echo = FALSE, fig.height=6}
+p16 <- ggplot(adult, aes(x = relationship)) + geom_bar() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    labs( title = 'Bar Char of Relationship Status')
+  
+p17 <- ggplot(adult, aes(x = relationship, fill = income)) + geom_bar() + facet_grid(income~.) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+    labs( title = '')
+
+plot_grid(p16, p17, ncol = 2)
+
+```
+
+#### Race
+
+Consistent with the US demographic, the white were dominant ethnic followed by the black Americans. White and asian individuals had relatively higher proportion of high-income groups than other races.
+
+```{r, echo = FALSE, fig.height=4}
+ggplot(adult, aes(x = race)) + geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs( title = 'Bar Chart of Races')
+
+ggplot(adult, aes(x = race, fill = income)) + geom_bar(position = 'fill')  + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    labs( title = 'Income Class Proportion in Each Race',
+          y = 'Proportion')
+
+
+```
+
+#### Native Country
+
+Most of individuals were born in the United States. There was no clear difference in the income classes.
+
+```{r, echo = FALSE}
+p20 <- ggplot(adult, aes(x = native_country1 )) + geom_bar() + labs( title = 'Bar Char of Native Countries')
+p21 <- ggplot(adult, aes(x = native_country1 , fill = income)) + 
+  geom_bar() + facet_grid(income~.) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+plot_grid(p20, p21, ncol = 2)
+```
+
+
+## Multivariate Visualisation
+
+### Education Num vs Education
+
+The following visual confirms that `education_num` was a code label for `education` and hence the former was redundant[^5].
+
+[^5]: Another approach is to compute the contingency table between these features and verify only non-diagonal entries are zeroes.
+
+```{r, echo = FALSE}
+ggplot(adult, aes(x = education_num, fill = education)) + 
+  geom_bar() + labs( title = 'Education Num vs Education')
+```
+
+Therefore, we removed it.
+
+```{r}
+adult$education_num <- NULL
+```
+
+### Education, Marital Status, and Workclass
+
+The following visual depicts most of indivuals were married, never married, or divorced working in private sectors. In particular, married individuals were high income earners in all workclasses. The education levels between income classes varied across different marital statuses. Overall, post-graduate degree holders stood out as the highest proportion in most of the combinations between marital statuses and workclasses. Note that for married individuals, the proportion by education levels were similar in each work class. That is, the higher income earners were mostly post-graduate holders, followed by bachelors, associates, some colleges, high school graduates, and lastly those did not complete high schools.
+
+\newpage
+
+```{r, echo = FALSE, fig.height=8}
+ggplot(adult, aes(x = education1, fill = income)) + 
+  geom_bar(position = 'fill') + facet_grid( marital_status1 ~ workclass1 ) + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = 'Proportional Bar Chart: Education, Marital Status, and Workclass')
+  
+```
+
+\newpage
+
+### Education, Income Classes, and Age
+
+The *stacked* histograms reveals that, regardless gender, the low income class had a positive skewed age distribution in all education levels, except post-graduate degree holders. The post graduate holders had a symmetric age distribution. Also, relatively higher proportion of female post-graduate holder earned less than $50,000 compared to their male peers.
+
+```{r, echo = FALSE, fig.height=6}
+ggplot(adult, aes(x = age, fill = income)) + 
+  geom_histogram(bins = 20) +
+  facet_grid(sex~education1) + 
+  labs(title = 'Disrtribution of Age by Education Levels and Income Classes')
+
+```
+
+# Summary
+
+For numerical features, we combined `capital_loss` and `capital_gain` as `capital`; however, we did not remove observations with a value of 99999 which could be a valid value too. For categorical features, we defined some new features which binned their corresponding original features into lower cardinalities. The binning process also imputed missing values encoded as `?`. Except `education_num` and `fnlwght`, we did not remove the original features since we would like to experiment the model building by changing the granularity of the data. From the data exploration, we found that education levels, workclasses, gender, ages, and marital statuses were potentially useful features in predicting the income classes.

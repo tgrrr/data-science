@@ -1,0 +1,281 @@
+---
+title: 'Machine Learning: Chapter 8 - Part II'
+subtitle: 'Resampling with mlr'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Overview
+
+In previous weeks, we have seen how to implement some resampling techniques to tune-fine hyperparameters and evaluate model performances. The goal of this note is wrap up the resampling strategies in `mlr` [@mlr] and explore some tricks. The main two functions are:
+
+1. `makeResampleDesc` is used to define the resampling strategies.
+2. `resample` which is used to evaluate a `Learner` on a given `Task` using the resampling strategies defined by `makeResampleDesc`.
+
+@kelleher[, Section 8.4.1] suggest the following common resampling strategies:
+
+1. Holdout (training/test) ("Holdout")
+2. $k$-fold Cross-validation ("CV"),
+3. Leave-one-out cross-validation ("LOO"),
+4. (Out-of-bag) bootstrapping ("Bootstrap"),
+5. Out-of-Time Sampling
+
+The Out-of-Time Sampling is not a random sampling method and hence shall not be covered here. In practice, it is usually done by spliting the dataset at a specified time [-@kelleher, pp. 412 - 413]. In addition, we shall also introduce the repeated cross-validation ("RepCV"). We use "PhishingWebsites" dataset to illustrate how to implement each resampling method. The dataset can be downloaded at https://www.openml.org/d/4534. This data has 31 categorical descriptive features and the target feature is `Result`. Therefore, we need to convert the descriptive features to factor variables after loading the data in `R`.
+
+```{r, message = FALSE, warning = FALSE}
+library(mlr)
+data <- read.csv('PhishingWebsites.csv')
+data[c(1:31)] <- lapply(data[c(1:31)] , factor)
+```
+
+# Holdout with and without `mlr` 
+
+The default split rate of holdout in `mlr` is 0.67.
+
+```{r}
+rdesc <- makeResampleDesc("Holdout") 
+rdesc 
+```
+
+However, it is rarely used because we need to split the full dataset into a training set and a test set. In `R`, this means we need to create two `data.frame` objects from `data`. Meanwhile, `makeResampleDesc` is designed to split the dataset only when we run `resample` function. It simply does not keep two separate `data.frame` objects. Such design is beneficial as it reduces the need of main memory to store the data. The problem arises when we need to divide the data into a training set, a validation set, and a test set[^1]. There are many ways to achieve this with non-mlr functions. We shall show one of the "old-school" ways by utilising the `sample` function. 
+
+[^1]: To understand why we need a validation set, see @kelleher[, p. 406].
+
+Suppose the dataset has 10 rows (`size = 10`) and we would like to split it to a training:validation:test ratio of 50:30:20. We can create a vector `c('training', 'validation', 'test')` and run a sampling **with replacement** (`replace = TRUE`) with a probability vector of `c(0.5, 0.3, 0,2)`.
+
+```{r}
+sample(c('training', 'validation', 'test'), 
+       size = 10, prob = c(0.5, 0.3, 0.2), 
+       replace = TRUE)
+```
+
+In theory, we should expect 5 of 10 rows would be "training", 3 "validation" rows, and 2 "test" data. In practice, we might have different numbers and orders because the sampling is supposed to be random! The trick is to create an "index" column to label each row of the dataset. For convenience, we can use `nrow` function to return the number of rows of the data. Let's create the index column as below:
+
+```{r}
+data$index <- sample(c('training', 'validation', 'test'), 
+                     size = nrow(data), prob = c(0.5, 0.3, 0.2), 
+                     replace = TRUE)
+```
+
+To obtain the training set, we can either:
+
+```{r}
+training_data    <- data[data$index == 'training',  ]
+
+```
+
+or, make use of the `%>%` operator from the `tidyverse` package:
+
+```{r, warning = FALSE, message=FALSE}
+library(tidyverse)
+training_data <- data %>% filter(index == 'training')
+```
+
+Similarly, we can obtain the validation set and the test set as following:
+
+```{r}
+validation_data  <- data[data$index == 'validation',  ]
+test_data        <- data[data$index == 'test',  ]
+```
+
+When we train the model on the training or the validation sets, we have to remove `index` columns which are not a real descriptive feature!
+
+# Cross Validation Species
+
+The Leave-one-out cross-validation ('LOO') can be defined as:
+
+```{r}
+rdesc <- makeResampleDesc("LOO")
+```
+
+Unless the dataset is small, LOO is rarely used because each fold has only one instance. It is a special case of $k$-fold cross validation where $k$ is equal to the number of observations. In `mlr`, we define $k$-fold cross validation by specifying `iters = k`. For example, we can define a 5-fold cross-validation below:
+
+```{r}
+rdesc <- makeResampleDesc("CV", iters = 5) 
+```
+
+As the name suggests, a $x$-repeated $k$-fold cross validation repeats $k$-fold cross validation $x$ times. For instance, we can define $2$-repeated $5$-fold cross validation as follow:
+
+```{r}
+rdesc <- makeResampleDesc("RepCV", folds = 5, reps = 2) 
+
+```
+
+At each repetition, `mlr` will randomly split the data into 5 folds. Therefore, the first fold in the second repetition is unlikely to be the same as the first fold in the first repetition. Essentially, $2$-repeated $5$-fold cross validation is not the same as $10$-fold cross validation even though we have 10 iterations in total. When should we use repeated cross validation or cross validation? There is no censensus; however, Dr Max Kuhn has a very informative [article](http://appliedpredictivemodeling.com/blog/2014/11/27/vpuig01pqbklmi72b8lcl3ij5hj2qm) on this topic. For classification problem where the target feature has an imbalanced class, we use the stratified sampling:
+
+```{r}
+rdesc <- makeResampleDesc("RepCV", folds = 5, reps = 2, stratify = TRUE) 
+```
+
+Let's create a classification task on `PhishingWebsites` and a Classification tree learner with information splitting criterion. The objective is to apply the resampling strategies defined previously (stratified 2-rep 5-fold cross validation) to evaluate the model's performance.
+
+```{r}
+data$index   <- NULL # remember that we do not need the index column!
+classif.task <- makeClassifTask(id = "web", 
+                                data = data, 
+                                target = "Result")
+
+## Classification tree with information splitting criterion 
+lrn <- makeLearner("classif.rpart", 
+                   parms = list(split = "information"),
+                   predict.type = 'prob') 
+
+r <- resample(lrn, classif.task, rdesc) 
+```
+
+The output shows the test error rate at each iteration and their mean value. Sometimes, we are interested in the training error rates. To keep these values, we need to `predict = 'both'` in `makeResampleDesc` function. To turn off output printing, we can set `show.info = FALSE` in the `resample function`
+
+```{r}
+rdesc <- makeResampleDesc("RepCV", folds = 5, 
+                          reps = 2, stratify = TRUE,
+                          predict = 'both') 
+
+r     <- resample(lrn, classif.task, rdesc, show.info = FALSE) 
+r
+```
+
+Now we can call the training and test error rates as follow.
+
+```{r}
+r$measures.train 
+r$measures.test
+
+```
+
+So how can we calculate the confusion matrix of the test folds? (\color{red}Why and when do we need this?\color{black}) We can create a list named `predList` by assigning to `getRRPredictionList(r)`. `getRRPredictionList(r)` returns a list of two lists. The first list is a list of predictions on each training fold (if you specify to keep the training error rates in the `makeResampleDesc`). The second list is a list of predictions on each test fold.
+
+```{r}
+predList <- getRRPredictionList(r) 
+```
+
+For example, we can call the predicted responses from the first test fold and calculate the confusion matrix as follow.
+
+```{r}
+predList$test$`1`
+calculateConfusionMatrix(predList$test$`1`)
+```
+
+Alternative, we can specify the components of a confusion matrix (TP, FP, FN, and TN) in the `resample` function like the following:
+
+```{r}
+r <- resample(lrn, classif.task, rdesc, 
+              measures = list(tp, fp, fn, tn), 
+              show.info = FALSE) 
+```
+
+# Bootstrapping
+
+The bootstrapping can be defined as follow:
+
+```{r}
+rdesc <- makeResampleDesc("Bootstrap", iters = 10) 
+```
+
+However, it is not appropriate in our example. \color{red}Why?\color{black} Hint: see @kelleher[, pp. 411 - 412]. In `mlr`, there are many bootstrapping variants such as `b63`. supported by `mlr`. However, usually we shall go with the out-of-bag technique, which is also the default method.
+
+# Summary and Final Remarks
+
+The main key resampling functions in `mlr` are `makeResampleDesc` and `resample`. `mlr` supports the resampling strategies below:
+
+1. Holdout (training/test) ("Holdout")
+2. $k$-fold Cross-validation ("CV"),
+3. Leave-one-out cross-validation ("LOO"),
+4. (Out-of-bag) bootstrapping ("Bootstrap").
+5. Repeated Cross-validation ("RepCV").
+
+Another less formal resampling approach in `mlr` is to call the resampling function itself bypassing `makeResampleDesc`. For example, we can run a 10-fold cross validation via `repcv(learner, task, folds = 10L)`. For more information, see `?resample`.
+
+# References

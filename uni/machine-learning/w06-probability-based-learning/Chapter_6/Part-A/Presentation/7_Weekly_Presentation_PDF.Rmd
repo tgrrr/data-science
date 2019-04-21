@@ -1,0 +1,77 @@
+---
+title: "Machine Learning: Chapter 6 - Part I"
+subtitle: "R Practice"
+author:
+date:
+output:
+  beamer_presentation:
+    incremental: no
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+  slidy_presentation:
+    incremental: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+# Overview
+
+* Minimal coverage on `R` in this presentation
+* More important issues
+
+1. Email Rule: Please include "MATH2319" as the email title
+2. Fixing `rJava`
+3. Some RStudio Tips
+
+# RStudio Tips by Demo
+
+* Git (on your local branch)
+* Git to GitHub (not recommended unless you or your team are willing to pay for private repository)
+* `TODO` markers as an alternative to "comments"
+* `#` vs `#'`
+* Making sections in R Script
+* [R Coding Style](https://google.github.io/styleguide/Rguide.xml) at https://google.github.io/styleguide/Rguide.xml
+
+# Fixing `rJava`
+
+* `mlr` depends on `FSelector` 
+* `FSelector` depends on `rJava`
+* No impact on Windows
+* Big impact on macOS (version $\geq$ 10.12)
+* Source: unknown
+
+# Feature Selection
+
+* Filter Method
+* Wrapper Method
+* What's the difference?
+
+# Filter Method
+
+Uses one of the follows:
+
+1. Keep a certain number of features with highest importance.
+2. Keep a certain percentage of features with highest importance.
+3. Keep all features whose importance exceeds a certain threshold value.
+
+* Definition of importance: information gain, chi-square test, etc.
+* Uses CV to determine exactly how many features to keep.
+* May select redundant features, because it does not consider interactions.
+* Faster and less likely to overfit than Wrapper Method.
+
+# Wrapper Method
+
+* Directly select features that optimise the classifier performance.
+* Trains and cross-validates repeatedly. Chooses the feature subset which leads to the best learner performance.
+* Takes into account interactions between features.
+
+
+# R Practice Challenge
+
+>- Too many binary classification problems
+>- Let's try a toy regression example
+>- Airfoil Self-Noise Data Set at https://archive.ics.uci.edu/ml/datasets/Airfoil+Self-Noise
+>- Easy piece: 1 target + 5 features

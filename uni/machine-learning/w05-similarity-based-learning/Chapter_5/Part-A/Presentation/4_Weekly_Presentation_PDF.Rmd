@@ -1,0 +1,342 @@
+---
+title: "Machine Learning: Chapter 5 - Part I"
+subtitle: 'Missing Values Revisited'
+author:
+date:
+output: 
+  beamer_presentation:
+    incremental: false
+    includes:
+      in_header: header_pagenrs.tex
+  referencecolor: blue
+---
+
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = FALSE, prompt = TRUE )
+library(mlr)
+library(tidyverse)
+```
+
+# Notations
+
+Supervised Learning Model
+
+$$Y = f(\bold{X}) + \varepsilon$$
+
+Where
+
+* $Y:=$ target feature
+* $\bold{X}:=$ descriptive features
+* $\varepsilon:=$ error term
+* $f(\bold{X}):=$ unknown functional form
+
+# Possible combinations
+
+Given an observation $i$,
+
+1. $Y_{i}$ is missing but $\bold{X}_{i}$ is intact or some of $\bold{X}_{i}$ are missing
+2. $Y_{i}$ is not missing but some of $\bold{X}_{i}$ are missing
+3. $Y_{i}$ is not missing but **all** $\bold{X}_{i}$ are missing
+4. Both $Y_{i}$ and $\bold{X}_{i}$ are not missing
+
+* Delete row $i$ for Case 3, as it is probably an error
+* Case 4 is ideal *if* we have 90 to 95 % of such type in the data
+* Let's discuss and *attempt* to solve Case 1 and Case 2
+
+# Case 1: Missing values in target feature $Y_{i}$
+
+* You cannot train the model when $Y_{i}$ is missing
+* Ask why $Y_{i}$ is missing
+* $\implies$ Could it be due to transformation? 
+* Example: $\log{y}$ when $y=0$
+* Keep it as part of test model but no evaluation
+* Predict it! Isn't it a data science job?
+
+# Case 1: $Y_{i}$ is categorical
+
+* Example: iris
+
+```{r, echo = TRUE}
+data(iris)
+levels(iris$Species)
+```
+
+* What if `setosa` is taken out?
+* Without prior knowledge, are there three or four or five species?
+* Even with prior knowledge, you cannot train models without target values where `species = setosa`.
+* Possible solution: Cluster analysis (Unsupervised Learning)
+* Idea: hope that unsupervised learners would produce three respectives clusters for three species
+* Suggested course: [COSC2670 Practical Data Science](http://www1.rmit.edu.au/courses/051637)
+
+# Case 1: $Y_{i}$ is discrete
+
+* Example: $Y:=$ count of wombats in Building 10
+* $Y_{i}=0, 1, 2, 3, 4, 5, ...$
+* Does $Y_{i}=0$ mean missing value or actual zero count?
+* If there are excess zeroes, consider Zero-Inflated Poisson (ZIP) Model
+* Two zero generating processes:
+
+1. A binary distribution that generates structural zeros. 
+2. A Poisson distribution that generates counts which may be zero
+
+* Suggested course: [MATH1298: Analysis of Categorical Data](http://www1.rmit.edu.au/courses/011998)
+
+# Case 2: Missing values in $\bold{X}_{i}$
+
+Types of missing values
+
+1. Missing Completely At Random (MCAR)
+2. Missing At Random (MAR)
+3. \color{red}Missing Not At Random (MNAR) \color{black}
+
+* Types 1 and 2 are okay
+* Type 3 is problematic (no solution)
+
+# Case 2: Example
+
+* $X_{1}:=$ Heart Rate
+* $X_{2}:=$ Calories Burnt
+* Number of observations = 30
+* MCAR: randomly remove $X_{2}$
+* MAR: keep $X_{2}$ when $X_{1} > 65$
+* MNAR: remove $X_{2}$ when $X_{2} > 120$
+
+# Case 2: First 10 observations of the example
+
+```{r}
+data <- read.csv('heartRateAndCaloriesBurnt.csv')
+head(data, n = 10) %>% knitr::kable()
+```
+
+# Case 2: MCAR
+
+* Missingness does not depend on data
+* $\implies$ Missingness of $X_{2}$ is not related to $X_{1}$ (other variable)
+* $\implies$ Missingness of $X_{2}$ is not related to $X_{2}$ (itself)
+* $P(\text{Missingness}|X_{2}) = P(\text{Missingness})$
+* How to detect it? Conduct t-test to assess mean difference in $X_{1}$:
+
+$$X_{1} | X_{2} \text{ is not missing vs } X_{1} | X_{2} \text{ is  missing}$$
+
+* Conclusion: it is likely MCAR if $H_0$ cannot be rejected.
+* Problem: what if there are more than 2 variables?
+
+# Case 2: MAR and MNAR
+
+**MAR**
+
+* Missingness depends only on observed data
+* $\implies$ Missingness of $X_{2}$ is **related** to $X_{1}$ (other variable)
+
+**MNAR**
+
+* Missingness depends only on missing data
+* $\implies$ Missingness of $X_{2}$ is **related** to $X_{2}$ (itself)
+
+**Issues**
+
+* In practice, it is difficult to distinguish MAR adn MNAR
+* If you have prior knowledge about MNAR (i.e. you know why it is missing), mitigate it by asking for pre-processed data from data owner
+* If you have no prior knowledge or you cannot mitigate MNAR, assume it is MAR
+
+
+# Case 2: Solution?
+
+* No complete solution; you can only mitigate it
+* Recall: data processing cannot add new information
+* MCAR: "Complete-Case" Analysis
+* MAR: Imputation Methods
+* MNAR: No solution. Risky solution is to assume it is MAR
+* Practice, you can use methods who mitigate MAR on MCAR, but the reverse is not true
+
+# Case 2: Complete-Case Analysis
+
+* Delete the rows if the number of complete cases $>=95\%$
+* In R use `complete.cases` to check number of complete cases
+* In R use `na.omit` to remove missing rows
+* Side effect: \color{red}{waste of information}
+* Unknown side effect: \color{red}{introduces bias if MAR}
+
+# Case 2: Complete-Case Analysis Example
+
+* Consider `heartRate` and `MCAR`
+```{r, echo = TRUE}
+data <- read.csv('heartRateAndCaloriesBurnt.csv')
+df   <- data[, c('heartRate', 'MCAR')]
+sum(  complete.cases( df ) )
+```
+
+* 93 complete cases out of 100 observations. This is not so bad
+* Remove `NA` rows and calculate the number of rows
+
+```{r, echo = TRUE, eval = FALSE}
+df  <- na.omit(df)
+nrow(df)
+```
+
+* Try with `MNAR` and `MAR`.
+
+# Case 2: Single imputation overview
+
+```{r, message = FALSE, warning = FALSE}
+imputation <- data.frame(Imputation = c('Unconditional Mean/Median/Mode',
+                                        'Unconditional Distribution',
+                                        'Conditional Mean',
+                                        'Conditional Distribution'),
+                         Difficulty = c(1:4),
+                         Accuracy   = c(1:4))
+imputation %>% knitr::kable()
+
+```
+
+# Case 2: Single imputation method and issues (Part I)
+
+**Unconditional Mean/Median/Mode**
+
+* In R, use `mean(x, na.rm = FALSE)`
+* \color{red}{Issue: Zero variance in imputed values}
+
+**Unconditional Distribution**
+
+* Hot deck encoding: impute with a randomly choosen one non-missing value
+* \color{red}{Issue: less biased variance in imputed values, wrong correlation}
+
+# Case 2: Single imputation method and issues (Part II)
+
+**Conditional Mean**
+
+* Use linear regression to impute missing values
+* Example in `R`
+
+```{r}
+mod          <- lm( MCAR ~ heartRate, data = data )
+df           <- data %>% filter(is.na(MCAR))
+imputedValue <- predict( mod, newdata = df )
+```
+
+* Other regression methods also work
+* R package: `missForest` (not recommended as we have `mlr`)
+* \color{red}{Issue: wrong conditional variance}
+
+**Conditional Distribution**
+
+* Add some random noises to linear regression
+* \color{red}{How to generate random noises}
+
+# Case 2: Single imputation visualisation
+
+```{r, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(reshape2)
+library(cowplot)
+library(tidyverse)
+p1 <- data %>% 
+  mutate( ind = ifelse(is.na(MCAR), 'Missing', 'Not Missing') ) %>%
+  ggplot( aes(x = heartRate, y = CaloriesBurnt, color = ind)) + 
+  geom_point( ) + scale_color_discrete('') +
+  labs( x = '') + 
+  ylim(105, 140) + xlim(50, 100) 
+   
+
+mod <- lm( MCAR ~ heartRate, data = data )
+
+df <- data %>% 
+  mutate( ind = ifelse(is.na(MCAR), 'Missing', 'Not Missing') ) %>%
+  mutate( `Condtional Mean`    = mean(MCAR, na.rm = TRUE),
+          HotDeck = 118.7665) %>%
+  filter( is.na(MCAR) )
+
+df$`Linear Reg`      <- predict( mod, newdata = df )
+df$`Linear Reg + Noise` <- df$`Linear Reg` + rnorm(nrow(df), 2.5, sd = 5)
+
+p2 <- df %>% 
+  select(heartRate, CaloriesBurnt, `Condtional Mean`, HotDeck, `Linear Reg`, `Linear Reg + Noise`) %>% 
+  melt( id = 'heartRate') %>% 
+  ggplot( aes(x = heartRate, y =value, color = variable)) +
+  geom_point( ) + ylim(105, 140) + xlim(50, 100) + 
+  geom_smooth(method = 'lm', se = FALSE, alpha = 0.5, size = 0.5, fullrange  = TRUE) +
+  scale_color_discrete('') + labs( y = 'CaloriesBurnt')
+
+plot_grid(p1, p2, ncol = 1, align  = 'v')
+```
+
+
+# Case 2: Imputation with `mlr`: An Example
+
+* Data: `weightTypes`
+* $n:=100$
+* Descriptive Features:
+
+1. `heartRate`
+2. `CaloriesBurnt`
+3. `numberOfMealsPerDay`
+4. `gender`
+5. `exerciseIntensity`
+
+* Target feature = `weightType`
+
+# Case 2: Unconditional mean imputation with `mlr`
+
+* Impute by variable types
+
+```{r, size = "tiny", echo = TRUE, prompt = FALSE}
+library(mlr)
+data2   <- read.csv('weightTypes.csv')
+impute1 <- impute(data2, target = 'weightType', 
+                  classes = list(numeric = imputeMean(),
+                                 factor  = imputeMode(),
+                                 integer = imputeMedian())
+                  )
+```
+
+* Get the imputed data set via `impute1$data`
+* Get information via `impute1$desc`
+
+# Case 2: Conditional mean with `mlr`
+
+* Impute selected columns
+* Let's try decision tree on `exerciseIntensity`
+
+```{r, echo = TRUE, prompt=FALSE, eval = FALSE}
+impute(data2, target = 'weightType', 
+       cols = list(
+         CaloriesBurnt       = imputeNormal(),
+         numberOfMealsPerDay = imputeMedian(),
+         gender              = imputeMode(),
+         exerciseIntensity   = imputeLearner("classif.rpart"))
+)
+```
+
+# Case 2: Which learners offer imputations?
+
+For regression,
+
+* `listLearners("regr", properties = "missings")[c("class", "package")]`
+
+For classification,
+
+* `listLearners("classif", properties = "missings")[c("class", "package")]`
+
+
+# Case 2: Sneak peek to multiple imputation
+
+**Problems of Single Imputation**
+
+* Too optimistic: Imputation model is an estimation, but not the true model
+* $\implies$ imputed values have some uncertainty
+* Solution: Multiple Imputation
+
+**Multiple Imputation**
+
+* Beyond scope of MATH2319
+* Not recommended in the project
+* R Package: `mice` (Multivariate Imputation by Chained Equations)
+* It is based on Gibbs Sampler 
+* Recommended course: [MATH2269 Applied Bayesian Statistics](http://www1.rmit.edu.au/courses/050645)
+
+# Summary
+
+* Missing values in target features vs descriptive features
+* Be pragmatic, use the right tools
+* Types of missing values in descriptive features
+* Key R functions to know: `mlr:impute` and `complete.cases`

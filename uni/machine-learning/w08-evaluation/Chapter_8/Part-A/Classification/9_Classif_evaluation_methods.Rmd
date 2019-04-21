@@ -1,0 +1,251 @@
+---
+title: 'Machine Learning: Chapter 8 - Part I'
+subtitle: 'Evaluation Methods for Classification Problems'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Overview
+
+In previous weeks, we have seen some tricks to how to evaluate some classification problems using mean misclassification error (`mmce`) and how to adjust threshold. The objective of this document is to review what we have learnt and introduce other measures.
+
+# Preliminaries
+
+We shall use the Ionosphere dataset for illustration. This data was collected by a system in Goose Bay, The dataset consist of 34 descriptive and the target feature is `class`. `class = g` mean a "good" radar, which returns evidence of some type of eletron structure in the ionosphere. Otherwise, `class = b` meaning it is a bad radar return. Therefore, it is a binary classification problem. The dataset is available in `kknn` package
+
+Let's configure a classification task and two learners: decision-tree (`rpart`) and 3-KNN for comparison. For each learner, we train a model.
+
+```{r, message=FALSE, warning = FALSE}
+library(kknn)
+library(mlr)
+data("ionosphere")
+
+classifTask  <- makeClassifTask(data = ionosphere, target = 'class')
+learner1     <- makeLearner("classif.rpart", predict.type = "prob") 
+learner2     <- makeLearner("classif.kknn",  predict.type = "prob",  k = 3) 
+
+mod1         <- train(learner1, task = classifTask )
+mod2         <- train(learner2, task = classifTask )
+
+```
+
+# Evaluation Methods
+
+Before we proceed to evaluate the models, we need to decide which measure to use. To find out which performance measures are available for a classification task, we can call `listMeasures`
+
+```{r}
+listMeasures( classifTask )
+```
+
+`listMeasures(classifTask)` returns many measures in abbreviation. To find out their **properties**, say more details about `mmce`, we can use `str` function:
+
+```{r}
+str(mmce)
+
+```
+
+The key properties are:
+
+1. `minimize`: where a lower value is better. For `mmce`, it is `TRUE`. Therefore, a lower value means better performance
+2. `best`: the best value to represent the best performance. For `mmce`, it is 0. That is no error rate at all!
+3. `worst`: the worst value to represent the worst performance, For `mmce`, it is 1 meaning the model committs 100 % error.
+4. `name`: the name of measure.
+5. `note`: extra description of measure. In our case, it describes how `mmce` is defined.
+
+
+Let's predict on full data set and evaluate the performance on each model using `task` as follow:
+
+```{r}
+pred1 <- predict(mod1, classifTask)   # regress model
+pred2 <- predict(mod2, classifTask)   # knn model
+
+```
+
+\color{blue}A side note\color{black}: we can also make predictions via `predict(mod1, newdata = ionosphere)`. Make sure to include `newdata` in the `predict`. The default performance of a regression problem is `mmce`. 
+
+```{r}
+performance(pred1)
+performance(pred2)
+```
+
+The KKN learner yields a zero error rate, beating the decision-tree. This might be a sign of overfitting issue. As we shall see next week, we should see how to conduct resampling to mitigate this type of problem.
+
+To include other measures, we can wrap them in a list. For example, we can evaluate the decision tree's predictions using True Positive (tp), True Negative (tn), False Positive (fp), and False Negative (fn)
+
+```{r}
+performance(pred1, measures = list(tp, tn, fp, fn) )
+```
+
+For rate-type measures and F1, we can run[^1]:
+
+```{r}
+performance(pred1, measures = list(f1, tpr, tnr, fpr, fnr) )
+
+```
+
+To summarise all rate-based measures, we can call `calculateROCMeasures`:
+
+```{r}
+r <- calculateROCMeasures(pred1)
+r
+```
+
+
+[^1]: Note that recall is equivalent to True Positive Rate. 
+
+\color{red}**Questions** \color{black}
+
+1. How do we interpret the measures above. 
+2. Give an example when F1 measure is an appropriate measure of a binary classification problem? \color{blue}Hint\color{black}: See @kelleher[, Section 8.4.2].
+
+`mlr` does not provide all measures such as K-S statistic proposed by @kelleher[, Section 8.4.3.2]. So, `mlr` allows user-defined measure via `makeMeasure` function. However, this is beyond the scope of this course. 
+
+# Confusion Matrix
+
+A confusion matrix can be obtained via `calculateConfusionMatrix` where the columns represent predicted and the rows actual class labels.
+
+```{r}
+calculateConfusionMatrix(pred1)
+
+```
+
+The total number of errors for single (true and predicted) classes is shown in the `-err.-` row and column respectively. To get relative or class frequencies, we can set `relative = TRUE`. We can normalize by either row or column, therefore every element of the above relative confusion matrix contains two values. The first is the relative frequency grouped by row (the actual value) and the second value grouped by column (the predicted value).
+
+To access the relative values, we can call the "slots": `$relative.row` and `$relative.col` from a confusion matrix object.
+
+```{r}
+confusionMatrix <- calculateConfusionMatrix(pred1, relative = TRUE)
+confusionMatrix
+confusionMatrix$relative.row
+confusionMatrix$relative.col
+```
+
+By setting `sums = TRUE`, we specify the absolute number of observations for each predicted and actual class values in the matrix.
+
+```{r}
+calculateConfusionMatrix(pred1, relative = TRUE, sums = TRUE)
+```
+
+
+\color{red}**Hint** \color{black}
+
+1. It is always a good practice to obtain the confusion matrix to cross-check with True Positive (tp), True Negative (tn), False Positive (fp), and False Negative (fn) obtained from the performance function. This is to ensure you have evaluated the same prediction set.
+
+# Adjusting Threshold and ROC Analysis
+
+You might recall that we can generate the threshold value and determine the optimal threshold value which yields the best performance. Here, we shall utilise it to perform ROC curve. Since we want to plot a ROC curve, we need to calculate the false and true positive rates (`fpr` and `tpr`). In addition, we also compute mmce.
+
+```{r}
+d <- generateThreshVsPerfData(pred1, measures = list(fpr, tpr, mmce))
+plotROCCurves(d)
+```
+
+By default, `plotROCCurves` plots the performance values of the first two measures passed to `generateThreshVsPerfData`. The first (`fpr`) is shown on the x-axis, the second (`tpr`) on the y-axis. To compare the performance of the two learners, we can display the two corresponding ROC curves in one plot as below:
+
+```{r}
+d <- generateThreshVsPerfData(list(rpart = pred1, kknn = pred2), 
+                              measures = list(fpr, tpr))
+plotROCCurves(d)
+```
+
+\color{red}**Questions** \color{black}
+
+1. Which measure is related to ROC curves?
+2. Based on the ROC curves above, which learner has a better performance?
+3. Why does the kink (the reverse L-shape) of the ROC curve of the `kknn` learner imply? Is it reasonable?
+4. Plot the changing values of `fpr` and `tpr` as the threshold is altered. Hint: use `plotThreshVsPerf(d)`.
+
+# Reference

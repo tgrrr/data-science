@@ -1,0 +1,311 @@
+---
+title: 'Machine Learning: Chapter 6 - Part II'
+subtitle: 'Warm-Up Examples: Naive Bayes'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+    highlight: zenburn
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Overview
+
+We shall use a dataset from a loan application fraud detection [@kelleher, Table 6.2] to show how to implement Naive Bayes classifier with `mlr` [@mlr]. The dataset can be downloaded at http://machinelearningbook.com/teaching-materials/. Also, we shall show why we need Laplace smoothing parameter, $k$ and how to determine the optimal value of $k$.
+
+# Preliminaries
+
+We need the `mlr` [@mlr] and `tidyverse` packages [@hadley] for machine learning and data wrangling.
+
+```{r, warning = FALSE, message = FALSE}
+library(mlr)
+library(tidyverse)
+
+```
+
+`mlr` calls the `naiveBayes` function from the `e1071` package [@e1071]. Therefore, we need to check if this package has been installed by calling `require(e1071)` or
+
+```{r, message = FALSE, warning=FALSE}
+listLearners() %>% 
+  filter(class == "classif.naiveBayes") %>% 
+  select(class, name, package, installed)
+```
+
+Let's read and process the data. Note that the following preprocessing is \color{red} not elegant \color{black}. \color{blue}Can you think of a better way? \color{black}
+
+```{r}
+data    <- read.csv('Table6-2.csv', skip = 1)
+data$ID <- NULL
+data <- sapply(data, function(x){ trimws(sub("\t", '', x)) }) 
+data <- data.frame(data)
+```
+
+# Naive Bayes 
+
+Let's define the classification task and Naive Bayes learner as follow. Notice that it is preferable to set the predict type to "prob" in `makeLearner` so that we can refine prediction by adjusting the threshold probability.
+
+```{r}
+classif.task <- makeClassifTask(id = "fraud", 
+                                data = data, 
+                                target = "Fraud",
+                                positive = 'true')
+
+learner1 <- makeLearner(cl = "classif.naiveBayes", 
+                        predict.type = "prob")
+```
+
+We train model to make prediction with the full (training) data. Resampling with cross validation is left as an exercise (keep in mind that we only have 20 observations). With a threshold probability of 50 %, we reach `mmce` of 20 % but have misclassified 3 true frauds, which is shown by `calculateConfusionMatrix(pred1)`. This is because of a relatively lower proportion of frauds. This is coined as "imbalanced class problem" where at least one class of the target feature has a very low percentage in the dataset. We shall learn how to deal with this issue in the upcoming weeks.
+
+```{r}
+mod1  <- train( learner1, classif.task)
+pred1 <- predict(mod1, newdata  = data)
+
+performance(pred1)
+calculateConfusionMatrix(pred1)
+pred1$threshold
+
+```
+
+# Laplace Smoothing
+
+## A Motivating Example
+
+Consider a *prospective* loan application (i.e. no target feature) below:
+
+* `history = 'paid'`
+* `CoApplicant = 'guarantor'`
+* `Accommodation = 'false'`
+
+The objective is predict if this application is fradulent. We can create one datum in `R` by defining the following `data.frame` object. Note that the names of the descriptive features or columns must match those of the training data. Otherwise, the `predict` function will not work. Let's name the `data.frame` object `test_data`. 
+
+```{r}
+test_data <- data.frame(History = 'paid', 
+                        CoApplicant = 'guarantor', 
+                        Accommodation = 'false')
+```
+
+By applying `filter`, we can find that the training dataset do not contain the same instance of `test_data`.
+
+```{r}
+data %>% filter(History == 'paid', 
+                CoApplicant == 'guarantor', 
+                Accommodation == 'false')
+
+```
+
+Therefore, when we make prediction on `test_data`, it would result a probability value of fraud close to zero. This is why we require Laplace smoothing.
+
+```{r}
+predict(mod1, newdata  = test_data)
+```
+
+## Fine-Tuning Laplace Parameters
+
+We can call `getParamSet` to check the list of parameters (or arguments) available in `classif.naiveBayes`. In this example, we have only one - `laplace` which is essentially the Laplace smoothing parameter. The result also shows that the values of `laplace` range from `0` to `inf` (i.e. $k \geq 0$).
+
+```{r}
+getParamSet("classif.naiveBayes")
+```
+
+Let's configure the discrete tune parameter setting where $k = 0, 0.1, 2, 3, 5, 10, 20$ in the chunk below. An alternative would be `makeNumericParam`.
+
+```{r}
+ps <- makeParamSet(
+  
+  makeDiscreteParam('laplace', values = c(0, 0.1, 0.5, 2, 3, 5, 10, 20))
+  
+)
+print(ps)
+```
+
+In addition, we need to define the control and 2-folded stratified resampling. Two folds are used for illustration and also because we have a very small sample size. For result reproducibility, specify a random seed.
+
+```{r}
+ctrl  <- makeTuneControlGrid()
+rdesc <- makeResampleDesc("CV", iters = 2L, stratify = TRUE)
+set.seed(123)
+```
+
+Let's run the tune-tuning process.
+
+```{r}
+res <- tuneParams("classif.naiveBayes", 
+                   task = classif.task, 
+                   resampling = rdesc,
+                   par.set = ps, 
+                   control = ctrl, 
+                   show.info = FALSE)
+
+```
+
+The result is that the mean test error is 30 %. As expected, it is higher than the error generated by a trained model without fine-tuning. The optiomal Laplace parameter is 3. 
+
+```{r}
+res
+mmce$minimize
+res$x
+res$y
+
+```
+
+To vindicate the result, we need to assess how error rate changes with a range of Laplace parameter values by assigning a `generateHyperParsEffectData(res)` object named `psdata`. To visualise it, we can apply `plotHyperParsEffect` on `psdata`. The plot shows that the error rate is minimised when Laplace parameter is larger or equal to 3. Since we only have a range of discrete values, the error rate curve looks a bit kinked.
+
+```{r}
+generateHyperParsEffectData(res)
+psdata <- generateHyperParsEffectData(res)
+
+plotHyperParsEffect(psdata, x = "laplace", 
+                    y = "mmce.test.mean",
+                    plot.type = "line")
+```
+
+## Fusing Optimal Laplace Parameter
+
+There are two fusing methods. The first is to call `setHyperPars` as follow by incorporating the optimal (Laplace) parameter value via `par.vals = res$x`. The advantage of `setHyperPars` is that the learner no longer needs to run tune-fining process. The downside is that it can only result in a response prediction, not probability.
+
+```{r, eval = FALSE}
+tunedLearner0 <- setHyperPars( makeLearner("classif.naiveBayes"), 
+                               par.vals = res$x)
+
+```
+
+The second method is to apply `makeTuneWrapper` with tune-funing configuration. It basically repeats tune-fining process. Therefore, it is viable to configure a tune wrapper bypassing `tuneParams` function. Likewise, we can train and predict using the tune wrapper
+
+```{r, cache = TRUE}
+tunedLearner1 <- makeTuneWrapper(learner1, rdesc, mmce, ps, ctrl, show.info = FALSE)
+
+tunedMod1  <- train(tunedLearner1, classif.task)
+tunedPred1 <- predict(tunedMod1, newdata  = data)
+
+```
+
+Despite the same fine-tuning configurations, the tuned wrapper results in a lower error rate than `res` (from the previous section). \color{red} Why?\color{black} Due to sampling, there are more misclassification of fraudulent applications. The tuned wrapper makes only one correct guess.
+
+```{r}
+performance(tunedPred1)
+res$x
+
+calculateConfusionMatrix(tunedPred1)
+
+```
+
+However, the Laplace-tuned wrapper is able to predict `test_data`. The probability of a fradulent application is no longer close to zero but lower than the threshold probability of 50 %. Consequently, it is still classified as non-fradulent. 
+
+```{r}
+tunedPred1$threshold
+predict(tunedMod1, newdata  = test_data)
+
+```
+
+## Adjusting Probability Threshold
+
+By running the codes below, we can improve the accuracy by adjusting the optimal probability threshold to 30 %. \color{red}How do you interpret a lower threshold level? \color{black}
+
+```{r}
+d <- generateThreshVsPerfData(tunedPred1, measures = list(mmce))
+
+plotThreshVsPerf(d) + 
+  geom_hline(yintercept = 0.3, color = 'red', linetype = 'dashed')
+
+```
+
+By setting the threshold of 30 % on the tuned predictions, we can obtain a new set of predictions which yields the comparable confusion matrix generated by the base Naive Bayes classifier.
+
+```{r}
+tunedPred3 <- setThreshold(tunedPred1, 0.3)
+calculateConfusionMatrix(tunedPred3 )
+
+```
+
+# References

@@ -1,0 +1,279 @@
+---
+title: 'Machine Learning: Chapter 5 - Part I'
+subtitle: 'Warm-Up Examples'
+version: 1
+author:
+date:
+output: pdf_document
+referencecolor: #eff8e5
+linkcolor: #eff8e5
+inlinecolor: darkred
+link-citations: yes
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+
+# Normalisation
+
+@kelleher[, p. 93] propose two main approaches in normalising numeric features. The first is range normalisation:
+
+\begin{center}
+  \begin{align}
+    a_{i}^{'} & = \frac{a_{i}-\min{a}}{\max{a}-\min{a}}\times(\text{High}-\text{Low}) + \text{low} \label{rangeNormalisation}
+  \end{align}
+\end{center}
+
+where:
+
+* $a_{i}^{'}$ is the normalised feature value
+* $a_{i}$ is the original feature value
+* low and high are the minimum and maximum of the desired range.
+
+The second is the standardisation:
+
+\begin{center}
+  \begin{align}
+    a_{i}^{'} & = \frac{a_{i}-\bar{a}}{\text{sd}(a)} \label{standardisedNormalisation}
+  \end{align}
+\end{center}
+
+Using texbook exercise 5 @kelleher[, p. 93], we shall illustrate how we can normalise or standardise features with `mlr` [@mlr]. Let's replicate the exam data in `R`:
+
+```{r}
+Exams <- data.frame( id    = c(1:20),
+                     score = c(42, 47, 59, 27, 84, 49, 72, 43, 73, 59,
+                               58, 82, 50, 79, 89, 75, 70, 59, 67, 35))
+```
+
+To apply range normalisation with a range of $(0,1)$, we call `normalizeFeatures` on `Exams` by specifying the columns we want to transform and the range `c(0, 1)`. In this case, we have only one column namely `score`.
+
+```{r, warning = FALSE, message = FALSE}
+library(mlr)
+Exams <- normalizeFeatures(Exams, method = 'range', cols = 'score', range = c(0, 1))
+Exams
+```
+
+```{r, echo = FALSE}
+Exams <- data.frame( id    = c(1:20),
+                     score = c(42, 47, 59, 27, 84, 49, 72, 43, 73, 59,
+                               58, 82, 50, 79, 89, 75, 70, 59, 67, 35))
+```
+
+To apply range normalisation with a range of $(-1,1)$, we simply change the `range` as follow:
+
+```{r, eval = FALSE}
+normalizeFeatures(Exams, method = 'range', cols = 'score', range = c(-1, 1))
+```
+
+Before `mlr`, usually we standardise the column by calling `scale` and convert it to a vector.
+
+```{r, eval = FALSE}
+Exams$score <- c( scale(Exams$score) )
+```
+
+With `mlr`, we can simply set the method to `standardize`
+
+```{r}
+Exams       <- normalizeFeatures(Exams, method = 'standardize', cols = 'score')
+```
+
+In practice, we shall apply `scale` or `normalizeFeatures` whenever appropriate. Note that `normalizeFeatures` returns a `data.frame` object, which is the modified data set whereas `scale` is useful if we wish to keep the original column by defining the scaled columns as a new feature. The other common normalisation approaches are:
+
+* Robust Normal Method
+* Median Absolute Deviation
+
+These approaches are robust to non-mormality. The **Robust Normal Method** relies on trimmed sample mean and sample standard deviation. Equation \ref{standardisedNormalisation} becomes:
+
+\begin{center}
+  \begin{align}
+    a_{i}^{'} = \frac{a_{i}-\bar{a}^{R}}{\text{sd}(a)^{R}} \label{zscore}
+  \end{align}
+\end{center}
+
+Where $\bar{a}^{R}$ and $\text{sd}(a)^{R}$ are trimmed means and standard deviation after removing the $\pm q \%$ of feature $a$. The main issue is that $q$ is predetermined. **Median Absolute Deviation** (MAD) replaces mean and standard deviation with median and MAD. For feature $a$, steps are:
+
+> 1. Compute $D_{i}:=|a_{i}-\text{median}(a)|$ for $i=1,2...,n$
+> 2. Calculate $\text{MAD}:=\text{median}(D_{i})=\text{median}(D_{1},D_{2},...D_{n})$
+> 3. Calculate:
+
+$$a_{i}^{'}=\frac{a_{i}-\text{median}(a)}{1.4826 \times \text{MAD}}$$
+
+Note $E[k\times\text{MAD}]=\sigma \text{ where }k = 1/\Phi^{-1}(3/4) \approx 1.4826$. \textcolor{red}{Unfortunately}, neither `mlr` nor `R` provide handy functions for these normalisations. We shall leave them as exercises.
+
+# Binning
+
+@kelleher[, p. 93] introduce two popular bining methods: **equal-width binning** and **equal-frequency binning**. Let's illustrate with text exercise 6 [@kelleher, p. 108] with the "quiz" data set.
+
+```{r}
+quiz <- data.frame( id    = c(1:20),
+                    score = c(92,  107,  83, 101, 107,  92,  99, 119,  93, 106,
+                              105,  88, 106,  90,  97, 118, 120,  72, 100, 104))
+
+```
+
+To visualise **equal-width binning** using 5 bins, we can add the `geom_histogram` and set `bins = 5` in ggplot. 
+
+```{r, warning = FALSE, message = FALSE}
+library(ggplot2)
+ggplot(quiz, aes(x = score) ) + geom_histogram(bins = 5)
+```
+
+`geom_histogram` is not perfect as the default bin is always 30. So how do we determine optimal number of bins? In reality, there is no universal consensus among statisticians. However, the `hist` function from base `R` has an argument named `breaks` where user can specify the algorithm in specifying optimal bin number such as FD and Sturges Rules. For more details, type `?hist` in R console.
+
+To visualise **equal-frequency binning** using 5 bins, we can follow the steps below:
+
+1. cut `score` in 5 bins: 
+
+```{r}
+cut_number(quiz$score, n = 5) 
+```
+
+2. Convert it as a table:
+
+```{r}
+table( cut_number(quiz$score, n = 5) )
+```
+
+3. Wrap it as a `data.frame` object. Let's name it as `equalFreq`
+
+```{r}
+equalFreq <- data.frame( table( cut_number(quiz$score, n = 5) ) )
+```
+
+Now let's visualise the result. We can no longer apply `geom_histogram` as we have "binned" the score into categorical features. The appropriate layer would be `geom_bar`. Since we already have the frequency or the count in `equalFreq`, we must set `stat = 'identity'` to command `ggplot` to map the count values (`Freq`) to respective bins (`Var1`).
+
+```{r}
+ggplot( equalFreq, aes(x = Var1, y = Freq)) + 
+  geom_bar(stat = 'identity') + 
+  labs(x = 'score', y = 'Count')
+```
+
+# Resampling with `mlr`
+
+Within `mlr` framework, we usually resample the data set during model building to evaluate performance. Hence, there is no urgent need to resample the data into training and test sets in the beginning. However, `mlr` offers such option too. Consider `iris` which consists of 3 numeric descriptive features and one target feature; species. Species has three classes. Say we would like to build a classifier from `iris`. In `mlr`, we must create a classification task
+
+```{r}
+data(iris)
+task <- makeClassifTask(data = iris, target = 'Species')
+```
+
+For simplicity, we split `iris` into one training and one testing sets (holdout resampling). To begin, we can define a `makeResampleInstance` object.
+
+```{r}
+h0  <- makeResampleInstance('Holdout', task)
+h0
+```
+
+`h0` is a list object where we can access to the randomised indices for training and test sets:
+
+```{r, eval = FALSE}
+h0$train.inds[[1]]
+h0$test.inds[[1]]
+```
+
+We can insert these indexes in `iris` to obtain train and test data sets.
+
+```{r, eval = FALSE}
+train <- iris[h0$train.inds[[1]], ]
+test  <- iris[h0$test.inds[[1]], ]
+```
+
+`mlr` allows to define subset task on train and test sets in training learners. Using `subsetTask`, we can choose **not** to create two separately data sets like we have done previously. The key advantage is we can save memory in `R` which is notorious in holding large data files.
+
+```{r}
+trainTask <- subsetTask( task, subset = h0$train.inds[[1]])
+trainTask
+```
+
+```{r}
+testTask  <- subsetTask( task, subset = h0$test.inds[[1]])
+testTask
+```
+
+With `mlr`, we can implement stratified, $k$-fold, and other resampling strategies in `makeResampleInstance`. 
+
+# References

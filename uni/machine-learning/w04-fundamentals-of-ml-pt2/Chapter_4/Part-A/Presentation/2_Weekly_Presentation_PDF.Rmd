@@ -1,0 +1,118 @@
+---
+title: "Machine Learning: Chapter 4 - Part I"
+subtitle: "R Practice"
+author:
+date:
+output:
+  beamer_presentation:
+    incremental: true
+---
+
+# mlr Package Framework
+
+* `mlr` package is built upon other machine learning packages
+* You cannot run the learner with `mlr` if you have not installed 
+* You can install `mlr` and then the learner package later.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(shape)
+plot(1, type="n", xlab="", ylab="", xlim=c(0, 1.4), ylim=c(-1, 0.5),
+     axes = FALSE)
+
+for (i in 1:3){
+  rect(0, 0.5 -0.3*i ,0.75, 0.2 -0.3*i , 
+       lwd = 1, col = "skyblue", border = "white")
+
+  Arrows(0.8, 0.4 - 0.3*i, 1 ,0.4 - 0.3*i)
+  
+  text( x = 0.35, 0.4 - 0.31*i, paste0("Learner package ", i), cex = 1)
+}
+
+rect(1.1, 0.25, 1.7, -0.8,  lwd = 1, col = "pink", border = "white")
+text( x = 1.3, -0.25 ,"mlr", cex = 2) 
+```
+
+
+# Learner Packages
+
+* How to check if you have the learner package?
+* Call `listLearners()`
+
+```{r, warning = FALSE, message = FALSE}
+library(mlr)
+head( listLearners()[c("class", "package", "installed")])
+```
+
+# mlr Flow I
+
+* Configuring learning task
+
+```{r, eval = FALSE}
+task  <- makeClassifTask(id = "income", 
+                         data = adult, target = "income")
+```
+
+* Configuring learner
+```{r}
+learner <- makeLearner(cl = "classif.rpart", 
+                       predict.type = "prob")
+```
+ 
+* Training a learner: 
+
+```{r, eval = FALSE}
+mod <- train( learner, task)
+```
+
+# mlr Flow II
+
+* Making prediction using the trained learner
+
+```{r, eval = FALSE}
+pred <- pred(mod, newdata = adult)
+```
+
+* Performance evaluation
+
+```{r, eval = FALSE}
+performance(pred)
+```
+
+* More details, see Chapter 4 Warm-Up Example
+* We will cover performance evaluation in depth in Week 9 Lecture
+
+# Resampling in mlr
+
+* Why resampling?
+* Example of Cross Validation Resample
+
+```{r, eval = FALSE}
+rdesc <- makeResampleDesc("CV", iters = 3)
+r     <- resample("classif.rpart", task, rdesc)
+```
+
+# Training multiple models
+
+* You can train multiple models (in your project)
+* Note we will cover support vector machine (`ksvm`) in Week 12 (if time permits)
+
+```{r, eval = FALSE}
+lrns <- list(
+  makeLearner(cl = "classif.ksvm", id = "ksvm1" , 
+              sigma = 0.2, C = 2),
+  "classif.rpart",
+  "classif.randomForest"
+)
+```
+
+# Chapter 4 R Practice
+
+* Goal: Classify sonar signals from 60 descriptive features
+* Data set is available at the UCI and Canvas
+* For more details, visit Canvas
+
+# Questions?
+
+
+
+

@@ -1,0 +1,144 @@
+---
+title: 'Machine Learning: Chapter 6 - Part I'
+subtitle: 'R Practice (OPTIONAL)'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Objective and Dataset Description
+
+**Objective**: run feature selection in `mlr` on Airfoil Self Noise Data Set from [UCI Repository](https://archive.ics.uci.edu/ml/datasets/Airfoil+Self-Noise). The first five columns of the dataset represent the following five descriptive features:
+
+1. Frequency, in Hertzs. 
+2. Angle of attack, in degrees. 
+3. Chord length, in meters. 
+4. Free-stream velocity, in meters per second. 
+5. Suction side displacement thickness, in meters. 
+
+The last column is the **scaled sound pressure level** (in decibels) which is the **target feature**. \color{red}Be aware that \color{black} the dataset has no header!
+
+# Questions
+
+1. Read the data set and configure a regression task.
+2. Generate and plot the feature importance using three filter methods.
+3. Fuse a learner with a filtered method and fine-tune the **absolute number** of features from 1 to 5 with 3-folded cross validation resampling. Use mean squared error (`mse`) as the accuracy/performance measure. What is the optimal number of features? 
+
+> Hint: \color{blue} use `makeParamSet(makeDiscreteParam("fw.abs", values = seq(1:5)))` \color{black} Note a \color{red} subtle difference \color{black} here. In the warm-up example, we use `fw.perc`, which is percentage of features, in `makeParamSet`. In this question, we need the **number of features**.
+
+4. Train the regression model with the fused learner.
+5. Using the same regression task, fuse a learner with forward selection wrapper method. 
+
+> Hint: \color{blue} use `makeFeatSelWrapper` and `makeFeatSelControlSequential`. \color{black}
+
+6. Train the fused learner with the wrapped method from Question 5. 
+7. Say the trainned model is `mod`. Obtain feature selection result from the trainned model by calling 
+
+\color{blue} 
+
+> `sfeats <- getFeatSelResult(mod)` 
+
+\color{black} 
+
+> Run the code below and what do you find? 
+
+\color{blue} 
+
+> `analyzeFeatSelResult(sfeats)`
+
+8. Compared to filter method, does your choice of wrapper method improve the accuracy performance?
+9. With the same regresison task, do filter and wrapper methods result in the same optimal subset of features?
+

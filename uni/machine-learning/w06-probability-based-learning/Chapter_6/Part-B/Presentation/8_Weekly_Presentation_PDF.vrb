@@ -1,0 +1,22 @@
+\frametitle{Naive Bayes: Smoothing}
+
+\begin{itemize}
+\tightlist
+\item
+  Check error rate changes with a range of Laplace parameter values
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{generateHyperParsEffectData}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  When to use Laplace smoothing? Warm-Up example
+\item
+  When not to use Laplace smoothing? R Practice
+\end{itemize}
+

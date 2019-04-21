@@ -1,0 +1,143 @@
+---
+title: 'Machine Learning: Chapter 4 - Part I'
+subtitle: 'R Practice Questions (OPTIONAL)'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Pre-requisites
+
+Ensure you have installed the packages below
+
+```{r, message = FALSE, warning = FALSE}
+library(rpart)
+library(mlr)
+library(rpart.plot)
+```
+
+# Sonar Data
+
+This was the data set used by @gorman1988analysis in their study to classify sonar signals. The data set is available at [UCI](http://archive.ics.uci.edu/ml/datasets/connectionist+bench+(sonar,+mines+vs.+rocks)). The alternative is to scrap this data from the `mlbench` package [@mlbench]:
+
+```{r}
+library(mlbench)
+data(Sonar)
+```
+
+The dataset contains:
+
+* One target feature which is `Class`. `Class` has two labels: `M` and `R`. `M` represents the sonar signals off a **metal** cyclinder at various angles. `R` represents the sonar signals off a **rock** cyclinder under the similar conditions.
+* 60 descriptive features. Each feature is a pattern recorded from the signals in the range of 0 to 1. The features are named as `V01`, `V02`, ... and `V60`. Each number represents the energy within a particular frequency band, integrated over a certain period of time.
+
+
+# Questions
+
+Build a decision-tree model to classify the sonar signal from the Sonar data with `mlr` [@mlr].
+
+1. Create a classification task
+2. Configuring a `rpart` (decision-tree) learner with `predict.type = "prob"`
+3. Training the learner
+4. \color{blue}(Optional) \color{black} Visualise the trained decision-tree model
+5. Making prediction
+6. Performance evaluation with the mean misclassification error (mmce) rate
+7. \color{blue}(Optional) \color{black} Determine the optimal threshold
+8. Train the model by 2-fold Cross Validation resampling
+9. Train the model by 3-fold Cross Validation resampling. Does one more fold improve the model accuracy?
+
+\newpage
+
+# References

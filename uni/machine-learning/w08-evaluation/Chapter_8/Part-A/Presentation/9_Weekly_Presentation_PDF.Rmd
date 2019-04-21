@@ -1,0 +1,73 @@
+---
+title: "Machine Learning: Chapter 8 - Part I"
+subtitle: "R Practice"
+author:
+date:
+output:
+  beamer_presentation:
+    incremental: no
+    theme: "Madrid"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval =TRUE)
+```
+
+# Evaluation methods
+
+* Why do we evaluate?
+* How do we implement evaluation measures in R?
+* Which measure(s) should we use?
+
+# Evaluation for classification problems in mlr
+
+Key functions you need to know
+
+1. `listMeasure`
+2. `performance`
+3. `calculateConfusionMatrix`
+4. `generateThreshVsPerfData`
+5. `plotROCCurves`
+
+Additional functions you need to know
+
+6. `makeCostMeasure` (cost-sensitive classification; to be discussed in Week 10)
+
+# Evaluation for regression problems in mlr
+
+Key functions you need to know
+
+1. `listMeasure`
+2. `performance`
+
+Not so many functions
+
+# Important remarks
+
+* Do not assign an object with the measure name. 
+* For example, this will cause an error.
+
+```{r, eval = FALSE}
+mmce <- "Hello word"
+performance(pred, measures = list(mmce))
+```
+
+* To solve it, remove the first `mmce`
+
+```{r, eval = FALSE}
+rm(mmce)
+```
+
+* Multinomial and binary problems share but not all measures.
+* Always use `predict.type = "prob"` in defining learners for classification problems!
+
+# Demonstration 
+
+* Binary classification: `Ionosphere` data
+* Regression: `Boston Housing` data
+
+
+# FAQ
+

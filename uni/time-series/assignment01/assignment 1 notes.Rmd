@@ -1,0 +1,394 @@
+---
+title: "Assignment 1 notes"
+author: "Phil Steinke s3725547"
+---
++++++++++++++++++++++++++++
+
+Final TODOLATER:
+link to github
+remove commented code
+copy paste variables
+check graph x and y
+
+
++++++++++++++++++++++++++++
+
+TODOLATER:
+- What are the elements of a suitable and successful data analysis
+- how you might go about presenting your results in a written report format. 
+
+## TODOLATER: INCLUDE? Compare to previous year
+```{r}
+# doTimeSeriesPlot(
+#   x = zlag(ozone.ts), # Generate first lag of the series
+#   xlab = 'zlag',
+#   y = ozone.ts, # Read the data into y
+#   ylab = 'ozone.ts',
+#   title = "Compare ozone to previous/neighbouring year",
+#   type='p')
+# linearTrendModel_previousYear = 
+#   lm(ozone.ts~zlag(ozone.ts))
+# abline(
+#   linearTrendModel_previousYear,
+#   col = colourPallete[1])
+```
+TODOLATER: where's this? Do I need it?
+```{r}
+# index = 2:length(x)    # Create an index to get rid of the first NA value in x
+# cor(y[index],x[index]) # Calculate correlation between numerical values in x and y
+```
+
+
+
+
+
+> The residual analysis is one of the essential stages of time series modelling. So, it's good to keep in mind that you should always decide on the suitability of a model for forecasting considering the model fit (
+
+R-square, significance tests, etc.
+) along with the results of the residual analysis.
+
+
+
+```{r}
+# TRY AGAIN
+data(ozone.ts)
+har. = harmonic(ozone.ts,-1000) # calculate cos(2*pi*t) and sin(2*pi*t)
+model4 = lm(ozone.ts~har.) # remove -1 to include the intercept term in the model
+summary(model4)
+
+plot(
+  type='l',
+  main="Fitted model to average monthly temperature series",
+  ylab='Temperature',
+  ts(
+    fitted(model4),
+    freq=7,
+    start=c(1927)
+  ),
+  # ylim= range(
+  #         c(
+  #           fitted(model4),
+  #           ozone.ts)
+  #         ),
+  ylim = c(
+    min(c(
+      fitted(model4),
+      as.vector(ozone.ts)
+    )), 
+    max(c(
+      fitted(model4), 
+      as.vector(ozone.ts)
+  ))),
+) # ylim ensures that the y axis range fits the raw data and the fitted values
+points(ozone.ts) 
+
+```
+
+
+```{r}
+ozone_harmonics = 
+  harmonic(ozone.ts, .5)
+model_ozone_harmonics = lm(ozone.ts ~ ozone_harmonics)
+summary(model_ozone_harmonics)
+
+
+
+plot(
+  col = "red",
+  # lty = 100,
+  main = "Fitted quadratic curve",
+  type = "l",
+  ylab = 'y' ,
+  ts(
+    fitted(model_ozone_harmonics),
+    frequency = 1,
+    start = 1927,
+    ),
+    # ylim = c(
+    #   min(c(
+    #     fitted(model_ozone_harmonics),
+    #     as.vector(ozone.ts))), 
+    # 
+    #   max(c(
+    #     fitted(model_ozone_harmonics),
+    #     as.vector(ozone.ts)))
+    # ),
+    # start=c(1927),
+
+    # ylim=
+    #   range(
+    #     c(
+    #       fitted(
+    #         model_ozone_harmonics
+    #         ),
+    #       ozone_harmonics
+    #     )
+    #   ),
+)
+points(as.vector(ozone.ts), type = "o")
+```
+
+```{r}
+plot(
+  ts(
+    fitted(model4),
+    freq=7,
+    start=c(1927)),
+    type='l',
+    ylab='Temperature',
+    ylim=
+      range(c(
+        fitted(model4),
+        ozone.ts)
+      ),
+      main="Fitted model to average monthly temperature series"
+  ) 
+      # ylim ensures that the y axis range fits the raw data and the fitted values
+# points(ozone.ts)
+# lines(ozone.ts) 
+lines(as.vector(ozone.ts), type = "o")
+
+```
+
+sma tta
+```{r}
+SMA(ozone.ts, n = 7,)
+
+```
+
+
+
+```{r}
+beep(2)
+```
+
+```{r}
+data(rwalk) # Read the data
+
+tail(rwalk)
+tail(ozone.ts)
+
+t_ozone = time(ozone.ts)
+t_random = time(rwalk)
+
+tail(t_ozone)
+tail(t_random)
+
+length(t_ozone)
+length(t_random)
+
+model1 = lm(rwalk~t)
+
+model1 = lm(ozone.ts~t)
+
+print(new)
+
+print(ozone.ts)
+
+row.names(ozone.ts)
+
+tail(ozone.ts)
+t = time(ozone.ts) # Create time points for model fitting
+model1 = lm(ozone.ts~t) # label the model as model1
+h = 5 # 5 steps ahed forecasts
+# Now we will implement the two-step algorithm
+
+new = data.frame(t = c(2017:2021))
+
+# new = data.frame(t = seq((length(t)+1), (length(t)+h), 1)) # Step 1
+# Notice here that I'm using the same variable name "t" as in the 
+# fitted model above, where the name of the variable showing time 
+# is also "t". To run the predict() function properly,
+# the names of variables in fitted model and "new" data frame
+# must be the same!!!
+forecasts = predict(model1, new, interval = "prediction")
+# Here interval argument shows the prediction interval
+print(forecasts)
+```
+```{r}
+plot(
+  ozone.ts, 
+  xlim = c(1940,2022),
+  ylim = c(-13,3),
+  ylab = "Random walk data")
+# We need to convert forecasts to time series object starting from the first 
+# time steps-ahead to be able to use plot function. 
+# We do this for all columns of forecasts
+lines(ts(as.vector(forecasts[,1]), start = 2016), col="red", type="l")
+lines(ts(as.vector(forecasts[,2]), start = 2016), col="blue", type="l")
+lines(ts(as.vector(forecasts[,3]), start = 2016), col="blue", type="l")
+legend("bottomleft", lty=1, pch=1, col=c("black","blue","red"), text.width = 20,
+       c("Data","5% forecast limits", "Forecasts"))
+```
+
+
+
+
+
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+before ash:
+  
+  ```{r fig.height=4, fig.width=8}
+doTimeSeriesPlot <- 
+  function(
+    x,
+    y,
+    title = 'Words, mainly words'
+  ) {
+    
+    # head(ts_data)
+    head(y)
+    # args <- list(...)
+    # y_exists <- "y" %in% names(args)
+    # if(y_exists) {
+    #   y = lm(ts_data~time(ts_data))
+    # } else {
+    #   y = lm(ts_data~time(ts_data))
+    # }
+    
+    # y = zlag(ts_data)
+    par(bg = colourPallete[5])
+    plot(
+      x,
+      y,
+      # y = ts_data,
+      # x = ts_data,
+      # x = zlag(ts_data),
+      type = 'o',
+      ylab = 'TODOLATER: How much humans suck (annually)',
+      xlab = 'year',
+      col = colourPallete[9],
+      pch = 19
+    )
+    title(
+      main = title,
+      col.main = colourPallete[9],
+      font.main = 3)
+    # points(ts_data)
+  }
+
+linearTrendModel = 
+  lm(ozone.ts~time(ozone.ts))
+
+doTimeSeriesPlot(
+  y = ozone.ts,
+  # y = linearTrendModel,
+  x = zlag(ozone.ts),
+  title = "How much humans suck (annually)"
+)
+linearTrendModel = 
+  lm(ozone.ts~time(ozone.ts))
+abline(
+  linearTrendModel,
+  col = colourPallete[1])
+
+# head(ozone.ts)
+
+```
+
+======================================================
+  
+  
+  <!-- ## Harmonic
+  - Use the least squares approach to fit a harmonic trend to the landings time series. 
+- Interpret the regression output. 
+- Save the standardized residuals from the fit for further analysis. -->
+  
+```{r}
+ozone_harmonics = harmonic(ozone.ts,)
+model.ozone.har = lm(ozone.ts ~ ozone_harmonics)
+summary(model.ozone.har)
+plot(
+  ts(fitted(model.ozone.har)),
+  ylim = c(min(c(
+    fitted(model.ozone.har),
+    as.vector(ozone.ts)
+  )), max(c(
+    fitted(model.ozone.har),
+    as.vector(ozone.ts)
+  ))),
+  ylab = 'y' ,
+  main = "Fitted quadratic curve to random walk data",
+  type = "l",
+  lty = 2,
+  col = "red"
+)
+lines(as.vector(ozone.ts), type = "o")
+```
+
+  
+  
+======================================================
+
+
+
+- TODOLATER: Does it look “random?” - Probably not, tbh
+- Display and interpret the time series plot for these data.
+- Use least squares to fit a linear time trend to this time series. 
+- Interpret the regression output. 
+- Save the standardized residuals from the fit for further analysis.
+- **Standardized Residuals** -  Construct and interpret the time series plot of the standardized residuals from part (b) in a new graphics window.
+- **harmonic trends** Use the least squares approach to fit a harmonic trend to the landings time series. Interpret the regression output. Save the standardized residuals from the fit for further analysis.
+
+Looking for different kinds of trends, eg season, etc.
+## TODOLATER: Should we normalise the data?
+```{r}
+# TODOLATER: Should we normalise the data?
+
+# dat <- data.frame(x = rnorm(10, 30, .2), y = runif(10, 3, 5))
+# scaled.dat <- scale(dat)
+# 
+# # check that we get mean of 0 and sd of 1
+# colMeans(scaled.dat)  # faster version of apply(scaled.dat, 2, mean)
+# apply(scaled.dat, 2, sd)
+
+```
+
+
+
+
+# ---------------------------------------------------------------------- #
+
+
+
+
+
+
+
+
+'arg' should be one of “default”, “tango”, “pygments”, “kate”, “monochrome”, “espresso”, “zenburn”, “haddock”, “textmate”
+
+theme: paper
+highlight: textmate
+
+packages <- c(
+  'knitr',
+  'knit_theme'
+)
+
+opts_knit$set(out.format = "html")
+knit_theme$set("baycomb")
+knit_theme$get() 
+
+
+# ---------------------------------------------------------------------- #
+
+doTimeSeriesPlot <- function(ts_data, title = '') {
+  plot(ts_data,
+       type = 'o',
+       ylab = 'TODOLATER: How much humans suck (annually)',
+       xlab = 'year')
+  title(main = title,
+        col.main = "darkblue",
+        font.main = 4)
+}
+titleTest = "How much humans suck (annually)"
+doOzonePlot(ozone, titleTest)
+
+doOzonePlot(ozone)
+
+# TODOLATER: title refactor

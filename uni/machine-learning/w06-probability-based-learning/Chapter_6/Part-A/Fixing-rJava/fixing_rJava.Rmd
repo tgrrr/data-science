@@ -1,0 +1,74 @@
+---
+title: "Fixing rJava on macOS"
+author:
+date:
+output:
+  pdf_document: default
+---
+
+```{r setup, cache = F, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+# Overview
+
+Java and macOS (Version $\geq 10.12$) do not play well due to some legacy issues. It has an adverse impact on the `rJava` package where a lot of `R` packages, unfortunately, including our beloved `mlr` package, depend on. We are not concerned about "why" but more about "how to fix it". Note that there is no universal solution as it is sensitive to:
+
+* the version of Java JDK
+* the version of macOS
+* the version of R
+
+Therefore, the following proposed solution might or might not work in your Macbook. Unless the author of `rJava` fixes this issue (which I doubt so) or Oracle finds a solution, this `rJava` issue will be eternal whenever you upgrade any of Java JDK, macOS, and/or R.
+
+# Not-so-universal Solution
+
+## Step 1
+
+Open Terminal and type:
+
+```{r, eval=FALSE}
+> /usr/libexec/java_home -V
+```
+
+If you have Java JDK 11.02 installed, you should get the following message. Else, go to https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html to download it.
+
+```{r, eval = FALSE}
+Matching Java Virtual Machines (4):
+    11.0.2, x86_64:	"Java SE 11.0.2"	/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home
+```
+
+## Step 2
+
+To get Java running in R, you call `javareconf` as follows in Terminal
+
+```{r, eval=FALSE}
+> sudo R CMD javareconf
+```
+
+## Step 3
+
+Let's try our luck by installing and loading the `rJava` package.
+
+1. Download and install `rJava`
+2. Load it by calling `library(rJava)`
+
+```{r}
+library(rJava)
+```
+
+
+If there is no error message, you are good. Else, go to [Step 4]. 
+
+## Step 4
+
+A side note on the error message above: the `rJava` package fails to load because its "namespace" has gone to the incorrect path to load `libjym.dylib`. To mitigate this, try the following in R console (not Terminal)!
+
+```{r}
+options("java.home"="/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/lib")
+Sys.setenv(LD_LIBRARY_PATH='$JAVA_HOME/server')
+dyn.load('/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/lib/server/libjvm.dylib')
+library(rJava)
+```
+
+If there is no error, you are good to utilise `rJava`. Otherwise, please seek help from us or Google as soon as possible. Again, keep in mind that these steps might not solve this issue on your Macbook.
+

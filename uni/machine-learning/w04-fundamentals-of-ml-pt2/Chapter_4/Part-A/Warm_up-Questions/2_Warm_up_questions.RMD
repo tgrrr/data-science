@@ -1,0 +1,450 @@
+---
+title: 'Machine Learning: Chapter 4 - Part I'
+subtitle: 'Warm-Up Examples'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    fig_caption: true
+    toc_depth: 4
+    number_sections: true
+referencecolor: blue
+linkcolor: blue
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Introduction to `mlr` package
+
+The `mlr` [@mlr] package provides a unified and powerful interface for building machine learning models in `R`. Within the `mlr` framework, a supervised machine learning [^1] typically follow the steps below:
+
+1. Configuring [learning task];
+2. Configuring [learner];
+3. [Training a learner];
+4. Making [prediction] using the trained learner; and
+5. [Performance evaluation].
+
+In the following sections, we shall explain each step with the [Adult Census Income Data]. Check out for more tutorials (and `mlr` cheatsheet) at the [mlr package website](https://mlr-org.github.io/mlr-tutorial/devel/html/index.html).
+
+[^1]: The `mlr` package also supports unsupervised learning and survival analysis.
+
+# Adult Census Income Data
+
+The original version of this data was extracted from the [UCI machine learning](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/) by @ron. This data is also available at [Kaggle](https://www.kaggle.com/uciml/adult-census-income/data). The goal is to predict **whether a person makes over $50K a year**. The data contains the following features:
+
+* income: `>50K`, `<=50K` (**target feature**)
+* age
+* workclass
+* education: education levels
+* education-num: years of education
+* marital-status
+* occupation
+* relationship
+* race
+* sex
+* capital-gain
+* capital-loss
+* hours-per-week
+* native-country
+* \textcolor{red}{fnlwgt}
+
+Most of the descriptive features are self-explanatory, except \textcolor{red}{fnlwgt} which stands for "final weight". This feature aims to allocate similar weights to people with similar demographic characteristics. For more details, see [Kaggle](https://www.kaggle.com/uciml/adult-census-income/data). 
+
+# Model Building Example
+
+One of the information-based learning models is decision tree. We shall illustrate how we implement the decision tree as the **learner** to predict whether a person makes over $50K a year based on the [Adult Census Income Data]. In the context of the `mlr` package, Step 1 and Step 2 are:
+
+1. Learning task: \color{blue}Predict whether a person makes over $50K a year \color{black}
+2. Learner: \color{blue} decision tree. \color{black}
+
+## Packages
+
+Besides the `mlr` package, we need the `rpart` package [@rpart] to implement the decision tree. Note that the `mlr` package is built upon other machine learning packages. Therefore, we cannot build the decision tree using the `mlr` functions if the `rpart` has not been installed. This is a bit troublesome but it would be handy in the situation where we need to build multiple models from different packages. Once you have installed the `rpart` package, it is *optional* to load the `rpart` in your `R` library when you are running with `mlr`.
+
+```{r, message = FALSE, warning = FALSE}
+library(rpart)
+library(mlr)
+
+```
+
+## (Minimal) Data Processing
+
+Let's read and summarise the data.  Note that some factor or categorical features have too many levels. For instance, `native.country` has 42 countries. While it is possible to aggregate this feature by the continents such as "Europe", "Africa", "Asia", and so on, we shall leave it as an exercise in Week 3 (data processing).
+
+```{r}
+adult <- read.csv('adult.csv', header = TRUE)
+summarizeColumns( adult )
+```
+
+Notice that `capital.loss` and `capital.gain` can be possibly binded as one feature. The capital loss is defined as the loss incurred when an investment such as your house or stocks in Facebook, declines in value when you sell it. Meanwhile, the capital gain means the gain from selling your investment assets. A person can claim the *net* capital loss as tax deduction whereas the *net* capital gain is taxable. Therefore, it might be appropriate to combine these features as one. The code below [^2] illustrates how we define a new feature `capital` and remove `capital.loss` and `capital.gain` by assigning them as `NULL`.
+
+```{r}
+adult$capital <- adult$capital.gain - adult$capital.loss
+adult$capital.gain <- NULL
+adult$capital.loss <- NULL
+```
+
+[^2]: **Challenge yourself**: how can you generate this new feature and remove the old ones with the `dplyr` package [@hadley2]?
+
+## Learning Task
+
+A learning task encapsulate the data set and additional information about a machine learning problem. To instantiate a task, call `make<TaskType>`, in our example, `makeClassifTask`. A task requires an identifier and a `data.frame` i.e. `adult`. The identifier will be later used to name results, for benchmarking purposes, and plot annotation. For classification, the target column must be a factor.
+
+```{r}
+classif.task <- makeClassifTask(id = "income", data = adult, target = "income")
+classif.task
+```
+
+Our classification problem is binary, that is, the target feature has two classes: `>50K` and `<=50K`. In the binary classification, The two classes are usually coined as positive and negative classes in which the positive class has greater interest. Say, we are more interested who makes more than $50K$. In the `makeClassifTask`, we can manually set the positive class as `>50k` as follows:
+
+```{r}
+classif.task <- makeClassifTask(id = "income", data = adult, target = "income", positive = '>50K')
+classif.task
+
+```
+
+`mlr` provides many useful operators. For instance, we can access to the task information by using:
+
+```{r}
+getTaskDesc(classif.task)
+```
+
+We can refine the task further by removing the constant features which have no predictive power. We can also drop some features from the task *without* altering the dataset. For example, we can drop `native.country` which has too many categories.
+
+```{r}
+classif.task <- removeConstantFeatures( classif.task )
+classif.task <- dropFeatures( classif.task, c("native.country"))
+```
+
+Let's check the task information again. Hooray! We have dropped `native.country`.
+
+```{r}
+getTaskFeatureNames(classif.task)
+```
+
+
+## Learner
+
+A learner in `mlr` is created by calling `makeLearner`. Dependent on the learner type, we can specify the learner parameters and settings. The code below shows how to generate a decision-tree learner. In a classification learner, the `predict.type` can be `response` (which refers to the target labels) or `prob` (which is the  probabilities and labels by selecting the ones with the highest probability).
+
+```{r}
+classif.lrn <- makeLearner(cl = "classif.rpart", predict.type = "prob")
+classif.lrn
+```
+
+To list all the classification packages available in `mlr`, we can type `listLearners()`. The `listLearners()` is basically a `data.frame` which summarises the details of the (learner) packages used in `mlr`. In particular, it can tell which packages are missing on the library.
+
+```{r, warning = FALSE, message = FALSE}
+head( listLearners()[c("class", "package", "installed")])
+```
+
+To see if a package, say `rpart`, has been installed, we can write:
+
+```{r, warning = FALSE, message = FALSE}
+'rpart' %in% listLearners()$package
+```
+
+If it is `FALSE`, you must install the missing package.
+
+## Training A Learner
+
+Training a learner means fitting a model to a given data set. In `mlr`, we call the `train` function on a Learner and a suitable Task. In our example, we type:
+
+```{r}
+mod <- train( classif.lrn, classif.task)
+mod
+```
+
+The fitted model can be obtained by calling `mod$learner.model` or using the `getLearnerModel` function. Say, we assign it as `tree`. 
+
+```{r}
+tree <- getLearnerModel(mod)
+tree
+```
+
+Note that `tree` yields a tree node which encapsulates the model result. To visualise it, we can use `plot( tree ) ` followed by `text( tree )`[^3]. However, the visualisation is not user-engaging. Therefore, we can call the `rpart.plot` [@rpartPlot] on `tree`. Figure \ref{fig1} depicts the decision tree[^4].
+
+\newpage
+
+```{r fig1, fig.cap='\\label{fig1}Decision Tree of Predicting Who Earned More Than $50K'}
+library(rpart.plot)
+rpart.plot( tree )
+```
+
+[^3]: `mlr` can inherit the methods of other packages
+[^4]: **Challenge yourself**: How do we interpret Decision Tree \ref{fig1}?
+
+\newpage
+
+## Prediction
+
+Predicting the target feature in `mlr` is similar as the other `predict` methods in `R`. Setting `newdata = adult` means we are predicting with the full dataset. In practice, we are given with a test or out-of-sample data. To gain access to predicted probabilities, we can call the `getPredictionProbabilities`, which is available for classification learners:
+
+```{r}
+pred <- predict(mod, newdata = adult)
+head( getPredictionProbabilities(pred) )
+```
+
+
+## Performance Evaluation
+
+Assessing the learner's performance is an indispensable task in machine learning. In `mlr`, we evaluate the performance by feeding the predictions.
+
+```{r}
+performance(pred)
+```
+
+Since our example is a binary classification problems, the default performance measure is the **m**ean **m**is**c**lassfication **e**rror rate (mmce). Let $y_{i}$ and $\hat{y_{i}}$ be the actual and the predicted value of the $i^{\text{th}}$ observation, the **mmce** is given as:
+
+\begin{center}
+  \begin{align*}
+    \textbf{mmce} & = \frac{1}{n} \sum_{i=1}^{n} I(y_i \neq \hat{y}_i)
+  \end{align*}
+\end{center}
+
+Where
+
+\begin{center}
+  \begin{align*}
+    I(y_i \neq \hat{y}_i) = 
+    \begin{cases} 
+      0 &  y_i = \hat{y}_i \\
+      1 &  y_i \neq \hat{y}_i
+    \end{cases}
+  \end{align*}
+\end{center}
+
+There are other evaluation measures such as False Negative, F1-score, AUC, and Recall (we shall cover this later during the course). In `mlr`, we can call `listMeasures( classif.task)` to get all performance measures. For more details, visit http://mlr-org.github.io/mlr-tutorial/release/html/measures/. The `mlr` package allows to evaluate the models with multiple measures. Say, we would like to obtain **f**alse **p**ositive (fp)[^5] and mmce, we can do the following:
+
+[^5]: **Challenge yourself**: what's false positive? When is it useful?
+
+```{r}
+performance(pred, measure = list(fp, mmce))
+```
+
+\newpage
+
+In addition, we can compute the confusion matrix in `mlr`. 
+
+```{r}
+calculateConfusionMatrix(pred)
+```
+
+Since we are using the probability for prediction, we might need to know which threshold that the learner will classify a person to have earned more than $50K. To gain such information. we call:
+
+```{r}
+pred$threshold
+```
+
+This means the learner will predict a person to be in the >50K group as the predicted probability is more than 50 % [^6]. We would like increase the accuracy of predicting the richer persons, we can lower the threshold of the positive class to 25 %. A more conservative threshold comes with a cost - the misclassifcation of the negative class (persons with <$50K) increases and the overall error rate balloons to roughly 27.58%. Such trade-off is not uncommon, especially we have an unbalanced class i.e. a relatively low proportion of persons earning more than $50K.
+
+[^6]: **Challenge yourself** What would the learner do if it is tie, i.e. predicted probability is 50 %? 
+
+```{r}
+pred2 <- setThreshold(pred, 0.25)
+pred2$threshold
+```
+```{r}
+performance(pred2)
+
+```
+
+```{r}
+calculateConfusionMatrix(pred2 )
+```
+
+To find an optimal threshold, we can create an `generateThreshVsPerfData` object and plot it via `plotThreshVsPerf` (see Figure \ref{fig2}).
+
+```{r fig2, fig.cap='\\label{fig2}Mean Misclassfication Error Rate vs Threshold Level'}
+d   <- generateThreshVsPerfData(pred, measures = mmce)
+plotThreshVsPerf(d)
+```
+
+# Resampling Methods
+
+Resampling methods involve repeatedly drawing samples from a *training data* and refitting a model of interest on each sample to obtain more information about the fitted model. In `mlr`, the supported resampling strategies include:
+
+* `CV`: Cross-validation
+* `LOO`: Leave-one-out cross-validation
+* `RepCv`: Repeated cross-validation
+* `Bootstrap`: Out-of-bag bootstrap and other variants
+* `Subsample`: Subsampling, also called Monte-Carlo cross-validaton
+* `Holdout`: Holdout (training/test)
+
+Here, we shall use the $k$-fold cross validation, which is described in Figure \ref{fig3}. For reproducibility, we should set a constant random seed, say `set.seed(123)` before we start resampling. In `mlr`, the resampling process has two steps. First, we need to define the sampling strategy, say we assign it as `rdesc`:
+
+```{r}
+set.seed(123)
+rdesc <- makeResampleDesc("CV", iters = 3, predict = 'both')
+```
+
+Specifying `predict = 'both'` allows us to gain details about the test and training error rates. Second, we feed the task (`classif.task`) and into `rdesc` into the `resample` function.
+
+```{r}
+r     <- resample("classif.rpart", classif.task, rdesc)
+```
+
+```{r fig3, echo = FALSE, warning = FALSE, fig.cap= "\\label{fig3} A schematic display of k-fold CV. A set of n observations is randomly split into k non-overlapping groups. Each of these k-th sets acts as a validation set (shown in pink), and the remainder as a training set (shown in blue). The test error is estimated by averaging the k resulting error estimates", message = FALSE}
+library(shape)
+plot(1, type="n", xlab="", ylab="", xlim=c(-0.2, 1.4), ylim=c(-2, 1.5),
+     axes = FALSE)
+rect(-0.2, 0.9, 1, 1.2, lwd = 1)
+text(x = 0.2, y = 1.4, "Available Data Set")
+
+Arrows(0.45, 0.9, 0.45 , 0.5, col = "black", lwd = 1)
+
+rect(-0.2, -1.5, 0.8, -1.2, border = "white", col = "skyblue")
+rect(0.8, -1.5, 1.0, -1.2, border = "white", col = "pink")
+
+for (i in 1:3){
+  rect(0.2*(i-2), 0.5 -0.3*i , 0.2*(i-1), 0.2 -0.3*i , 
+       lwd = 1, col = "pink", border = "white")
+  
+  rect(0.2*(i-1), 0.5 -0.3*i ,1, 0.2 -0.3*i , 
+       lwd = 1, col = "skyblue", border = "white")
+  
+  rect(-0.2, 0.5 -0.3*i , 0.2*(i-2), 0.2 -0.3*i , 
+       lwd = 1, col = "skyblue", border = "white")
+  
+  Arrows(1, 0.4 - 0.3*i,1.2,0.4 - 0.3*i)
+  text( x = 1.3, 0.4 - 0.3*i,paste("mmce",i), cex = 0.75)
+  
+  text( x = -0.1, 0.4 - 0.3*i,"11 76 5", cex = 0.75)
+}
+
+text( x = -0.1, 1.05, "1 2 3", cex = 0.75 )
+text( x = 0.95, 1.05, "n", cex = 0.75)
+text( x = 0.95, -1.35, "47", cex = 0.75)
+text( x = -0.1, -1.35 ,"11 76 5", cex = 0.75)
+
+Arrows(1, -1.35,1.2,-1.35)
+text( x = 1.3, -1.35 ,"mmce k", cex = 0.75) 
+
+text( x = 0.45, y = -1, "...", cex = 2.0)
+
+text( x = 1.2, y = -1.75, bquote(paste("aggregated mmce","=",
+                                       Sigma["i=1"],"mmce"["k"],"/k")))
+
+
+```
+
+We can invoke the following slots to assess the performance of the decision tree after the resampling. `r$aggr` gives the aggregated or the average misclassification rate, which drops slightly with three-folded cross validation. Given approximately 30,000 individual rows, a small reduction in misclassification error would result in more correct predictions.
+
+```{r}
+r$aggr
+r$measures.test
+r$measures.train
+
+```
+
+# Summary
+
+* In `mlr`, the machine learning model building follows:
+
+> 1. Configuring learning task: 
+
+>> \color{blue}`task <- make<taskType>(id = <identifier>, data = <sample data>, target = <target feature>)` \color{black}
+
+> 2. Configuring learner: 
+
+>> \color{red} `lrn <- makeLearner(cl = <model>, predict.type = <prediction type>)`\color{black}
+
+> 3. Training a learner: 
+
+>> `mod <- train(` \color{red}`lrn`\color{black} ` , `\color{blue}`task`\color{black} `)`
+
+> 4. Making prediction using the trained learner: `pred <- predict(mod, newdata = <data>)`
+
+> 5. Performance evaluation:
+
+>> `performance(pred)`
+
+* Resampling helps reconstruct the sample data sets and improve the model performance.
+* Ensure the learner package is installed before running it with `mlr`.
+
+# References
