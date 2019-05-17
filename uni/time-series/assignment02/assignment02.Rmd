@@ -1,0 +1,374 @@
+---
+title: "MATH1318 Time Series"
+author: "Phil Steinke s3725547"
+subtitle: Assignment 1 - Semester 1, 2019
+output:
+  pdf_document: default
+  html_document:
+    fig_height: 2
+    fig_width: 6
+    highlight: kate
+    theme: paper
+  <!-- pdf_document: default -->
+---
+
+## Executive Summary
+
+### Hypothesis for Quadratic
+
+<!-- TODO:  -->
+H0:μΔ=0
+HA:μΔ≠0
+
+
+## Reporting
+
+### Data
+
+Egg depositions (in millions) of age-3 [Lake Huron Bloaters (Coregonus hoyi)](https://en.wikipedia.org/wiki/Coregonus_hoyi)Links to an external site. between years 1981 and 1996 are available in BloaterLH dataset of FSAdata package.
+
+### Goals
+
+- [ ] Analyse the egg depositions of Lake Huron Bloasters 
+- [ ] Use the analysis methods covered in the **modules 1 – 7** of MATH1318 Time Series Analysis
+- [ ] Choose the best model among a set of possible models for this dataset
+- [ ] Give forecasts of egg depositions for the next 5 years
+- [ ] Ask yourself what are the elements of a suitable and successful data analysis
+- [ ] Ask how you might go about presenting your results in a written report format
+- [ ] Please review the contents of the first seven modules and apply suitable approaches here
+
+#### R code 15%
+
+```{r Setup, message=FALSE, warning=FALSE, include=FALSE, warnings=0}
+rm(list = ls()) 
+cat("\014") # clear everything
+setwd("./.")
+# devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
+```
+```{r}
+library(packagr)
+packages <- c('beepr','FitAR','fUnitRoots','lmtest','RColorBrewer','smooth','readr','tidyr','TSA','TTR','MASS','CADFtest')
+packagr(packages) # alpha package to check, install and load packages
+
+# Add a ternary function in R: TRUE ? 'true' : 'false'
+`?` <- function(ifTernary, thenTernary)
+    eval(
+      sapply(strsplit(deparse(substitute(thenTernary)),":"),
+      function(e) parse(text = e)
+      )[[2 - as.logical(ifTernary)]])
+```
+
+```{r message=FALSE, warning=FALSE}
+setLocalWorkingDirectory <- "~/code/data-science/uni/time-series/assignment02/"
+dataFilename <- "raw-data/eggs.csv"
+startYear = 1981 # TODO: get start year
+endYear = 1996 # TODO: get start year
+
+# TODO: possibly remove mass
+InstallAndLoadPackages(packages, setLocalWorkingDirectory)
+data <- read_csv(dataFilename)
+data.ts <- ts(as.vector(data[,2]), start = startYear, end = endYear) # convert to timeseries
+source('~/code/data-science/uni/time-series/common/sort.score.R')
+
+# TODO:
+data.ts.raw = data.ts # make a copy
+
+
+# colourPallete <- brewer.pal(n = 10, name = "BrBG")
+cat("\014")
+```
+
+```{r The data}
+# class(data)
+# data.ts TODO: remove
+# data %>% dim() # 16 x 2 
+data.ts %>% dim() # 16 x 1 because we removed the year column
+```
+***************************
+
+```{r diff-functions}
+default_ylab = ''
+# default_subtitle = ''
+default_xlab = 'Year'
+
+doDiffAndPlot <- function(df.ts, diffCount, showPlot = T, showEacf=F) {
+  ifelse(diffCount != 0, (df.ts = diff(df.ts, differences = diffCount)),'bar')
+  paste('diff: ', diffCount) %>% print()
+  order = ar(diff(df.ts))$order
+  paste('order count (k): ', order)
+  diffAdfTest = adfTest(df.ts, lags = order, title = NULL, description = NULL)
+  p <- diffAdfTest@test$p.value
+  paste(
+    'adf p-value:', 
+    p, (ifelse(p < 0.05, '< 0.05 is acceptable', '> 0.05, too high')
+    )) %>% print()
+  ifelse(showEacf, eacf(df.ts, ar.max=3, ma.max=3),'')
+  if(showPlot) {
+    par(mfrow=c(1,3))
+    plot(df.ts, type='o', ylab=paste('#', diffCount, ' difference of data series'))
+    acf(df.ts)
+    pacf(df.ts)
+  }
+}
+```
+
+```{r initial-data, fig.height=2, fig.width=3}
+# TODO:
+doDiffAndPlot(data.ts, 0, F, F) # p = 0.4455 lag = 1 - has a trend = nope
+```
+- Plot has visual positive trend
+- no obvious seasonality
+- ACF and PACF have a waveform (similar to sin/cosine wave)
+- 1 is clear lag in ACF and PACF
+<!-- TODO: no lags = white noise -->
+
+## Confidence interval
+
+```{r confidence-interval, warning=FALSE}
+data.ts.transform = BoxCox.ar(data.ts, method = "yule-walker")
+# check the confidence interval of BoxCox
+data.ts.transform$ci
+```
+- The confidence interval `0.1 - 0.8` does not include 0, so we cannot do a log transform
+<!-- ### Log transform -->
+<!-- Log transform might be a mistake, because 0 isn't in the interval -->
+<!-- ```{r log-plus-diff-transforms}
+doDiffAndPlot(log.data.ts, 0, showPlot=T) # p = 0.01 has trend = nope
+``` -->
+
+```{r test-normality}
+doTestNormality <- function(df) {
+  qqnorm(df)
+  qqline(df, col = 2)
+  shapiro.test(df)
+}
+
+lambda = 0.35 # ~midpoint betwen confidence interval (0.8-0.1)/2 
+data.ts.boxcox = (data.ts^lambda-1) / lambda 
+doTestNormality(data.ts.boxcox)
+
+```
+The Box-Cox transformation **did** help to improve the normality of the series because:
+- the dots are moreso aligned with the red line in the QQ plot and 
+- the Shapiro test p-value(0.5463) > 0.05
+- It isn't a perfect fit with QQ between ~(-2:0.5) does not fitting the QQ plot line
+- Possible intonation point or bimodal data in the data
+
+## Diff (without Box-Cox)
+
+<!-- TODO: move diffs lower -->
+```{r diff-transforms}
+doDiffAndPlot(data.ts, 1, F, F) # p = 0.3601 no lags! = nope TODO: only show lags
+doDiffAndPlot(data.ts, 2, F) # p = 0.1643 lag = 4 = p is too high
+# FIXME:
+doDiffAndPlot(data.ts, 3, F, T) # p = 0.3768 lag = 1, 4 = p is too high = nope
+```
+- third diff doesn't add any further value
+- best is second diff with p 0.1643
+
+- EACF We can't see any meaningful shelf, which indicates white noise series
+> It means your EACF is suggesting a white noise series. There would be non-stationarity in your series in this case as well. - Haydar (discussion forum)
+
+
+### What about Box-Cox with diffs?
+```{r}
+doDiffAndPlot(data.ts.boxcox, 0, T) # p < 0.05 = 0.01941, lag = 1 but it still has trend
+doDiffAndPlot(data.ts.boxcox, 1, F) # p is higher 0.3282, better trend! Looks stationary
+doDiffAndPlot(data.ts.boxcox, 2, F) # p is better 0.09166 pacf lag of 1 @4 pacf
+doDiffAndPlot(data.ts.boxcox, 3, F) # p is better 0.14 pacf lag of 1 @4 pacf
+doDiffAndPlot(data.ts.boxcox, 4, T, T) # p is better 0.02 pacf lag of 1 @4 pacf
+# FIXME
+
+# set variable for model testing
+data.ts.boxcox4 <-diff(data.ts.boxcox, difference = 4)
+
+doTestNormality(data.ts.boxcox4)
+```
+The Box-Cox transformation **did** help to improve the normality of the series because:
+- the dots are more aligned with the red line in the QQ plot (than solely with the Box-Cox transformation)
+- the Shapiro test p-value(0.5948) > 0.05
+
+<!-- TODO: double-check -->
+From ACF and PACF:
+`{arima(p,d,q)} = {arima(1,4,1)}`
+
+```{r}
+# repeat the eacf plot
+eacf(data.ts.boxcox, ar.max=3, ma.max=3)
+```
+From the eacf plot: 
+`{arima(p,d,q)} => {arima(0,4,1)}`
+`{arima(p,d,q)} => {arima(1,4,0)}`
+
+Close to the shelf:
+`{arima(p,d,q)} => {arima(1,4,1)}`
+`{arima(p,d,q)} => {arima(2,4,0)}`
+`{arima(p,d,q)} => {arima(0,4,2)}`
+
+## Residuals: `BIC` Table
+
+```{r warning=FALSE}
+armasubsets(y=data.ts,nar=3,nma=3,y.name='test',ar.method='ols') %>% plot
+```
+From the `BIC` residual plot, we can extract the models:
+`{arima(p,d,q)} => {arima(1,4,2)}`
+`{arima(p,d,q)} => {arima(1,4,1)}`
+
+<!-- TODO: up to here, haven't done any work past here -->
+
+The final set of possible models is:
+`{arima(1,4,1), arima(0,4,1), arima(1,4,0), arima(1,4,2)}`
+
+and
+`{arima(p,d,q)} => {arima(1,4,1)}`
+`{arima(p,d,q)} => {arima(2,4,0)}`
+`{arima(p,d,q)} => {arima(0,4,2)}`
+
+```{r}
+getModelCoef <- function(pdq, method) {
+  cat('model: arima(', pdq, ')\n')
+  methods=c('CSS','ML')
+  for (i in methods) {
+    print(i)
+    model = arima(data.ts,order=pdq,method=i)
+    coef = coeftest(model)
+    modelName <- paste("model", i, sep = "")
+    modelToScore <- assign(modelName, model)
+    
+    if(any(0 == pdq)) {
+      if(pdq[1]==0) {
+        printModel = cat(coeftest(model)[4], 'p-values of MR(', pdq[1],')\n\n')
+      } else {
+        printModel = cat(coeftest(model)[4], 'p-values of AR(', pdq[1],')\n\n')  
+      }
+    } else {
+    printModel = cat(
+      coeftest(model)[7], 'p-values of AR(', pdq[1], ')\n',
+      coeftest(model)[8], 'p-values of MR(', pdq[3], ')\n\n')}
+  return(modelToScore)
+}}
+model_041_p <- getModelCoef(pdq=c(0,4,1)) # causes a bug
+model_041_p <- getModelCoef(pdq=c(0,4,2)) # causes a bug
+model_140_p <- getModelCoef(pdq=c(1,4,0))
+model_141_p <- getModelCoef(pdq=c(1,4,1))
+model_142_p <- getModelCoef(pdq=c(1,4,2))
+model_240_p <- getModelCoef(pdq=c(2,4,0))
+
+
+```
+
+```{r}
+# ARIMA(0,4,1)
+model_041_css = arima(data.ts,order=c(0,4,1),method='CSS')
+
+coeftest(model_041_css)
+
+coeftest(model_041_css)
+model_041_ml = arima(data.ts,order=c(0,4,1),method='ML')
+coeftest(model_041_ml)
+# ARIMA(1,4,0)
+model_140_css = arima(data.ts,order=c(1,4,0),method='CSS')
+coeftest(model_140_css)
+model_140_ml = arima(data.ts,order=c(1,4,0),method='ML')
+coeftest(model_140_ml)
+
+# ARIMA(1,4,1)
+model_141_css = arima(data.ts,order=c(1,4,1),method='CSS')
+coeftest(model_141_css)
+model_141_ml = arima(data.ts,order=c(1,4,1),method='ML')
+coeftest(model_141_ml)
+
+# ARIMA(1,4,2)
+model_142_css = arima(data.ts,order=c(1,4,2),method='CSS')
+coeftest(model_142_css)
+model_142_ml = arima(data.ts,order=c(1,4,2),method='ML')
+coeftest(model_142_ml)
+
+# ARIMA(2,4,0)
+model_240_css = arima(data.ts,order=c(2,4,0),method='CSS')
+coeftest(model_240_css)
+model_240_ml = arima(data.ts,order=c(2,4,0),method='ML')
+coeftest(model_240_ml)
+
+# AIC and BIC values
+# you need to source the sort.score() function, which is available in Canvas shell
+sort.score(AIC(model_041_css,model_140_css,model_141_css,model_142_css,model_240_css), score = "aic")
+sort.score(BIC(model_210_ml,model_214_ml,model_213_ml,model_112_ml,model_212_ml,model_113_ml), score = "bic" )
+
+
+
+```
+
+
+```{r}
+# AIC and BIC values
+# you need to source the sort.score() function, which is available in Canvas shell
+
+
+# sort.score(AIC(model_221_ml,model_021_ml,model_121_ml), score = "aic")
+# sort.score(BIC(model_221_ml,model_021_ml,model_121_ml), score = "bic" )
+```
+```{r}
+# The ARIMA(1,2,1) model is the best one according to both AIC and BIC
+# I'll try over-fitting with ARIMA(1,4,1) and ARIMA(1,2,2) models. In ARIMA(1,4,1) model AR(2) is 
+# insignificant according to MLE and significant according to CSS. However, this model was not promising 
+# in terms of AIC and BIC.
+```
+```{r}
+# ARIMA(1,2,2)
+model_122_css = arima(data.ts,order=c(1,2,2),method='CSS')
+coeftest(model_122_css)
+```
+```{r}
+model_122_ml = arima(data.ts,order=c(1,2,2),method='ML')
+coeftest(model_122_ml)
+
+# In ARIMA(1,2,2) model, AR(1) coefficient goes insignificant. So I'll stop at ARIMA(1,2,1) model.
+
+# We will go on with residual analysis of the models with sgnificant coefficients.
+
+# The following function provides a handy way of displaying the diagnostic plots.
+# You need to install FitAR package to run this function.
+```
+```{r}
+# TODO:
+residual.analysis <- function(model, std = TRUE){
+  library(TSA)
+  library(FitAR)
+  if (std == TRUE){
+    res.model = rstandard(model)
+  }else{
+    res.model = residuals(model)
+  }
+  par(mfrow=c(3,2))
+  plot(res.model,type='o',ylab='Standardised residuals', main="Time series plot of standardised residuals")
+  abline(h=0)
+  hist(res.model,main="Histogram of standardised residuals")
+  qqnorm(res.model,main="QQ plot of standardised residuals")
+  qqline(res.model, col = 2)
+  acf(res.model,main="ACF of standardised residuals")
+  print(shapiro.test(res.model))
+  k=0
+  LBQPlot(res.model, lag.max = length(model$residuals)-1 , StartLag = k + 1, k = 0, SquaredQ = FALSE)
+  par(mfrow=c(1,1))
+}
+
+# residual.analysis(model = data.ts.boxcox)
+
+residual.analysis(model = model_121_ml)
+```
+
+```{r}
+# TODO: remove?
+# We applied log transformation and second difference. To take them back:
+log.data.ts = log(data.ts.raw)
+log.data.ts.diff2.back = diffinv(diff.data.ts, differences = 2, xi = data.ts.matrix(log.data.ts[1:2]))
+log.data.ts.diff2.back = exp(log.data.ts.diff2.back)
+```
+```{r}
+library(forecast) #TODO:
+# In the forecasts differencing will already been taken back! 
+# We need to specify the lambda of Box-Cox transformation:
+fit = Arima(data.ts.raw,c(1,2,1), lambda = 0) 
+plot(forecast(fit,h=10)) 
+```

@@ -1,0 +1,17 @@
+---
+title: "Assignment Starter"
+# output: html_notebook
+---
+
+```{r download-csv}
+write.csv2(mtcars, "./file.csv")
+
+library(magrittr)
+readLines("./file.csv") %>% 
+  paste0(collapse="\n") %>% 
+  openssl::base64_encode() -> encoded
+```
+
+[Download CSV](`r sprintf('data:text/csv;base64,%s', encoded)`)
+
+source: https://stackoverflow.com/questions/41196823/embed-csv-in-html-rmarkdown

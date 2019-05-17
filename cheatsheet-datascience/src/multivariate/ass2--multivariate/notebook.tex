@@ -1,0 +1,2033 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ass2-multivariate}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{assignment-2-multivariate}{%
+\section{Assignment 2 Multivariate}\label{assignment-2-multivariate}}
+
+    \hypertarget{bivariate-normal-distribution-for-polution.csv}{%
+\section{\texorpdfstring{1 Bivariate normal distribution for
+\texttt{polution.csv}}{1 Bivariate normal distribution for polution.csv}}\label{bivariate-normal-distribution-for-polution.csv}}
+
+    The data file \texttt{pollution.csv} (as on Canvas and SAS Studio)
+contains information on air pollution measurements. Using the file
+examine the pair of measurements \texttt{X5=Nitrious\ Oxide} and
+\texttt{X6=Ozone} for bivariate normality by completing the following:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c}{/* Importing data */}
+        \PY{k+kr}{Data }pollutionData;
+        	\PY{k}{infile} \PY{l+s}{\PYZdq{}}\PY{l+s}{./data/pollution.csv}\PY{l+s}{\PYZdq{}} \PY{k}{delimiter}=\PY{l+s}{\PYZdq{}}\PY{l+s}{,}\PY{l+s}{\PYZdq{}}; 
+        	\PY{k}{input} x1\PYZhy{}x4 NITRIOUSOXIDE OZONE x7\PY{k+kr}{;}
+        \PY{k+kr}{	run;}
+        \PY{k+kr}{    }
+        \PY{k+kr}{proc iml;}
+        use pollutionData;
+        read all var \PYZob{} NITRIOUSOXIDE OZONE \PYZcb{} \PY{k}{into} pollution;
+\end{Verbatim}
+
+
+    \hypertarget{a-calculate-the-distances-of-these-observations-from-their-means-2-marks}{%
+\paragraph{a) Calculate the distances of these observations from their
+means (2
+marks)}\label{a-calculate-the-distances-of-these-observations-from-their-means-2-marks}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} centrePollution=\PY{n+nb}{mean(}pollution); \PY{c}{/*calclate mean vector*/}
+        covariancePollution=cov(pollution); \PY{c}{/*calculate cov matrix*/}
+        correlationPollution=corr(pollution); \PY{c}{/*calculate correlation matrix*/}
+        \PY{c}{/* print centrePollution covariancePollution; */}
+        columnVectorPollution = t(pollution\PYZhy{}centrePollution); \PY{c}{/* col vector */}
+        distancesPollution = t(columnVectorPollution)*inv(covariancePollution)*columnVectorPollution; \PY{c}{/* calculate distances */}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} mahalaPollution=vecdiag(distancesPollution); \PY{c}{/*produce Mahalanobis vector*/}
+        print mahalaPollution; \PY{c}{/*produce Mahalanobis vector */}
+\end{Verbatim}
+
+
+    \hypertarget{b-determine-the-proportion-of-the-observations-falling-within-the-estimated-50-probability-contour-of-a-bivariate-normal-distribution-1-mark}{%
+\paragraph{\texorpdfstring{b) Determine the proportion of the
+observations falling within the estimated
+\texttt{50\%\ probability\ contour} of a bivariate normal distribution
+(1
+mark)}{b) Determine the proportion of the observations falling within the estimated 50\% probability contour of a bivariate normal distribution (1 mark)}}\label{b-determine-the-proportion-of-the-observations-falling-within-the-estimated-50-probability-contour-of-a-bivariate-normal-distribution-1-mark}}
+
+    Bivariate Contour to assess normality
+
+    (Xi - X̄) S-1 (Xi - X̄) ≤ χ2p(ɑ)
+
+    chisquared: χ2p(ɑ) -\textgreater{} χ22(0.5) -\textgreater{} 1.39
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} pollutionInv = inv(covariancePollution);
+        pollutionMean = \PY{n+nb}{mean(}pollution);
+        values=(pollution\PYZhy{}pollutionMean)*pollutionInv*t(pollution\PYZhy{}pollutionMean);
+        numbers=vecdiag(values);
+        inside=numbers\PYZlt{}=\PY{l+m}{1.39};
+        outside=numbers\PYZgt{}\PY{l+m}{1.39};
+        i\PYZus{}count=\PY{n+nb}{sum(}inside);
+        o\PYZus{}count=\PY{n+nb}{sum(}outside);
+        \PY{c+cm}{/* print i\PYZus{}count;}
+        \PY{c+cm}{print o\PYZus{}count; */}
+        proportion = i\PYZus{}count / (i\PYZus{}count + o\PYZus{}count);
+        print proportion;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{c-construct-a-chi-square-plot-of-your-distances-from-part-a-above-2-marks}{%
+\paragraph{c) Construct a chi-square plot of your distances from part a)
+above (2
+marks)}\label{c-construct-a-chi-square-plot-of-your-distances-from-part-a-above-2-marks}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} ranksPollution=\PY{n+nb}{rank(}mahalaPollution); \PY{c}{/*order distances*/}
+        pPollution=ncol(pollution); \PY{c}{/*number of columns*/}
+        nPollution=nrow(pollution); \PY{c}{/*number of rows*/}
+        relativeFrequencyPollution=(ranksPollution\PY{l+m}{\PYZhy{}0.5})/nPollution; \PY{c}{/* Compute the relative frequency */}
+        chiSquaredPollution=\PY{n+nb}{cinv(}relativeFrequencyPollution,pPollution); \PY{c}{/* Quantile using Chi\PYZhy{}square distribution with p degrees of freedom */}
+        chiplot=mahalaPollution||chiSquaredPollution;
+        \PY{k}{create} chiplot \PY{k}{from} chiplot[colname=\PYZob{}\PY{l+s}{\PYZsq{}}\PY{l+s}{MAHDIST}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{CHISQ}\PY{l+s}{\PYZsq{}}\PYZcb{}]; \PY{c}{/*create a dataset to plot*/}
+        append \PY{k}{from} chiplot\PY{k+kr}{;}
+        \PY{k+kr}{proc sgplot }data=chiplot;
+            scatter y=MAHDIST \PY{k}{x}=CHISQ;
+            lineparm \PY{k}{x}=\PY{l+m}{0} y=\PY{l+m}{0} slope=\PY{l+m}{1}\PY{k+kr}{;}
+        \PY{k+kr}{run;}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kr}{proc reg }data=chiplot plots=FitPlot(stats=all);
+          model MAHDIST = CHISQ;
+          ods \PY{k}{select} FitPlot\PY{k+kr}{;}
+        \PY{k+kr}{run;}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{d-given-your-results-in-part-b-and-part-c-are-these-data-approximately-bivariate-normal-explain}{%
+\paragraph{d) Given your results in part b) and part c) are these data
+approximately bivariate normal?
+Explain}\label{d-given-your-results-in-part-b-and-part-c-are-these-data-approximately-bivariate-normal-explain}}
+
+    For bivariate normality we require:
+
+\begin{itemize}
+\item
+  Multivariate normal distribution (formula)
+  \(\displaystyle \mathbf {X} \ \sim \ {\mathcal {N}}_{k}({\mu },\,{\boldsymbol {\Sigma }})\)
+  with a single mean
+\item
+  Representative Sample
+\item
+  independence of observations
+\end{itemize}
+
+Given the Chi Squared Plot results. And with only \textasciitilde{}62\%
+of the proportion falling within the estimated
+\texttt{50\%\ probability\ contour} of a bivariate normal distribution.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Not bivariate normal}
+\end{itemize}
+
+\hypertarget{explain}{%
+\subparagraph{Explain}\label{explain}}
+
+\begin{itemize}
+\tightlist
+\item
+  Because observation of qqplot and fit plot show two distinct curves
+\item
+  Indicates either \textbf{bimodal} or light-tailed results
+\item
+  \(\displaystyle \mathbf {X} \ \sim \ {\mathcal {N}}_{k}({\boldsymbol {\mu }},\,{\Sigma })\)
+  bimodal
+\item
+  This is even though the results fit within the 95\% CI (95\%)
+  according to observation of fit plot
+\end{itemize}
+
+    see 3. multivariate normal sect 5 / 6
+
+    \hypertarget{hypothesis-testing---results.csv}{%
+\section{\texorpdfstring{2. Hypothesis testing -
+\texttt{results.csv}}{2. Hypothesis testing - results.csv}}\label{hypothesis-testing---results.csv}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c}{/*read in data*/}
+        \PY{k+kr}{Data }temp;
+        \PY{k}{infile} \PY{l+s}{\PYZdq{}}\PY{l+s}{./data/results.csv}\PY{l+s}{\PYZdq{}} \PY{k}{delimiter}=\PY{l+s}{\PYZdq{}}\PY{l+s}{,}\PY{l+s}{\PYZdq{}}; 
+        \PY{k}{input} x1 x2 x3\PY{k+kr}{;}
+        \PY{k+kr}{run;}
+        
+        \PY{k+kr}{proc IML;}
+        use temp;
+        read all var \PY{k+kc}{\PYZus{}all\PYZus{}} \PY{k}{into} \PY{k}{X};
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    The datafile \texttt{results.csv}, contains three test results assessing
+different types of intelligence.
+
+Test the following hypothesis at:
+
+\begin{verbatim}
+α=0.02
+H0 :μ′=[85 75 55]
+\end{verbatim}
+
+\hypertarget{a-conduct-the-hypothesis-test-showing-all-steps-required.}{%
+\paragraph{a) Conduct the hypothesis test showing all steps
+required.}\label{a-conduct-the-hypothesis-test-showing-all-steps-required.}}
+
+    H0: μ' = μ0' = {[}85 75 55{]} Ha: μ' ≠ μ0' ≠ {[}85 75 55{]}
+
+    \hypertarget{which-kind-of-test-should-we-apply}{%
+\paragraph{Which kind of test should we
+apply?}\label{which-kind-of-test-should-we-apply}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} n=nrow(\PY{k}{x}); \PY{c}{/* No. of observations */}
+        p=ncol(\PY{k}{x}); \PY{c}{/* No. of variables */}
+        print n p;
+        \PY{c}{/* n=nrow(typesOfIntelligence); /* No. of observations */} */
+        \PY{c}{/* p=ncol(typesOfIntelligence); /* No. of variables */} */
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    Since n is relatively large, compared to p, we will use the
+\texttt{Large\ Sample\ Theory:}
+
+n(X̄n - μ)T Sn-1 (X̄n - μ) ≈ χ2p
+
+    \hypertarget{hypothesis}{%
+\paragraph{Hypothesis:}\label{hypothesis}}
+
+H0: μ' = μ0' = {[}85 75 55{]} Ha: μ' ≠ μ0' ≠ {[}85 75 55{]}
+
+    \hypertarget{get-critical-value-from-chi-squared-table}{%
+\paragraph{Get critical value from Chi Squared
+table}\label{get-critical-value-from-chi-squared-table}}
+
+    χ2p = χ2(80, 0.02) = 108.069
+
+    \hypertarget{do-maths-to-it}{%
+\paragraph{Do maths to it}\label{do-maths-to-it}}
+
+    for μ0' = {[}85 75 55{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} centre=t(\PY{n+nb}{mean(}\PY{k}{X}));
+        cov\PYZus{}x=cov(\PY{k}{X});
+        cor\PYZus{}x=corr(\PY{k}{X});
+        incov=inv(cov\PYZus{}x); \PY{c}{/* Inverse of the covariance matrix */}
+        mu0=\PYZob{}\PY{l+m}{85},\PY{l+m}{75},\PY{l+m}{55}\PYZcb{}; \PY{c}{/* Hypothesized values */}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    Large sample: n(X̄n - μ)T Sn-1 (X̄n - μ) ≈ χ2p
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} tsq=n*t(centre\PYZhy{}mu0)*incov*(centre\PYZhy{}mu0);
+         cCriticalValue=\PY{n+nb}{cinv(}\PY{l+m}{0.98},p);
+         print tsq cCriticalValue; */
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{if-the-values-given-above-are-the-average-score-for-all-college-students-over-the-last-ten-years-is-there-reason-to-believe-the-group-in-the-datafile-are-scoring-differently-explain.5-marks}{%
+\paragraph{If the values given above are the average score for all
+college students over the last ten years, is there reason to believe the
+group in the datafile are scoring differently? Explain.(5
+marks)}\label{if-the-values-given-above-are-the-average-score-for-all-college-students-over-the-last-ten-years-is-there-reason-to-believe-the-group-in-the-datafile-are-scoring-differently-explain.5-marks}}
+
+    \hypertarget{hypothesis}{%
+\subparagraph{Hypothesis}\label{hypothesis}}
+
+H0: μ' = μ0' = {[}85 75 55{]} Ha: μ' ≠ μ0' ≠ {[}85 75 55{]}
+
+\hypertarget{assumptions}{%
+\subparagraph{Assumptions}\label{assumptions}}
+
+\(\displaystyle \mathbf {X} \ \sim \ {\mathcal {N}}_{k}({\boldsymbol {\mu }},\,{\boldsymbol {\Sigma }})\)
+
+\begin{itemize}
+\tightlist
+\item
+  Representative
+\item
+  Independence of observerations
+\end{itemize}
+
+We \textbf{reject} the null hypothesis because:
+
+Reject if: T2 \textgreater{} χ2p
+
+T2 \textgreater{} χ2p(α=0.02) 51.3 \textgreater{} 9.837 ∴ μ ≠ μ0
+
+\begin{itemize}
+\tightlist
+\item
+  The test score sample mean is sufficiently different during this year
+  than the mean (μ' {[}85 75 55{]}) of uni students during previous
+  years.
+\end{itemize}
+
+    \hypertarget{b-determine-the-lengths-and-directions-for-the-axes-of-the-90-confidence-ellipsoid-for-ux3bc-2-marks}{%
+\paragraph{\texorpdfstring{b) Determine the lengths and directions for
+the axes of the \texttt{90\%} confidence ellipsoid for \texttt{μ} (2
+marks)}{b) Determine the lengths and directions for the axes of the 90\% confidence ellipsoid for μ (2 marks)}}\label{b-determine-the-lengths-and-directions-for-the-axes-of-the-90-confidence-ellipsoid-for-ux3bc-2-marks}}
+
+    notes from class /\emph{Compute the lengths of axes of the confidence
+ellipsoid}/ lam=eigval(cov\_x); E=eigvec(cov\_x);
+length=2\emph{sqrt(lam}ccri\_90percent/n); print length; print E;
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} centre=t(\PY{n+nb}{mean(}\PY{k}{X}));
+         cov\PYZus{}x=cov(\PY{k}{X});
+         incov=inv(cov\PYZus{}x); \PY{c}{/* Inverse of the covariance matrix */}
+         mu0=\PYZob{}\PY{l+m}{85},\PY{l+m}{75},\PY{l+m}{55}\PYZcb{}; \PY{c}{/* Hypothesized values */}
+         cCriticalValue=\PY{n+nb}{cinv(}\PY{l+m}{0.98},p);
+         
+         lambda=eigval(cov\PYZus{}x); 
+         direction\PYZus{}aka\PYZus{}Eigenvector=eigvec(cov\PYZus{}x);
+         \PY{k}{length}=\PY{l+m}{2}*\PY{n+nb}{sqrt(}lambda*cCriticalValue/n);
+         
+         print \PY{k}{length};
+         print direction\PYZus{}aka\PYZus{}Eigenvector;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{c-construct-the-three-possible-scatter-diagrams-from-the-pairs-of-variables.}{%
+\paragraph{c) Construct the three possible scatter diagrams from the
+pairs of
+variables.}\label{c-construct-the-three-possible-scatter-diagrams-from-the-pairs-of-variables.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} sd=vecdiag(cov\PYZus{}x);
+         ubound1=centre+\PY{n+nb}{sqrt(}cCriticalValue)*\PY{n+nb}{sqrt(}sd/n);
+         lbound1=centre\PYZhy{}\PY{n+nb}{sqrt(}cCriticalValue)*\PY{n+nb}{sqrt(}sd/n);
+         print lbound1 ubound1;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kr}{proc sgscatter }data = temp;
+         PLOT X1 * X2\PY{k+kr}{; run;}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kr}{proc sgscatter }data = temp;
+         PLOT X1 * X3\PY{k+kr}{; run;}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kr}{proc sgscatter }data = temp;
+         PLOT X2 * X3\PY{k+kr}{; run;}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{do-these-data-appear-to-be-normally-distributed}{%
+\paragraph{Do these data appear to be normally
+distributed?}\label{do-these-data-appear-to-be-normally-distributed}}
+
+    Nope. This data does not appear to be normally distributed.
+
+    \hypertarget{discuss}{%
+\paragraph{Discuss}\label{discuss}}
+
+(3 marks)
+
+    linear gradient = normally distributed
+
+    \hypertarget{question-3}{%
+\subsection{Question 3}\label{question-3}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kr}{proc iml;}
+        \PY{c}{/* reset print; */}
+        dataQ3 = \PYZob{}
+        \PY{l+m}{3} \PY{l+m}{4} \PY{l+m}{15} \PYZhy{}\PY{l+m}{6},
+        \PY{l+m}{2} \PY{l+m}{4} \PY{l+m}{14} \PYZhy{}\PY{l+m}{7},
+        \PY{l+m}{3} \PY{l+m}{4} \PY{l+m}{15} \PYZhy{}\PY{l+m}{5},
+        \PY{l+m}{3} \PY{l+m}{3} \PY{l+m}{16} \PYZhy{}\PY{l+m}{6},
+        \PY{l+m}{2} \PY{l+m}{5} \PY{l+m}{15} \PYZhy{}\PY{l+m}{7},
+        \PY{l+m}{1} \PY{l+m}{4} \PY{l+m}{14} \PYZhy{}\PY{l+m}{4}\PYZcb{};
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} nQ3=nrow(dataQ3); \PY{c}{/* No. of observations */}
+        pQ3=ncol(dataQ3); \PY{c}{/* No. of variables */}
+        alphaQ3 = \PY{l+m}{0.05};
+        muQ3 = \PY{n+nb}{mean(}dataQ3);
+        degreesFreedomQ3 = nQ3 \PYZhy{} \PY{l+m}{1};
+        mQ3 = pQ3;
+        
+        covQ3=cov(dataQ3); \PY{c}{/* covariance */}
+        invCovQ3=inv(covQ3); \PY{c}{/* Inverse of the covariance matrix \PYZhy{} Might not need*/}
+        sdQ3=vecdiag(CovQ3); \PY{c}{/* get variance from diagonal of the covariance matrix */}
+        sdQ3\PYZus{}T=T(vecdiag(CovQ3)); \PY{c}{/* Transposed */}
+\end{Verbatim}
+
+
+    \hypertarget{a-the-independent-95-confidence-intervals-for-each-variable-1.5-marks}{%
+\paragraph{a) The independent 95 \% confidence intervals for each
+variable (1.5
+marks)}\label{a-the-independent-95-confidence-intervals-for-each-variable-1.5-marks}}
+
+    latex problematic formula hidden here: 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} t\PYZus{}Q3 = \PY{n+nb}{tinv(}(\PY{l+m}{1}\PYZhy{}(alphaQ3/\PY{l+m}{2})), degreesFreedomQ3);
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} upperIndependentCIQ3 = muQ3 + t\PYZus{}Q3 * sdQ3\PYZus{}T/\PY{n+nb}{sqrt(}nQ3);
+         lowerIndependentCIQ3 = muQ3 \PYZhy{} t\PYZus{}Q3 * sdQ3\PYZus{}T/\PY{n+nb}{sqrt(}nQ3);
+         independentConfidenceIntervalsQ3 = (lowerIndependentCIQ3`) || (upperIndependentCIQ3`);
+         print independentConfidenceIntervalsQ3[F=\PY{l+m}{8.4} C=\PYZob{}\PY{l+s}{\PYZdq{}}\PY{l+s}{Lower}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Upper}\PY{l+s}{\PYZdq{}}\PYZcb{}];
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{b-the-bonferroni-95-confidence-intervals-for-each-variable-1.5-marks}{%
+\paragraph{b) The Bonferroni 95 \% confidence intervals for each
+variable (1.5
+marks)}\label{b-the-bonferroni-95-confidence-intervals-for-each-variable-1.5-marks}}
+
+    latex problematic formula hidden here: 
+
+    latex problematic formula hidden here: 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} adjustedConfidenceIntervalQ3 = (\PY{l+m}{1} \PYZhy{} (alphaQ3 / (\PY{l+m}{2} * mQ3)));
+        \PY{c}{/* print adjustedConfidenceIntervalQ3; */}
+\end{Verbatim}
+
+
+    t(df, alpha) \textless{}- how we write it tinv(CI(aka 1-alpha), df)
+\textless{}- back to front
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} tCriticalValue=\PY{n+nb}{tinv(}adjustedConfidenceIntervalQ3, degreesFreedomQ3);
+         \PY{c}{/* print tCriticalValue; */}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    latex problematic formula hidden here: 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} sdQ3=vecdiag(CovQ3); \PY{c}{/* this gets the values along the diagonal of the covariance matrix */}
+         sdQ3\PYZus{}T=T(vecdiag(CovQ3)); \PY{c}{/* Transposed */}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} uboundQ3=muQ3+\PY{n+nb}{sqrt(}tCriticalValue)*\PY{n+nb}{sqrt(}sdQ3\PYZus{}T/nQ3);
+         lboundQ3=muQ3\PYZhy{}\PY{n+nb}{sqrt(}tCriticalValue)*\PY{n+nb}{sqrt(}sdQ3\PYZus{}T/nQ3);
+         bonferroniConfidenceIntervalsQ3 = (lboundQ3`) || (uboundQ3`);
+         print bonferroniConfidenceIntervalsQ3[F=\PY{l+m}{8.4} C=\PYZob{}\PY{l+s}{\PYZdq{}}\PY{l+s}{Lower}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Upper}\PY{l+s}{\PYZdq{}}\PYZcb{}];
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The simultaneous 95 \% confidence intervals for each variable (1.5
+  marks)
+\end{enumerate}
+
+    \$\bar \{ \{ X \}\_\{ i \} \}
+\pm \sqrt { _{ n-1 }\left( \frac { p(n-1) }{ n-p }  \right) { F }_{ p,n-p }(\alpha )\frac { { S }_{ ii } }{ n }  }
+\$
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} firstPart = \PY{l+m}{1} \PYZhy{} (nQ3 \PYZhy{} pQ3) * alphaQ3;
+         tSquared = pQ3 * (nQ3 \PYZhy{} \PY{l+m}{1})/(nQ3 \PYZhy{} pQ3);
+         simultaneousCI = \PY{n+nb}{tinv(}firstPart, degreesFreedomQ3);
+         
+         upperSimultaneousCI = muQ3 + \PY{n+nb}{sqrt(}tSquared * simultaneousCI) * \PY{n+nb}{sqrt(}sdQ3\PYZus{}T / nQ3);
+         lowerSimultaneousCI = muQ3 \PYZhy{} \PY{n+nb}{sqrt(}tSquared * simultaneousCI) * \PY{n+nb}{sqrt(}sdQ3\PYZus{}T / nQ3);
+         
+         simultaneousConfidenceIntervalsQ3 = (lowerSimultaneousCI`) || (upperSimultaneousCI`);
+         print simultaneousConfidenceIntervalsQ3[F=\PY{l+m}{8.4} C=\PYZob{}\PY{l+s}{\PYZdq{}}\PY{l+s}{Lower}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Upper}\PY{l+s}{\PYZdq{}}\PYZcb{}];
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The 95 \% confidence interval for the difference between μ2 and μ4.
+  Are these means different? (1.5 marks)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} muQ3X2 = \PY{n+nb}{mean(}dataQ3[\PY{l+m}{2}]);
+         muQ3X4 = \PY{n+nb}{mean(}dataQ3[\PY{l+m}{4}]);
+         diffXbar = (muQ3X2 \PYZhy{} muQ3X4);
+         secondPartDiffEquation = \PY{n+nb}{sqrt(}tSquared * sdQ3\PYZus{}T) * \PY{n+nb}{sqrt(}(covQ3[\PY{l+m}{2},\PY{l+m}{2}] \PYZhy{} \PY{l+m}{2} * covQ3[\PY{l+m}{2},\PY{l+m}{4}] + covQ3[\PY{l+m}{4},\PY{l+m}{4}]) / nQ3);
+         
+         upperDiffCIMu2Mu4Q3 = diffXbar + secondPartDiffEquation;
+         lowerDiffCIMu2Mu4Q3 = diffXbar \PYZhy{} secondPartDiffEquation;
+         
+         
+         diffCIMu2Mu4Q3 = (lowerDiffCIMu2Mu4Q3`) || (upperDiffCIMu2Mu4Q3`);
+         print diffCIMu2Mu4Q3[F=\PY{l+m}{8.4} C=\PYZob{}\PY{l+s}{\PYZdq{}}\PY{l+s}{Lower}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Upper}\PY{l+s}{\PYZdq{}}\PYZcb{}];
+         
+         
+         \PY{c}{/* The CI for μ2 \PYZhy{} μ4 does not include zero, therefore the muQ3s are different */}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Discuss the results from part a) to part d) above and explain any
+  differences in the observed estimates. (2 marks)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} muQ3\PYZus{}t = t(muQ3);
+         print muQ3\PYZus{}t independentConfidenceIntervalsQ3[F=\PY{l+m}{8.4} C=\PYZob{}\PY{l+s}{\PYZdq{}}\PY{l+s}{Lower}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Upper}\PY{l+s}{\PYZdq{}}\PYZcb{}];
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{pcas-with---track.csv}{%
+\subsection{\texorpdfstring{4 PCA's with -
+\texttt{track.csv}}{4 PCA's with - track.csv}}\label{pcas-with---track.csv}}
+
+see other file for full SAS code for question 4 due to small bug with
+jupyter with SAS. - The data file \texttt{track.csv} contains
+information on female national track records. Using the file completing
+the following:
+
+    \%web\_drop\_table(R); FILENAME REFFILE
+`/folders/myshortcuts/ass2--multivariate/data/track.csv'; PROC IMPORT
+DATAFILE=REFFILE DBMS=CSV OUT=R; /* this is where we get the output with
+the PCA's */ GETNAMES=YES; RUN; PROC CONTENTS DATA=R; RUN;
+\%web\_open\_table(R); 
+
+    \hypertarget{a-pt1-obtain-the-sample-correlation-matrix-r}{%
+\paragraph{a) pt1 Obtain the sample correlation matrix
+R}\label{a-pt1-obtain-the-sample-correlation-matrix-r}}
+
+     proc IML; proc princomp data=R OUT=prinR; title3 `4 a) Obtain the
+sample correlation matrix R, and determine the eigenvalue/eigenvector
+pairs.'; run;
+
+proc IML; /* fix printing error \emph{/ }';*"; run; proc iml; title3 `4
+b) pt1) State the first two principal components for the standardized
+variables'; print `PCA1 Y1 = 0.377766X1 + 0.383210X2 + 0.368036X3 +
+0.394781X4 + 0.389261X5 + 0.376094X6 + 0.355203X7'; print `PCA2 Y2 =
+-0.407176X1 - 0.413629X2 - 0.459353X3 + 0.161246X4 + 0.309088X5 +
+0.423190X6 + 0.389215X7'; run; 
+
+    \begin{longtable}[]{@{}llllllll@{}}
+\toprule
+\begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_100m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_200m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_400m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_800m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_1500m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_3000m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+Marathon\_\emph{min}\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+\_100m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+1.0000\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9411\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8708\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8092\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7816\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7279\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6690\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+\_200m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9411\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+1.0000\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9088\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8198\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8013\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7319\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6800\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+\_400m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8708\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9088\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+1.0000\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8058\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7198\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6738\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6769\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+\_800m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8092\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8198\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8058\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+1.0000\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9051\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8666\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8540\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+\_1500m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7816\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8013\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7198\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9051\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+1.0000\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9734\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7906\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+\_3000m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7279\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7319\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6738\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8666\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.9734\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+1.0000\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7987\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+Marathon\_\emph{min}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6690\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6800\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.6769\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.8540\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7906\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.7987\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+1.0000\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{a-pt2-determine-the-eigenvalueeigenvector-pairs.}{%
+\paragraph{a) pt2 determine the eigenvalue/eigenvector
+pairs.}\label{a-pt2-determine-the-eigenvalueeigenvector-pairs.}}
+
+    \begin{longtable}[]{@{}llllllllll@{}}
+\toprule
+\begin{minipage}[b]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigenvalue\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigen - Prin1\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigen - Prin2\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigen - Prin3\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigen - Prin4\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigen - Prin5\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigen - Prin6\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Eigen - Prin7\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+x1\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\_100m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{5.80762446}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.377766\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.407176\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.140580\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.587063\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.167069\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.539697\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.088939\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+x2\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\_200m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{0.62869342}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.383210\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.413629\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.100783\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.194075\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.093500\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.744931\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.265657\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+x3\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\_400m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{0.27933457}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.368036\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.459353\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.237026\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.645431\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.327273\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.240094\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.126604\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+x4\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\_800m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{0.12455472}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.394781\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.161246\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.147542\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.295208\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.819055\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.016507\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.195213\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+x5\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\_1500m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{0.09097174}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.389261\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.309088\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.421986\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.066690\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.026131\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.188988\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.730768\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+x6\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\_3000m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{0.05451882}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.376094\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.423190\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.406063\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.080157\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.351698\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.240500\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.571506\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+x7\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+Marathon\_\emph{min}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{0.01430226}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.355203\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.389215\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.741061\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.321076\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.247008\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.048270\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+-.082084\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{b-state-the-first-two-principal-components-for-the-standardized-variables}{%
+\paragraph{b) State the first two principal components for the
+standardized
+variables}\label{b-state-the-first-two-principal-components-for-the-standardized-variables}}
+
+    \begin{itemize}
+\tightlist
+\item
+  PCA1 Y1 = 0.377766X1 + 0.383210X2 + 0.368036X3 + 0.394781X4 +
+  0.389261X5 + 0.376094X6 + 0.355203X7
+\item
+  PCA2 Y2 = -0.407176X1 - 0.413629X2 - 0.459353X3 + 0.161246X4 +
+  0.309088X5 + 0.423190X6 + 0.389215X7
+\end{itemize}
+
+     data Cumulative; length CumulativePercent \$ 2; input X \$1-15
+Eigenvalue \$1-15 CumulativePercentCol; CumulativePercent =
+substr(X,1,2); datalines; X Eigenvalue Cumulative X1 5.80762446 82.97 X2
+0.62869342 91.95 X3 0.27933457 95.94 X4 0.12455472 97.72 X5 0.09097174
+99.02 X6 0.05451882 99.80 X7 0.01430226 100.00 ; proc print
+data=Cumulative; title3 `4 b) pt2. Calculate the cumulative percentages
+of the total (standardized) sample variance explained.'; run; 
+
+    \hypertarget{b-pt2.-calculate-the-cumulative-percentages-of-the-total-standardized-sample-variance-explained.-2-marks}{%
+\paragraph{b) pt2. calculate the cumulative percentages of the total
+(standardized) sample variance explained. (2
+marks)}\label{b-pt2.-calculate-the-cumulative-percentages-of-the-total-standardized-sample-variance-explained.-2-marks}}
+
+    \begin{longtable}[]{@{}lll@{}}
+\toprule
+PCA & Eigenvalue & CumulativePercent\tabularnewline
+\midrule
+\endhead
+X1 & 5.80762446 & 82.97\tabularnewline
+X2 & 0.62869342 & 91.95\tabularnewline
+X3 & 0.27933457 & 95.94\tabularnewline
+X4 & 0.12455472 & 97.72\tabularnewline
+X5 & 0.09097174 & 99.02\tabularnewline
+X6 & 0.05451882 & 99.80\tabularnewline
+X7 & 0.01430226 & 100.00\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{c-prepare-a-table-showing-the-correlation-of-the-standardized-variables-with-the-first-two-components.}{%
+\paragraph{c) Prepare a table showing the correlation of the
+standardized variables with the first two
+components.}\label{c-prepare-a-table-showing-the-correlation-of-the-standardized-variables-with-the-first-two-components.}}
+
+     proc princomp data=R n=2 outstat=standardVariablesCorr noprint; run;
+proc print data = standardVariablesCorr; title3 ``c) Prepare a table
+showing the correlation of the standardized variables with the first two
+components.''; where \emph{TYPE} = `SCORE'; run;
+
+/* proc print data=R; \emph{/ /} run; \emph{/ /} proc print data=prinR;
+\emph{/ /} run; */
+
+proc print data=prinR; var Country Prin1 Prin2; /* filter to only
+display country and first Principle Component run; 
+
+    \begin{longtable}[]{@{}llllllll@{}}
+\toprule
+\begin{minipage}[b]{0.10\columnwidth}\raggedright
+PCA\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_100m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_200m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_400m\_\_s\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_800m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_1500m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+\_3000m\_\_min\_\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+Marathon\_\emph{min}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+Prin1\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.37777\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.38321\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.36804\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.39478\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.38926\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.37609\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.35520\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.10\columnwidth}\raggedright
+Prin2\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+-0.40718\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+-0.41363\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+-0.45935\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.16125\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.30909\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.42319\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+0.38922\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{d-interpret-the-two-principal-components-from-part-b.-2-marks-3-marks}{%
+\paragraph{d) Interpret the two principal components from Part b). (2
+marks) (3
+marks)}\label{d-interpret-the-two-principal-components-from-part-b.-2-marks-3-marks}}
+
+    \begin{itemize}
+\tightlist
+\item
+  The first principle component accounts for \textasciitilde{}82.97\% of
+  female national track records
+\item
+  Second principle component accounts for an additonal
+  \textasciitilde{}8.98\% of female national track records
+\item
+  The dataset can be reduced to 2 principle components to explain
+  \textasciitilde{}91.95\% of female national track records.
+\end{itemize}
+
+    \hypertarget{e-rank-the-nations-based-on-their-score-on-the-first-principal-component.}{%
+\paragraph{e) Rank the nations based on their score on the first
+principal
+component.}\label{e-rank-the-nations-based-on-their-score-on-the-first-principal-component.}}
+
+     proc sort data=prinR; /* rank by principle component \#1 \emph{/ by
+Prin1; run; proc print data=prinR; var Country Prin1; /} filter to only
+display country and first Principle Component */ title `e) Rank the
+nations based on their score on the first principal component'; run; 
+
+    \begin{longtable}[]{@{}lll@{}}
+\toprule
+Obs & Country & Prin1\tabularnewline
+\midrule
+\endhead
+1 & ARG & 0.39324\tabularnewline
+2 & AUS & -1.93164\tabularnewline
+3 & AUT & -1.26252\tabularnewline
+4 & BEL & -1.29173\tabularnewline
+5 & BER & 1.39611\tabularnewline
+6 & BRA & -1.00678\tabularnewline
+7 & CAN & -1.73434\tabularnewline
+8 & CHI & 0.81184\tabularnewline
+9 & CHN & -2.98947\tabularnewline
+10 & COL & 0.00193\tabularnewline
+11 & COK & 7.90623\tabularnewline
+12 & CRC & 2.16681\tabularnewline
+13 & CZE & -2.40603\tabularnewline
+14 & DEN & -0.08250\tabularnewline
+15 & DOM & 2.19241\tabularnewline
+16 & FIN & -1.26673\tabularnewline
+17 & FRA & -2.51835\tabularnewline
+18 & GER & -3.04752\tabularnewline
+19 & GBR & -2.44271\tabularnewline
+20 & GRE & -1.19780\tabularnewline
+21 & GUA & 3.29412\tabularnewline
+22 & HUN & -0.78825\tabularnewline
+23 & INA & 1.74194\tabularnewline
+24 & IND & -0.35426\tabularnewline
+25 & IRL & -1.03591\tabularnewline
+26 & ISR & 0.57416\tabularnewline
+27 & ITA & -1.54745\tabularnewline
+28 & JPN & -0.48166\tabularnewline
+29 & KEN & -0.91774\tabularnewline
+30 & KOR & 0.83079\tabularnewline
+31 & KOR & 1.45535\tabularnewline
+32 & LUX & 1.72147\tabularnewline
+33 & MAS & 1.49521\tabularnewline
+34 & MRI & 1.74973\tabularnewline
+35 & MEX & -0.99577\tabularnewline
+36 & MYA & 0.81598\tabularnewline
+37 & NED & -1.54476\tabularnewline
+38 & NZL & -0.75524\tabularnewline
+39 & NOR & -0.55300\tabularnewline
+40 & PNG & 5.25745\tabularnewline
+41 & PHI & 1.76353\tabularnewline
+42 & POL & -2.27377\tabularnewline
+43 & POR & -1.17525\tabularnewline
+44 & ROM & -2.12301\tabularnewline
+45 & RUS & -3.04295\tabularnewline
+46 & SAM & 8.21342\tabularnewline
+47 & SIN & 3.09392\tabularnewline
+48 & ESP & -1.88946\tabularnewline
+49 & SWE & -0.83915\tabularnewline
+50 & SUI & -1.11355\tabularnewline
+51 & TPE & 0.65909\tabularnewline
+52 & THA & 1.22381\tabularnewline
+53 & TUR & -0.85013\tabularnewline
+54 & USA & -3.29915\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{discuss-whether-this-meets-your-expectations.-2-marks}{%
+\paragraph{Discuss whether this meets your expectations. (2
+marks)}\label{discuss-whether-this-meets-your-expectations.-2-marks}}
+
+    Doesn't meet my expectations because current world records for track
+records are:
+
+\begin{itemize}
+\tightlist
+\item
+  Women's records are from USA, France, Soviet, Romania, Kenya, Ethiopia
+\item
+  Men all from Africa (Jamaica, South Africa, Kenya, Ethiopia)
+\end{itemize}
+
+Possibly because date of the records isn't supplied. Further
+investigation could compare current world records accross all countries
+
+    \hypertarget{ranked-by-principle-component-1-accross-all-track-records}{%
+\subparagraph{Ranked by Principle Component 1 (accross all track
+records)}\label{ranked-by-principle-component-1-accross-all-track-records}}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Obs & Country & Prin1\tabularnewline
+\midrule
+\endhead
+1 & ARG & 0.39324\tabularnewline
+2 & AUS & -1.93164\tabularnewline
+3 & AUT & -1.26252\tabularnewline
+4 & BEL & -1.29173\tabularnewline
+5 & BER & 1.39611\tabularnewline
+6 & BRA & -1.00678\tabularnewline
+7 & CAN & -1.73434\tabularnewline
+8 & CHI & 0.81184\tabularnewline
+9 & CHN & -2.98947\tabularnewline
+10 & COL & 0.00193\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{mens-records}{%
+\subparagraph{\texorpdfstring{\href{https://en.wikipedia.org/wiki/List_of_Olympic_records_in_athletics\#Men's_records}{Men's
+records}}{Men's records}}\label{mens-records}}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\endhead
+100 metres & 0:9.63 & Usain Bolt & Jamaica\tabularnewline
+200 metres & 0:19.30 & Usain Bolt & Jamaica\tabularnewline
+400 metres & 0:43.03 & Wayde van Niekerk & South Africa\tabularnewline
+800 metres & 1:40.91 & David Rudisha & Kenya\tabularnewline
+1500 metres & 3:32.07 & Noah Ngeny & Kenya\tabularnewline
+5000 metres & 12:57.82 & Kenenisa Bekele & Ethiopia\tabularnewline
+10000 metre & 27:01.17 & Kenenisa Bekele & Ethiopia\tabularnewline
+Marathon & 2:06:32 & Samuel Wanjiru & Kenya\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{womens-records}{%
+\subparagraph{\texorpdfstring{\href{https://en.wikipedia.org/wiki/List_of_Olympic_records_in_athletics\#Women's_records}{Women's
+records}}{Women's records}}\label{womens-records}}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\endhead
+100 metres & 10.62 & Florence Griffith-Joyner & United States
+(USA)\tabularnewline
+200 metres & 21.34 & Florence Griffith-Joyner & United States
+(USA)\tabularnewline
+400 metres & 48.25 & Marie-José Pérec & France (FRA)\tabularnewline
+800 metres & 1:53.43 & Nadezhda Olizarenko & Soviet Union
+(URS)\tabularnewline
+1,500 metres & 3:53.96 & Paula Ivan & Romania (ROU)\tabularnewline
+5,000 metres & 14:26.17 & Vivian Cheruiyot & Kenya (KEN)\tabularnewline
+10,000 metres & 29:17.45 & Almaz Ayana & Ethiopia (ETH)\tabularnewline
+Marathon & 2:23:07 & Tiki Gelana & Ethiopia (ETH)\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{factor-analysis}{%
+\subsection{5 - Factor Analysis}\label{factor-analysis}}
+
+    The correlation matrix below is from the measurement of skeletal
+features of white leghorn fowl (Dunn, Storrs Agricultural Experimental
+Station Bulletin, 52, 1928). Where
+
+X1 = Skull length X2 = Skull breadth X3 = Femur length X4 = Tibia length
+X5 = Humerus length X6 = Ulna length
+
+Using the \textbf{maximum likelihood procedure} the following estimated
+factor loadings were extracted:
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+Skeletal Feature & Variable & Estimated- & -Loadings & Varimax- &
+-rotated-loadings\tabularnewline
+\midrule
+\endhead
+& & F1 & F2 & F1* & F2*\tabularnewline
+Skull length & 1 & 0.602 & 0.200 & 0.484 & 0.411\tabularnewline
+Skull breadth & 2 & 0.467 & 0.154 & 0.375 & 0.319\tabularnewline
+Femur length & 3 & 0.926 & 0.143 & 0.603 & 0.717\tabularnewline
+Tibia length & 4 & 1.000 & 0.000 & 0.519 & 0.855\tabularnewline
+Humerus length & 5 & 0.874 & 0.476 & 0.861 & 0.499\tabularnewline
+Ulna length & 6 & 0.894 & 0.327 & 0.744 & 0.594\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{longtable}[]{@{}llllllllll@{}}
+\toprule
+\begin{minipage}[b]{0.07\columnwidth}\raggedright
+Skeletal Feature\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Variable\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Estimated-\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+-Loadings\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+Varimax-\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+-rotated-loadings\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F1\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F1 Proportions\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F2\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F2 Proportions\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F1*\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F1*Proportions\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F2*\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+F2*Proportions\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+Skull length\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.602\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.1263909\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.200\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.0419903\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.484\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.134969325\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.411\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.121060383\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+Skull breadth\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.467\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.0980474\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.154\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.0323326\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.375\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.104573341\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.319\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.093961708\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+Femur length\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.926\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.1944153\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.143\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.0300231\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.603\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.168153932\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.717\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.211192931\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+Tibia length\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+1.000\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.2099517\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.000\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.519\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.144729504\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.855\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.251840943\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+Humerus length\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.874\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.1834978\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.476\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.099937\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.861\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.24010039\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.499\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.146980854\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+Ulna length\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+6\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.894\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.1876968\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.327\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.0686542\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.744\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.207473508\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.594\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+0.174963181\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbf{Totals}\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+4.763\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+1.3\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+3.586\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+3.395\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedright
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kr}{proc iml;}
+         fowlCorr = \PYZob{}
+         \PY{l+m}{1.000} \PY{l+m}{0.505} \PY{l+m}{0.569} \PY{l+m}{0.602} \PY{l+m}{0.621} \PY{l+m}{0.603},
+         \PY{l+m}{0.505} \PY{l+m}{1.000} \PY{l+m}{0.422} \PY{l+m}{0.467} \PY{l+m}{0.482} \PY{l+m}{0.450},
+         \PY{l+m}{0.569} \PY{l+m}{0.422} \PY{l+m}{1.000} \PY{l+m}{0.926} \PY{l+m}{0.877} \PY{l+m}{0.878},
+         \PY{l+m}{0.602} \PY{l+m}{0.467} \PY{l+m}{0.926} \PY{l+m}{1.000} \PY{l+m}{0.874} \PY{l+m}{0.894},
+         \PY{l+m}{0.621} \PY{l+m}{0.482} \PY{l+m}{0.877} \PY{l+m}{0.874} \PY{l+m}{1.000} \PY{l+m}{0.937},
+         \PY{l+m}{0.603} \PY{l+m}{0.450} \PY{l+m}{0.878} \PY{l+m}{0.894} \PY{l+m}{0.937} \PY{l+m}{1.000}
+         \PYZcb{};
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+cm}{/* data fowl (type=cov);}
+         \PY{c+cm}{input \PYZus{}type\PYZus{}\PYZdl{} x1\PYZhy{}x6;}
+         \PY{c+cm}{datalines;}
+         \PY{c+cm}{corr 1.000 0.505 0.569 0.602 0.621 0.603}
+         \PY{c+cm}{corr 0.505 1.000 0.422 0.467 0.482 0.450}
+         \PY{c+cm}{corr 0.569 0.422 1.000 0.926 0.877 0.878}
+         \PY{c+cm}{corr 0.602 0.467 0.926 1.000 0.874 0.894}
+         \PY{c+cm}{corr 0.621 0.482 0.877 0.874 1.000 0.937}
+         \PY{c+cm}{corr 0.603 0.450 0.878 0.894 0.937 1.000}
+         \PY{c+cm}{;}
+         
+         \PY{c+cm}{proc factor data=fowl method=principal corr p=80;}
+         
+         \PY{c+cm}{/* proc factor data=fowl method=principal cov rotate=varimax; */}
+         \PY{k+kr}{run;} */
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{d-using-the-unrotated-estimated-factor-loadings-obtain-the-maximum-likelihood-estimates-of-the-following}{%
+\subsubsection{\texorpdfstring{d) Using the \textbf{unrotated estimated
+factor} loadings, obtain the maximum likelihood estimates of the
+following:}{d) Using the unrotated estimated factor loadings, obtain the maximum likelihood estimates of the following:}}\label{d-using-the-unrotated-estimated-factor-loadings-obtain-the-maximum-likelihood-estimates-of-the-following}}
+
+    \hypertarget{i.-the-specific-variances.}{%
+\paragraph{\texorpdfstring{i. The specific variances. \$\hat { \psi  }
+\$}{i. The specific variances. \$ \$}}\label{i.-the-specific-variances.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kr}{proc iml;}
+         fowlCorr = \PYZob{}
+         \PY{l+m}{1.000} \PY{l+m}{0.505} \PY{l+m}{0.569} \PY{l+m}{0.602} \PY{l+m}{0.621} \PY{l+m}{0.603},
+         \PY{l+m}{0.505} \PY{l+m}{1.000} \PY{l+m}{0.422} \PY{l+m}{0.467} \PY{l+m}{0.482} \PY{l+m}{0.450},
+         \PY{l+m}{0.569} \PY{l+m}{0.422} \PY{l+m}{1.000} \PY{l+m}{0.926} \PY{l+m}{0.877} \PY{l+m}{0.878},
+         \PY{l+m}{0.602} \PY{l+m}{0.467} \PY{l+m}{0.926} \PY{l+m}{1.000} \PY{l+m}{0.874} \PY{l+m}{0.894},
+         \PY{l+m}{0.621} \PY{l+m}{0.482} \PY{l+m}{0.877} \PY{l+m}{0.874} \PY{l+m}{1.000} \PY{l+m}{0.937},
+         \PY{l+m}{0.603} \PY{l+m}{0.450} \PY{l+m}{0.878} \PY{l+m}{0.894} \PY{l+m}{0.937} \PY{l+m}{1.000}
+         \PYZcb{};
+         estimatedFactorLoading = \PYZob{}
+         \PY{l+m}{0.602} \PY{l+m}{0.200},
+         \PY{l+m}{0.467} \PY{l+m}{0.154},
+         \PY{l+m}{0.926} \PY{l+m}{0.143},
+         \PY{l+m}{1.000} \PY{l+m}{0.000},
+         \PY{l+m}{0.874} \PY{l+m}{0.476},
+         \PY{l+m}{0.894} \PY{l+m}{0.327}
+         \PYZcb{};
+         estimatedFactorLoadingT = t(estimatedFactorLoading);
+         LLt = estimatedFactorLoading * estimatedFactorLoadingT;
+         
+         psiWithoutZeros = fowlCorr \PYZhy{} LLt;
+         psi = diag(psiWithoutZeros);
+         psiFowlEstimated = vecdiag(psi);
+         fowlCorrEstimated = LLt + psi;
+         redisualMatrixEstimated = fowlCorr \PYZhy{} LLt \PYZhy{} psi;
+         
+         communalitiesFowlEstimated = vecDiag(\PY{l+m}{1} \PYZhy{} psi);
+         print psiFowlEstimated;
+         print fowlCorrEstimated;
+         print fowlCorr;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{ii.-the-communalities.-h-i-2-1---i}{%
+\paragraph{\texorpdfstring{ii. The communalities. \$ \{ h \}\emph{\{ i
+\}\^{}\{ 2 \} = 1 -\{ \psi  \}}\{ i
+\}\$}{ii. The communalities. \$ \{ h \}\{ i \}\^{}\{ 2 \} = 1 -\{ \}\{ i \}\$}}\label{ii.-the-communalities.-h-i-2-1---i}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} print communalitiesFowlEstimated;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{iii.-the-proportion-of-variance-explained-by-each-factor.}{%
+\paragraph{iii. The proportion of variance explained by each
+factor.}\label{iii.-the-proportion-of-variance-explained-by-each-factor.}}
+
+    \textbf{Estimated-Loadings}
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+Skeletal Feature & Variable & & & &\tabularnewline
+\midrule
+\endhead
+& & F1 & F1 Proportions & F2 & F2 Proportions\tabularnewline
+Skull length & x1 & 0.602 & 0.1263909 & 0.200 & 0.0419903\tabularnewline
+Skull breadth & x2 & 0.467 & 0.0980474 & 0.154 &
+0.0323326\tabularnewline
+Femur length & x3 & 0.926 & 0.1944153 & 0.143 & 0.0300231\tabularnewline
+Tibia length & x4 & 1.000 & 0.2099517 & 0.000 & 0\tabularnewline
+Humerus length & x5 & 0.874 & 0.1834978 & 0.476 &
+0.099937\tabularnewline
+Ulna length & x6 & 0.894 & 0.1876968 & 0.327 & 0.0686542\tabularnewline
+\textbf{Totals} & & \textbf{4.763} & & \textbf{1.300} &\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{iv.-the-residual-matrix-2.5-marks}{%
+\paragraph{iv. The residual matrix (2.5
+marks)}\label{iv.-the-residual-matrix-2.5-marks}}
+
+    \$R-\widehat { L } \widehat { L } -\hat { \psi  } \$
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} print redisualMatrixEstimated;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{e-using-the-varimax-rotated-estimated-factor-loadings-obtain-the-maximum-likelihood-estimates-of-the-following}{%
+\paragraph{e) Using the varimax rotated estimated factor loadings,
+obtain the maximum likelihood estimates of the
+following:}\label{e-using-the-varimax-rotated-estimated-factor-loadings-obtain-the-maximum-likelihood-estimates-of-the-following}}
+
+\hypertarget{i.-the-specific-variances.}{%
+\paragraph{i. The specific
+variances.}\label{i.-the-specific-variances.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kr}{proc iml;}
+         fowlCorr = \PYZob{}
+         \PY{l+m}{1.000} \PY{l+m}{0.505} \PY{l+m}{0.569} \PY{l+m}{0.602} \PY{l+m}{0.621} \PY{l+m}{0.603},
+         \PY{l+m}{0.505} \PY{l+m}{1.000} \PY{l+m}{0.422} \PY{l+m}{0.467} \PY{l+m}{0.482} \PY{l+m}{0.450},
+         \PY{l+m}{0.569} \PY{l+m}{0.422} \PY{l+m}{1.000} \PY{l+m}{0.926} \PY{l+m}{0.877} \PY{l+m}{0.878},
+         \PY{l+m}{0.602} \PY{l+m}{0.467} \PY{l+m}{0.926} \PY{l+m}{1.000} \PY{l+m}{0.874} \PY{l+m}{0.894},
+         \PY{l+m}{0.621} \PY{l+m}{0.482} \PY{l+m}{0.877} \PY{l+m}{0.874} \PY{l+m}{1.000} \PY{l+m}{0.937},
+         \PY{l+m}{0.603} \PY{l+m}{0.450} \PY{l+m}{0.878} \PY{l+m}{0.894} \PY{l+m}{0.937} \PY{l+m}{1.000}
+         \PYZcb{};
+         
+         VarimaxRotated = \PYZob{}
+         \PY{l+m}{0.484} \PY{l+m}{0.411},
+         \PY{l+m}{0.375} \PY{l+m}{0.319},
+         \PY{l+m}{0.603} \PY{l+m}{0.717},
+         \PY{l+m}{0.519} \PY{l+m}{0.855},
+         \PY{l+m}{0.861} \PY{l+m}{0.499},
+         \PY{l+m}{0.744} \PY{l+m}{0.594}
+         \PYZcb{};
+         
+         redisualMatrixEstimated = \PYZob{}
+         \PY{l+m}{0} \PY{l+m}{0.193066} \PYZhy{}\PY{l+m}{0.017052} \PY{l+m}{0} \PYZhy{}\PY{l+m}{0.000348} \PYZhy{}\PY{l+m}{0.000588},
+         \PY{l+m}{0.193066} \PY{l+m}{0} \PYZhy{}\PY{l+m}{0.032464} \PY{l+m}{0} \PY{l+m}{0.000538} \PYZhy{}\PY{l+m}{0.017856},
+         \PYZhy{}\PY{l+m}{0.017052} \PYZhy{}\PY{l+m}{0.032464} \PY{l+m}{0} \PY{l+m}{0} \PYZhy{}\PY{l+m}{0.000392} \PY{l+m}{0.003395},
+         \PY{l+m}{0} \PY{l+m}{0} \PY{l+m}{0} \PY{l+m}{0} \PY{l+m}{0} \PY{l+m}{0},
+         \PYZhy{}\PY{l+m}{0.000348} \PY{l+m}{0.000538} \PYZhy{}\PY{l+m}{0.000392} \PY{l+m}{0} \PY{l+m}{0} \PYZhy{}\PY{l+m}{8E\PYZhy{}6},
+         \PYZhy{}\PY{l+m}{0.000588} \PYZhy{}\PY{l+m}{0.017856} \PY{l+m}{0.003395} \PY{l+m}{0} \PYZhy{}\PY{l+m}{8E\PYZhy{}6} \PY{l+m}{0} 
+         \PYZcb{};
+         
+         VarimaxRotatedT = t(VarimaxRotated);
+         LLt = VarimaxRotated * VarimaxRotatedT;
+         
+         psiWithoutZeros = fowlCorr \PYZhy{} LLt;
+         psi = diag(psiWithoutZeros);
+         psiFowlVarimax = vecdiag(psi);
+         fowlCorrSample = LLt + psi;
+         redisualMatrixRotated = fowlCorr \PYZhy{} LLt \PYZhy{} psi;
+         
+         residualMatrixDiff = redisualMatrixEstimated \PYZhy{} redisualMatrixRotated;
+         
+         communalitiesFowlVarimax = vecDiag(\PY{l+m}{1} \PYZhy{} psi);
+         print psiFowlVarimax;
+         print fowlCorrSample;
+         print fowlCorr;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{ii.-the-communalities.}{%
+\paragraph{ii. The communalities.}\label{ii.-the-communalities.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} print communalitiesFowlVarimax;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{iii.-the-proportion-of-variance-explained-by-each-factor.}{%
+\paragraph{iii. The proportion of variance explained by each
+factor.}\label{iii.-the-proportion-of-variance-explained-by-each-factor.}}
+
+    \hypertarget{varimax-rotated-loadings}{%
+\paragraph{Varimax-rotated-loadings}\label{varimax-rotated-loadings}}
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+\endhead
+& & F1* & F1*Proportions & F2* & F2*Proportions\tabularnewline
+Skull length & 1 & 0.484 & 0.134969325 & 0.411 &
+0.121060383\tabularnewline
+Skull breadth & 2 & 0.375 & 0.104573341 & 0.319 &
+0.093961708\tabularnewline
+Femur length & 3 & 0.603 & 0.168153932 & 0.717 &
+0.211192931\tabularnewline
+Tibia length & 4 & 0.519 & 0.144729504 & 0.855 &
+0.251840943\tabularnewline
+Humerus length & 5 & 0.861 & 0.24010039 & 0.499 &
+0.146980854\tabularnewline
+Ulna length & 6 & 0.744 & 0.207473508 & 0.594 &
+0.174963181\tabularnewline
+\textbf{Totals} & & 3.586 & & 3.395 &\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{iv.-theresidualmatrix-r----2.5-marks}{%
+\paragraph{\texorpdfstring{iv. Theresidualmatrix \$R-\widehat { L }
+\widehat { L } -\hat { \psi  } \$ (2.5
+marks)}{iv. Theresidualmatrix \$R-  - \$ (2.5 marks)}}\label{iv.-theresidualmatrix-r----2.5-marks}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} print redisualMatrixRotated;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \hypertarget{f-comment-on-the-results-using-the-two-loading-methods-by-comparing-your-results-from-part-a-and-part-b-above.-2-marks}{%
+\paragraph{f) Comment on the results using the two loading methods by
+comparing your results from part a) and part b) above. (2
+marks)}\label{f-comment-on-the-results-using-the-two-loading-methods-by-comparing-your-results-from-part-a-and-part-b-above.-2-marks}}
+
+    Rotating the residual matrix
+
+Everything appears to be quite similar, except for {[}2,1{]} in our
+corrolation matrix:
+
+\begin{itemize}
+\tightlist
+\item
+  Estimated loading 0.311934
+\item
+  Varimax rotated 0.312609
+\item
+  Corrolation matrix 0.505
+\end{itemize}
+
+Which seems to be slightly different based on our sample.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} print residualMatrixDiff;
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    It's not obvious with the estimated loadings what is explained by F1,
+and F2 in the estimated loading
+
+Ie. F1 =\textgreater{} mostly explained by Tibia, Femur, Ulna, Humerous,
+each \textasciitilde{}20\% F2 =\textgreater{} mostly explained by Ulna
+(0.07\textasciitilde{})
+
+Rotated is much easier to understand:
+
+F1 =\textgreater{} Mostly explained by Humerus (24\%), Ulna (20.7\%),
+Femur (17\%) F2 =\textgreater{} Mostly explained by Tibia (25\%),
+Femur(21\%), Ulna (17\%)
+
+There is no part a) or part b)
+
+Not rotated very far rotating moves this away from psi of 0 and
+communality of 1 So psi{[}4{]} for Varimax gets rotated to -0.000386
+
+    
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

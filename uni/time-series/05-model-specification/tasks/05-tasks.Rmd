@@ -31,7 +31,9 @@ The dataset “gold” contains the daily price of gold (in dollars per troy oun
 data(gold) # Load data. Here no need to convert it to ts object because
 # it is already ts object. See below:
 class(gold)
-par(mfrow=c(1,1))
+gold
+par(mfrow=c(1,1)) # TODO: in r studio - what is par?
+# ?par
 plot(gold,type='o',ylab="Rainfall", main='Los Angelos rainfall series')
 # In the time series plot there is trend, no seasonality, no obvious intervention, and no changing 
 # variance and succeeding observations imply the existence of autoregressive 
@@ -84,6 +86,7 @@ par(mfrow=c(1,1))
 # proceed over the ACF and PACF for this series. The patterns in ACF and PACF
 # implies existence of white noise behaviour.
 
+# diff.BC.gold
 eacf(diff.BC.gold)
 # In EACF, the vertex includes the orders of p=0 and q=0 in accordance with the 
 # inference drawn from the ACF and PACF. But from EACF, we can include the models

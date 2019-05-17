@@ -43,3 +43,6 @@ print(automobile)
 # # or
 # pandas.notnull
 # ```
+
+
+#%%

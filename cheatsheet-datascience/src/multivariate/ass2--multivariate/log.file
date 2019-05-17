@@ -1,0 +1,647 @@
+[D 14:36:48.765 NotebookApp] Searching ['/Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate', '/Users/phil/.jupyter', '/Applications/Anaconda/anaconda3/etc/jupyter', '/usr/local/etc/jupyter', '/etc/jupyter'] for config files
+[D 14:36:48.766 NotebookApp] Looking for jupyter_config in /etc/jupyter
+[D 14:36:48.766 NotebookApp] Looking for jupyter_config in /usr/local/etc/jupyter
+[D 14:36:48.766 NotebookApp] Looking for jupyter_config in /Applications/Anaconda/anaconda3/etc/jupyter
+[D 14:36:48.767 NotebookApp] Looking for jupyter_config in /Users/phil/.jupyter
+[D 14:36:48.767 NotebookApp] Looking for jupyter_config in /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate
+[D 14:36:48.768 NotebookApp] Looking for jupyter_notebook_config in /etc/jupyter
+[D 14:36:48.768 NotebookApp] Looking for jupyter_notebook_config in /usr/local/etc/jupyter
+[D 14:36:48.768 NotebookApp] Looking for jupyter_notebook_config in /Applications/Anaconda/anaconda3/etc/jupyter
+[D 14:36:48.769 NotebookApp] Loaded config file: /Applications/Anaconda/anaconda3/etc/jupyter/jupyter_notebook_config.json
+[D 14:36:48.769 NotebookApp] Looking for jupyter_notebook_config in /Users/phil/.jupyter
+[D 14:36:48.769 NotebookApp] Looking for jupyter_notebook_config in /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate
+[I 14:36:49.895 NotebookApp] The port 8888 is already in use, trying another port.
+[D 14:36:49.905 NotebookApp] Paths used for configuration of jupyter_notebook_config: 
+    	/etc/jupyter/jupyter_notebook_config.json
+[D 14:36:49.905 NotebookApp] Paths used for configuration of jupyter_notebook_config: 
+    	/usr/local/etc/jupyter/jupyter_notebook_config.d/jupyterlab.json
+    	/usr/local/etc/jupyter/jupyter_notebook_config.json
+[D 14:36:49.907 NotebookApp] Paths used for configuration of jupyter_notebook_config: 
+    	/Applications/Anaconda/anaconda3/etc/jupyter/jupyter_notebook_config.d/jupyterlab-discovery.json
+    	/Applications/Anaconda/anaconda3/etc/jupyter/jupyter_notebook_config.d/jupyterlab.json
+    	/Applications/Anaconda/anaconda3/etc/jupyter/jupyter_notebook_config.json
+[D 14:36:49.909 NotebookApp] Paths used for configuration of jupyter_notebook_config: 
+    	/Users/phil/.jupyter/jupyter_notebook_config.json
+[I 14:36:49.968 NotebookApp] JupyterLab extension loaded from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/jupyterlab
+[I 14:36:49.968 NotebookApp] JupyterLab application directory is /Applications/Anaconda/anaconda3/share/jupyter/lab
+[W 14:36:49.972 NotebookApp] Error loading server extension jupyterlab_discovery
+    Traceback (most recent call last):
+      File "/Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/notebookapp.py", line 1576, in init_server_extensions
+        func(self)
+      File "/Applications/Anaconda/anaconda3/lib/python3.6/site-packages/jupyterlab_discovery/server_extension.py", line 18, in load_jupyter_server_extension
+        from .handlers import (
+      File "/Applications/Anaconda/anaconda3/lib/python3.6/site-packages/jupyterlab_discovery/handlers.py", line 24, in <module>
+        from jupyterlab.commands import (
+    ImportError: cannot import name '_read_package'
+[I 14:36:49.976 NotebookApp] Serving notebooks from local directory: /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate
+[I 14:36:49.976 NotebookApp] The Jupyter Notebook is running at:
+[I 14:36:49.976 NotebookApp] http://localhost:8889/?token=36d049fb35b1fec3890576247700844fe95c2278ea906491
+[I 14:36:49.976 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 14:36:49.977 NotebookApp] 
+    
+    Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://localhost:8889/?token=36d049fb35b1fec3890576247700844fe95c2278ea906491
+[I 14:36:50.131 NotebookApp] Accepting one-time-token-authenticated connection from ::1
+[D 14:36:50.133 NotebookApp] Using contents: services/contents
+[D 14:36:50.307 NotebookApp] Path base/images/favicon.ico served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/base/images/favicon.ico
+[D 14:36:50.308 NotebookApp] Path components/jquery-ui/themes/smoothness/jquery-ui.min.css served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/jquery-ui/themes/smoothness/jquery-ui.min.css
+[D 14:36:50.309 NotebookApp] Path components/jquery-typeahead/dist/jquery.typeahead.min.css served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/jquery-typeahead/dist/jquery.typeahead.min.css
+[D 14:36:50.309 NotebookApp] Path style/style.min.css served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/style/style.min.css
+[D 14:36:50.312 NotebookApp] Path components/es6-promise/promise.min.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/es6-promise/promise.min.js
+[D 14:36:50.313 NotebookApp] Path components/preact/index.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/preact/index.js
+[D 14:36:50.313 NotebookApp] Path components/proptypes/index.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/proptypes/index.js
+[D 14:36:50.314 NotebookApp] Path components/preact-compat/index.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/preact-compat/index.js
+[D 14:36:50.315 NotebookApp] Path components/requirejs/require.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/requirejs/require.js
+[D 14:36:50.316 NotebookApp] Path base/images/logo.png served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/base/images/logo.png
+[D 14:36:50.318 NotebookApp] Path tree/js/main.min.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/tree/js/main.min.js
+[D 14:36:50.325 NotebookApp] 200 GET /tree?token=c5f9848a3598d44bd7d301f15e96b81f2142db825c7d5073 (::1) 195.71ms
+[D 14:36:50.328 NotebookApp] Initializing websocket connection /api/kernels/b35821f6-87fd-4f54-a3fa-b797b8b1f5bb/channels
+[W 14:36:50.354 NotebookApp] 404 GET /api/kernels/b35821f6-87fd-4f54-a3fa-b797b8b1f5bb/channels?session_id=4b4efc8247fc43d78ec6a18a1b79a056 (::1): Kernel does not exist: b35821f6-87fd-4f54-a3fa-b797b8b1f5bb
+[D 14:36:50.355 NotebookApp] Using contents: services/contents
+[W 14:36:50.374 NotebookApp] 404 GET /api/kernels/b35821f6-87fd-4f54-a3fa-b797b8b1f5bb/channels?session_id=4b4efc8247fc43d78ec6a18a1b79a056 (::1) 46.76ms referer=None
+[D 14:36:50.376 NotebookApp] Path custom.css served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/custom/custom.css
+[D 14:36:50.378 NotebookApp] 304 GET /custom/custom.css (::1) 2.68ms
+[D 14:36:50.725 NotebookApp] Path services/contents.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/services/contents.js
+[D 14:36:50.726 NotebookApp] 200 GET /static/services/contents.js?v=20181023143648 (::1) 2.08ms
+[D 14:36:50.813 NotebookApp] Paths used for configuration of tree: 
+    	/etc/jupyter/nbconfig/tree.json
+[D 14:36:50.814 NotebookApp] Paths used for configuration of tree: 
+    	/usr/local/etc/jupyter/nbconfig/tree.json
+[D 14:36:50.815 NotebookApp] Paths used for configuration of tree: 
+    	/Applications/Anaconda/anaconda3/etc/jupyter/nbconfig/tree.json
+[D 14:36:50.816 NotebookApp] Paths used for configuration of tree: 
+    	/Users/phil/.jupyter/nbconfig/tree.json
+[D 14:36:50.816 NotebookApp] 200 GET /api/config/tree?_=1540265810672 (::1) 5.31ms
+[D 14:36:50.818 NotebookApp] Paths used for configuration of common: 
+    	/etc/jupyter/nbconfig/common.json
+[D 14:36:50.819 NotebookApp] Paths used for configuration of common: 
+    	/usr/local/etc/jupyter/nbconfig/common.json
+[D 14:36:50.820 NotebookApp] Paths used for configuration of common: 
+    	/Applications/Anaconda/anaconda3/etc/jupyter/nbconfig/common.json
+[D 14:36:50.820 NotebookApp] Paths used for configuration of common: 
+    	/Users/phil/.jupyter/nbconfig/common.json
+[D 14:36:50.821 NotebookApp] 200 GET /api/config/common?_=1540265810673 (::1) 3.25ms
+[D 14:36:50.825 NotebookApp] 200 GET /api/terminals?_=1540265810674 (::1) 1.20ms
+[D 14:36:50.831 NotebookApp] Found kernel sas in /Users/phil/Library/Jupyter/kernels
+[D 14:36:50.831 NotebookApp] Found kernel python3 in /Applications/Anaconda/anaconda3/share/jupyter/kernels
+[D 14:36:50.832 NotebookApp] Found kernel python2 in /usr/local/share/jupyter/kernels
+[D 14:36:50.832 NotebookApp] Found kernel ir in /usr/local/share/jupyter/kernels
+[D 14:36:50.840 NotebookApp] 304 GET /api/kernelspecs (::1) 10.31ms
+[D 14:36:50.841 NotebookApp] 200 GET /api/terminals?_=1540265810676 (::1) 0.72ms
+[D 14:36:50.844 NotebookApp] 200 GET /api/sessions?_=1540265810675 (::1) 1.87ms
+[D 14:36:50.950 NotebookApp] 200 GET /api/contents?type=directory&_=1540265810677 (::1) 9.61ms
+[D 14:36:50.952 NotebookApp] Path custom.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/custom/custom.js
+[D 14:36:50.953 NotebookApp] 200 GET /custom/custom.js?v=20181023143648 (::1) 2.21ms
+[D 14:37:05.650 NotebookApp] 200 GET /api/sessions?_=1540265700421 (::1) 1.12ms
+[D 14:37:05.653 NotebookApp] 200 GET /api/terminals?_=1540265700422 (::1) 0.72ms
+[W 14:37:05.658 NotebookApp] 404 GET /api/contents/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate?type=directory&_=1540265700423 (::1): No such file or directory: data-science/cheatsheet/source/includes/multivariate/ass2--multivariate
+[W 14:37:05.658 NotebookApp] No such file or directory: data-science/cheatsheet/source/includes/multivariate/ass2--multivariate
+[W 14:37:05.658 NotebookApp] 404 GET /api/contents/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate?type=directory&_=1540265700423 (::1) 1.41ms referer=http://localhost:8889/tree/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate
+[D 14:37:08.537 NotebookApp] 200 GET /api/sessions?_=1540265810678 (::1) 1.39ms
+[D 14:37:08.539 NotebookApp] 200 GET /api/terminals?_=1540265810679 (::1) 1.02ms
+[D 14:37:08.559 NotebookApp] 200 GET /api/contents?type=directory&_=1540265810680 (::1) 10.17ms
+[D 14:37:10.101 NotebookApp] Using contents: services/contents
+[D 14:37:10.202 NotebookApp] Path base/images/favicon-notebook.ico served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/base/images/favicon-notebook.ico
+[D 14:37:10.203 NotebookApp] Path components/bootstrap-tour/build/css/bootstrap-tour.min.css served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/bootstrap-tour/build/css/bootstrap-tour.min.css
+[D 14:37:10.204 NotebookApp] Path components/codemirror/lib/codemirror.css served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/codemirror/lib/codemirror.css
+[D 14:37:10.205 NotebookApp] Path notebook/css/override.css served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/notebook/css/override.css
+[D 14:37:10.583 NotebookApp] Path components/text-encoding/lib/encoding.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/text-encoding/lib/encoding.js
+[D 14:37:10.584 NotebookApp] Path notebook/js/main.min.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/notebook/js/main.min.js
+[D 14:37:10.595 NotebookApp] 200 GET /notebooks/ass2-multivariate.ipynb (::1) 495.87ms
+[D 14:37:10.623 NotebookApp] Path components/MathJax/MathJax.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/MathJax.js
+[D 14:37:10.624 NotebookApp] 304 GET /static/components/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full,Safe&delayStartupUntil=configured (::1) 2.93ms
+[D 14:37:10.630 NotebookApp] 304 GET /custom/custom.css (::1) 2.12ms
+[D 14:37:10.789 NotebookApp] Path components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js
+[D 14:37:10.790 NotebookApp] 304 GET /static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js?V=2.7.5 (::1) 1.27ms
+[D 14:37:10.847 NotebookApp] Path components/MathJax/config/Safe.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/config/Safe.js
+[D 14:37:10.848 NotebookApp] 304 GET /static/components/MathJax/config/Safe.js?V=2.7.5 (::1) 1.36ms
+[D 14:37:11.054 NotebookApp] Paths used for configuration of notebook: 
+    	/etc/jupyter/nbconfig/notebook.json
+[D 14:37:11.055 NotebookApp] Paths used for configuration of notebook: 
+    	/usr/local/etc/jupyter/nbconfig/notebook.json
+[D 14:37:11.055 NotebookApp] Paths used for configuration of notebook: 
+    	/Applications/Anaconda/anaconda3/etc/jupyter/nbconfig/notebook.json
+[D 14:37:11.057 NotebookApp] Paths used for configuration of notebook: 
+    	/Users/phil/.jupyter/nbconfig/notebook.json
+[D 14:37:11.057 NotebookApp] 200 GET /api/config/notebook?_=1540265830882 (::1) 4.20ms
+[D 14:37:11.060 NotebookApp] Paths used for configuration of common: 
+    	/etc/jupyter/nbconfig/common.json
+[D 14:37:11.061 NotebookApp] Paths used for configuration of common: 
+    	/usr/local/etc/jupyter/nbconfig/common.json
+[D 14:37:11.062 NotebookApp] Paths used for configuration of common: 
+    	/Applications/Anaconda/anaconda3/etc/jupyter/nbconfig/common.json
+[D 14:37:11.063 NotebookApp] Paths used for configuration of common: 
+    	/Users/phil/.jupyter/nbconfig/common.json
+[D 14:37:11.063 NotebookApp] 200 GET /api/config/common?_=1540265830883 (::1) 5.13ms
+[D 14:37:11.082 NotebookApp] Path components/MathJax/extensions/MathML/content-mathml.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/extensions/MathML/content-mathml.js
+[D 14:37:11.083 NotebookApp] 304 GET /static/components/MathJax/extensions/MathML/content-mathml.js?V=2.7.5 (::1) 1.21ms
+[D 14:37:11.109 NotebookApp] Found kernel sas in /Users/phil/Library/Jupyter/kernels
+[D 14:37:11.110 NotebookApp] Found kernel python3 in /Applications/Anaconda/anaconda3/share/jupyter/kernels
+[D 14:37:11.110 NotebookApp] Found kernel python2 in /usr/local/share/jupyter/kernels
+[D 14:37:11.110 NotebookApp] Found kernel ir in /usr/local/share/jupyter/kernels
+[D 14:37:11.114 NotebookApp] 304 GET /api/kernelspecs (::1) 5.50ms
+[D 14:37:11.347 NotebookApp] 200 GET /api/contents/ass2-multivariate.ipynb?type=notebook&_=1540265830884 (::1) 198.59ms
+[D 14:37:11.350 NotebookApp] Path jupyter-js-widgets/extension.js served from /Applications/Anaconda/anaconda3/share/jupyter/nbextensions/jupyter-js-widgets/extension.js
+[D 14:37:11.362 NotebookApp] Path components/MathJax/extensions/Safe.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/extensions/Safe.js
+[D 14:37:11.363 NotebookApp] 304 GET /static/components/MathJax/extensions/Safe.js?V=2.7.5 (::1) 1.92ms
+[D 14:37:11.366 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/fontdata.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/fontdata.js
+[D 14:37:11.367 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/fontdata.js?V=2.7.5 (::1) 2.20ms
+[D 14:37:11.369 NotebookApp] 304 GET /custom/custom.js?v=20181023143648 (::1) 1.33ms
+[D 14:37:16.672 NotebookApp] Starting kernel: ['/usr/local/opt/python/bin/python3.7', '-m', 'sas_kernel', '-f', '/Users/phil/Library/Jupyter/runtime/kernel-072a548c-31f7-4520-9098-c47150963bfc.json']
+[D 14:37:16.681 NotebookApp] Connecting to: tcp://127.0.0.1:52636
+[D 14:37:16.684 NotebookApp] Connecting to: tcp://127.0.0.1:52634
+[I 14:37:16.687 NotebookApp] Kernel started: 072a548c-31f7-4520-9098-c47150963bfc
+[D 14:37:16.687 NotebookApp] Kernel args: {'kernel_name': 'sas', 'cwd': '/Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate'}
+[D 14:37:16.689 NotebookApp] 201 POST /api/sessions (::1) 50.22ms
+[D 14:37:16.694 NotebookApp] 200 GET /api/contents/ass2-multivariate.ipynb/checkpoints?_=1540265830885 (::1) 3.50ms
+[D 14:37:17.226 NotebookApp] Initializing websocket connection /api/kernels/072a548c-31f7-4520-9098-c47150963bfc/channels
+[D 14:37:17.229 NotebookApp] Requesting kernel info from 072a548c-31f7-4520-9098-c47150963bfc
+[D 14:37:17.229 NotebookApp] Connecting to: tcp://127.0.0.1:52633
+[D 14:37:17.350 NotebookApp] Path components/codemirror/mode/sas/sas.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/codemirror/mode/sas/sas.js
+[D 14:37:17.352 NotebookApp] 200 GET /static/components/codemirror/mode/sas/sas.js?v=20181023143648 (::1) 3.15ms
+[D 14:37:17.751 NotebookApp] 200 GET /nbextensions/jupyter-js-widgets/extension.js?v=20181023143648 (::1) 6402.69ms
+[D 14:37:17.829 NotebookApp] activity on 072a548c-31f7-4520-9098-c47150963bfc: status
+[D 14:37:17.830 NotebookApp] activity on 072a548c-31f7-4520-9098-c47150963bfc: status
+[D 14:37:17.831 NotebookApp] Received kernel info: {'status': 'ok', 'protocol_version': '5.1', 'implementation': 'sas_kernel', 'implementation_version': '2.1.7', 'language_info': {'name': 'sas', 'mimetype': 'text/x-sas', 'codemirror_mode': 'sas', 'file_extension': '.sas'}, 'banner': 'SAS Kernel', 'help_links': [{'text': 'MetaKernel Magics', 'url': 'https://github.com/calysto/metakernel/blob/master/metakernel/magics/README.md'}]}
+[I 14:37:17.832 NotebookApp] Adapting to protocol v5.1 for kernel 072a548c-31f7-4520-9098-c47150963bfc
+[D 14:37:17.834 NotebookApp] activity on 072a548c-31f7-4520-9098-c47150963bfc: status
+[D 14:37:17.836 NotebookApp] 101 GET /api/kernels/072a548c-31f7-4520-9098-c47150963bfc/channels?session_id=113f0f24f92b4d9dae13b050a0e4e026 (::1) 610.55ms
+[D 14:37:17.837 NotebookApp] Opening websocket /api/kernels/072a548c-31f7-4520-9098-c47150963bfc/channels
+[D 14:37:17.837 NotebookApp] Getting buffer for 072a548c-31f7-4520-9098-c47150963bfc
+[D 14:37:17.837 NotebookApp] Connecting to: tcp://127.0.0.1:52633
+[D 14:37:17.838 NotebookApp] Connecting to: tcp://127.0.0.1:52634
+[D 14:37:17.838 NotebookApp] Connecting to: tcp://127.0.0.1:52635
+[D 14:37:17.855 NotebookApp] activity on 072a548c-31f7-4520-9098-c47150963bfc: status
+[D 14:37:17.858 NotebookApp] activity on 072a548c-31f7-4520-9098-c47150963bfc: status
+[D 14:37:18.153 NotebookApp] activity on 072a548c-31f7-4520-9098-c47150963bfc: status
+[D 14:37:18.154 NotebookApp] activity on 072a548c-31f7-4520-9098-c47150963bfc: status
+[D 14:37:23.236 NotebookApp] Path components/MathJax/extensions/TeX/boldsymbol.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/extensions/TeX/boldsymbol.js
+[D 14:37:23.237 NotebookApp] 304 GET /static/components/MathJax/extensions/TeX/boldsymbol.js?V=2.7.5 (::1) 1.92ms
+[D 14:37:23.427 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Bold/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Bold/Main.js
+[D 14:37:23.427 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Bold/Main.js?V=2.7.5 (::1) 1.28ms
+[D 14:37:23.827 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/Bold/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/Bold/Main.js
+[D 14:37:23.827 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/Bold/Main.js?V=2.7.5 (::1) 1.27ms
+[D 14:37:33.005 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Regular/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Regular/Main.js
+[D 14:37:33.006 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Regular/Main.js?V=2.7.5 (::1) 1.96ms
+[D 14:37:33.022 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Variants/Italic/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Variants/Italic/Main.js
+[D 14:37:33.023 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Variants/Italic/Main.js?V=2.7.5 (::1) 3.23ms
+[D 14:37:33.061 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Italic/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Italic/Main.js
+[D 14:37:33.063 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Italic/Main.js?V=2.7.5 (::1) 2.93ms
+[D 14:37:33.107 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/Italic/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/Italic/Main.js
+[D 14:37:33.108 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/Italic/Main.js?V=2.7.5 (::1) 2.22ms
+[D 14:37:33.179 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/BoldItalic/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/BoldItalic/Main.js
+[D 14:37:33.180 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/BoldItalic/Main.js?V=2.7.5 (::1) 1.25ms
+[D 14:37:33.202 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/BoldItalic/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/BoldItalic/Main.js
+[D 14:37:33.202 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/BoldItalic/Main.js?V=2.7.5 (::1) 1.28ms
+[D 14:37:33.284 NotebookApp] Path components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Normal-Bold.woff served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Normal-Bold.woff
+[D 14:37:33.286 NotebookApp] 304 GET /static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Normal-Bold.woff?V=2.7.5 (::1) 4.03ms
+[D 14:37:33.812 NotebookApp] Using contents: services/contents
+[W 14:37:33.814 NotebookApp] 404 GET /static/components/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf (::1) 2.23ms referer=http://localhost:8889/notebooks/ass2-multivariate.ipynb
+[D 14:37:34.435 NotebookApp] 200 GET /api/sessions?_=1540265810681 (::1) 1.02ms
+[D 14:37:34.437 NotebookApp] 200 GET /api/terminals?_=1540265810682 (::1) 0.70ms
+[D 14:37:34.449 NotebookApp] 200 GET /api/contents?type=directory&_=1540265810683 (::1) 6.61ms
+[D 14:37:46.921 NotebookApp] 200 GET /api/sessions?_=1540265810684 (::1) 1.03ms
+[D 14:37:46.923 NotebookApp] 200 GET /api/terminals?_=1540265810685 (::1) 1.06ms
+[D 14:37:46.940 NotebookApp] 200 GET /api/contents?type=directory&_=1540265810686 (::1) 8.81ms
+[D 14:38:29.352 NotebookApp] Applying preprocessor: TagRemovePreprocessor
+[D 14:38:29.403 NotebookApp] Applying preprocessor: RegexRemovePreprocessor
+[D 14:38:29.532 NotebookApp] Applying preprocessor: coalesce_streams
+[D 14:38:29.573 NotebookApp] Applying preprocessor: SVG2PDFPreprocessor
+[D 14:38:29.659 NotebookApp] Applying preprocessor: LatexPreprocessor
+[D 14:38:29.710 NotebookApp] Applying preprocessor: HighlightMagicsPreprocessor
+[D 14:38:29.750 NotebookApp] Applying preprocessor: ExtractOutputPreprocessor
+[D 14:38:29.790 NotebookApp] Attempting to load template article.tplx
+[D 14:38:29.790 NotebookApp]     template_path: .
+[I 14:38:36.842 NotebookApp] Writing 86208 bytes to /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate/notebook.tex
+[I 14:38:36.844 NotebookApp] Building PDF
+[I 14:38:36.845 NotebookApp] Running xelatex 3 times: ['xelatex', '/Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate/notebook.tex']
+[C 14:38:37.752 NotebookApp] xelatex failed: ['xelatex', '/Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate/notebook.tex']
+    This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex)
+     restricted \write18 enabled.
+    entering extended mode
+    
+    (/Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--mu
+    ltivariate/notebook.tex
+    LaTeX2e <2018-04-01> patch level 2
+    Babel <3.18> and hyphenation patterns for 22 language(s) loaded.
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/article.cls
+    Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/size11.clo))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/fontenc.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/t1enc.def)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/lm/t1lmr.fd))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/mathpazo.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/graphics/graphicx.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/graphics/keyval.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/graphics/graphics.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/graphics/trig.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/graphics-def/xetex.def)))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/caption/caption.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/caption/caption3.sty))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/adjustbox/adjcalc.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/adjustbox/trimclip.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/collectbox/collectbox.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/adjustbox/tc-xetex.def)))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/xcolor/xcolor.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/graphics-cfg/color.cfg))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/tools/enumerate.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/geometry/geometry.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/ifpdf.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/ifvtex.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/ifxetex/ifxetex.sty))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/amsmath/amsmath.sty
+    For additional information on amsmath, use the `?' option.
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/amsmath/amstext.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/amsmath/amsgen.sty))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/amsmath/amsopn.sty))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/amsfonts/amssymb.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/textcomp.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/ts1enc.def))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/upquote/upquote.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/eurosym/eurosym.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/ucs/ucs.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/ucs/data/uni-global.def))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/inputenc.sty
+    
+    Package inputenc Warning: inputenc package ignored with utf8 based engines.
+    
+    ) (/usr/local/texlive/2018basic/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+    Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+    <2008/02/07> (tvz))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/oberdiek/grffile.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/ltxcmds.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/ifluatex.sty))))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/hyperref/hyperref.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.s
+    ty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/hobsub-generic.st
+    y)) (/usr/local/texlive/2018basic/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/hyperref/pd1enc.def)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/url/url.sty))
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/hyperref/hxetex.def
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/hyperref/puenc.def)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/stringenc.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty)
+    ) (/usr/local/texlive/2018basic/texmf-dist/tex/latex/tools/longtable.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/booktabs/booktabs.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/enumitem/enumitem.sty)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/ulem/ulem.sty)
+    No file notebook.aux.
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/ts1cmr.fd)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/t1ppl.fd)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/caption/ltcaption.sty)
+    *geometry* driver: auto-detecting
+    *geometry* detected driver: xetex
+    *geometry* verbose mode - [ preamble ] result:
+    * driver: xetex
+    * paper: <default>
+    * layout: <same size as paper>
+    * layoutoffset:(h,v)=(0.0pt,0.0pt)
+    * modes: 
+    * h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+    * v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+    * \paperwidth=614.295pt
+    * \paperheight=794.96999pt
+    * \textwidth=469.75502pt
+    * \textheight=650.43001pt
+    * \oddsidemargin=0.0pt
+    * \evensidemargin=0.0pt
+    * \topmargin=-37.0pt
+    * \headheight=12.0pt
+    * \headsep=25.0pt
+    * \topskip=11.0pt
+    * \footskip=30.0pt
+    * \marginparwidth=59.0pt
+    * \marginparsep=10.0pt
+    * \columnsep=10.0pt
+    * \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+    * \hoffset=0.0pt
+    * \voffset=0.0pt
+    * \mag=1000
+    * \@twocolumnfalse
+    * \@twosidefalse
+    * \@mparswitchfalse
+    * \@reversemarginfalse
+    * (1in=72.27pt=25.4mm, 1cm=28.453pt)
+    
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/ucs/ucsencs.def)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/hyperref/nameref.sty
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/gettitlestring.st
+    y))
+    
+    Package hyperref Warning: Rerun to get /PageLabels entry.
+    
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/ot1ppl.fd)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/omlzplm.fd)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/omszplm.fd)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/omxzplm.fd)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/ot1zplm.fd)
+    
+    LaTeX Warning: No \author given.
+    
+    
+    (/usr/local/texlive/2018basic/texmf-dist/tex/generic/oberdiek/se-ascii-print.de
+    f) (/usr/local/texlive/2018basic/texmf-dist/tex/latex/lm/t1lmtt.fd) [1]
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/lm/ts1lmtt.fd)
+    (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/ts1ppl.fd) [2]
+    [3] [4] [5]
+    
+    ! Package amsmath Error: \bar allowed only in math mode.
+    
+    See the amsmath package documentation for explanation.
+    Type  H <return>  for immediate help.
+     ...                                              
+                                                      
+    l.710     \$\bar \{
+                        \{ X \}\emph{\{ i \} \} \pm \quad { t }}\{
+    ? 
+    ! Emergency stop.
+     ...                                              
+                                                      
+    l.710     \$\bar \{
+                        \{ X \}\emph{\{ i \} \} \pm \quad { t }}\{
+    Output written on notebook.pdf (5 pages).
+    Transcript written on notebook.log.
+    
+[I 14:38:37.754 NotebookApp] PDF successfully created
+[D 14:38:37.757 NotebookApp] 200 GET /nbconvert/pdf/ass2-multivariate.ipynb?download=true (::1) 8740.70ms
+[D 14:38:53.335 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size3/Regular/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size3/Regular/Main.js
+[D 14:38:53.336 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size3/Regular/Main.js?V=2.7.5 (::1) 2.62ms
+[D 14:38:53.364 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/autoload/multiline.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/autoload/multiline.js
+[D 14:38:53.365 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/autoload/multiline.js?V=2.7.5 (::1) 1.90ms
+[D 14:38:54.548 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size1/Regular/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size1/Regular/Main.js
+[D 14:38:54.549 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size1/Regular/Main.js?V=2.7.5 (::1) 1.57ms
+[D 14:38:54.584 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size5/Regular/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size5/Regular/Main.js
+[D 14:38:54.585 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size5/Regular/Main.js?V=2.7.5 (::1) 1.63ms
+[D 14:38:54.622 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Symbols/Regular/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Symbols/Regular/Main.js
+[D 14:38:54.623 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Symbols/Regular/Main.js?V=2.7.5 (::1) 1.69ms
+[D 14:38:54.705 NotebookApp] 200 GET /api/sessions?_=1540265810687 (::1) 2.00ms
+[D 14:38:54.708 NotebookApp] 200 GET /api/terminals?_=1540265810688 (::1) 1.74ms
+[D 14:38:54.726 NotebookApp] 200 GET /api/contents?type=directory&_=1540265810689 (::1) 9.65ms
+[D 14:39:46.199 NotebookApp] Path components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size2/Regular/Main.js served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size2/Regular/Main.js
+[D 14:39:46.200 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Size2/Regular/Main.js?V=2.7.5 (::1) 3.96ms
+[D 14:40:42.680 NotebookApp] 200 GET /api/sessions?_=1540265810690 (::1) 9.83ms
+[D 14:40:42.685 NotebookApp] 200 GET /api/terminals?_=1540265810691 (::1) 1.99ms
+[D 14:40:42.705 NotebookApp] 200 GET /api/contents?type=directory&_=1540265810692 (::1) 14.00ms
+[D 14:41:42.732 NotebookApp] 200 GET /api/sessions?_=1540265810693 (::1) 1.74ms
+[D 14:41:42.735 NotebookApp] 200 GET /api/terminals?_=1540265810694 (::1) 1.28ms
+[D 14:41:42.753 NotebookApp] 200 GET /api/contents?type=directory&_=1540265810695 (::1) 9.55ms
+[D 14:44:12.468 NotebookApp] Applying preprocessor: TagRemovePreprocessor
+[D 14:44:12.511 NotebookApp] Applying preprocessor: RegexRemovePreprocessor
+[D 14:44:12.639 NotebookApp] Applying preprocessor: coalesce_streams
+[D 14:44:12.724 NotebookApp] Applying preprocessor: CSSHTMLHeaderPreprocessor
+[D 14:44:12.813 NotebookApp] Applying preprocessor: HighlightMagicsPreprocessor
+[D 14:44:12.897 NotebookApp] Attempting to load template full.tpl
+[D 14:44:12.897 NotebookApp]     template_path: .
+[D 14:44:13.161 NotebookApp] 200 GET /nbconvert/html/ass2-multivariate.ipynb?download=false (::1) 943.79ms
+[W 14:44:13.379 NotebookApp] 404 GET /nbconvert/html/custom.css (::1): No such file or directory: custom.css
+[D 14:44:13.379 NotebookApp] Using contents: services/contents
+[W 14:44:13.383 NotebookApp] 404 GET /nbconvert/html/custom.css (::1) 39.73ms referer=http://localhost:8889/nbconvert/html/ass2-multivariate.ipynb?download=false
+[D 14:45:49.493 NotebookApp] Applying preprocessor: TagRemovePreprocessor
+[D 14:45:49.533 NotebookApp] Applying preprocessor: RegexRemovePreprocessor
+[D 14:45:49.658 NotebookApp] Applying preprocessor: coalesce_streams
+[D 14:45:49.744 NotebookApp] Applying preprocessor: CSSHTMLHeaderPreprocessor
+[D 14:45:49.828 NotebookApp] Applying preprocessor: HighlightMagicsPreprocessor
+[D 14:45:49.909 NotebookApp] Attempting to load template full.tpl
+[D 14:45:49.909 NotebookApp]     template_path: .
+[D 14:45:50.160 NotebookApp] 200 GET /nbconvert/html/ass2-multivariate.ipynb?download=true (::1) 885.10ms
+[I 14:51:35.171 NotebookApp] Creating new notebook in 
+[D 14:51:35.176 NotebookApp] Saving /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate/Untitled1.ipynb
+[D 14:51:35.193 NotebookApp] 201 POST /api/contents (::1) 33.04ms
+[D 14:51:35.340 NotebookApp] Using contents: services/contents
+[D 14:51:35.761 NotebookApp] 200 GET /notebooks/Untitled1.ipynb?kernel_name=sas (::1) 423.26ms
+[D 14:51:35.801 NotebookApp] 304 GET /static/components/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full,Safe&delayStartupUntil=configured (::1) 3.97ms
+[D 14:51:35.805 NotebookApp] 304 GET /custom/custom.css (::1) 2.50ms
+[D 14:51:36.012 NotebookApp] 304 GET /static/components/MathJax/config/TeX-AMS-MML_HTMLorMML-full.js?V=2.7.5 (::1) 2.07ms
+[D 14:51:36.082 NotebookApp] 304 GET /static/components/MathJax/config/Safe.js?V=2.7.5 (::1) 1.25ms
+[D 14:51:36.362 NotebookApp] Paths used for configuration of notebook: 
+    	/etc/jupyter/nbconfig/notebook.json
+[D 14:51:36.363 NotebookApp] Paths used for configuration of notebook: 
+    	/usr/local/etc/jupyter/nbconfig/notebook.json
+[D 14:51:36.364 NotebookApp] Paths used for configuration of notebook: 
+    	/Applications/Anaconda/anaconda3/etc/jupyter/nbconfig/notebook.json
+[D 14:51:36.367 NotebookApp] Paths used for configuration of notebook: 
+    	/Users/phil/.jupyter/nbconfig/notebook.json
+[D 14:51:36.368 NotebookApp] 200 GET /api/config/notebook?_=1540266696198 (::1) 8.04ms
+[D 14:51:36.370 NotebookApp] Paths used for configuration of common: 
+    	/etc/jupyter/nbconfig/common.json
+[D 14:51:36.371 NotebookApp] Paths used for configuration of common: 
+    	/usr/local/etc/jupyter/nbconfig/common.json
+[D 14:51:36.372 NotebookApp] Paths used for configuration of common: 
+    	/Applications/Anaconda/anaconda3/etc/jupyter/nbconfig/common.json
+[D 14:51:36.372 NotebookApp] Paths used for configuration of common: 
+    	/Users/phil/.jupyter/nbconfig/common.json
+[D 14:51:36.373 NotebookApp] 200 GET /api/config/common?_=1540266696199 (::1) 4.23ms
+[D 14:51:36.390 NotebookApp] 304 GET /static/components/MathJax/extensions/MathML/content-mathml.js?V=2.7.5 (::1) 1.85ms
+[D 14:51:36.414 NotebookApp] Found kernel sas in /Users/phil/Library/Jupyter/kernels
+[D 14:51:36.414 NotebookApp] Found kernel python3 in /Applications/Anaconda/anaconda3/share/jupyter/kernels
+[D 14:51:36.415 NotebookApp] Found kernel python2 in /usr/local/share/jupyter/kernels
+[D 14:51:36.415 NotebookApp] Found kernel ir in /usr/local/share/jupyter/kernels
+[D 14:51:36.419 NotebookApp] 304 GET /api/kernelspecs (::1) 6.39ms
+[D 14:51:36.444 NotebookApp] 200 GET /api/contents/Untitled1.ipynb?type=notebook&_=1540266696200 (::1) 3.25ms
+[D 14:51:36.455 NotebookApp] 304 GET /custom/custom.js?v=20181023143648 (::1) 1.33ms
+[D 14:51:36.462 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/fontdata.js?V=2.7.5 (::1) 2.63ms
+[D 14:51:36.512 NotebookApp] Starting kernel: ['/usr/local/opt/python/bin/python3.7', '-m', 'sas_kernel', '-f', '/Users/phil/Library/Jupyter/runtime/kernel-2ba4d85c-5ae7-4357-ad75-b417e93a043c.json']
+[D 14:51:36.522 NotebookApp] Connecting to: tcp://127.0.0.1:53755
+[D 14:51:36.524 NotebookApp] Connecting to: tcp://127.0.0.1:53753
+[I 14:51:36.526 NotebookApp] Kernel started: 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:51:36.527 NotebookApp] Kernel args: {'kernel_name': 'sas', 'cwd': '/Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate'}
+[D 14:51:36.528 NotebookApp] 201 POST /api/sessions (::1) 23.16ms
+[D 14:51:36.532 NotebookApp] 304 GET /nbextensions/jupyter-js-widgets/extension.js?v=20181023143648 (::1) 2.73ms
+[D 14:51:36.534 NotebookApp] 200 GET /api/contents/Untitled1.ipynb/checkpoints?_=1540266696201 (::1) 1.31ms
+[D 14:51:36.588 NotebookApp] 304 GET /static/components/MathJax/extensions/Safe.js?V=2.7.5 (::1) 1.41ms
+[D 14:51:36.648 NotebookApp] Initializing websocket connection /api/kernels/2ba4d85c-5ae7-4357-ad75-b417e93a043c/channels
+[D 14:51:36.651 NotebookApp] Requesting kernel info from 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:51:36.651 NotebookApp] Connecting to: tcp://127.0.0.1:53752
+[D 14:51:37.871 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:37.872 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:37.874 NotebookApp] Received kernel info: {'status': 'ok', 'protocol_version': '5.1', 'implementation': 'sas_kernel', 'implementation_version': '2.1.7', 'language_info': {'name': 'sas', 'mimetype': 'text/x-sas', 'codemirror_mode': 'sas', 'file_extension': '.sas'}, 'banner': 'SAS Kernel', 'help_links': [{'text': 'MetaKernel Magics', 'url': 'https://github.com/calysto/metakernel/blob/master/metakernel/magics/README.md'}]}
+[I 14:51:37.874 NotebookApp] Adapting to protocol v5.1 for kernel 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:51:37.875 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:37.876 NotebookApp] 101 GET /api/kernels/2ba4d85c-5ae7-4357-ad75-b417e93a043c/channels?session_id=c9bfd959d8c548bdb418b62b5c351d96 (::1) 1227.98ms
+[D 14:51:37.876 NotebookApp] Opening websocket /api/kernels/2ba4d85c-5ae7-4357-ad75-b417e93a043c/channels
+[D 14:51:37.876 NotebookApp] Getting buffer for 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:51:37.876 NotebookApp] Connecting to: tcp://127.0.0.1:53752
+[D 14:51:37.877 NotebookApp] Connecting to: tcp://127.0.0.1:53753
+[D 14:51:37.877 NotebookApp] Connecting to: tcp://127.0.0.1:53754
+[D 14:51:37.886 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:37.887 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:37.893 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:37.896 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:45.915 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:51:45.916 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: execute_input
+[IPKernelApp] ERROR | Exception in message handler:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 267, in dispatch_shell
+    yield gen.maybe_future(handler(stream, idents, msg))
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 1133, in run
+    value = future.result()
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 326, in wrapper
+    yielded = next(result)
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 534, in execute_request
+    user_expressions, allow_stdin,
+  File "/usr/local/lib/python3.7/site-packages/metakernel/_metakernel.py", line 349, in do_execute
+    retval = self.do_execute_direct(code)
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 148, in do_execute_direct
+    self._get_lst_len()
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 73, in _get_lst_len
+    res = self.mva.submit(code)
+AttributeError: 'NoneType' object has no attribute 'submit'
+[D 14:51:46.439 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:51:46.440 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:52:56.476 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:52:56.478 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: execute_input
+[IPKernelApp] ERROR | Exception in message handler:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 267, in dispatch_shell
+    yield gen.maybe_future(handler(stream, idents, msg))
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 1133, in run
+    value = future.result()
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 326, in wrapper
+    yielded = next(result)
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 534, in execute_request
+    user_expressions, allow_stdin,
+  File "/usr/local/lib/python3.7/site-packages/metakernel/_metakernel.py", line 349, in do_execute
+    retval = self.do_execute_direct(code)
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 148, in do_execute_direct
+    self._get_lst_len()
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 73, in _get_lst_len
+    res = self.mva.submit(code)
+AttributeError: 'NoneType' object has no attribute 'submit'
+[D 14:52:57.007 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:52:57.008 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:52:59.224 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Italic/Main.js?V=2.7.5 (::1) 3.03ms
+[D 14:52:59.234 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Normal/Italic/Main.js?V=2.7.5 (::1) 1.58ms
+[D 14:53:01.538 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:01.538 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: execute_input
+[IPKernelApp] ERROR | Exception in message handler:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 267, in dispatch_shell
+    yield gen.maybe_future(handler(stream, idents, msg))
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 1133, in run
+    value = future.result()
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 326, in wrapper
+    yielded = next(result)
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 534, in execute_request
+    user_expressions, allow_stdin,
+  File "/usr/local/lib/python3.7/site-packages/metakernel/_metakernel.py", line 357, in do_execute
+    retval = self.do_execute_direct(code)
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 148, in do_execute_direct
+    self._get_lst_len()
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 73, in _get_lst_len
+    res = self.mva.submit(code)
+AttributeError: 'NoneType' object has no attribute 'submit'
+[D 14:53:02.056 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:53:02.057 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:07.942 NotebookApp] 304 GET /static/components/MathJax/jax/output/HTML-CSS/fonts/STIX-Web/Main/Regular/Main.js?V=2.7.5 (::1) 1.11ms
+[D 14:53:08.008 NotebookApp] Path components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Normal-Italic.woff served from /Applications/Anaconda/anaconda3/lib/python3.6/site-packages/notebook/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Normal-Italic.woff
+[D 14:53:08.010 NotebookApp] 200 GET /static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Normal-Italic.woff?V=2.7.5 (::1) 3.22ms
+[D 14:53:18.387 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:18.389 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: execute_input
+[IPKernelApp] ERROR | Exception in message handler:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 267, in dispatch_shell
+    yield gen.maybe_future(handler(stream, idents, msg))
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 1133, in run
+    value = future.result()
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 326, in wrapper
+    yielded = next(result)
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 534, in execute_request
+    user_expressions, allow_stdin,
+  File "/usr/local/lib/python3.7/site-packages/metakernel/_metakernel.py", line 349, in do_execute
+    retval = self.do_execute_direct(code)
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 148, in do_execute_direct
+    self._get_lst_len()
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 73, in _get_lst_len
+    res = self.mva.submit(code)
+AttributeError: 'NoneType' object has no attribute 'submit'
+[D 14:53:18.911 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:53:18.911 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:26.173 NotebookApp] Websocket closed 2ba4d85c-5ae7-4357-ad75-b417e93a043c:c9bfd959d8c548bdb418b62b5c351d96
+[I 14:53:26.173 NotebookApp] Starting buffering for 2ba4d85c-5ae7-4357-ad75-b417e93a043c:c9bfd959d8c548bdb418b62b5c351d96
+[D 14:53:26.173 NotebookApp] Clearing buffer for 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:53:26.793 NotebookApp] Starting kernel: ['/usr/local/opt/python/bin/python3.7', '-m', 'sas_kernel', '-f', '/Users/phil/Library/Jupyter/runtime/kernel-2ba4d85c-5ae7-4357-ad75-b417e93a043c.json']
+[D 14:53:26.798 NotebookApp] Connecting to: tcp://127.0.0.1:53755
+[I 14:53:26.799 NotebookApp] Kernel restarted: 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:53:26.800 NotebookApp] Connecting to: tcp://127.0.0.1:53752
+[D 14:53:26.802 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:26.803 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:26.804 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:53:26.804 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:26.804 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:53:26.805 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:26.805 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:53:26.805 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:26.806 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:53:26.806 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:26.807 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: shutdown_reply
+[D 14:53:26.807 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:26.808 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:26.808 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:27.918 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.918 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:27.920 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.921 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:27.921 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.921 NotebookApp] Kernel info reply received: 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:53:27.922 NotebookApp] Buffering msg on 2ba4d85c-5ae7-4357-ad75-b417e93a043c:iopub
+[D 14:53:27.923 NotebookApp] 200 POST /api/kernels/2ba4d85c-5ae7-4357-ad75-b417e93a043c/restart (::1) 1746.54ms
+[D 14:53:27.929 NotebookApp] Initializing websocket connection /api/kernels/2ba4d85c-5ae7-4357-ad75-b417e93a043c/channels
+[I 14:53:27.933 NotebookApp] Adapting to protocol v5.1 for kernel 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[D 14:53:27.934 NotebookApp] 101 GET /api/kernels/2ba4d85c-5ae7-4357-ad75-b417e93a043c/channels?session_id=c9bfd959d8c548bdb418b62b5c351d96 (::1) 4.87ms
+[D 14:53:27.934 NotebookApp] Opening websocket /api/kernels/2ba4d85c-5ae7-4357-ad75-b417e93a043c/channels
+[D 14:53:27.934 NotebookApp] Getting buffer for 2ba4d85c-5ae7-4357-ad75-b417e93a043c
+[I 14:53:27.934 NotebookApp] Restoring connection for 2ba4d85c-5ae7-4357-ad75-b417e93a043c:c9bfd959d8c548bdb418b62b5c351d96
+[I 14:53:27.934 NotebookApp] Replaying 10 buffered messages
+[D 14:53:27.945 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.947 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.950 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.952 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.958 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:27.959 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: execute_input
+[IPKernelApp] ERROR | Exception in message handler:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 267, in dispatch_shell
+    yield gen.maybe_future(handler(stream, idents, msg))
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 1133, in run
+    value = future.result()
+  File "/usr/local/lib/python3.7/site-packages/tornado/gen.py", line 326, in wrapper
+    yielded = next(result)
+  File "/usr/local/lib/python3.7/site-packages/ipykernel/kernelbase.py", line 534, in execute_request
+    user_expressions, allow_stdin,
+  File "/usr/local/lib/python3.7/site-packages/metakernel/_metakernel.py", line 349, in do_execute
+    retval = self.do_execute_direct(code)
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 148, in do_execute_direct
+    self._get_lst_len()
+  File "/usr/local/lib/python3.7/site-packages/sas_kernel/kernel.py", line 73, in _get_lst_len
+    res = self.mva.submit(code)
+AttributeError: 'NoneType' object has no attribute 'submit'
+[D 14:53:28.488 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: stream
+[D 14:53:28.489 NotebookApp] activity on 2ba4d85c-5ae7-4357-ad75-b417e93a043c: status
+[D 14:53:36.514 NotebookApp] 200 GET /api/contents/Untitled1.ipynb?content=0&_=1540266696202 (::1) 1.75ms
+[I 14:53:36.521 NotebookApp] Saving file at /Untitled1.ipynb
+[D 14:53:36.522 NotebookApp] Saving /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate/Untitled1.ipynb
+[D 14:53:36.533 NotebookApp] 200 PUT /api/contents/Untitled1.ipynb (::1) 12.85ms
+[D 14:54:04.451 NotebookApp] Renaming checkpoint /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate/.ipynb_checkpoints/Untitled1-checkpoint.ipynb -> /Users/phil/code/data-science/cheatsheet/source/includes/multivariate/ass2--multivariate/.ipynb_checkpoints/testing-checkpoint.ipynb
+[D 14:54:04.452 NotebookApp] 200 PATCH /api/contents/Untitled1.ipynb (::1) 2.28ms
+[D 14:54:04.460 NotebookApp] 200 PATCH /api/sessions/73278ec4-b7b4-43b7-8228-2324881ba95d (::1) 1.86ms
+[D 15:02:30.585 NotebookApp] Websocket closed 072a548c-31f7-4520-9098-c47150963bfc:113f0f24f92b4d9dae13b050a0e4e026
+[I 15:02:30.591 NotebookApp] Starting buffering for 072a548c-31f7-4520-9098-c47150963bfc:113f0f24f92b4d9dae13b050a0e4e026
+[D 15:02:30.591 NotebookApp] Clearing buffer for 072a548c-31f7-4520-9098-c47150963bfc
+[D 15:10:23.562 NotebookApp] Websocket closed 2ba4d85c-5ae7-4357-ad75-b417e93a043c:c9bfd959d8c548bdb418b62b5c351d96
+[I 15:10:23.565 NotebookApp] Starting buffering for 2ba4d85c-5ae7-4357-ad75-b417e93a043c:c9bfd959d8c548bdb418b62b5c351d96
+[D 15:10:23.566 NotebookApp] Clearing buffer for 2ba4d85c-5ae7-4357-ad75-b417e93a043c

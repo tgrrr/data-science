@@ -3,7 +3,7 @@
 .Rhistory
 *.xlsx
 *.html
-*.csv
+# *.csv
 *.history
 *.zip
 scrapy/
@@ -28,3 +28,5 @@ uni/2018/ethicsandlaw/datathon video/app melbourne datathon2018 saved by the bel
 uni/2018/ethicsandlaw/datathon video/app melbourne datathon2018 saved by the bell.mov
 ML-Fundamentals-book.pdf
 Icon\r
+icon*
+datasets/2018
