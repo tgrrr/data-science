@@ -1,3 +1,26 @@
+- [x] summarised Done for midsemester
+- [ ] for final exam
+
+----------------------------
+
+> moved to Notion
+
+# TODO:
+
+- practice exam
+- Questions from chapters 1, 4, 5
+
+#### except for 
+- 5 problem 6 k-d trees (Section 5.4.2)
+- Mahalanobis Distance (5.4.5.3)
+
+- Solutions from 1, 4, 5
+- check against errors
+- Suggested solutions
+
+----------------------------
+
+
 # Assessments & Samples
 ## Information on the Mid-Semester Test and the Final Exam
  The mid-semester test is 25% of your course grade and the final exam is 50%.

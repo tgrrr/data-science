@@ -1,0 +1,74 @@
+---
+title: "Automating TimeSeries"
+# output: html_notebook
+---
+
+```{r}
+# devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
+library(packagr)
+packages <- c('readr', 'forecast')
+packagr(packages) # alpha package to check, install and load packages
+```
+
+```{r}
+cat("\014") # clear everything
+setwd("./.")
+dataFilename <- "raw-data/eggs.csv"
+startYear = 1981 # get start year
+endYear = 1996 # get end year
+data <- read_csv(dataFilename)
+# convert to timeseries, ignoring year column:
+data.ts <- ts(as.vector(data[,2]), start = startYear, end = endYear) 
+```
+
+ACF docs:
+https://www.rdocumentation.org/packages/stats/versions/3.1.1/topics/acf
+
+standard acf function
+```{r}
+# acf(data.ts)
+acf(data,plot=FALSE)
+# getS3method("plot", "acf")
+
+```
+
+Forecast Acf function
+```{r}
+# getS3method("plot", "Acf")
+Acf(data.ts,plot=FALSE)
+# Acf((data.ts)
+
+
+
+```
+
+```{r}
+x <- data
+ci = 0.95
+ci.type = "ma"
+# with.ci <- ci
+# looking for correlation code (which is the default)
+with.ci <- ci > 0 
+# && x$type != "covariance"
+with.ci.ma <- with.ci
+if (ci && x$lag[1L, 1L, 1L] != 0L) {
+    warning("can use ci.type=\"ma\" only if first lag is 0")
+    ci <- FALSE
+}
+
+
+clim0 <- if (with.ci) 
+          qnorm((1 + ci)/2)/sqrt(x$n.used)
+         else c(0, 0)
+
+```
+
+Confidence bands can be computed as the value of the sample autocorrelations ±𝑧1−𝛼/2𝑛√, where 𝑧1−𝛼/2 is the quantile 1−𝛼/2
+
+in the Gaussian distribution, e.g. 1.96 for 95% confidence bands.
+
+Sometimes confidence bands that increase as the order increases are used. In this cases the bands can be defined as ±𝑧1−𝛼/21𝑛(1+2∑𝑘𝑖=1𝜌(𝑖)2)‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾√
+.
+https://stats.stackexchange.com/questions/129052/acf-and-pacf-formula
+
+

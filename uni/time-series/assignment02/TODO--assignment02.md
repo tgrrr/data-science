@@ -1,3 +1,76 @@
+DEATHLIST5!
+
+### Goals
+
+- [ ] fix eacf
+
+- [x] Analyse the egg depositions of Lake Huron Bloasters 
+- [x] Use the analysis methods covered in the **modules 1 – 7** of MATH1318 Time Series Analysis
+- [ ] Choose the best model among a set of possible models for this dataset
+  - [ ] How did I get that model?
+- [-] Give forecasts of egg depositions for the next 5 years
+- [ ] plot labels
+- [ ] no lags = white noise
+
+- [ ] do I even use the boxCox transform throughout?. See line 105
+
+- [ ] Reporting
+  - [ ] Rubrik
+  - [ ] Assignment1
+  - [ ] mid-sem
+  - [ ] ash's work
+  - [ ] 
+- [ ] Ass2 todos
+- [ ] scan this for todos
+@@@@@@@@@@@@@@@@@
+
+
+### Hypothesis for Quadratic
+
+H0:μΔ=0
+HA:μΔ≠0
+
+
+# RUBRIK
+
+- [ ] ## Reporting 15%
+ 
+- [ ] All inferences are clearly addressed by relevant outputs and given under relevant sections. 
+- [ ] All bits of the presented output are used for the inferences. 
+- [ ] There are no minor language and formatting issues.
+ 
+- [ ] ## R Codes 15%
+ 
+- [ ] Scripts to run analyses are working properly and suitable explanations are given. 
+- [ ] Also, the scripts include functions to implement all analyses in a dynamical way.
+ 
+- [ ] ## Descriptive analysis 20%
+ 
+- [ ] Uses all suitable plots and descriptive statistics and every plot and descriptive statistic is interpreted in a way to shed a light on further analyses.
+- [ ] All suitable tools are correctly used for proper specification of a set of possible models
+ 
+- [ ] ## Model accuracy 25%
+- [ ] Several possible parameter estimation methods are applied
+- [ ] All of the related outputs are properly used:
+  - [ ] to draw inferences about validity of the considered models
+  - [ ] the best estimation method is properly identified
+
+- [ ] ## Diagnostic checking 25%
+
+- [ ] All aspects of diagnostic checking were applied 
+- [ ] all assumptions of applied approaches were validated
+  - [ ] by observing relationships between the diagnostic tools (plots/tests)
+- [ ] Required forecasts are given and plotted in an informative way
+
+
+
+
+@@@@@@@@@@@@@@@@@
+
+
+Didn't use:
+# 'CADFtest','smooth','beepr','RColorBrewer','CADFtest'
+
 TODO:
 
 intonation point
@@ -50,7 +123,10 @@ shapiro.test(BC.gold)
 - [ ] todos scattered in assignment
 - [ ] global-variables
 
-later:
+_______________________________
+
+
+# later:
 - [ ] move opening code to my github repo, then import it
 
 CADFtest() in CADFtest.
@@ -197,3 +273,26 @@ doTimeSeriesPlot <- function(
 diffCounts <- list(1,2,3)
 sapply(diffCounts, df=data.ts, doDiffAndPlot)
 ```
+
+
+Didn't use this reverse transform
+
+```{r}
+# TODO: remove?
+# We applied log transformation and second difference. To take them back:
+log.data.ts = log(data.ts.raw)
+log.data.ts.diff2.back = diffinv(diff.data.ts, differences = 2, xi = data.ts.matrix(log.data.ts[1:2]))
+log.data.ts.diff2.back = exp(log.data.ts.diff2.back)
+```
+
+
+trying to automate the entire time-series process:
+
+  # if (p < 0.05 ) {
+  #   # arimaValues[nrow(arimaValues) + 1,] <- 'foo'
+  #   print('p-value < 0.05 significant')
+  # } else {
+  #   print('p-value > 0.05 insignificant')
+  #   arimaValues[nrow(arimaValues) + 1,] <- diffCount
+  # }
+

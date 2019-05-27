@@ -1,0 +1,374 @@
+---
+title: 'Machine Learning: Chapter 4 - Part II'
+subtitle: 'Warm-Up Examples'
+version: 1
+author:
+date:
+output: 
+  pdf_document:
+    includes:
+      in_header: header.tex
+    fig_caption: true
+    number_sections: true
+referencecolor: #eff8e5
+linkcolor: #eff8e5
+inlinecolor: darkred
+link-citations: yes
+bibliography: ref.bib
+references:
+- id: kelleher
+  type: book
+  issued:
+    - year: 2015
+  author:
+  - family: Kelleher
+    given: John D.
+  - family: Namee
+    given: Brian Mac
+  - family: D'Arcy
+    given: Aoife
+  publisher: The MIT Press
+  title: "Fundamentals of Machine Learning for Predictive Data Analytics"
+  subtitle: "Algorithms, Worked Examples, and Case Studies"
+- id: hadley
+  title: "tidyverse: Easily Install and Load Tidyverse Packages"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  issued:
+    year: 2016
+  url: https://CRAN.R-project.org/package=tidyverse
+- id: hadley2
+  title: "dplyr: A Grammar of Data Manipulation"
+  author: 
+  - given: Hadley 
+    family: Wickham
+  - given: Francois
+    family: Romain
+  - given: Henry
+    family: Lionel
+  - given: Müller
+    family: Kirill
+  issued:
+    year: 2017
+  url: https://CRAN.R-project.org/package=dplyr
+- id: yihui
+  author:
+  - family: Xie
+    given: Yihui
+  type: article-journal
+  title: "knitr: A General-Purpose Package for Dynamic Report Generation in R"
+  issued:
+    year: 2016
+- id: mlr
+  title: "`mlr`: Machine Learning in R"
+  author:
+  - family: Bischl
+    given: Bernd
+  - family: Lang
+    given: Michel
+  - family: Kotthoff
+    given: Lars
+  - family: Schiffner
+    given: Julia
+  - family: Richter
+    given: Jakob
+  - family: Studerus
+    given: Erich
+  - family: Casalicchio
+    given: Giuseppe 
+  - family: Jones
+    given: Zachary M.
+  url: http://jmlr.org/papers/v17/15-066.html
+  issued:
+  - year: 2016
+  volume: 17
+  pages: 1-5
+  publisher: Journal of Machine Learning Research
+- id: ron
+  author:
+  - family: Kohavi
+    given: Ron
+  type: article-journal
+  title: "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid"
+  issued:
+    year: 1996
+  publisher: Proceedings of the Second International Conference on Knowledge Discovery and Data Mining
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+# Introduction and Packages
+
+We use Motor Insurance Fraud Claim provided by @kelleher[, p. 57] to illustrate some basic data pre-processing and exploration techniques.
+
+```{r}
+fraud <- read.csv('MotorInsuranceFraudClaimABTFull.csv')
+```
+
+The objectives are:
+
+* To clean and rinse the data before applying any machine learning model;
+* To explore data, especially how each descriptive feature is associated with the target feature, `Fraud.Flag` which flags a fraudulent claim. `Fraud.Flag` $= 1$ if the underlying claim is a fraud; 0 otherwise. 
+
+We shall rely the following packages. 
+
+* The usage of `mlr` [@mlr] is very miminal; we use it to call `summarizeColumns` function.
+* `tidyverse` [@hadley] for data manipulation and data visualisation.
+* `GGally` [@GGally] to produce the scatter plot matrix.
+* `corrplot` [@corrplot2017] to visualise the correlation matrix,
+
+```{r, warning = FALSE, message = FALSE}
+library(mlr)
+library(tidyverse)
+library(GGally)
+library(corrplot)
+```
+
+# Data Quality Report
+
+A data quality report [@kelleher, p. 57] summarises the characteristics of each feature in the ABT using some statistical measures such as mean, median, variance, and mode. With `mlr`, we can call `summarizeColumns` (remark: `disp` is the standard deviation). Unfortunately, this function does not produce the **cardinality** (i.e. `nlevs`) and quartiles for the continuous features. Therefore, the goal of this section is to "fill in" these missing gaps.
+
+```{r}
+summarizeColumns( fraud )
+```
+
+
+First, let's separate the continuous features from `fraud` using `sapply` function. Notice that `sapply( fraud, is.numeric )` returns a vector of `TRUE` and `FALSE` to indicate which columns are numeric (continuous). By including this vector in column of `fraud`, i.e. `fraud[,  sapply( fraud, is.numeric )]`, we can obtain all continuous features.
+
+```{r}
+continuous_features <- fraud[,  sapply( fraud, is.numeric )]
+
+```
+
+Second, we can compute interquartiles by calling `quantile` function. For example, consider `Num.Claimants`.
+
+```{r}
+quantile( continuous_features$Num.Claimants)
+
+```
+
+To isolate the first (25 %) and the third (75 %) quartile, we can index from the quantile as following: 
+
+```{r}
+quantile( continuous_features$Num.Claimants)[2]
+quantile( continuous_features$Num.Claimants)[4]
+
+```
+
+We prepare the data quality report named `quality_report_continuous`using `summarizeColumns` for continuous features so that we can append columns of "first quartile", "third quartile", and "cardinality" to it.
+
+```{r}
+quality_report_continuous <- summarizeColumns( continuous_features ) 
+
+```
+
+Recall the `sapply(x, <function>)` function returns a vector of a data frame object `x` based on a specified `function`, for instances, `mean`, `median`, and `length`. For each continuous feature, We can utilise the `sapply` function:
+
+*  `function(x){ quantile(x, na.rm = TRUE)[2] }` to obtain the first quartile;
+*  `function(x){ quantile(x, na.rm = TRUE)[4] }` to obtain the third quartile; and
+*  `function(x){ length( unique(x, na.rm = TRUE) ) }` to obtain the cardinality.
+
+Note that we must specify `na.rm = TRUE`; otherwise, `R` will return a value of `NA`. For cardinality, we first call the `unique` function to return a vector of unique values in a feature, then we apply the `length` to calculate the number of the unique values. To append these columns to `quality_report_continuous`, we can assign a new column to each `sapply` like below:
+
+```{r}
+quality_report_continuous$quarter1     <- sapply( continuous_features, 
+                                                  function(x){ quantile(x, na.rm = TRUE)[2] }  )
+
+quality_report_continuous$quarter2     <- sapply( continuous_features, 
+                                                  function(x){ quantile(x, na.rm = TRUE)[4] }  )
+
+quality_report_continuous$cardinality  <- sapply( continuous_features, 
+                                                  function(x){ length( unique(x, na.rm = TRUE) ) }  )
+```
+
+Finally, let's check out how `quality_report_continuous` looks like:
+
+```{r}
+quality_report_continuous
+```
+
+Hooray! Except the order and names of the columns, `quality_report_continuous` appears like the data quality report @kelleher[, Table 3.3, p. 59]. We shall leave the data quality report for categorical features as an optional exercise in the R practice.
+
+# Univariate Data Visualisation
+
+In `R`, we can visualise the data using the `graphics` (default) or `ggplot2` packages [^1]. Visualisation can be interactive too, but this is beyond the scope of this course. For illustration, we shall show how we can produce a histogram of `Claim.Amount`. With `hist`, use `hist` on the "slot" i.e. `fraud$Claim.Amount`. With `ggplot2`, the slot is optional where we can feed `Claim.Amount` into `aes` (aesthetic) and then layer it with `geom_histogram` via the `+` operator. Both packages allow user to specify histogram axis labels and binwidth, but watch out the different naming of the arguments!
+
+```{r, eval = FALSE}
+hist( fraud$Claim.Amount, main = 'Income', xlab = 'Income', breaks = 40 )
+ggplot( fraud, aes(x = Claim.Amount) ) + geom_histogram(bins = 40) + labs(x = 'Claim Amount')
+```
+
+
+[^1]: Another visualisation package in `R` is `lattice`.
+
+\newpage
+
+```{r fig1, fig.cap="\\label{fig1}Histogram of Claim Amount using graphics"}
+hist( fraud$Claim.Amount, main = 'Income', xlab = 'Income', breaks = 40 )
+```
+
+```{r fig2, fig.cap="\\label{fig2}Histogram of Claim Amount using ggplot2"}
+ggplot( fraud, aes(x = Claim.Amount) ) + geom_histogram(bins = 40) + labs(x = 'Claim Amount')
+
+```
+
+\newpage
+
+# Encoding
+
+From the data quality report, we find that `R` treats the target feature, `Fraud.Flag` as an integer. In addition, the report reveals that low `Num.Claimants`, `Num.Claims`, and `Num.Soft.Tissue` have very low cardinality. @kelleher suggest that these variables are indeed categorical. Therefore, we must convert them into factor in `R`
+
+```{r}
+fraud <- fraud %>% mutate( Fraud.Flag = factor( Fraud.Flag ),
+                           Num.Claimants = factor( Num.Claimants),
+                           Num.Claims  = factor( Num.Claims ),
+                           Num.Soft.Tissue = factor( Num.Soft.Tissue ))
+
+```
+
+# Missing Values and Outliers 
+
+## Dealing with Missing Values
+
+Missing values arise when:
+
+1. Data not collected for some reason;
+2. Data collected but not recorded or transmitted; or
+3. Data not possible to be collected.
+
+In dealing with missing values, the first step is to run exploratory analysis using diagrams and summary statistics. Missing values can be obvious, for example, `Num.Soft.Tissue` has 10 missing values as shown in the data quality report. Sometimes, they are not, for instances, the missing values of `Marital.Status` are read as excessive white spaces. 
+
+```{r}
+unique( fraud$Marital.Status)
+
+```
+
+Therefore, we need to trim the white space, assign the white space as "Not declared", and convert it back to a factor in `R`. An alternative would be assigning the missing values as `NA`. However, we do not pursue this approach as the missing values take up to 61.2 %. The percentage is so large that it can "qualify" as a category within `Marital.Status`.
+
+```{r}
+fraud <- fraud %>% 
+  mutate( Marital.Status = as.character( Marital.Status),
+          Marital.Status = ifelse( trimws(Marital.Status) == '', "Not declared", Marital.Status ),
+          Marital.Status = factor( Marital.Status))
+```
+
+In the next weekly warm-up examples, we shall cover more techniques to "impute" the missing values.
+
+## Outliers
+
+An outlier is an unusual value in a dataset; one that does not fit the typical pattern of data. The sources of outliers include recording or measurement errors and natural variation of the data. If an outlier is a true error, results can be severely biased if not dealt with. If outlier is a valid data (due to natural variation) but it is removed, we would lose valuable information regarding important patterns in the data. The main types of outlier detection methods are:
+
+1. Visual inspection, which is time consuming and difficult to do manually, especially for large, complex datasets
+2. Automated Methods (to be covered in the next weekly warm-up examples).
+
+Figure \ref{fig2} shows that `Claim.Amount` records a value of $-99999$ which could mean the insured paid the the insurer. This is nonsensical. Therefore, we can either encode it as an `NA` or remove it (as some machine learning algorithms can handle missing values).
+
+```{r}
+fraud <- fraud %>% mutate( Claim.Amount = ifelse( Claim.Amount == -99999, NA, Claim.Amount) )
+```
+
+Also, @kelleher[, p. 71 to 72] reveal that
+
+* the data row with the maximum total claimed came from a company policy.
+* the data row with 56 number claims are valid but unusually large.
+
+Following their suggestion, we remove these rows [^2]:
+
+```{r}
+fraud <- fraud[ !(fraud$Total.Claimed == max( fraud$Total.Claimed )), ]
+fraud <- fraud[ !fraud$Num.Claims == 56, ]
+```
+
+[^2]: **Challenge yourself**: how do these codes remove the outliers?
+
+\newpage
+
+# Multivariate Visualisation
+
+There are many methods to visualise multiple features. Therefore, we shall present:
+
+* [an example] which explore relationship among three features
+* a [scatter plot matrix]
+* a [correlation matrix].
+
+## An Example
+
+We would like to know if a claim is more fradulent if the underlying injury is not "serious" (why?) and it does not require overnight stay in hospital (*why*?). We can visualise this with two bar charts of injury types: one for `Overnight.Hospital.Stay = Yes` and another for `Overnight.Hospital.Stay = No`. In each bar chart, each bar is further differentiated by the `Fraud.flag`. The result is depicted as Figure \ref{fig3}. So, what do we observe here? There is no bar for serious injury which require no overnight stay. It could be that any serious injury requires the insured to stay in hospital. For back and soft-tissue injury, a claim is more likely to be fradulent if it requires no overnight stay.
+
+```{r fig3, fig.cap="\\label{fig3}Bar Chart of Injury Type by Fraud Flag and Overnight Stay"}
+ggplot( fraud, aes(x = Injury.Type, fill = Fraud.Flag)) + 
+  geom_bar() + 
+  facet_wrap( ~  Overnight.Hospital.Stay) + 
+  labs( x = 'Injury Type', title = '')
+```
+
+
+## Scatter Plot Matrix
+
+We can use `ggpairs` to produce the scatter plot matrix - a hacky but computationally expensive method. By hacky, it allows us to visualise all features in one single plot. It might become very cluttered as the number of features grow. Use it at your risk!
+
+```{r, eval = FALSE}
+library( GGally)
+ggpairs( fraud )
+
+```
+
+For `fraud` data, we do not need the first and second columns - `ID` and `insurance.Type` (*why*?). So we can start with the third columns (features) or any set of columns. For illustration, we run the `ggpairs` on all continuous descriptive features and colored by the target features (`Fraud.Flag`). The result is Figure \ref{fig4}. What do you discover?
+
+```{r, eval=FALSE}
+ggpairs( fraud, 
+         columns = c('Income.of.Policy.Holder', 'Claim.Amount',
+                     'Total.Claimed', 'X..Soft.Tissue','Claim.Amount.Received',
+                     'Fraud.Flag'), 
+         aes(color = Fraud.Flag))
+```
+
+
+\newpage
+
+\blandscape
+
+```{r fig4, warning = FALSE, message = FALSE, fig.width = 6, fig.height= 6, fig.cap = "\\label{fig4}Scatterplot Matrix for Descriptive Features in Fraud Data"}
+
+ggpairs( fraud, 
+         columns = c('Income.of.Policy.Holder', 'Claim.Amount',
+                     'Total.Claimed', 'X..Soft.Tissue','Claim.Amount.Received',
+                     'Fraud.Flag'), 
+         aes(color = Fraud.Flag))
+
+```
+
+\newpage
+
+\elandscape
+
+## Correlation Matrix
+
+Correlation is useful to measure linear association between two variables. Sometimes, we would need to visualise the correlation matrix. In `R`, we need to plot it using `corrplot` function. In our example, we first subset the continuous features from `fraud`. This subset is named `subdata`.
+
+```{r}
+subdata <- fraud %>% 
+  select( Income.of.Policy.Holder, Claim.Amount, Total.Claimed, X..Soft.Tissue )
+
+```
+
+Then, we compute the correlation after removing the missing values.
+
+```{r}
+correlation <- cor(na.omit( subdata))
+```
+
+Finally, let's visualise the correlation matrix (see Figure \ref{fig5}). Figure \ref{fig5} shows a weakly positive correlation between  `Total.Claimed` and `X..Soft.Tissue`. Is the correlation matrix plot consistent with the scatterplot matrix (Figure \ref{fig4})?
+
+```{r fig5, fig.cap = "\\label{fig5}Correlation Matrix Plot"}
+corrplot( correlation  )
+```
+
+\newpage
+
+# References
+

@@ -1,0 +1,92 @@
+---
+title: "Machine Learning: Chapter 4 - Part II"
+subtitle: "R Practice"
+author:
+date:
+output: 
+  beamer_presentation:
+    incremental: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Setting Up R-project
+
+* Motivation: how to manage your code more elegantly?
+* Example: reading a csv file with a length path
+
+```{r, eval = FALSE}
+data <- read.csv('C/Dropbox/Documents/Ml Project/...blah blah blah/data.csv')
+```
+
+* R project in RStudio
+
+# Data Pre-processing and Exploration
+
+* Minimal coverage in Machine Learning
+* You will spend 70 % of your time in your project
+* [MATH2270 Data Visualisation](http://www1.rmit.edu.au/courses/050646)
+* [MATH2379 Data Preprocessing](http://www1.rmit.edu.au/courses/052731)
+
+
+# Missing values
+
+* Easy examples: `NA`, whitespace
+* Outlier or missing value: "-99999" for $x>0$
+* A more tricky example:
+
+> Feature 1 = Do you have any child? {Yes, No}
+
+> Feature 2 = How old is your youngest child? 
+
+* $\implies$ Feature 2 = `NA` if Feature 1 = "No"
+* What if the target feature is missing?
+
+# Outliers (Part I)
+
+* Univariate outliers: easy
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library("mvtnorm")
+set.seed(11000)
+n <- 1000                                    # number of simulations
+sigmaValue <- matrix(c(1,0,0,1), nrow = 2)   # variance-covariance matrix
+y <- rmvnorm(n, sigma = sigmaValue)          # simulated values  
+
+x <- y[,1]^2 + y[,2]^2  # define the sum of square (SS)
+par(mfrow = c(2,1))
+plot( y[,2], ylab = bquote(Y[2]))
+abline( h = c(-3,3), col = 'red')
+plot( y[,1], ylab = bquote(Y[1]))
+abline( h = c(-3,3), col = 'red')
+```
+
+# Outliers (Part II)
+
+* Multivariate outliers: ?
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+plot(y, xlab = bquote(Y[1]), ylab = bquote(Y[2]))
+points(x = 0, y = 0, col = "yellow", lwd = 2, pch = 16)
+
+
+lines(x = 2.45*cos(seq(0,2*pi, 0.01)), 
+      y = 2.45*sin(seq(0,2*pi, 0.01)), 
+      col = "red", lwd = 2)
+
+lines(x = 1.96*cos(seq(0,2*pi, 0.01)), 
+      y = 1.96*sin(seq(0,2*pi, 0.01)), 
+      col = "orange", lwd = 2)
+
+
+```
+
+# Review of Introduction to Statistics
+
+* Correlation $\implies$ causation: TRUE or FALSE?
+* Would scaling the continuous features change the correlation matrix? What's scaling?
+* To Scale or Not to Scale?
+* (Optinal Challenge) Given any two continuous features $X$ and $Y$ which follow a joint normal distribution, why does $-1 \leq \rho(X, Y) \leq 1$ always hold?
+

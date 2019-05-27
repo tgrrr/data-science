@@ -45,12 +45,6 @@
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-#%% [markdown]
-#  # MATH2319 Machine Learning
-#  #### Phase 1 - Assignment 1 - Semester 1, 2019
-#  #### Ash Olney s3686808 Phil Steinke s3725547
-#%% [markdown]
-#  ------------------------------------------
 
 #%% [markdown]
 # # TODO: Objective
@@ -83,7 +77,6 @@ import io
 # os.getcwd()
 __file_name__ = 'advertising_train.csv'
 data = pd.read_csv(__file_name__)
-
 # consistent naming of columns (minus camelCase):
 labelNames = ['case_id', 'company_id', 'country_id', 'device_type', 'day', 'dow', 'price1', 'price2', 'price3', 'ad_area', 'ad_ratio', 'requests', 'impression', 'cpc', 'ctr', 'viewability', 'ratio1', 'ratio2', 'ratio3', 'ratio4', 'ratio5', 'y',]
 data.columns = labelNames
