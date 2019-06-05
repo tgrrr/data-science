@@ -4,8 +4,8 @@
 # Objective: To automate repetitive processes in time series analysis
 
 ## Install packages and load libraries
-pkgs <- c('TSA', 'fUnitRoots', 'forecast', 'lmtest')
-invisible(lapply(pkgs, require, character.only = T))
+# pkgs <- c('TSA', 'fUnitRoots', 'forecast', 'lmtest')
+# invisible(lapply(pkgs, require, character.only = T))
 
 myCandidate <- function(timeSeries, orderList,
                         methodType = c("CSS-ML", "ML", "CSS")[1],

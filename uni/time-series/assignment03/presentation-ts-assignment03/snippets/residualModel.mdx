@@ -1,0 +1,17 @@
+t = time(data.ts)
+t2 = t^2
+# label the quadratic trend model
+model_quadratic = lm(data.ts~ t + t2) 
+summary(model_quadratic)
+par(mfrow=c(1,1))
+plot(ts(
+  fitted(model_quadratic)), 
+  ylim = c(
+    min(c(fitted(model_quadratic), as.vector(data.ts))), 
+    max(c(fitted(model_quadratic), as.vector(data.ts)))),
+  ylab=default_ylab,
+  main = "Bitcoin Data with Quadratic Model"
+)
+lines(as.vector(data.ts))
+
+residual.analysis(model_quadratic, std = TRUE,start = 1)

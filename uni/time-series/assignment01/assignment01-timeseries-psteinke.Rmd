@@ -123,9 +123,9 @@ This plot shows:
 
 #### Compare data with it's previous year
 ```{r}
-y = ozone.ts              # Read data into y
-x = zlag(ozone.ts)        # Generate first lag 
-index = 2:length(x)          # Create an index to get rid of the first NA value and the last 5 missing values in x
+y = ozone.ts        # Read data into y
+x = zlag(ozone.ts)  # Generate first lag 
+index = 2:length(x) # Create an index to get rid of the first NA value and the last 5 missing values in x
 cor(y[index], x[index])
 ```
 - A Correlation of 0.87 implies a strong positive relationship between the Ozone Layer thickness over time

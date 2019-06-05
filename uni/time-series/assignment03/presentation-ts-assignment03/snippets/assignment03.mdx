@@ -1,0 +1,496 @@
+```
+---
+output:
+  html_document:
+    fig_height: 4
+    fig_width: 8
+    highlight: kate
+    theme: paper
+  output: revealjs::revealjs_presentation
+subtitle: Assignment 3 - Semester 1, 2019
+author: "Phil Steinke s3725547 Ash Olney s3686808"
+title: "MATH1318 Time Series"
+---
+  # html_document:
+  #   fig_height: 4
+  #   fig_width: 8
+  #   highlight: kate
+  #   theme: paper
+  # pdf_document: default
+
+
+## Executive Summary
+
+TODO:
+This report examines the .
+
+### Goals:
+
+HEADINGS INDENTED BELOW
+
+- [ ] In short, the challenge is to find the best fitting model 
+to the given cryptocurrency series.
+- [ ] captions 
+`fig_nums(
+  'initial ts data', 
+  'initial time-series data with no transformation') %>% cat()`
+
+Your task is to:
+
+- [ ] analyse the data by using the analysis methods covered in MATH1318 
+Time Series Analysis course in this semester
+- [ ] accurately predict the value of bitcoin for the next 10 days, 
+- [ ] and prepare a comprehensive analysis report including 
+  - [ ] descriptive analysis 
+  - [ ] proper visualisation 
+  - [ ] model specification 
+  - [ ] model fitting and selection 
+  - [ ] and diagnostic checking
+- [ ] You will include a mean absolute scaled error (MASE), 
+for each of model fits and forecasts. 
+- [ ] You’ll use the real values of daily bitcoin for 10 days of the forecast 
+period (_25th of February_ - _6th of March 2019_) to compute `MASE` for 
+forecasts using the R function here.
+- [ ] present your results in a written report format and as an oral 
+presentation.
+- [ ] QQ plot
+
+## R code 15%
+
+```{r load-packages-and-scripts, message=FALSE, warning=FALSE, message=TRUE}
+# devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
+# install.packages("revealjs") # new - P
+library(packagr)
+packages <- c(
+  'AID','CombMSC','fGarch','forecast','FSAdata','fUnitRoots',
+  'lmtest','magrittr','nortest','rugarch','TSA','captioner', 'revealjs')
+packagr(packages) # alpha package to check, install and load packages
+# setwd('./Users/phil/code/data-science/uni/time-series/assignment03')
+
+# current_path = rstudioapi::getActiveDocumentContext()$path
+# setwd(dirname(current_path ))
+# print( getwd() )
+source('./TSHandy.r') 
+# check if updated
+source('./utils.r') 
+# moved all functions to here
+source('./MASE.r')
+doDiffAndPlot <- doDiffAndPlot # fix lint no symbol named 'X' in scope
+```
+
+```{r, env-variables}
+startDate = '2013-04-27' #yyyy-mm-dd
+endDate = '2019-02-24'
+default_ylab = 'Bitcoin EOD closing price US$'
+default_xlab = 'Year'
+```
+
+## The Data
+
+```{r}
+data <-
+  read.csv("./Bitcoin_Historical_Price.csv",
+  sep = ",",
+  fill = TRUE)
+# data %>% class() # data.frame needs to be converted to time series
+```
+
+```{r, data-wrangle}
+# remove commas from currency - credit to Zoe
+data$Close <- as.numeric(as.character(gsub(",","",data$Close)))
+
+inds <- seq(as.Date(startDate), as.Date(endDate), by = "day")
+data.ts <- ts(
+  as.vector(data[,2]),
+  start = c(2013, as.numeric(format(inds[1], "%j"))),
+  frequency = 365.25) # or 365?
+# Code source: https://stackoverflow.com/a/33129922
+```
+
+```{r, data-embed}
+# Embed the data
+readLines("./Bitcoin_Historical_Price.csv") %>% 
+  paste0(collapse = "\n") %>% 
+    openssl::base64_encode() -> encoded
+```
+
+
+### Source
+
+The dataset you will focus on has gathered from [coinmarketcap.com] includes 
+the daily closing price of bitcoin from the _27th of April 2013_ to the 
+_24th of February 2019_.
+
+### Historical Fluctuation
+
+The value of bitcoin is determined by what people are willing to pay for it, 
+and is very volatile, fluctuating wildly from day to day. 
+- In April 2013, the value of 1 bitcoin (BTC) was around $100 USD. 
+- At the beginning of 2017 its value was $1,022 USD and 
+- by the 15th of December, it was worth $19,497. 
+- As of the 3rd of March 2018, 1 BTC was sold for $11,513 USD. 
+- But now it came back to the window of $3800USD - $4000USD.
+
+[Download BitCoin CSV data](`r sprintf('data:text/csv;base64,%s', encoded)`)
+
+## Trend Models
+
+```{r initial-data}
+par(
+  mfrow = c(1, 1),
+  col = "white",
+  bg = 'black',
+  col.lab = "white",
+  col.main = 'white',
+  fg = 'white',
+  col.axis = 'white'
+)
+#par(mfrow=c(1,1))
+plot(
+  data.ts,
+  type = 'l',
+  main = 'Bitcoin Data',
+  ylab = default_ylab)
+```
+
+- There is no overall trend
+  <!-- - There was positive trend until late 2017 -->
+- No obvious seasonality
+- There looks like there could be an intervention point after the start of 2017
+- It is evident from the plot that there are changes in variance throughout 
+the series
+- There are clusters of high and low variance
+ 
+```{r}
+y = data.ts        # Read data into y
+x = zlag(data.ts)  # Generate first lag
+index = 2:length(x) # Create an index to get rid of the first NA value
+cor(y[index], x[index])
+plot(
+  y = data.ts,
+  x = x,
+  ylab = 'Closing Price',
+  xlab = 'Previous Day Closing Price',
+  main = "Scatter plot of neighbouring Closing Prices"
+)
+```
+
+- The high correlation of the data with the first lag 
+shows that successive data points are related
+
+### Linear trend model
+
+```{r, linear-trend-model}
+model_linear = lm(data.ts ~ time(data.ts))
+summary(model_linear)
+```
+- The linear model has a positive trend
+- The R-Squared value of 0.47 is relatively low
+- This model only explains 47% of variation in the data
+
+```{r}
+par(mfrow = c(1, 1))
+plot(
+  data.ts,
+  main = 'Bitcoin Data with Linear Model',
+  ylab = default_ylab)
+abline(model_linear)
+
+residual.analysis(model_linear, std = TRUE, start = 1)
+
+# TODO: MASE for linear model
+```
+
+- The standardised residuals are not white noise and show that the model has 
+not captured the trend of the data
+- histogram:  left skewed
+- Ljung-Box test: all lags are significant
+- Q-Q plot: left-tailed, doesn't fit along one line, therefore not normally 
+distributed
+- ACF: there are significant lags which does not fit with a white noise series
+- Shapiro-Wilk: significant, therefore reject the null that the residuals are 
+normally distributed
+- TODO: MASE value for this model
+
+## Quadratic Model
+
+```{r, quadratic-model}
+t = time(data.ts)
+t2 = t ^ 2
+model_quadratic = lm(data.ts ~ t + t2) # label the quadratic trend model
+summary(model_quadratic)
+par(mfrow = c(1, 1))
+plot(
+  ts(fitted(model_quadratic)),
+  ylim = c(min(c(
+    fitted(model_quadratic), as.vector(data.ts)
+  )),
+  max(c(
+    fitted(model_quadratic), as.vector(data.ts)
+  ))),
+  ylab = default_ylab,
+  main = "Bitcoin Data with Quadratic Model"
+)
+lines(as.vector(data.ts))
+
+residual.analysis(model_quadratic, std = TRUE, start = 1)
+
+# TODO: MASE for quadratic model
+```
+
+- The residuals are largely unchanged from the linear plot
+- The standardised residuals are not white noise and show that the model has not
+captured the trend of the data
+- histogram:  left skewed
+- Ljung-Box test: all lags are significant
+- Q-Q plot: left-tailed, doesn't fit along one line, therefore not normally 
+distributed
+- ACF: there are significant lags which does not fit with a white noise series
+- Shapiro-Wilk: significant, therefore reject the null that the residuals are 
+normally distributed
+- TODO: MASE value for this model
+
+```{r, plot-no-diff}
+doDiffAndPlot(data.ts, 0, 'Bitcoin with no diff')
+```
+- acf plot slowly decaying lags i.e. not stationary
+- the adf test confirms that the series is not stationary 
+- the series will be transformed and/or differenced before fitting ARIMA
+
+```{r, message=FALSE, warning=FALSE}
+# TODO: look at code to see where he uses it 
+# I think we should scrap this? - ash
+bc.search = BoxCoxSearch(y = data.ts)
+```
+
+```{r, plot-first-diff}
+# NEW: testing diff without log 
+doDiffAndPlot(data.ts, 1, 'BitCoin first diff')
+```
+
+- appears to be volatility clustering in plot
+- Therefore: we will transform the data with log or Box Cox
+
+### Confidence interval of Lambda
+
+```{r, confidence-interval, warning=FALSE}
+# check the confidence interval of lambda
+fig_nums(
+  "confidence-interval",
+   paste('Confidence Interval for ', default_ylab, sep = '')) %>% cat()
+boxcoxCi <- BoxCox.ar(data.ts, method = "yule-walker")$ci
+boxcoxCi
+```
+
+lambda == 0
+
+- The confidence interval does include 0, so we _will_ do a log transform
+
+## Log Transform
+
+```{r, log-transform}
+data.ts_log = log(data.ts)
+doDiffAndPlot(data.ts_log, 0)
+```
+
+- the adf test p-value is not significant meaning the series is not stationary
+- acf still has the same pattern
+
+### Log first diff
+
+```{r, log-first-diff}
+doDiffAndPlot(data.ts_log, 1)
+data.ts_log_diff1 = data.ts_log %>% diff(differences = 1)
+```
+
+- the adf test p-value is significant - therefore the series is now stationary
+- However, doesn't have constant variance - an assumption for ARIMA models
+- there are many significant serial correlations in the data which suggests 
+that the data exhibits serial dependence
+
+### Log Second diff
+
+```{r, log-second-diff}
+doDiffAndPlot(data.ts_log, 2, T)
+```
+
+- single AR lag 
+- lots of diffs in MA
+- don't need, overdifferencing
+- aka overPhil
+
+### M
+
+> ACF, PACF and EACF all shows pattern of white noise for the correlation 
+> structure. However, there is an ARCH effect present in the series.
+
+```{r}
+par(mfrow = c(1, 1))
+McLeod.Li.test(y = data.ts_log_diff1,
+main = "McLeod-Li Test Statistics for First Difference of Log Bitcoin")
+```
+- McLeod-Li test is significant at 5% level of significance for all lags. 
+- This gives a strong idea about existence of volatility clustering.
+
+```{r}
+qqnorm(
+  data.ts_log_diff1,
+  main = "Q-Q Normal Plot of First Difference of Log Bitcoin")
+qqline(data.ts_log_diff1)
+```
+- Shows volatility clustering
+
+```{r}
+abs.data.ts_log_diff1 = abs(data.ts_log_diff1)
+sq.data.ts_log_diff1 = data.ts_log_diff1 ^ 2
+
+# TODO: refactor to diffPlot Phil
+par(mfrow = c(1, 2))
+acf(
+  abs.data.ts_log_diff1,
+  ci.type = "ma",
+  main = "The sample ACF plot for absolute return series")
+pacf(
+  abs.data.ts_log_diff1,
+  main = "The sample PACF plot for absolute return series")
+eacf(abs.data.ts_log_diff1)
+# NOTE: TODO: After the absolute value transformation, we observe many 
+# signficicant lags in both ACF and PACF. Also, EACF does not suggest an 
+# ARMA(0,0) model.
+# From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for absolute 
+# value series.
+# These models correspond to parameter settings of [max(1,1),1] and 
+# [max(1,2),1]. So the corresponding
+# tentative GARCH models are GARCH(1,1) and GARCH(2,1)
+```
+
+```{r}
+par(mfrow = c(1, 2))
+acf(
+  sq.data.ts_log_diff1,
+ci.type = "ma",
+main = "The sample ACF plot for squared return series")
+pacf(
+  sq.data.ts_log_diff1,
+  main = "The sample PACF plot for squared return series")
+eacf(sq.data.ts_log_diff1)
+# NOTE: TODO:
+# After the square transformation, we boserve many signficicant lags in both 
+# ACF and PACF. Also, EACF does not suggest an ARMA(0,0) model.
+# From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for squared 
+# series. 
+# These models correspond to parameter settings of [max(1,1),1] and 
+# [max(1,2),1]. So the corresponding 
+# tentative GARCH models are GARCH(1,1) and GARCH(2,1).
+```
+
+
+
+### Garch
+
+```{r, garch}
+# ash says: I think this is fitting the garch model
+model_s_garch <- ugarchspec(
+  variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
+  mean.model = list(armaOrder = c(1, 0), include.mean = FALSE),
+  distribution.model = "norm"
+)
+# m.2 <- ugarchfit(spec = model_s_garch, data = data.ts_log_diff1)
+ugarchfit(spec = model_s_garch, data = data.ts_log_diff1)
+```
+
+## ARIMA MODELLING 
+
+```{r, arima}
+# doDiffAndPlot(data.ts, 0)
+```
+
+```{r}
+adfTest(data.ts)
+# doDiffAndPlot(data.ts, 1)
+```
+
+### TODO: Arima subset
+
+```{r}
+res = armasubsets(
+  y = data.ts,
+  nar = 5,
+  nma = 5,
+  y.name = 'test',
+  ar.method = 'ols'
+  )
+plot(res)
+```
+
+```{r}
+# FIXME:error ere
+# TODO: add other models
+# can't add diff.data.ts
+# AIC and BIC values
+# sort.score(AIC(
+  # model_041_ml, model_042_ml, model_140_ml, model_141_ml ),
+  # score = "aic")
+# sort.score(BIC(
+  # model_041_ml, model_042_ml, model_140_ml, model_141_ml ),
+  # score = "bic")
+```
+
+
+### Residuals for arima(,,)
+
+```{r, warning=FALSE}
+# residual.analysis(model = )
+```
+
+- Time-series standardised residuals: 
+- histogram: 
+- Ljung-Box test: 
+- Q-Q plot: 
+- ACF: 
+- Shapiro-Wilk: 
+
+## Forecast
+
+```{r, message=FALSE}
+library(forecast)
+figureName <-
+  fig_nums('Forecast of growth', 'Forecast of growth') %>% cat()
+fit = Arima(data.ts.raw, c(0, 4, 2), lambda = lambda)
+# hack to hide negative values:
+ylim <- c(500, 14000)
+plot(forecast(fit, h = 10),
+  ylim = ylim,
+  ylab = figureName)
+```
+
+- TODO: interpret forecast
+
+
+## TODO: Conclusion
+
+The results of the above tests summarised:
+
+
+TODO: interpret
+
+
+
+[coinmarketcap.com]: coinmarketcap.com
+
+```{r}
+# #outputting plots
+# plots.dir.path <- 
+#   list.files(
+#      tempdir(), pattern="rs-graphics", full.names = TRUE);
+# plots.png.paths <- 
+#  list.files(
+#    plots.dir.path, pattern=".png", full.names = TRUE)
+```
+
+```{r}
+# file.copy(
+  # from=plots.png.paths, 
+# to="~/code/data-science/uni/time-series/
+# assignment03/presentation-ts-assignment03/assets") <- fix
+```

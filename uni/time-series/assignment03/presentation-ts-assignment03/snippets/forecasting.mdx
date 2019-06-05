@@ -1,0 +1,12 @@
+library(forecast)
+figureName <- fig_nums(
+  'Forecast of growth',
+  'Forecast of growth') %>% cat()
+fit = Arima(data.ts.raw,c(0,4,2), lambda = lambda) 
+# hack to hide negative values:
+ylim <- c(500, 14000) 
+plot(
+  forecast(fit,h=10), 
+  ylim=ylim, 
+  ylab=figureName
+)

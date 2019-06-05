@@ -1,0 +1,267 @@
+---
+title: "Arrests for Marijuana Possession"
+author: "Ashleigh Olney s3686808"
+date: "Analysis of Categorical Data Course Project - Phase I"
+output:
+  pdf_document:
+    toc: TRUE
+    df_print: kable
+    fig_width: 7
+    fig_caption: true
+fontsize: 11pt
+---
+\pagebreak 
+
+# Introduction
+
+The aim of this report is to visualise the distribution of categorical variables (such as sex, age, and race) among arrestees for marijuana possession and investigate how these variables relate to the outcome of the arrest, in order to highlight possible implicit police bias. 
+
+# Data set source and description
+The data set used in this report is [Arrests for Marijuana Possession](https://vincentarelbundock.github.io/Rdatasets/csv/carData/Arrests.csv), available at [https://vincentarelbundock.github.io/Rdatasets/datasets.html](https://vincentarelbundock.github.io/Rdatasets/datasets.html); a data frame with 5226 observations on the following 8 variables: 
+
+* released: whether or not the arrestee was released with a summons; a factor with levels: No; Yes. 
+* colour: the arrestee's race; a factor with levels: Black; White.
+* year: 1997 through 2002; a numeric vector. 
+* age: in years; a numeric vector.
+* sex: a factor with levels: Female; Male. 
+* employed: a factor with levels: Female; Male.
+* citizen: a factor with levels: No; Yes.
+* checks: the number of police databases (of previous arrests, previous convictions, parole status, etc - 6 in all) on which the arrestee's name appeared; a numeric vector.
+
+
+\pagebreak
+
+```{r, setup, include = FALSE}
+library(cowplot)
+library(mosaic)
+library(dplyr)
+library(pander)
+```
+
+# Preparing data
+
+## Reading the data from the file containing the data set.
+
+```{r read data}
+arrests <- read.csv("Arrests.csv", stringsAsFactors = TRUE)
+str(arrests)
+# removing extraneous column, X1
+arrests <- arrests[,-(1)] 
+```
+
+## Subsetting data by release status.
+
+```{r subsetting data by release status, fig.height=6, fig.width=7}
+
+# released without summons data
+released <- arrests %>% filter(released == "Yes")
+# not released without summons data
+summons <- arrests %>% filter(released == "No")
+```
+
+## Summary table of categorical variables
+
+```{r create tables of categorical combinations}
+# remove numeric variables
+released.factors <- select_if(released, is.factor)
+summons.factors <- select_if(summons, is.factor)
+# assign as frequency data frame
+released.factors.freq <- as.data.frame(table(released.factors))
+summons.factors.freq <- as.data.frame(table(summons.factors))
+# remove rows with frequency of zero
+released.factors.freq <- filter(released.factors.freq, Freq != 0) 
+summons.factors.freq <- filter(summons.factors.freq, Freq != 0)
+# rename column heading
+names(released.factors.freq)[6] <- "released.freq"
+names(summons.factors.freq)[6] <- "summons.freq"
+# drop "released" variable
+released.factors.freq <- released.factors.freq[, 2:6]
+summons.factors.freq <- summons.factors.freq[, 2:6]
+# join released and summons tables as new table
+freq <- full_join(summons.factors.freq, 
+                  released.factors.freq, by = c("colour", "sex", "employed", "citizen"))
+# replace NAs with zero
+freq$summons.freq[is.na(freq$summons.freq)] <- 0
+# add column of percentage released
+freq <- mutate(
+  freq, 
+  percent.released = round((released.freq /(summons.freq + released.freq) * 100)))
+# order by descending percentage released 
+freq <- freq[order(-freq$percent.released),]
+freq
+```
+
+# Proportion Tables 
+
+## Proportion of release status and colour
+
+```{r table of release status and colour}
+colour.arrests <-table(arrests$colour, arrests$released, 
+                       dnn = c("colour","released without summons")) 
+colour.arrests.prop <- round(prop.table(colour.arrests, 1),2)
+colour.arrests.prop
+```
+
+## Proportion of release status and year
+
+```{r table of release status and year}
+year.arrests <-table(arrests$year, arrests$released, 
+                     dnn = c("year","released without summons")) 
+year.arrests.prop <- round(prop.table(year.arrests, 1),2)
+year.arrests.prop
+``` 
+
+## Proportion of release status and number of checks
+
+```{r table of release status and number of checks}
+checks.arrests <-table(arrests$checks, arrests$released, 
+                       dnn = c("checks","released without summons")) 
+checks.arrests.prop <- round(prop.table(checks.arrests, 1),2)
+checks.arrests.prop
+```
+
+## Proportion of release status and sex
+
+```{r table of release status and sex}
+sex.arrests <-table(arrests$sex, arrests$released, 
+                    dnn = c("sex","released without summons")) 
+sex.arrests.prop <- round(prop.table(sex.arrests, 1),2)
+sex.arrests.prop
+```
+
+## Proportion of release status and citizenship
+
+```{r table of release status and citizenship}
+citizen.arrests <-table(arrests$citizen, arrests$released, 
+                        dnn = c("citizen","released without summons")) 
+citizen.arrests.prop <- round(prop.table(citizen.arrests, 1),2)
+citizen.arrests.prop
+```
+
+## Proportion of release status and employment status
+
+```{r table of release status and employment status}
+employed.arrests <-table(arrests$employed, arrests$released, 
+                         dnn = c("employed","released without summons")) 
+employed.arrests.prop <- round(prop.table(employed.arrests, 1),2)
+employed.arrests.prop
+```
+
+\pagebreak
+
+# Age distribution of Arrests
+
+## Bar Chart of Proportions of Ages for arrestees
+
+```{r generate age bar charts, warning=FALSE}
+favstats(released$age)
+  favstats(summons$age)
+
+rel.age <- ggplot(released, aes(x = age)) +
+  geom_bar(
+  color = "black",
+  fill = "#67a9cf",
+  aes(age, ..prop..),
+  bins = 100
+  ) +
+  geom_vline(xintercept = median(released$age), linetype = "dashed", size = 1) +
+  annotate("text",
+  label = "Median = 21",
+  x = 26,
+  y = 0.09) + 
+  labs(title = "Age Distribution of Arrests",subtitle = "Released without Summons",x = NULL)
+  
+  summons.age <- ggplot(summons, aes(x = age)) +
+  geom_bar(
+  color = "black",
+  fill = "#ef8a62",
+  aes(age, ..prop..),
+  bins = 100
+  ) +
+  geom_vline(xintercept = median(summons$age), linetype = "dashed", size = 1) +
+  annotate("text",
+  label = "Median = 22",
+  x = 27,
+  y = 0.09) +
+  labs(subtitle = "\n Not Released without Summons")
+  
+  theme_set(theme_minimal())
+  
+  plot_grid(rel.age, summons.age, ncol = 1, align = "v")
+```
+
+\pagebreak
+
+# Mosaic charts of Release Status and Categorical Variables
+
+## Mosaic chart for release status and colour
+
+```{r generate mosaic chart for release status and colour}
+vcd::mosaic(colour.arrests, pop = FALSE, 
+            shade = TRUE, dnn = c("Colour", "Released Without Summons"))
+```
+
+## Mosaic chart for release status and sex
+
+```{r generate mosaic chart for release status and sex}
+vcd::mosaic(sex.arrests, pop = FALSE, 
+            shade = TRUE, dnn = c("sex", "released"))
+```
+
+\pagebreak
+
+## Mosaic chart for release status and employment
+
+```{r generate mosaic chart for release status and employment}
+vcd::mosaic(employed.arrests, pop = FALSE, 
+            shade = TRUE, dnn = c("employed", "released"))
+```
+
+## Mosaic chart for release status and citizenship
+
+```{r generate mosaic chart for release status and citizenship}
+vcd::mosaic(citizen.arrests, pop = FALSE, 
+            shade = TRUE, dnn = c("citizen", "released"))
+```
+ \pagebreak
+ 
+# Number of Checks and Proportion of Release Status
+
+## Bar chart for release status and number of checks
+
+```{r generate bar chart for release status and number of checks}
+checks.gg <- ggplot(arrests, aes(x = checks, fill = released))
+checks.gg + geom_bar(position = "fill") + labs(y = "proportion") +
+  labs(title = "Number of Checks and Proportion of Release Status", 
+       caption = "No = not released without summons \n Yes = released without summons")
+```
+ \pagebreak
+ 
+# Arrests and Releases Over Time 
+
+## Bar chart of arrests and releases over time
+
+```{r generating bar chart of arrests and releases over time}
+ggplot(arrests, aes(x = year, fill = released)) + geom_bar() +
+  labs(title = "Number of Arrests and Release Status over Time", 
+       caption = "No = not released without summons \n Yes = released without summons")
+```
+
+
+\pagebreak
+
+# Results and Discussion
+
+* Black, male, unemployed, non-citizens are the least likely to be released without summons, at 53%.  
+
+* Mosaic plots use shading to illustrate if a segment is over represented (blue) or underrepresented (red) based on an assumption of independence. From this, it's clear to see that citizenship, employment, and colour appear to be a contributing factor to if the arrestee is released without summons. Black, unemployed, non-citizens are over represented in those arrestees not released without summons. 
+* Sex does not appear to be significant based on distribution of mosaic plot
+* Number of checks appears to negatively correlate to likelihood of being released without summons. 
+
+# Conclusion
+
+Some of the factors investigated appear to have an impact on the likelihood of being released without summons, having been arrested for marijuana possession. Colour, citizenship status, employment status, and check number appear to have a relationship with release status. 
+
+Age and gender alone don't appear to have an influence on whether or not the arrestee was released, however further analysis such as logistic regression is required to properly define the degree to which each of these variables and their interactions can be used to predict the outcome of release and highlight possible police bias. 
+
+

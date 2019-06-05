@@ -1,0 +1,10 @@
+## Log Transform
+data.ts_log = log(data.ts)
+doDiffAndPlot(data.ts_log, 0)
+
+### Log first diff
+doDiffAndPlot(data.ts_log, 1)
+data.ts_log_diff1 = data.ts_log %>% diff(differences = 1)
+
+### Log Second diff
+doDiffAndPlot(data.ts_log, 2, T)

@@ -53,7 +53,7 @@ residual.analysis <- function(model, std = TRUE,start = 2, class = c("ARIMA","GA
 
 data("google") # This is already returns series
 par(mfrow=c(1,1))
-plot(google,type='o',main="Time series plot of daily returns of Google stock")
+plot(google,type='l',main="Time series plot of daily returns of Google stock")
 # There is sign of neither a trend nor seasonality. Observations are bouncing around the mean level. But changing variance is obvious.
 mean(google) # Mean is very close to zero
 
@@ -76,11 +76,11 @@ par(mfrow=c(1,2))
 acf(abs.google, ci.type="ma",main="The sample ACF plot for absolute return series")
 pacf(abs.google, main="The sample PACF plot for absolute return series")
 eacf(abs.google)
-# After the absolute value transformation, we boserve many signficicant lags in 
+# After the absolute value transformation, we boserve many signficicant lags in
 #both ACF and PACF. Also, EACF do not suggest an ARMA(0,0) model.
-# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for absolute 
-#value series. 
-# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1] and [max(2,2),2]. 
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for absolute
+#value series.
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1] and [max(2,2),2].
 # So the corresponding tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
 
 par(mfrow=c(1,2))
@@ -88,8 +88,8 @@ acf(sq.google, ci.type="ma",main="The sample ACF plot for squared return series"
 pacf(sq.google, main="The sample PACF plot for squared return series")
 eacf(sq.google)
 # After the square transformation, we oserve many signficicant lags in both ACF and PACF. Also, EACF do not suggest an ARMA(0,0) model.
-# From the EACF, we can identify ARMA(1,1), ARMA(1,2), ARMA(2,1), and ARMA(2,2) models for squared series. 
-# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], [max(1,2),2], and [max(2,2),2]. So the corresponding 
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), ARMA(2,1), and ARMA(2,2) models for squared series.
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], [max(1,2),2], and [max(2,2),2]. So the corresponding
 # tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
 
 m.11 = garch(google,order=c(1,1),trace = FALSE)
@@ -117,16 +117,16 @@ residual.analysis(m.22,class="GARCH",start=3)
 
 par(mfrow=c(1,1))
 plot((fitted(m.11)[,1])^2,type='l',ylab='Conditional Variance',xlab='t',main="Estimated Conditional Variances of the Daily Returns")
-# Changes in conditional variance at the beginning of the series and between observations 300 and 400, then the conditional variance settles down. 
-# 
+# Changes in conditional variance at the beginning of the series and between observations 300 and 400, then the conditional variance settles down.
+#
 
-fGarch::predict(m.11_2,n.ahead=100,trace=FALSE,plot=TRUE) 
+fGarch::predict(m.11_2,n.ahead=100,trace=FALSE,plot=TRUE)
 # Forecasts for the confidance limits are based on the forecasts of conditional variance.
 
 
 library(rugarch)
-model<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)), 
-                  mean.model = list(armaOrder = c(0, 0), include.mean = FALSE), 
+model<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
+                  mean.model = list(armaOrder = c(0, 0), include.mean = FALSE),
                   distribution.model = "norm")
 m.11_3<-ugarchfit(spec=model,data=google)
 par(mfrow=c(1,1))
@@ -153,7 +153,7 @@ wave = mm.eq
 wave = ts(wave)
 par(mfrow=c(1,1))
 plot(wave,main="Time series plot of seismic Lg wave series")
-# There is sign of neither a trend nor seasonality. Observations are bouncing around the mean level. But changing variance is obvious especially 
+# There is sign of neither a trend nor seasonality. Observations are bouncing around the mean level. But changing variance is obvious especially
 # at the begining of the observationi period.
 mean(wave)
 
@@ -168,8 +168,8 @@ par(mfrow=c(1,2))
 acf(wave, main="The sample ACF plot for seismic Lg wave series")
 pacf(wave, main="The sample PACF plot for seismic Lg wave series")
 eacf(wave)
-# In the ACF, PACF, and EACF plots we observe significant correlations and there is no sign of 
-# a white noise process.However, volatiliy clustering is obvious in the time series plot. So, 
+# In the ACF, PACF, and EACF plots we observe significant correlations and there is no sign of
+# a white noise process.However, volatiliy clustering is obvious in the time series plot. So,
 # we will consider fitting an ARMA+GARCH model.
 
 wave.positive = wave + min(abs(wave))+0.1
@@ -198,7 +198,7 @@ res = armasubsets(y=diff.BC.wave,nar=7,nma=7,y.name='test',ar.method='ols')
 plot(res)
 #Additional to the previously identified models, {ARIMA(1,1,6), ARIMA(1,1,5),ARIMA(2,1,6), ARIMA(2,1,5)}
 
-#Overall, 
+#Overall,
 #{ARIMA(2,1,4), ARIMA(2,1,3), ARIMA(0,1,3), ARIMA(0,1,4),ARIMA(0,1,6), ARIMA(1,1,6),ARIMA(1,1,6), ARIMA(1,1,5),ARIMA(2,1,6), ARIMA(2,1,5)}
 
 source('~/Documents/MATH1318_TimeSeries/Utility Functions/TSHandy.r')
@@ -220,8 +220,8 @@ par(mfrow=c(1,2))
 acf(abs.res, ci.type="ma",main="The sample ACF plot for absolute residual series")
 pacf(abs.res, main="The sample PACF plot for absolute residual series")
 eacf(abs.res)
-# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for absolute residual series. 
-# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], and [max(2,2),2]. So the corresponding 
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for absolute residual series.
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], and [max(2,2),2]. So the corresponding
 # tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
 
 
@@ -229,29 +229,29 @@ par(mfrow=c(1,2))
 acf(sq.res, ci.type="ma",main="The sample ACF plot for square residual series")
 pacf(sq.res, main="The sample PACF plot for square residual series")
 eacf(sq.res)
-# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for squared residual series. 
-# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], and [max(2,2),2]. So the corresponding 
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for squared residual series.
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], and [max(2,2),2]. So the corresponding
 # tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
 
-model1<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)), 
-                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE), 
+model1<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
+                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE),
                    distribution.model = "norm")
 m.26_11<-ugarchfit(spec = model1, data = diff.BC.wave, out.sample = 100)
 # I'm fitting ARMA model here not ARIMA!
 # Therefore I need to send the differenced and transformed series to ugarchfit().
 m.26_11  # AIC = -6.3964
 plot(m.26_11)
-# We display residual plots with selection of 8, 9, 10 and 11. 
+# We display residual plots with selection of 8, 9, 10 and 11.
 
-model2<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(2, 1)), 
-                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE), 
+model2<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(2, 1)),
+                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE),
                    distribution.model = "norm")
 m.26_21<-ugarchfit(spec = model2, data = diff.BC.wave, out.sample = 100)
 m.26_21 # AIC = -6.3869
 plot(m.26_21)
 
-model3<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(2, 2)), 
-                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE), 
+model3<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(2, 2)),
+                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE),
                    distribution.model = "norm")
 m.26_22<-ugarchfit(spec = model3, data = diff.BC.wave, out.sample = 100)
 m.26_22 # AIC = -6.3138

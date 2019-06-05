@@ -1,0 +1,10 @@
+model_linear = lm(data.ts~time(data.ts)) 
+summary(model_linear)
+
+par(mfrow=c(1,1))
+plot(data.ts,
+  main='Bitcoin Data with Linear Model',
+ ylab=default_ylab)
+abline(model_linear)
+
+residual.analysis(model_linear, std = TRUE,start = 1)
