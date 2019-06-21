@@ -8,7 +8,7 @@ default_ylab = "BitCoin Price Fluctuation: $USD Apr '13-Feb '19"
 startDate = '2013-04-27' #yyyy-mm-dd
 endDate = '2019-02-24'
 default_xlab = 'Year'
-defaultBlackWhite = TRUE 
+defaultBlackWhite = FALSE 
 # Change here to make all plots black and white
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -294,7 +294,7 @@ findBestModel <- function(df.ts) {
     '| --------- | ---------- | --------------------- |\n'
   )
 
-  for(d in 1:2){
+  for(d in 0:2){
     for(q in 0:2){
       for(p in 0:2){
         if(p+d+q<=8){
@@ -491,3 +491,32 @@ check_seasonality_ggplot <- function(
 }
 
 # is_seasonality(data.ts__log)
+
+
+
+
+
+# Add a ternary function in R: TRUE ? 'true' : 'false'
+  `?` <- function(ifTernary, thenTernary)
+      eval(
+        sapply(
+          strsplit(
+            deparse(substitute(thenTernary)),
+            ":"
+        ),
+        function(e) parse(text = e)
+        )[[2 - as.logical(ifTernary)]])
+# Setup kable to be used with 
+# # {r table_format, results = "hide", table = T, eval = F}
+#   default_source_hook <- knit_hooks$get('source')
+#   knit_hooks$set(
+#     source = function(x, options) {
+#       if(is.null(options$table))
+#         default_source_hook(x, options)
+#       else {
+#         eval(parse(text = x)) %>%
+#           kable("html") %>%
+#             kable_styling("hover", full_width = F)
+#       }  
+#     }
+#   )
