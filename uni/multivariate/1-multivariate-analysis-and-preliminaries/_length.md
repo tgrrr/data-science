@@ -1,0 +1,1 @@
+L<sub>x</sub> is |x| = sqrt(x1^2 + x2^2 ... + x(n)^2)
