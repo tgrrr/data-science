@@ -1,0 +1,408 @@
+
+#### List of possible models ordered by AIC:
+
+| AIC       | Order | Shapiro Residuals p-value |
+| --------- | ----- | ------------------------- |
+| -7324     | 2 1 2 | 3.183622e-36              |
+| -7302.399 | 0 1 0 | 3.882959e-37              |
+| -7300.421 | 0 1 1 | 3.989343e-37              |
+| -7300.42  | 1 1 0 | 3.985837e-37              |
+| -7299.027 | 2 1 0 | 3.77238e-37               |
+| -7299     | 0 1 2 | 3.777204e-37              |
+| -7298.421 | 1 1 1 | 3.987566e-37              |
+| -7297.027 | 2 1 1 | 3.771705e-37              |
+| -7296.999 | 1 1 2 | 3.77752e-37               |
+| -7291.597 | 0 2 1 | 2.490153e-37              |
+| -7289.602 | 1 2 1 | 2.450695e-37              |
+| -7289.602 | 0 2 2 | 2.445985e-37              |
+| -7288.64  | 2 2 1 | 2.125636e-37              |
+| -7287.651 | 1 2 2 | 2.572079e-37              |
+| -7286.404 | 2 2 2 | 2.139399e-37              |
+| -6674.674 | 2 2 0 | 8.092037e-36              |
+| -6415.021 | 1 2 0 | 4.32332e-35               |
+| -5835.035 | 0 2 0 | 7.008529e-36              |
+
+Moving forward, we will select the following models:
+- because we want the lowest possible AIC value
+- we ignore all diff= 2 because of the obvious AIC 
+score being lower for all
+
+### Final set of candidate models:
+
+| AIC       | Order | Shapiro Residuals p-value |
+| --------- | ----- | ------------------------- |
+| -7324     | 2 1 2 | 3.183622e-36              |
+| -7300.421 | 0 1 1 | 3.989343e-37              |
+| -7300.42  | 1 1 0 | 3.985837e-37              |
+| -7299.027 | 2 1 0 | 3.77238e-37               |
+| -7299     | 0 1 2 | 3.777204e-37              |
+| -7298.421 | 1 1 1 | 3.987566e-37              |
+| -7297.027 | 2 1 1 | 3.771705e-37              |
+| -7296.999 | 1 1 2 | 3.77752e-37               |
+
+```{r}
+possibleArimaModels <- list()
+newArima <-
+  list(  
+    c(2, 1, 2),   # arima(2, 1, 2)
+    c(0, 1, 1),   # arima(0, 1, 1)
+    c(1, 1, 0),   # arima(1, 1, 0)
+    c(2, 1, 0),   # arima(2, 1, 0)
+    c(0, 1, 2),   # arima(0, 1, 2)
+    c(1, 1, 1),   # arima(1, 1, 1)
+    c(2, 1, 1),   # arima(2, 1, 1)
+    c(1, 1, 2)   # arima(1, 1, 2)
+  )
+possibleArimaModels <- c(possibleArimaModels, newArima) 
+```
+
+## Estimation of Parameters
+
+### ARIMA
+
+```{r}
+# possibleArimaModels
+model_212_ml <- 
+  arima(data.ts__log_diff1, 
+    c(2,0,2), 
+    method='ML')
+model_011_ml <- 
+  arima(data.ts__log_diff1, 
+    c(0,0,1), 
+    method='ML')
+model_110_ml <- 
+  arima(data.ts__log_diff1, 
+    c(1,0,0), 
+    method='ML')
+model_210_ml <- 
+  arima(data.ts__log_diff1, 
+    c(2,0,0), 
+    method='ML')
+model_012_ml <- 
+  arima(data.ts__log_diff1, 
+    c(0,0,2), 
+    method='ML')
+model_111_ml <- 
+  arima(data.ts__log_diff1, 
+    c(1,0,1), 
+    method='ML')
+model_211_ml <- 
+  arima(data.ts__log_diff1, 
+    c(2,0,1), 
+    method='ML')
+model_112_ml <- 
+  arima(data.ts__log_diff1, 
+    c(1,0,2), 
+    method='ML')
+
+# AIC and BIC values
+sort.score(AIC(
+  model_212_ml,
+  model_011_ml,
+  model_110_ml,
+  model_210_ml,
+  model_012_ml,
+  model_111_ml,
+  model_211_ml,
+  model_112_ml
+  ),
+  score = "aic")
+
+coeftest(model_212_ml)
+coeftest(model_011_ml)
+coeftest(model_110_ml)
+coeftest(model_210_ml)
+coeftest(model_012_ml)
+coeftest(model_111_ml)
+coeftest(model_211_ml)
+coeftest(model_112_ml)
+```
+- model_212_ml has the best AIC score
+- Is signficant at ar1, ar2, ma1, ma2
+- It wins
+
+### Testing overfitting:
+```{r}
+# Lets Overfit
+model_312_ml <- arima(data.ts__log_diff1, c(3,0,2), method='ML')
+coeftest(model_312_ml) # ar3 not significant
+# coeftest(model_612_ml)
+# ar3 - ar6 not significant: therefore we can ignore all > ar2
+# are removed from above set of ordering
+
+model_213_ml <- arima(data.ts__log_diff1, c(3,2,3), method='ML')
+coeftest(model_213_ml)
+```
+- overfitting shows model_213_ml (p > 0.05)
+- overfitting shows model_312_ml (p > 0.05) for ar3
+
+### Check Seaonsality
+
+Visual inspection of the plot's second half shows some 
+possible seasonality
+
+```{r}
+doPar(mfrow = c(1, 2))
+check_seasonality_decompose(data.ts)
+title(fig_nums('Seasonality','Seasonality')
+```
+- We can observe yearly seasonality in January from the plot
+
+```{r}
+check_seasonality_decompose(data.ts__log)
+title(fig_nums('SeasonalityLog', 'Seasonality with Log Transformed Data')
+```
+
+
+```{r}
+doMcleod <- function(df.ts, plotTitle) {
+  doPar(mfrow = c(1, 1))
+  McLeod.Li.test(
+    y = df.ts,
+    main = plotTitle 
+  )
+}
+
+doMcleod(data.ts__log_diff1,
+  plotTitle = 
+    fig_nums(
+    'McLeod_first_diff', 
+    'McLeod Li Test Second diff')
+)
+
+```
+
+- McLeod-Li test is significant at 5% level of significance 
+for all lags for the second diff
+- This gives a strong idea about existence of volatility clustering.
+
+### Q-Q plot
+```{r}
+doPar(mfrow = c(1, 1))
+qqnorm(
+  data.ts__log_diff1,
+  main = fig_nums(
+    "qq_first_diff_log",
+    "Q-Q Normal Plot of Second Difference of Log Bitcoin")
+  )
+qqline(data.ts__log_diff1)
+```
+- Q-Q plot has a fat tail
+- Which is also indicative of volatility clustering
+
+#### Absolute Value transformation
+```{r absolute_transformation}
+doAbs <- function(df.ts, plotTitle) {
+  abs.df = abs(df.ts)
+  doDiffAndPlot(
+    abs(df.ts), 0, T, F, plotTitle)
+}
+
+doAbs(
+  data.ts__log_diff1,
+  fig_nums("absolute_transformation_diff", 
+    "Absolute Transformation diff=1")
+)
+```
+
+- We observe many signficant lags in both ACF and PACF.
+- EACF does not suggest an ARMA(0,0) model - indicating 
+possible GARCH effect
+- The EACF does not display a very clear pattern
+- Based on EACF plot, we can add the following models:
+`{ARIMA(2,1,1), ARIMA(2,1,2), ARIMA(3,1,1), ARIMA(3,1,2)}`
+
+- We have some evidence that the Bitcoin closing prices are 
+not independently and identically distributed, because we 
+observe some significant correlations in these plots
+We will now move on to specifying the GARCH parameters
+
+- These models correspond to parameter settings of:
+  - `[max(2,1),1]`  => `GARCH(2,1)`
+  - `[max(2,2),1]`  => `GARCH(2,1)`
+  - `[max(3,1),1]`  => `GARCH(3,1)`
+  - `[max(3,2),1]`  => `GARCH(3,1)`
+
+```{r}
+possibleGarchModels <- list(
+  c(2,1),
+  c(3,1)
+)
+```
+#### Power Transformation
+
+```{r}
+sq.data.ts__log_diff1 = data.ts__log_diff1 ^ 2
+doDiffAndPlot(
+  sq.data.ts__log_diff1, 0, T, T, 
+  fig_nums('square-transform','Square transformation'))
+```
+
+- We observe many signficant lags in both ACF and PACF.
+- EACF does not suggest an ARMA(0,0) model 
+  - indicating possible GARCH effect
+- The EACF does not display a very clear pattern
+- Based on EACF plot, we can add the following models:
+`{ARIMA(3,1,2), ARIMA(4,1,2), ARIMA(3,1,3), ARIMA(4,1,3), ARIMA(4,1,4)`
+
+
+- We have some evidence that the Bitcoin closing prices are 
+not independently and identically 
+distributed, because we observe some significant correlations 
+in these plots
+- We will now move on to specifying the GARCH parameters
+
+- These models correspond to parameter settings of:
+  - `max(3,2),1]`   => `GARCH(3,1)`
+  - `max(4,2),1]`   => `GARCH(4,1)`
+  - `max(3,3),1]`   => `GARCH(3,1)` Repeated
+  - `max(4,3),1]`   => `GARCH(4,1)` Repeated
+  - `max(4,4),1]`   => `GARCH(4,1)` Repeated
+
+The possible candidate GARCH models are:
+
+- `GARCH(2,1)`
+- `GARCH(3,1)`
+- `GARCH(4,1)`
+
+```{r}
+  newGarch <-
+    list(  
+      c(4, 1)   # arima(1, 1, 2)
+    )
+  possibleGarchModels <- c(possibleGarchModels, newGarch) 
+```
+
+
+
+### Garch Parameter Estimations
+
+```{r}
+possibleGarchModels
+```
+
+```{r}
+g21 = garch( data.ts__log_diff1, order = c(2,1),trace = FALSE)
+summary(g21)
+```
+- Looks good. Significant at all Coef.
+
+```{r}
+g31 = garch( data.ts__log_diff1, order = c(3,1),trace = FALSE)
+summary(g31)
+```
+- Looks good. Significant at all Coef.
+
+```{r}
+g41 = garch( data.ts__log_diff1, order = c(4,1),trace = FALSE)
+summary(g41)
+```
+- Significant at all except `b2` and `b3`
+- Discarded 
+
+```{r}
+# hidden:
+# g41 = garch( data.ts__log_diff1, order = c(4,1),trace = FALSE)
+# summary(g41)
+```
+- significant at all bar `b2`and `b3`
+
+```{r, garch}
+model_s_garch <- ugarchspec(
+  variance.model = list(model = "sGARCH", garchOrder = c(3, 1)),
+  mean.model = list(armaOrder = c(2, 2), include.mean = FALSE),
+  distribution.model = "norm"
+)
+model = ugarchfit(spec = model_s_garch, data = data.ts__log_diff1)
+
+# FIXME: working on
+# exp(diffinv(forc@forecast[["seriesFor"]], 
+  differences = 2, 
+  xi = log(data.ts)[length(data.ts)]))
+
+```
+
+### Residuals for ARMA-GARCH
+
+```{r, warning=FALSE}
+res = model@fit[["residuals"]]
+
+residual.analysis(model, class = "ARMA-GARCH")
+```
+
+
+- Time-series standardised residuals: 
+- histogram: 
+- Ljung-Box test: 
+- Q-Q plot: 
+- ACF: 
+- Shapiro-Wilk: 
+
+### ARMA-GARCH forecast
+
+```{r}
+
+forc = ugarchforecast(model, n.ahead = 10)
+forc@model$modeldata$index <- 
+  seq(
+    as.Date('2013-04-27'),
+    as.Date('2019-02-24'),
+    by = 1)
+
+garch_predict = 
+  ts(
+    as.vector(forc@forecast[["seriesFor"]]), 
+    start = startForecast, 
+    frequency = frequency
+  )
+
+plot(garch_predict)
+title(fig_nums('garch_predict', 'Garch Predictions')
+  , line = -1, outer = TRUE)
+
+garch_predict
+
+garch_predict_transform <-  exp(
+  diffinv(
+    garch_predict, 
+    differences = 1, 
+    xi = (data.ts__log)[2130]
+  )
+)
+
+plot(garch_predict_transform)
+```
+
+```{r}
+plot(data.ts)
+lines(real.ts, col = "#009999")
+lines(linear_predict, col="red", type="l")
+lines(quadratic_predict, col = "darkgreen", type = "l")
+lines(garch_predict_transform, col = "#993333", type = "l")
+zoomplot.zoom(xlim=c(2018.5,2019.5))
+```
+
+```{r}
+# Reversing the differencing created an extra datapoint; 
+# we can calculate MASE using first 10 or last 10
+MASE(real.ts, garch_predict_transform[2:11])
+MASE(real.ts, garch_predict_transform[1:10])
+
+```
+
+
+
+- TODO: interpret forecast
+
+## TODO: Conclusion
+
+The results of the above tests summarised:
+
+TODO: interpret
+
+[coinmarketcap.com]: coinmarketcap.com
+
+
+
+
+

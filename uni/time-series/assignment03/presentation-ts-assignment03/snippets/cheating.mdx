@@ -1,0 +1,34 @@
+timeSeriesNextTopModel <- function(df.ts) {
+  models <- list()
+  i = 1
+  for(d in 1:2){
+    for(q in 0:2){
+      for(p in 0:2){
+        if(p+d+q<=8){
+          # generate models:
+          order <- c((p),d,(q))
+          model <- 
+            Arima(
+              y=df.ts, 
+              order = order,
+              method = "ML",
+              include.constant = TRUE
+            )
+          aic <- as.numeric(model$aic)
+          sse <- sum(model$residuals^2)
+          shapiroPValue <- 
+            as.numeric(
+              shapiro.test(
+                model$residuals)$p.value)
+          models[i] <- rbind(model$aic)
+          i = i + 1 # iterator
+          
+          output[i, ] <- 
+            list(p, d, q, aic, modelPvalue, shapiroPValue)
+        }
+      }
+    }
+  }
+  return(output)
+  skrrrahh("snoop") # from the package brooke-watson/BRRR
+}
