@@ -4,6 +4,17 @@ author: "Phil Steinke s3725547"
 subtitle: 'language: R mid-semester exam'
 ---
 
+```
+- Please notice that the mid-semester test will be an unsupervised, computer-based test! 
+- It will be similar to the hands-on task sessions. 
+
+I’ll give you several tasks and ask for the R scripts to solve the tasks and your interpretations of the outputs. 
+The test will be available between 7:30 pm and 9:30 pm on 12.04.2019 and you are required to submit the R files including your answers by 9:30 pm. 
+- It’s very important for you to attend the task sessions to gain more experience in working under the time pressure. 
+- You can take the test anywhere provided that you have access to the Internet and the Canvas shell.  
+- There will be a one-hour overview session (starting at 6:30 pm) before the test on 12.04.2019 in the usual lecture theatre.
+```
+
 ```{r presets}
 rm(list = ls())
 cat("\014") # clear everything
@@ -251,18 +262,7 @@ eacf(diff.BC.data.ts)
 #### BIC table
 ```{r}
 # TODO: (Hint: use "  nar=10, nma=10, ar.method='ols'   " options while displaying BIC table).
-nar <- 10
-nma <- 10
-par(mfrow=c(1,1))
-res2 = 
-  armasubsets(
-    y=diff.BC.data.ts,
-    nar=nar,
-    nma=nma,
-    y.name='TODO:',
-    ar.method='ols')
-plot(res2)
-# In the BIC table, shaded columns correspond to AR(4), MA(3) and MA(11) coefficients and 
+ # In the BIC table, shaded columns correspond to AR(4), MA(3) and MA(11) coefficients and 
 # So, from here we can include ARIMA(4,1,2) and ARIMA(4,1,11) models in the set of 
 # candidate model.
 

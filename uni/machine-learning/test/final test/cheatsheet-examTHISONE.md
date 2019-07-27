@@ -3,6 +3,8 @@ id: "my-id"
 class: "my-class1 my-class2"
 ---
 
+@import "cheatsheetstyle.less"
+
 ==TODO:==
 
 - ! Draw binary classifier box
@@ -14,7 +16,7 @@ class: "my-class1 my-class2"
 profit matrix
 
 Later tonight:
-- css print fix <!-- @import "cheatsheetstyle.less" -->
+- css print fix 
 - turn into snippets
 
   - [ ] TODO: Chapter 4 (Information-based learning): Problems 2, 3, 4
@@ -136,9 +138,26 @@ IG ratio: GR(t,\mathcal{D}) = { \frac { IG(d,\mathcal{D})  }{ H(t,\mathcal{D})  
     - if you classified it based on the distribution of the classification in the dataset
 </details>
 
-```math
-gini(t,D)=1\, -\sum _{ l\; \epsilon \; levels(t) }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ TODO: }=1\, -\sum _{ l\; \epsilon \; \left\{ \begin{matrix} 'chapparian' \\ 'riparian' \\ 'conifer' \end{matrix} \right\}  }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ TODO: } \\ =1-\left( { \frac { 3 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 } \right) \ =0.653
-```
+<details>
+  <summary>
+    Weighted Datasets
+    </summary>
+  <br>
+  
+  ```math
+  gini(t,D)=1\, -\sum _{ l\; \epsilon \; levels(t) }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ TODO: }=1\, -\sum _{ l\; \epsilon \; \left\{ \begin{matrix} 'chapparian' \\ 'riparian' \\ 'conifer' \end{matrix} \right\}  }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ TODO: } \\ =1-\left( { \frac { 3 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 } \right) \ =0.653
+  ```
+  ```math
+  \operatorname{impurity/var}(t, \mathcal{D})=\frac{\sum_{i=1}^{n}\left(t_{i}-\overline{t}\right)^{2}}{n-1}
+  \\\mathbf{d}[\text { best }]=\underset{d \in \mathbf{d}}{\operatorname{argmin}} \sum_{l \in l e v e l s(d)} \frac{\left|\mathcal{D}_{d=l}\right|}{|\mathcal{D}|} \times \operatorname{var}\left(t, \mathcal{D}_{d=l}\right)
+  ```
+  ```math
+  \\\text{decrease weight }\mathbf{w}[i] \leftarrow \mathbf{w}[i] \times\left(\frac{1}{2 \times \epsilon}\right)
+  \\\text{decrease weights for correctly classified }\mathbf{w}[i] \leftarrow \mathbf{w}[i] \times\left(\frac{1}{2 \times(1-\epsilon)}\right)
+  \\\text{confidence factor}\enskip\alpha=\frac{1}{2} \times \log _{e}\left(\frac{1-\epsilon}{\epsilon}\right)
+  \\\alpha\enskip\text{increases as}\enskip\epsilon\enskip\text{decreases}
+  ```
+</details>
 
 ### Co-presence / Co-absence
 ==NOTE: NOT alphabetical d->q== AP: absense(q) presence(d)=0
@@ -161,6 +180,8 @@ $\operatorname{Minkowski}(\mathbf{a}, \mathbf{b})=\left(\sum_{i=1}^{m} a b s(\ma
 $\text {Manhattan}(\mathbf{a}, \mathbf{b})=\sum_{i=1}^{m} \operatorname{abs}(\mathbf{a}[i]-\mathbf{b}[i])$
 
 Eg. `k = 3` <- count 3 look at 3 nearest-neigbours
+
+$\operatorname{sim}_{cosine}(\mathbf{a}, \mathbf{b})=\frac{\sum_{i=1}^{m}(\mathbf{a}[i] \times \mathbf{b}[i])}{\sqrt{\sum_{i=1}^{m} \mathbf{a}[i]^{2}} \times \sqrt{\sum_{i=1}^{m} \mathbf{b}[i]^{2}}}$
 
 | Neural Network                      | Decision Tree                           |
 | ----------------------------------- | --------------------------------------- |
@@ -189,12 +210,12 @@ Eg. `k = 3` <- count 3 look at 3 nearest-neigbours
   - higher probability = lower entropy
 </details>
 
-$Nearest neighbour \mathbb{M}_{k}(\mathbf{q})=\underset{l \in \text {lelevels}(t)}{\operatorname{argmax}} \sum_{i=1}^{k} \delta\left(t_{i}, l\right)$
+$\text{Nearest neighbour} \mathbb{M}_{k}(\mathbf{q})=\underset{l \in \text {lelevels}(t)}{\operatorname{argmax}} \sum_{i=1}^{k} \delta\left(t_{i}, l\right)$
 
-$Weighted Neighest Neighbour \mathbb{M}_{k}(\mathbf{q})=\underset{l \in \operatorname{levels}(t)}{\operatorname{argmax}} \sum_{i=1}^{k} \frac{1}{\operatorname{dist}\left(\mathbf{q}, \mathbf{d}_{\mathbf{i}}\right)^{2}} \times \delta\left(t_{i}, I\right)$
+$\text{Weighted Neighest Neighbour} \mathbb{M}_{k}(\mathbf{q})=\underset{l \in \operatorname{levels}(t)}{\operatorname{argmax}} \sum_{i=1}^{k} \frac{1}{\operatorname{dist}\left(\mathbf{q}, \mathbf{d}_{\mathbf{i}}\right)^{2}} \times \delta\left(t_{i}, I\right)$
 
 ==TODO:==
-$Normalisation a_{i}^{\prime}=\frac{a_{i}-\min (a)}{\max (a)-\min (a)} \times(h i g h-l o w)+l o w$
+$\text{Normalisation} a_{i}^{\prime}=\frac{a_{i}-\min (a)}{\max (a)-\min (a)} \times(h i g h-l o w)+l o w$
 
 <div class='clearfix'>
 <details>
@@ -417,8 +438,7 @@ average class accuracy=1/∣levels(t)∣∣∑lϵlevels(t)recall
   1-0.131495 why did I need to do this?
   > 0.868505 seems wrong...
   
-  8.3
-  Model1
+  8.3 Model1
 
   | confusionMatrix | >      | >     | Prediction |
   | --------------- | ------ | ----- | ---------- |
@@ -449,21 +469,28 @@ average class accuracy=1/∣levels(t)∣∣∑lϵlevels(t)recall
 \sum _{ { lelevels }(t) } \left( \left( \frac { \left| { A }_{ t=l } \right|  }{ |{ A }| } -\frac { \left| { B }_{ t=l } \right|  }{ |{ B }| }  \right) \times \ln { \left( \frac { \left| { A }_{ t=l } \right|  }{ |{ A }| } /\frac { \left| { B }_{ t=l } \right|  }{ |B| }  \right)  }  \right) =\sum _{ { lelevels }(t) } \left( \left( \frac { 123 }{ 443 } -\frac { 252 }{ 948 }  \right) \times \ln { \left( \frac { 123 }{ 443 } /\frac { 252 }{ 948 }  \right)  }  \right)
 ```
 
-
-### Bayes theorum
+### Bayes' Theorem
 
 ==TODO==
 ```math
 \text {Bayes}=P(X | Y)=\frac{P(Y | X) P(X)}{P(Y)}=P(d | t)=\frac{P(t | d) P(d)}{P(t)}
 ```
-
-==TODO==
+<!-- is the P(A given B) -->
 ```math
 \begin{array}{l}{\text { Generalised Bayes Theorem: }} \\ {P(t=l | q[1], \ldots, q[m])=\frac{P(q[1], \ldots, q[m] | t=l) P(t=l)}{p(q[1], \ldots, q[m])}}\end{array}```
 ```
 
-==TODO==
-${\text {Chain rule: }}P(q[1], \ldots, q[m]) \times P(q[2] | q[1]) \times \ldots \times P(q[m] | q[m-1], \ldots, q[2], q[1])$
+$\begin{aligned} P(h, \neg f, v | m) &=P(h | m) \times P(\neg f | h, m) \times P(v | \neg f, h, m) \\ &=\frac{\left|\left\{\mathbf{d}_{8}, \mathbf{d}_{10}\right\}\right|}{\left|\left\{\mathbf{d}_{5}, \mathbf{d}_{8}, \mathbf{d}_{10}\right\}\right|} \times \frac{\left|\left\{\mathbf{d}_{8}, \mathbf{d}_{10}\right\}\right|}{\left|\left\{\mathbf{d}_{8}, \mathbf{d}_{10}\right\}\right|} \times \frac{\left|\left\{\mathbf{d}_{8}, \mathbf{d}_{10}\right\}\right|}{\left|\left\{\mathbf{d}_{8}, \mathbf{d}_{10}\right\}\right|} \\ &=\frac{2}{3} \times \frac{2}{2} \times \frac{2}{2}=0.6666 
+\\\neg \text{is not}\end{aligned}$
+
+Without independence:
+P(X, Y, Z|W) = P(X|W) ⇥ P(Y|X,W) ⇥ P(Z|Y, X,W) ⇥ P(W)
+
+With independent:
+
+$P(X, Y, Z | W)=\underbrace{P(X | W)}_{\text { Factort }} \times \underbrace{P(Y | W)}_{\text { Factor } 2} \times \underbrace{P(Z | W)}_{\text { Factor } 3} \times \underbrace{P(W)}_{\text { Factor } 4}$
+
+$\begin{matrix} P(m|h,f,\neg v)= & \frac { P(h|m)\times P(f|m)\times P(\neg v|m)\times P(m) }{ \sum _{ i } P\left( h|M_{ i } \right) \times P\left( f|M_{ i } \right) \times P\left( \neg v|M_{ i } \right) \times P\left( M_{ i } \right)  } = \\  & \frac { 0.6666\times 0.3333\times 0.3333\times 0.3 }{ (0.6666\times 0.3333\times 0.3333\times 0.3)+(0.7143\times 0.4286\times 0.4286\times 0.7) }  \\  & =0.1948 \end{matrix}$
 
 <details>
   <summary>
@@ -508,33 +535,24 @@ ${\text {Chain rule: }}P(q[1], \ldots, q[m]) \times P(q[2] | q[1]) \times \ldots
 ```math
 P(f=v | t)=\frac{\operatorname{count}(f=v | t)+k}{\operatorname{count}(f | t)+(k \times|\operatorname{Domain}(f)|)}
 ```
-
-==TODO== eg.
 ```math
 \text { Sum of squared errors }=\frac{1}{2} \sum_{i=1}^{n}\left(t_{i}-\mathbb{M}\left(d_{i}\right)\right)^{2}
 ```
-==TODO== eg.
 ```math
 \text { Mean squared error }=\frac{\sum_{i=1}^{n}\left(t_{i}-\mathbb{M}\left(d_{i}\right)\right)^{2}}{n}
 ```
-==TODO== eg.
 ```math
 \text {Root } M S E=\sqrt{M S E}
 ```
-==TODO== eg.
 ```math
-{ meanabsoluteerror }=\frac { \sum _{ i=1 }^{ n }{ abs } \left( t_{ i }-{ M }\left( { d }_{ i } \right)  \right)  }{ n } 
+\text{ mean absolute error }=\frac { \sum _{ i=1 }^{ n }{ abs } \left( t_{ i }-{ M }\left( { d }_{ i } \right)  \right)  }{ n } 
 ```
-==TODO== eg.
 ```math
-\begin{matrix} Sum\enskip of\enskip squared\enskip errors\enskip =\enskip \frac { 1 }{ 2 } \sum _{ i=1 }^{ n } \left( t_{ i }-{ M }\left( d_{ i } \right)  \right) ^{ 2 } \\ =\frac { 1 }{ 2 } \sum _{ i=1 }^{ n } \left( true\enskip target\enskip feature\enskip value_{ i }-\enskip model's\enskip prediction \right) ^{ 2 } \end{matrix}
+\begin{matrix} \text{Sum of squared errors} = \frac { 1 }{ 2 } \sum _{ i=1 }^{ n } \left( t_{ i }-{ M }\left( d_{ i } \right)  \right) ^{ 2 } \\ =\frac { 1 }{ 2 } \sum _{ i=1 }^{ n } \left( \text{true target feature value}_{ i }- \text{model's prediction} \right) ^{ 2 } \end{matrix}
 ```
-==TODO== eg.
-
 ```math
 R^{2}=1-\frac{\text { sum of squared errors }}{\text { total sum of squares }}
 ```
-==TODO== eg.
 
 <details>
   <summary>
@@ -562,3 +580,4 @@ R^{2}=1-\frac{\text { sum of squared errors }}{\text { total sum of squares }}
 </details>
 
 [comment]: <> (log rule: log₂[y]=ln[y]ln[2])
+<!-- ▶ &#9654; -->

@@ -1,12 +1,38 @@
-library(forecast)
-figureName <- fig_nums(
-  'Forecast of growth',
-  'Forecast of growth') %>% cat()
-fit = Arima(data.ts.raw,c(0,4,2), lambda = lambda) 
-# hack to hide negative values:
-ylim <- c(500, 14000) 
-plot(
-  forecast(fit,h=10), 
-  ylim=ylim, 
-  ylab=figureName
-)
+```
+### ARMA-GARCH forecast
+
+```{r}
+
+forc = ugarchforecast(model, n.ahead = 10)
+forc@model$modeldata$index <- 
+  seq(
+    as.Date('2013-04-27'),
+    as.Date('2019-02-24'),by = 1)
+
+garch_predict = 
+  ts(
+    as.vector(forc@forecast[["seriesFor"]]), 
+    start = startForecast, 
+    frequency = frequency
+  )
+
+plot(garch_predict)
+garch_predict
+
+garch_predict_transform <-  exp(
+  diffinv(
+    garch_predict, 
+    differences = 1,  
+    xi = (data.ts__log)[2130]))
+
+plot(garch_predict_transform)
+```
+
+```{r}
+plot(data.ts)
+lines(real.ts, col = "#009999")
+lines(linear_predict, col="red", type="l")
+lines(quadratic_predict, col = "darkgreen", type = "l")
+lines(garch_predict_transform, col = "#993333", type = "l")
+zoomplot.zoom(xlim=c(2018.5,2019.5))
+```

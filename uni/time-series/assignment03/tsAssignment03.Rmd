@@ -1,13 +1,17 @@
 ---
+title: "MATH1318 Time Series"
+author:
+- Phil Steinke s3725547
+- Ashleigh Olney s3686808
+subtitle: Assignment 3 - Semester 1, 2019
 output:
+  pdf_document: default
   html_document:
     fig_height: 4
     fig_width: 8
     highlight: kate
     theme: paper
-subtitle: Assignment 3 - Semester 1, 2019
-author: "Phil Steinke s3725547 Ash Olney s3686808"
-title: "MATH1318 Time Series"
+toc: yes
 ---
 
 ## Executive Summary
@@ -21,30 +25,6 @@ HEADINGS INDENTED BELOW
 
 - [ ] In short, the challenge is to find the best fitting model 
 to the given cryptocurrency series.
-- [ ] captions 
-`fig_nums(
-  'initial ts data', 
-  'initial time-series data with no transformation') %>% cat()`
-
-Your task is to:
-
-- [ ] analyse the data by using the analysis methods covered in MATH1318 
-Time Series Analysis course in this semester
-- [ ] accurately predict the value of bitcoin for the next 10 days, 
-- [ ] and prepare a comprehensive analysis report including 
-  - [ ] descriptive analysis 
-  - [ ] proper visualisation 
-  - [ ] model specification 
-  - [ ] model fitting and selection 
-  - [ ] and diagnostic checking
-- [ ] You will include a mean absolute scaled error (MASE), 
-for each of model fits and forecasts. 
-- [ ] You’ll use the real values of daily bitcoin for 10 days of the forecast 
-period (_25th of February_ - _6th of March 2019_) to compute `MASE` for 
-forecasts using the R function here.
-- [ ] present your results in a written report format and as an oral 
-presentation.
-- [ ] QQ plot
 
 ## R code 15%
 
@@ -52,50 +32,69 @@ presentation.
 # devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
 library(packagr)
 packages <- c(
-  'AID','CombMSC','fGarch','forecast','FSAdata','fUnitRoots',
-  'lmtest','magrittr','nortest','rugarch','TSA','captioner')
+  'AID', 'captioner', 'CombMSC', 'FitAR', 'fGarch', 'fGarch', 'forecast', 'FSAdata', 'fUnitRoots', 'ggplot2', 'gridExtra', 'lmtest', 'magrittr', 'nortest', 'purrr', 'readxl', 'rugarch', 'tidyr', 'tseries', 'TSA', 'tsibble', 'TTR', 'zoom' 
+)
 packagr(packages) # alpha package to check, install and load packages
-# setwd('./Users/phil/code/data-science/uni/time-series/assignment03')
 
-# current_path = rstudioapi::getActiveDocumentContext()$path
-# setwd(dirname(current_path ))
-# print( getwd() )
-source('/Users/phil/code/data-science/uni/time-series/assignment03/TSHandy.r') 
-# check if updated
-source('/Users/phil/code/data-science/uni/time-series/assignment03/utils.r') 
 # moved all functions to here
-source('/Users/phil/code/data-science/uni/time-series/assignment03/MASE.r')
-doDiffAndPlot <- doDiffAndPlot # fix lint no symbol named 'X' in scope
+source('/Users/phil/code/data-science-next/uni/time-series/assignment03/utils.r') 
+source('/Users/phil/code/data-science-next/uni/time-series/assignment03/MASE.r')
+source('/Users/phil/code/data-science-next/uni/time-series/assignment03/TSHandy.r') 
 ```
+
+NOTE: [utilities file is located on Github](https://github.com/tgrrr/data-science/tree/master/uni/time-series/utils)
 
 ```{r, env-variables}
 startDate = '2013-04-27' #yyyy-mm-dd
 endDate = '2019-02-24'
 default_ylab = 'Bitcoin EOD closing price US$'
 default_xlab = 'Year'
+indsMASE <- seq(as.Date('2019-2-25'), as.Date('2019-3-6'), by = "day")
+startForecast = c(2019, as.numeric(format(indsMASE[1], "%j"))) #yyyy-mm-dd
+frequency = 365.25
 ```
 
 ## The Data
 
 ```{r}
+getwd()
+# setwd('/Users/ashleigholney/Desktop/MATH1318 Time Series Analysis/Assignment03 2')
+setwd('/Users/phil/code/data-science-next/uni/time-series/assignment03')
+# current_path = rstudioapi::getActiveDocumentContext()$path
+# setwd(dirname(current_path ))
+# print( getwd() )
+
 data <-
   read.csv("./Bitcoin_Historical_Price.csv",
   sep = ",",
   fill = TRUE)
 # data %>% class() # data.frame needs to be converted to time series
+
+# Original code to load from xlsx:
+real <- read_excel("Bitcoin_Prices_Forecasts.xlsx")
+# saveTimeSeriesCSV(real)
+# realCSV <- read.csv("./real.ts.csv", sep = ",", fill = TRUE) %>% ts()
+
 ```
 
 ```{r, data-wrangle}
 # remove commas from currency - credit to Zoe
 data$Close <- as.numeric(as.character(gsub(",","",data$Close)))
-
 inds <- seq(as.Date(startDate), as.Date(endDate), by = "day")
 data.ts <- ts(
   as.vector(data[,2]),
   start = c(2013, as.numeric(format(inds[1], "%j"))),
-  frequency = 365.25) # or 365?
-data.ts.raw <- data.ts
+  frequency = frequency)
 # Code source: https://stackoverflow.com/a/33129922
+
+# data for calculating MASE
+# Import the observed values for comparison with MASE
+
+real.ts <- ts(
+  real[,2],
+  start = startForecast,
+  frequency = frequency
+)
 ```
 
 ```{r, data-embed}
@@ -111,7 +110,7 @@ The dataset you will focus on has gathered from [coinmarketcap.com] includes
 the daily closing price of bitcoin from the _27th of April 2013_ to the 
 _24th of February 2019_.
 
-[Download BitCoin CSV data](`r sprintf('data:text/csv;base64,%s', encoded)`)
+FIXME: [Download BitCoin CSV data](`r sprintf('data:text/csv;base64,%s', encoded)`)
 
 ### Historical Fluctuation
 
@@ -136,14 +135,15 @@ plot(
 ```
 
 - There is no overall trend
-  <!-- - There was positive trend until late 2017 -->
-- No obvious seasonality
+  - There was positive trend until late 2017. 
+  - This becomes negative trend.
+- Possible Seasonality
 - There looks like there could be an intervention point after the start of 2017
 - It is evident from the plot that there are changes in variance throughout 
 the series
 - There are clusters of high and low variance
  
-```{r}
+```{r check-correlation}
 y = data.ts        # Read data into y
 x = zlag(data.ts)  # Generate first lag
 index = 2:length(x) # Create an index to get rid of the first NA value
@@ -165,7 +165,8 @@ data points are related
 ### Linear trend model
 
 ```{r, linear-trend-model}
-model_linear = lm(data.ts ~ time(data.ts))
+time = time(data.ts)
+model_linear = lm(data.ts ~ time)
 summary(model_linear)
 ```
 
@@ -190,7 +191,37 @@ residual.analysis(
   title = fig_nums('linear_residual', 'Linear model residual analysis')
 )
 
-# TODO: MASE for linear model
+# fitted values
+# add dates
+forecastDatesRange <- data.frame(time = indsMASE)
+# convert dates to numeric
+numericDates <- ts(
+  as.vector(forecastDatesRange),  
+  start = startForecast, 
+  frequency = frequency)
+# ensure data has the same label (time)
+time = time(numericDates)
+timeDataFrame = data.frame(time)
+# prediction
+forecastLinear = predict.lm(model_linear, timeDataFrame, interval = "prediction")
+print(forecastLinear)
+# convert prediction back to ts object
+linear_predict = ts(
+  forecastLinear[,1],
+  start = startForecast,
+  frequency = frequency
+)
+```
+
+```{r}              
+# calculate MASE with observed and predicted values
+MASE(real.ts, linear_predict)
+# plot 
+doPar(c(2,1))
+plot(data.ts)
+lines(real.ts, col = "red")
+lines(linear_predict, col="red", type="l")
+zoomplot.zoom(xlim=c(2019.1,2019.3))
 ```
 
 - The standardised residuals are not white noise and show that the model has 
@@ -202,14 +233,15 @@ distributed
 - ACF: there are significant lags which does not fit with a white noise series
 - Shapiro-Wilk: significant, therefore reject the null that the residuals are 
 normally distributed
-- TODO: MASE value for this model
+- TODO: comment on predicted values
+
 
 ## Quadratic Model
 
 ```{r, quadratic-model}
-t = time(data.ts)
-t2 = t ^ 2
-model_quadratic = lm(data.ts ~ t + t2) # label the quadratic trend model
+time = time(data.ts)
+time2 = time ^ 2
+model_quadratic = lm(data.ts ~ time + time2) # label the quadratic trend model
 summary(model_quadratic)
 ```
 
@@ -232,13 +264,26 @@ lines(as.vector(data.ts))
 ```
 
 ```{r}
+newdata <- data.frame(time = indsMASE)
+newdata1 <- ts(as.vector(newdata),start = startForecast, frequency = frequency)
+
 residual.analysis(
   model_quadratic, std = TRUE, start = 1,
   title = fig_nums(
     'quadratic_model_residual', 
     'Quadratic model residual analysis'))
 
-# TODO: MASE for quadratic model
+# predict
+time = time(newdata1)
+time2 = time^2
+newdata3 = data.frame(time,time2)
+forecastQuadratic = predict(model_quadratic, newdata3, interval = "prediction")
+print(forecastQuadratic)
+quadratic_predict = ts(forecastQuadratic[,1], 
+  start = startForecast,
+  frequency = frequency)
+
+MASE(real.ts, quadratic_predict)
 ```
 
 - The residuals are largely unchanged from the linear plot
@@ -251,33 +296,23 @@ distributed
 - ACF: there are significant lags which does not fit with a white noise series
 - Shapiro-Wilk: significant, therefore reject the null that the residuals are 
 normally distributed
-- TODO: MASE value for this model
+- TODO: comment on predicted values/MASE 
 
 ```{r, plot-no-diff}
-doDiffAndPlot(data.ts, 0, 'Bitcoin with no diff')
+doDiffAndPlot(data.ts, 0, T, T, 'Bitcoin diff=0')
 ```
+
 - acf plot slowly decaying lags i.e. not stationary
 - the adf test confirms that the series is not stationary 
 - the series will be transformed and/or differenced before fitting ARIMA
 
-```{r, message=FALSE, warning=FALSE}
-# TODO: look at code to see where he uses it 
-# I think we should scrap this? - ash
-# bc.search = BoxCoxSearch(y = data.ts)
-```
-
-```{r, plot-first-diff}
-# NEW: testing diff without log 
-doDiffAndPlot(data.ts, 1, 'BitCoin first diff')
-```
-
-- appears to be volatility clustering in plot
 - Therefore: we will transform the data with log or Box Cox
 
 ### Confidence interval of Lambda
 
 ```{r, confidence-interval, warning=FALSE}
 # check the confidence interval of lambda
+# TODO: half-sized version of this plot
 doPar(mfrow = c(1,1))
 boxcoxCi <- BoxCox.ar(data.ts, method = "yule-walker")$ci
 boxcoxCi
@@ -291,9 +326,9 @@ lambda == 0
 ## Log Transform
 
 ```{r, log_transform}
-data.ts_log = log(data.ts)
+data.ts__log = log(data.ts)
 doDiffAndPlot(
-  data.ts_log, 0, T, T,
+  data.ts__log, 0, T, T,
   fig_nums("log_transform", "Log transform"))
 ```
 
@@ -304,9 +339,9 @@ doDiffAndPlot(
 
 ```{r, log-first-diff}
 doDiffAndPlot(
-  data.ts_log, 1, T, T,
+  data.ts__log, 1, T, T,
   fig_nums('log_first_diff', 'Log first diff'))
-data.ts_log_diff1 = data.ts_log %>% diff(differences = 1)
+data.ts__log_diff1 = data.ts__log %>% diff(differences = 1)
 ```
 
 - the adf test p-value is significant - therefore the series is now stationary
@@ -314,138 +349,340 @@ data.ts_log_diff1 = data.ts_log %>% diff(differences = 1)
 - there are many significant serial correlations in the data which suggests 
 that the data exhibits serial dependence
 
+- Based on EACF plot, we can add the following models:
+`{ARIMA(0,1,1), ARIMA(1,1,1)}`
+
 ### Log Second diff
 
+Although we have a significant adf value `(p < 0.05)` for log first diff, we will overdifference with `d = 2` because of the high number of lags in both the ACF and PACF
+
 ```{r, log-second-diff}
-doDiffAndPlot(data.ts_log, 2, T, T,
+doDiffAndPlot(data.ts__log, 2, T, T,
   plotTitle = fig_nums('log_second_diff', 'Log second diff'))
+
+data.ts__log_diff2 = data.ts__log %>% diff(differences = 2)
 ```
 
-- single AR lag 
-- lots of diffs in MA
-- don't need, overdifferencing
-- aka overPhil
+- Success of a single MA lag 
+- Problem of more than 10 significant lags in AR
+- Based on EACF plot, we can add the following models:
+`{ARIMA(0,2,1), ARIMA(0,2,2), ARIMA(1,2,2)}`
 
-### M TODO:
+### Get possible models formula
+
+```{r}
+findBestModel(data.ts__log)
+```
+
+It isn't obvious whether we should use `diff = 1`, or `diff = 2` moving forward. 
+So, we wrote a small function to loop to find the best possible ARIMA models
+based on AIC with the `method=CSS-ML`
+
+Please note: 
+- `{ARIMA(0,1,0) and ARIMA(0,2,0)}` are not useful models, 
+so we will ignore them
+
+#### List of possible models ordered by AIC:
+
+| AIC       | Order | Shapiro Residuals p-value |
+| --------- | ----- | ------------------------- |
+| -7324     | 2 1 2 | 3.183622e-36              |
+| -7302.399 | 0 1 0 | 3.882959e-37              |
+| -7300.421 | 0 1 1 | 3.989343e-37              |
+| -7300.42  | 1 1 0 | 3.985837e-37              |
+| -7299.027 | 2 1 0 | 3.77238e-37               |
+| -7299     | 0 1 2 | 3.777204e-37              |
+| -7298.421 | 1 1 1 | 3.987566e-37              |
+| -7297.027 | 2 1 1 | 3.771705e-37              |
+| -7296.999 | 1 1 2 | 3.77752e-37               |
+| -7291.597 | 0 2 1 | 2.490153e-37              |
+| -7289.602 | 1 2 1 | 2.450695e-37              |
+| -7289.602 | 0 2 2 | 2.445985e-37              |
+| -7288.64  | 2 2 1 | 2.125636e-37              |
+| -7287.651 | 1 2 2 | 2.572079e-37              |
+| -7286.404 | 2 2 2 | 2.139399e-37              |
+| -6674.674 | 2 2 0 | 8.092037e-36              |
+| -6415.021 | 1 2 0 | 4.32332e-35               |
+| -5835.035 | 0 2 0 | 7.008529e-36              |
+
+Moving forward, we will select the following models:
+- because we want the [lowest possible AIC value](https://stats.stackexchange.com/questions/84076/negative-values-for-aic-in-general-mixed-model)
+- we ignore all diff= 2 because of the obvious AIC score being lower for all
+
+### Final set of candidate models:
+
+| AIC       | Order | Shapiro Residuals p-value |
+| --------- | ----- | ------------------------- |
+| -7324     | 2 1 2 | 3.183622e-36              |
+| -7300.421 | 0 1 1 | 3.989343e-37              |
+| -7300.42  | 1 1 0 | 3.985837e-37              |
+| -7299.027 | 2 1 0 | 3.77238e-37               |
+| -7299     | 0 1 2 | 3.777204e-37              |
+| -7298.421 | 1 1 1 | 3.987566e-37              |
+| -7297.027 | 2 1 1 | 3.771705e-37              |
+| -7296.999 | 1 1 2 | 3.77752e-37               |
+
+```{r}
+possibleArimaModels <- list()
+newArima <-
+  list(  
+    c(2, 1, 2),   # arima(2, 1, 2)
+    c(0, 1, 1),   # arima(0, 1, 1)
+    c(1, 1, 0),   # arima(1, 1, 0)
+    c(2, 1, 0),   # arima(2, 1, 0)
+    c(0, 1, 2),   # arima(0, 1, 2)
+    c(1, 1, 1),   # arima(1, 1, 1)
+    c(2, 1, 1),   # arima(2, 1, 1)
+    c(1, 1, 2)   # arima(1, 1, 2)
+  )
+possibleArimaModels <- c(possibleArimaModels, newArima) 
+```
+
+## Estimation of Parameters
+
+### ARIMA
+
+```{r}
+# possibleArimaModels
+model_212_ml <- arima(data.ts__log_diff1, c(2,0,2), method='ML')
+model_011_ml <- arima(data.ts__log_diff1, c(0,0,1), method='ML')
+model_110_ml <- arima(data.ts__log_diff1, c(1,0,0), method='ML')
+model_210_ml <- arima(data.ts__log_diff1, c(2,0,0), method='ML')
+model_012_ml <- arima(data.ts__log_diff1, c(0,0,2), method='ML')
+model_111_ml <- arima(data.ts__log_diff1, c(1,0,1), method='ML')
+model_211_ml <- arima(data.ts__log_diff1, c(2,0,1), method='ML')
+model_112_ml <- arima(data.ts__log_diff1, c(1,0,2), method='ML')
+
+# AIC and BIC values
+sort.score(AIC(
+  model_212_ml,
+  model_011_ml,
+  model_110_ml,
+  model_210_ml,
+  model_012_ml,
+  model_111_ml,
+  model_211_ml,
+  model_112_ml
+  ),
+  score = "aic")
+
+coeftest(model_212_ml)
+coeftest(model_011_ml)
+coeftest(model_110_ml)
+coeftest(model_210_ml)
+coeftest(model_012_ml)
+coeftest(model_111_ml)
+coeftest(model_211_ml)
+coeftest(model_112_ml)
+```
+- model_212_ml has the best AIC score
+- Is signficant at ar1, ar2, ma1, ma2
+- It wins
+
+### Testing overfitting:
+```{r}
+# Lets Overfit
+model_312_ml <- arima(data.ts__log_diff1, c(3,0,2), method='ML')
+coeftest(model_312_ml) # ar3 not significant
+# coeftest(model_612_ml)
+# ar3 - ar6 not significant: therefore we can ignore all > ar2
+# are removed from above set of ordering
+
+model_213_ml <- arima(data.ts__log_diff1, c(3,2,3), method='ML')
+coeftest(model_213_ml)
+```
+- overfitting shows model_213_ml (p > 0.05)
+- overfitting shows model_312_ml (p > 0.05) for ar3
+
+### Check Seaonsality
+
+Visual inspection of the plot's second half shows some possible seasonality
+
+```{r}
+doPar(mfrow = c(1, 2))
+check_seasonality_decompose(data.ts)
+title(fig_nums('Seasonality','Seasonality')
+```
+- We can observe yearly seasonality in January from the plot
+
+```{r}
+check_seasonality_decompose(data.ts__log)
+title(fig_nums('SeasonalityLog', 'Seasonality with Log Transformed Data')
+```
+
+- However, it disappears when we take the log of our time series
+
+## Tests for Volatility Clustering in Variance
+
+### McLeod Li Test
 
 > ACF, PACF and EACF all shows pattern of white noise for the correlation 
 > structure. However, there is an ARCH effect present in the series.
 
 ```{r}
-doPar(mfrow = c(1, 1))
-McLeod.Li.test(
-  y = data.ts_log_diff1,
-  main = fig_nums(
-    "mcleod_first_diff_log",
-    "McLeod-Li Test Statistics for First Difference of Log Bitcoin"))
+doMcleod <- function(df.ts, plotTitle) {
+  doPar(mfrow = c(1, 1))
+  McLeod.Li.test(
+    y = df.ts,
+    main = plotTitle 
+  )
+}
+
+doMcleod(data.ts__log_diff1,
+  plotTitle = fig_nums('McLeod_first_diff', 'McLeod Li Test Second diff')
+)
+
 ```
-- McLeod-Li test is significant at 5% level of significance for all lags. 
+
+- McLeod-Li test is significant at 5% level of significance for all lags for the second diff
 - This gives a strong idea about existence of volatility clustering.
 
+### Q-Q plot
 ```{r}
 doPar(mfrow = c(1, 1))
 qqnorm(
-  data.ts_log_diff1,
+  data.ts__log_diff1,
   main = fig_nums(
     "qq_first_diff_log",
-    "Q-Q Normal Plot of First Difference of Log Bitcoin")
+    "Q-Q Normal Plot of Second Difference of Log Bitcoin")
   )
-qqline(data.ts_log_diff1)
+qqline(data.ts__log_diff1)
 ```
-- Shows volatility clustering
+- Q-Q plot has a fat tail
+- Which is also indicative of volatility clustering
 
+#### Absolute Value transformation
 ```{r absolute_transformation}
-abs.data.ts_log_diff1 = abs(data.ts_log_diff1)
-doDiffAndPlot(
-  abs.data.ts_log_diff1, 
-  0, T, T, 
-  fig_nums("absolute_transformation", "Absolute Transformation"))
+doAbs <- function(df.ts, plotTitle) {
+  abs.df = abs(df.ts)
+  doDiffAndPlot(
+    abs(df.ts), 0, T, F, plotTitle)
+}
+
+doAbs(
+  data.ts__log_diff1,
+  fig_nums("absolute_transformation_diff", "Absolute Transformation diff=1")
+)
 ```
 
-NOTE: TODO: After the absolute value transformation, we observe many 
-signficicant lags in both ACF and PACF. Also, EACF does not suggest an 
-ARMA(0,0) model.
-From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for absolute 
-value series.
-These models correspond to parameter settings of [max(1,1),1] and 
-[max(1,2),1]. So the corresponding
-tentative GARCH models are GARCH(1,1) and GARCH(2,1)
+- We observe many signficant lags in both ACF and PACF.
+- EACF does not suggest an ARMA(0,0) model - indicating possible GARCH effect
+- The EACF does not display a very clear pattern
+- Based on EACF plot, we can add the following models:
+`{ARIMA(2,1,1), ARIMA(2,1,2), ARIMA(3,1,1), ARIMA(3,1,2)}`
+
+- We have some evidence that the Bitcoin closing prices are not independently and identically 
+distributed, because we observe some significant correlations in these plots
+We will now move on to specifying the GARCH parameters
+
+- These models correspond to parameter settings of:
+  - `[max(2,1),1]`  => `GARCH(2,1)`
+  - `[max(2,2),1]`  => `GARCH(2,1)`
+  - `[max(3,1),1]`  => `GARCH(3,1)`
+  - `[max(3,2),1]`  => `GARCH(3,1)`
 
 ```{r}
-sq.data.ts_log_diff1 = data.ts_log_diff1 ^ 2
+possibleGarchModels <- list(
+  c(2,1),
+  c(3,1)
+)
+```
+#### Power Transformation
+
+```{r}
+sq.data.ts__log_diff1 = data.ts__log_diff1 ^ 2
 doDiffAndPlot(
-  sq.data.ts_log_diff1, 0, T, T, 
+  sq.data.ts__log_diff1, 0, T, T, 
   fig_nums('square-transform','Square transformation'))
 ```
 
-NOTE: TODO:
-After the square transformation, we boserve many signficicant lags in both 
-ACF and PACF. Also, EACF does not suggest an ARMA(0,0) model.
-From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for squared 
-series. 
-These models correspond to parameter settings of [max(1,1),1] and 
-[max(1,2),1]. So the corresponding 
-tentative GARCH models are GARCH(1,1) and GARCH(2,1).
+- We observe many signficant lags in both ACF and PACF.
+- EACF does not suggest an ARMA(0,0) model - indicating possible GARCH effect
+- The EACF does not display a very clear pattern
+- Based on EACF plot, we can add the following models:
+`{ARIMA(3,1,2), ARIMA(4,1,2), ARIMA(3,1,3), ARIMA(4,1,3), ARIMA(4,1,4)`
 
-### Garch
+
+- We have some evidence that the Bitcoin closing prices are not independently and identically 
+distributed, because we observe some significant correlations in these plots
+We will now move on to specifying the GARCH parameters
+
+- These models correspond to parameter settings of:
+  - `max(3,2),1]`   => `GARCH(3,1)`
+  - `max(4,2),1]`   => `GARCH(4,1)`
+  - `max(3,3),1]`   => `GARCH(3,1)` Repeated
+  - `max(4,3),1]`   => `GARCH(4,1)` Repeated
+  - `max(4,4),1]`   => `GARCH(4,1)` Repeated
+
+The possible candidate GARCH models are:
+
+- `GARCH(2,1)`
+- `GARCH(3,1)`
+- `GARCH(4,1)`
+
+```{r}
+  newGarch <-
+    list(  
+      c(4, 1)   # arima(1, 1, 2)
+    )
+  possibleGarchModels <- c(possibleGarchModels, newGarch) 
+```
+
+
+
+### Garch Parameter Estimations
+
+```{r}
+possibleGarchModels
+```
+
+```{r}
+g21 = garch( data.ts__log_diff1, order = c(2,1),trace = FALSE)
+summary(g21)
+```
+- Looks good. Significant at all Coef.
+
+```{r}
+g31 = garch( data.ts__log_diff1, order = c(3,1),trace = FALSE)
+summary(g31)
+```
+- Looks good. Significant at all Coef.
+
+```{r}
+g41 = garch( data.ts__log_diff1, order = c(4,1),trace = FALSE)
+summary(g41)
+```
+- Significant at all except `b2` and `b3`
+- Discarded 
+
+```{r}
+# hidden:
+# g41 = garch( data.ts__log_diff1, order = c(4,1),trace = FALSE)
+# summary(g41)
+```
+- significant at all bar `b2`and `b3`
 
 ```{r, garch}
-# ash says: I think this is fitting the garch model
 model_s_garch <- ugarchspec(
-  variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
-  mean.model = list(armaOrder = c(1, 0), include.mean = FALSE),
+  variance.model = list(model = "sGARCH", garchOrder = c(3, 1)),
+  mean.model = list(armaOrder = c(2, 2), include.mean = FALSE),
   distribution.model = "norm"
 )
-# m.2 <- ugarchfit(spec = model_s_garch, data = data.ts_log_diff1)
-ugarchfit(spec = model_s_garch, data = data.ts_log_diff1)
+model = ugarchfit(spec = model_s_garch, data = data.ts__log_diff1)
+
+# FIXME: working on
+# exp(diffinv(forc@forecast[["seriesFor"]], differences = 2, xi = log(data.ts)[length(data.ts)]))
+
 ```
 
-## ARIMA MODELLING 
-
-```{r, arima}
-# doDiffAndPlot(data.ts, 0)
-```
-
-```{r}
-adfTest(data.ts)
-# doDiffAndPlot(data.ts, 1)
-```
-
-### TODO: Arima subset
-
-```{r message=FALSE, warning=FALSE}
-res = armasubsets(
-  y = data.ts,
-  nar = 5,
-  nma = 5,
-  y.name = 'test',
-  ar.method = 'ols')
-doPar(mai=c(1,0.5,0.5,0.5))
-plot(res)
-title(
-  fig_nums('arima-subset', 'Arima Subset'), 
-  line = -2, 
-  outer = TRUE)
-```
-
-```{r}
-# FIXME:error here
-# TODO: add other models
-# can't add diff.data.ts
-# AIC and BIC values
-# sort.score(AIC(
-  # model_041_ml, model_042_ml, model_140_ml, model_141_ml ),
-  # score = "aic")
-# sort.score(BIC(
-  # model_041_ml, model_042_ml, model_140_ml, model_141_ml ),
-  # score = "bic")
-```
-
-### Residuals for arima(,,)
+### Residuals for ARMA-GARCH
 
 ```{r, warning=FALSE}
-# residual.analysis(model = )
+res = model@fit[["residuals"]]
+
+residual.analysis(model, class = "ARMA-GARCH")
 ```
+
 
 - Time-series standardised residuals: 
 - histogram: 
@@ -454,16 +691,49 @@ title(
 - ACF: 
 - Shapiro-Wilk: 
 
-## Forecast
+### ARMA-GARCH forecast
 
-```{r, message=FALSE}
-fit = Arima(data.ts.raw, c(0, 4, 2), lambda = 0)
-doPar(mfrow = c(1, 1))
-forecast(fit, h = 10) %>% 
-  plot(
-    main = fig_nums('forecast-growth', 'Forecast of bitcoin growth'),
-    xlim = c(2018, 2020))
+```{r}
+
+forc = ugarchforecast(model, n.ahead = 10)
+forc@model$modeldata$index <- seq(as.Date('2013-04-27'),as.Date('2019-02-24'),by = 1)
+
+garch_predict = 
+  ts(
+    as.vector(forc@forecast[["seriesFor"]]), 
+    start = startForecast, 
+    frequency = frequency
+  )
+
+plot(garch_predict)
+title(fig_nums('garch_predict', 'Garch Predictions')
+  , line = -1, outer = TRUE)
+
+garch_predict
+
+garch_predict_transform <-  exp(diffinv(garch_predict, differences = 1,  xi = (data.ts__log)[2130]))
+
+plot(garch_predict_transform)
 ```
+
+```{r}
+plot(data.ts)
+lines(real.ts, col = "#009999")
+lines(linear_predict, col="red", type="l")
+lines(quadratic_predict, col = "darkgreen", type = "l")
+lines(garch_predict_transform, col = "#993333", type = "l")
+zoomplot.zoom(xlim=c(2018.5,2019.5))
+```
+
+```{r}
+# Reversing the differencing created an extra datapoint; 
+# we can calculate MASE using first 10 or last 10
+MASE(real.ts, garch_predict_transform[2:11])
+MASE(real.ts, garch_predict_transform[1:10])
+
+```
+
+
 
 - TODO: interpret forecast
 
@@ -476,7 +746,7 @@ TODO: interpret
 [coinmarketcap.com]: coinmarketcap.com
 
 ```{r}
-#outputting plots
+# outputting plots
 plots.dir.path <-
   list.files(
      tempdir(), pattern="rs-graphics", full.names = TRUE);
@@ -488,5 +758,10 @@ plots.png.paths <-
 ```{r}
 file.copy(
   from=plots.png.paths,
-  to="~/code/data-science/uni/time-series/assignment03/presentation-ts-assignment03/assets")
+  to="/Users/phil/code/data-science-next/uni/time-series/assignment03/presentation-ts-assignment03/assets/new/")
 ```
+
+
+
+
+

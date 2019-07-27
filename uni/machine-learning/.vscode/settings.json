@@ -1,6 +1,6 @@
 {
   "python.linting.enabled": true,
-  "python.pythonPath": "/Applications/Anaconda/anaconda3/bin/python",
+  "python.pythonPath": "/Users/phil/.pyenv/versions/py27/bin/python",
   "python.linting.pylintEnabled": true,
   "telemetry.enableCrashReporter": false,
   "telemetry.enableTelemetry": false,
