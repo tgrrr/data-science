@@ -223,7 +223,7 @@ plot(res)
 #{ARIMA(2,1,4), ARIMA(2,1,3), ARIMA(0,1,3), ARIMA(0,1,4),ARIMA(0,1,6), ARIMA(1,1,6),ARIMA(1,1,6), ARIMA(1,1,5),ARIMA(2,1,6), ARIMA(2,1,5)}
 ```
 ```{r}
-source('~/code/data-science/uni/time-series/assignment03/TSHandy.r')
+source('~/code/data-science-next/uni/time-series/assignment03/TSHandy.r')
 
 modelList <- list(c(2,1,4), c(2,1,3), c(0,1,3), c(0,1,4),c(0,1,6), c(1,1,6),c(1,1,6), c(1,1,5),c(2,1,6), c(2,1,5))
 modelEstimation <- myCandidate(BC.wave, orderList = modelList, methodType = "ML")

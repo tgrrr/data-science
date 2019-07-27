@@ -22,7 +22,7 @@ myCandidate <- function(timeSeries, orderList,
   for(i in 1:length(orderList)){
     order <- sapply(orderList,function(x) unlist(x))[,i]
     myCandidateEst[[i]] <- Arima(y = timeSeries, order = order, method = methodType,
-                                 include.constant = includeConstant)
+    include.constant = includeConstant)
   }
   return(myCandidateEst)
   

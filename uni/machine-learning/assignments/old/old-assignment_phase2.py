@@ -1,3 +1,13 @@
+
+# TODO: NEW for Ass2
+# - [ ] get rid of integers
+# > you should never use integer-encoding for nominal categorical descriptive features
+# - [ ] No major issue despite formatting issues. It would be more professionally if you include some explanations in markdown, instead of comments within codes.
+# - [ ] Data wrangling was careful except using Isolation forest to detect outliers. You might want to use a different random seed to check if you will get similar outlier detection results.
+# - [ ] Is your target feature a numeric or multiclass variable? Is it a classification or regression problem?
+
+# ============================================================================ #
+
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataScience.changeDirOnImportExport setting
 import os
 try:
@@ -71,6 +81,8 @@ os.chdir('/Users/phil/code/data-science/uni/machine-learning/assignments')
 #%%
 __file_name__ = 'advertising_train.csv'
 data = pd.read_csv(__file_name__)
+
+
 
 #%% [markdown]
 # ## Overview of Methodology-Rubric 4/30
