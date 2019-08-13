@@ -1,0 +1,16 @@
+# Module 3: Tasks
+## Time Series Regression Models I - Distributed lag models
+
+The file [global_warming_CO2.csv](https://climate.nasa.gov/vital-signs/global-temperature/ (Links to an external site.) and https://climate.nasa.gov/vital-signs/carbon-dioxide includes annual mean series between 1959 and 2016 showing the change in global surface temperature relative to 1951-1980 average temperatures in Warming column and the yearly average concentration of mid-tropospheric carbon dioxide in parts per million (ppm) in the CO2 column. Please see the visualisations in both source pages mentioned above to have an insight into this application area. 
+
+Load both series into the workspace of R and do the following tasks:
+
+- Display both series within the same plot and infer the relationship between two series.
+- Fit a finite DLM with a lag length of 4 and do the diagnostic checking.
+- Find the finite lag length based on AIC and BIC for this data
+- Fit a polynomial DLM of order 2. Display the estimates of original parameters and their significance tests.
+- Find forecasts for the CO2 levels 406.31, 407, and 415. Here 406.31 ppm is the latest measurement in May 2017. 
+  - Plot the forecasts along with the original warming series.
+- Fit the Koyck model. Find and plot the forecasts for the case given above.
+- Fit autoregressive distributed lag models and choose one of the models.
+- Find and plot the forecasts over the chosen for the case given above.

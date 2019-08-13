@@ -1,0 +1,26 @@
+#Module 4: Tasks
+## Time Series Regression Models II - Dynamic models
+
+The aims of the tasks given here are to:
+
+- gain practical ability to apply intervention analysis using dynamic models in R,
+- gain practical experience to work more comfortably with the component-wise modelling logic, and
+- deepen the understanding of spurious correlation and prewhitening context.
+- Working individually or in small groups, please complete the following exercises.
+
+## You have worked on the monthly commercial landings dataset of US-NMFS in the second hands-on task session. Now, we will take your analysis further. Please load the "Metric_Tons" series from the file [NMFS_Landings.csv]() into the workspace of R and do the following tasks:
+
+- Display the series using descriptive plots. What do you think on the existence of intervention(s)?
+- Fit a set of suitable intervention models to this series and chose the best fitting one in terms of model selection criteria and diagnostic checking.
+- Compare the best fitting with the observed series using a visualisation.
+- Calculate and display 2 year ahead forecasts.
+
+## The file [fuelPriceData.csv]() contains monthly retail unleaded fuel prices for Melbourne, Vic. and Darwin, NT between May 1998 and June 2017 (See http://www.aaa.asn.au/latest-fuel-prices/). Load the data series into the workspace of R and do the following tasks:
+
+- Analyse two series for the existence of a spurious correlation using visualisations and cross-correlations.
+- Prewhiten the series and infer the results.
+
+## The file [priceInflation.csv]() contains quarterly retail unleaded fuel prices for Melbourne, Vic. (http://www.aaa.asn.au/latest-fuel-prices/) and inflation rate (https://www.rateinflation.com/inflation-rate/australia-historical-inflation-rate?start-year=1998&end-year=2017) between March 1998 and March 2017. Load the data series into the workspace of R and do the following tasks:
+
+- Analyse two series for the existence of a spurious correlation using visualisations and cross-correlations.
+- Prewhiten the series and infer the results.

@@ -1,0 +1,197 @@
+---
+title: "wk1 Fundamental Concepts"
+output: html_notebook
+---
+
+# Module 2: Tasks Basic operations and Decompositions
+
+```{r}
+working_directory <- '/Users/phil/code/data-science-next/datasets/forecasting'
+setwd(working_directory)
+
+library(packagr)
+packages <- c(
+  # 'dylnm',
+  'dLagM', 'forecast', 'expsmooth', 'TSA', 'Hmisc', 'car', 'AER', 'readr', 'tseries', 'lubridate')
+packagr(packages) # alpha package to install & load packages
+
+source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+source('/Users/phil/code/data-science-next/uni/common/utils.R')
+
+```
+
+The aims of the tasks given here are to:
+
+- [ ] make you familiar with basic operations in time series analysis and their implementation in R, and
+- [ ] foster your practical ability to conduct time series decompositions and inferring the results arising from time series decompositions.
+
+## Exercises:
+
+### 1. Load the monthly commercial landings dataset of US-NMFS from `Metric_Tons` column of the file `NMFS_Landings.csv` into the workspace of R. Do the following tasks over the landings series;
+
+
+```{r}
+data_filename <- 'NMFS_Landings.csv'
+nmfs <- NMFS_Landings <- read_csv(
+  data_filename,
+  col_names = TRUE, 
+)
+```
+
+```{r}
+# Re-order df by year and month
+
+nmfs$Date <- paste(nmfs$Year, nmfs$Month) %>% parse_date_time('ym')
+nmfs <- arrange(nmfs, Date)
+
+class(NMFS_Landings)
+# nmfs %>% head() # 1991 Jan
+# nmfs %>% tail() # 2015 Dec
+```
+
+```{r}
+nmfs.ts <- ts(
+  nmfs$Metric_Tons, 
+  start = c(1991, 1),
+  end = c(2015, 12),
+  frequency = 12
+)
+nmfs.ts %>% head()
+
+```
+
+- [ ] Display and infer time series, ACF and PACF plots.
+```{r}
+plot(nmfs.ts)
+
+acf(nmfs.ts)
+
+pacf(nmfs.ts)
+```
+Possible seasonality
+
+- [ ] Apply a suitable transformation to this series. 
+```{r}
+confidenceInterval(nmfs.ts)
+```
+lambda includes 0
+
+```{r}
+nmfs.ts.log = log(nmfs.ts)
+doDiffAndPlot(
+  nmfs.ts.log, 0, T, T,
+  fig_nums("log_transform", "Log transform"))
+```
+
+
+- [ ] Does it work for overcoming the problem with this series?
+
+No
+
+
+
+- [ ] Take the ordinary and/or seasonal difference to overcome the general problem with this series. Does it work?
+
+```{r}
+# if we have to log transform it first
+nmfs.ts.log.decompose <- decompose(nmfs.ts.log, type="additive")
+plot(nmfs.ts.log.decompose)
+```
+
+```{r}
+# if not
+nmfs.ts.decompose <- decompose(nmfs.ts, type="additive")
+plot(nmfs.ts.decompose)
+```
+
+
+- [ ] Decompose this series into trend, seasonal and remainder components and infer the results.
+
+```{r}
+
+```
+
+- [ ] Plot the naïve forecasts for this series.
+
+```{r}
+
+```
+
+
+
+### 2. The file [global_warming.csv](https://climate.nasa.gov/vital-signs/global-temperature/ ) 
+
+- includes annual mean and 5 year mean series between 1880 and 2016 
+- showing the change in global surface temperature relative to 1951-1980 average temperatures. 
+- See the visualisation in the source page mentioned above. 
+
+Load the annual mean series into the workspace of R and do the following tasks:
+
+```{r}
+data_filename <- 'global_warming.csv'
+global_warming = read_csv(
+  "/Users/phil/code/data-science-next/datasets/forecasting/global_warming.csv", 
+  col_names = TRUE, 
+)
+class(global_warming)
+# global_warming %>% head()
+```
+
+- [ ] Display and infer time series, ACF and PACF plots.
+
+```{r}
+
+```
+
+- [ ] Apply a suitable transformation to this series. Does it work for overcoming the problem with this series?
+
+```{r}
+
+```
+
+- [ ] Take the ordinary and/or seasonal difference to overcome the general problem with this series. Does it work?
+
+```{r}
+
+```
+
+### 3. Load the consumer price inflation in Australia
+
+- [inflation.csv](https://www.rba.gov.au/statistics/tables/xls/g01hist.xls?v=2017-07-09-21-49-05 ) into the workspace of R. 
+
+- [ ] Display and infer time series, ACF and PACF plots.
+
+```{r}
+data_filename <- 'inflation.csv'
+inflation = read_csv(
+  "/Users/phil/code/data-science-next/datasets/forecasting/inflation.csv", 
+  col_names = TRUE, 
+)
+# class(inflation)
+# inflation %>% head()
+```
+
+- [ ] Apply a suitable transformation to this series. Does it work for overcoming the problem with this series?
+
+```{r}
+
+```
+
+- [ ] Take the ordinary and/or seasonal difference to overcome the general problem with this series. Does it work?
+
+```{r}
+
+```
+
+- [ ] Decompose this series into trend, seasonal and remainder components and infer the results.
+
+```{r}
+
+```
+
+- [ ] Plot the naïve forecasts for this series.
+
+```{r}
+
+```
+
