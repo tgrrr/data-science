@@ -1,0 +1,20 @@
+
+Module 5: Tasks
+Exponential smoothing methods
+The aims of the tasks given here are to
+
+improve R skills in the application of exponential smoothing methods,
+practice choosing the most suitable exponential smoothing method for data, and
+improve the ability to draw inferences from the results of exponential smoothing analyses.
+Working individually or in small groups, please complete the following exercises.
+
+In this task we will deepen the analysis of monthly retail unleaded fuel prices series for Melbourne, Vic. recorded between May 1998 and June 2017 (See http://www.aaa.asn.au/latest-fuel-prices/) (Links to an external site.). Please load the data series from the file fuelPriceData.csv Preview the documentinto the workspace of R and do the following tasks:
+Display the series using suitable descriptive plots and draw inferences about the mechanism behind the series.
+Fit a set of suitable classical exponential smoothing methods and choose one of the models as the best fitting one within the set of tentative models considering diagnostic checking as well.
+Apply state-space versions of exponential smoothing methods focused on the previous task and select the best fitting model using model selection criteria and diagnostic checking results.
+Decide which method performs better in terms of model fitting and forecasts?
+High-quality measurements of global sea level have been made since late 1992 by satellite altimeters. The series in file SeaLevel.csvPreview the document shows the global mean sea level (mm) between January 1993 and August 2016 (http://www.cmar.csiro.au/sealevel/sl_hist_last_decades.html (Links to an external site.)).
+Display the series using suitable descriptive plots and draw inferences about the mechanism behind the series.
+Fit a set of suitable classical exponential smoothing methods and choose one of the models as the best fitting one within the set of tentative models considering diagnostic checking as well.
+Apply state-space versions of exponential smoothing methods focused on the previous task and select the best fitting model using model selection criteria and diagnostic checking results.
+Use the automatic model fitting feature of the forecast package and compare the results with those found in the previous two bullets in terms of the selected model, diagnostic check results and the accuracy of forecasts and model fitting.
