@@ -1,0 +1,1098 @@
+Fetch Tweets 
+Status( 
+  _api=<tweepy.api.API object at 0x1153a9f60>,
+  _json={  
+   'created_at':'Thu Aug 22 06:33:40 +0000 2019',
+   'id':1164425383757959168,
+   'id_str':'1164425383757959168',
+   'text':'RT @DalithSteiger: Full Fact asks Facebook to clarify machine learning fact-checking plans\n#CTO #DL #Ml #FAGMA\nFact-checking charity Full F…',
+   'truncated':False,
+   'entities':{  
+      'hashtags':[  
+         {  
+            'text':'CTO',
+            'indices':[  
+               91,
+               95
+            ]
+         },
+         {  
+            'text':'DL',
+            'indices':[  
+               96,
+               99
+            ]
+         },
+         {  
+            'text':'Ml',
+            'indices':[  
+               100,
+               103
+            ]
+         },
+         {  
+            'text':'FAGMA',
+            'indices':[  
+               104,
+               110
+            ]
+         }
+      ],
+      'symbols':[  
+
+      ],
+      'user_mentions':[  
+         {  
+            'screen_name':'DalithSteiger',
+            'name':'Dalith Steiger',
+            'id':386538440,
+            'id_str':'386538440',
+            'indices':[  
+               3,
+               17
+            ]
+         }
+      ],
+      'urls':[  
+
+      ]
+   },
+   'metadata':{  
+      'iso_language_code':'en',
+      'result_type':'recent'
+   },
+   'source':'<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>',
+   'in_reply_to_status_id':None,
+   'in_reply_to_status_id_str':None,
+   'in_reply_to_user_id':None,
+   'in_reply_to_user_id_str':None,
+   'in_reply_to_screen_name':None,
+   'user':{  
+      'id':138662055,
+      'id_str':'138662055',
+      'name':'ShivGrewal',
+      'screen_name':'shivgrewal09',
+      'location':'India',
+      'description':'Mechanical Engineer,  
+SAP ARIBA SOLUTION EXPERT,  
+learning and innovating @SAPAriba. Devoted to family,  
+friends and a better world.',
+      'url':'https://t.co/CdAtuaCCuE',
+      'entities':{  
+         'url':{  
+            'urls':[  
+               {  
+                  'url':'https://t.co/CdAtuaCCuE',
+                  'expanded_url':'http://linkedin.com/in/shiv-grewal-39316631',
+                  'display_url':'linkedin.com/in/shiv-grewal…',
+                  'indices':[  
+                     0,
+                     23
+                  ]
+               }
+            ]
+         },
+         'description':{  
+            'urls':[  
+
+            ]
+         }
+      },
+      'protected':False,
+      'followers_count':314,
+      'friends_count':419,
+      'listed_count':115,
+      'created_at':'Fri Apr 30 05:49:18 +0000 2010',
+      'favourites_count':897,
+      'utc_offset':None,
+      'time_zone':None,
+      'geo_enabled':True,
+      'verified':False,
+      'statuses_count':15812,
+      'lang':None,
+      'contributors_enabled':False,
+      'is_translator':False,
+      'is_translation_enabled':False,
+      'profile_background_color':'C0DEED',
+      'profile_background_image_url':'http://abs.twimg.com/images/themes/theme1/bg.png',
+      'profile_background_image_url_https':'https://abs.twimg.com/images/themes/theme1/bg.png',
+      'profile_background_tile':False,
+      'profile_image_url':'http://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+      'profile_image_url_https':'https://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+      'profile_banner_url':'https://pbs.twimg.com/profile_banners/138662055/1560599173',
+      'profile_link_color':'1DA1F2',
+      'profile_sidebar_border_color':'C0DEED',
+      'profile_sidebar_fill_color':'DDEEF6',
+      'profile_text_color':'333333',
+      'profile_use_background_image':True,
+      'has_extended_profile':True,
+      'default_profile':True,
+      'default_profile_image':False,
+      'following':False,
+      'follow_request_sent':False,
+      'notifications':False,
+      'translator_type':'none'
+   },
+   'geo':None,
+   'coordinates':None,
+   'place':None,
+   'contributors':None,
+   'retweeted_status':{  
+      'created_at':'Mon Aug 05 04:31:27 +0000 2019',
+      'id':1158234035002281986,
+      'id_str':'1158234035002281986',
+      'text':'Full Fact asks Facebook to clarify machine learning fact-checking plans\n#CTO #DL #Ml #FAGMA\nFact-checking charity F… https://t.co/iiYiAhoxJg',
+      'truncated':True,
+      'entities':{  
+         'hashtags':[  
+            {  
+               'text':'CTO',
+               'indices':[  
+                  72,
+                  76
+               ]
+            },
+            {  
+               'text':'DL',
+               'indices':[  
+                  77,
+                  80
+               ]
+            },
+            {  
+               'text':'Ml',
+               'indices':[  
+                  81,
+                  84
+               ]
+            },
+            {  
+               'text':'FAGMA',
+               'indices':[  
+                  85,
+                  91
+               ]
+            }
+         ],
+         'symbols':[  
+
+         ],
+         'user_mentions':[  
+
+         ],
+         'urls':[  
+            {  
+               'url':'https://t.co/iiYiAhoxJg',
+               'expanded_url':'https://twitter.com/i/web/status/1158234035002281986',
+               'display_url':'twitter.com/i/web/status/1…',
+               'indices':[  
+                  117,
+                  140
+               ]
+            }
+         ]
+      },
+      'metadata':{  
+         'iso_language_code':'en',
+         'result_type':'recent'
+      },
+      'source':'<a href="http://www.swisscognitive.ch" rel="nofollow">SwissCognitive Dalith</a>',
+      'in_reply_to_status_id':None,
+      'in_reply_to_status_id_str':None,
+      'in_reply_to_user_id':None,
+      'in_reply_to_user_id_str':None,
+      'in_reply_to_screen_name':None,
+      'user':{  
+         'id':386538440,
+         'id_str':'386538440',
+         'name':'Dalith Steiger',
+         'screen_name':'DalithSteiger',
+         'location':'Zürich,  
+Schweiz',
+         'description':'Co-Founder of #swisscognitive - all #Switzerland companies using #AI and #cognitive #technologies united in one network – Why Wait? Act Now!',
+         'url':'https://t.co/genSmskfzc',
+         'entities':{  
+            'url':{  
+               'urls':[  
+                  {  
+                     'url':'https://t.co/genSmskfzc',
+                     'expanded_url':'http://linkedin.com/in/dalith-steiger',
+                     'display_url':'linkedin.com/in/dalith-stei…',
+                     'indices':[  
+                        0,
+                        23
+                     ]
+                  }
+               ]
+            },
+            'description':{  
+               'urls':[  
+
+               ]
+            }
+         },
+         'protected':False,
+         'followers_count':99250,
+         'friends_count':105132,
+         'listed_count':752,
+         'created_at':'Fri Oct 07 13:19:19 +0000 2011',
+         'favourites_count':5647,
+         'utc_offset':None,
+         'time_zone':None,
+         'geo_enabled':True,
+         'verified':False,
+         'statuses_count':3541,
+         'lang':None,
+         'contributors_enabled':False,
+         'is_translator':False,
+         'is_translation_enabled':False,
+         'profile_background_color':'C0DEED',
+         'profile_background_image_url':'http://abs.twimg.com/images/themes/theme1/bg.png',
+         'profile_background_image_url_https':'https://abs.twimg.com/images/themes/theme1/bg.png',
+         'profile_background_tile':False,
+         'profile_image_url':'http://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+         'profile_image_url_https':'https://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+         'profile_banner_url':'https://pbs.twimg.com/profile_banners/386538440/1541705780',
+         'profile_link_color':'1DA1F2',
+         'profile_sidebar_border_color':'C0DEED',
+         'profile_sidebar_fill_color':'DDEEF6',
+         'profile_text_color':'333333',
+         'profile_use_background_image':True,
+         'has_extended_profile':False,
+         'default_profile':True,
+         'default_profile_image':False,
+         'following':False,
+         'follow_request_sent':False,
+         'notifications':False,
+         'translator_type':'none'
+      },
+      'geo':None,
+      'coordinates':None,
+      'place':None,
+      'contributors':None,
+      'is_quote_status':False,
+      'retweet_count':10,
+      'favorite_count':22,
+      'favorited':False,
+      'retweeted':False,
+      'possibly_sensitive':False,
+      'lang':'en'
+   },
+   'is_quote_status':False,
+   'retweet_count':10,
+   'favorite_count':0,
+   'favorited':False,
+   'retweeted':False,
+   'lang':'en'
+},
+created_at=datetime.datetime(2019,8,22,6,33,40),
+id=1164425383757959168,
+id_str='1164425383757959168',
+text='RT @DalithSteiger:Full Fact asks Facebook to clarify machine learning fact-checking plans\n#CTO #DL #Ml #FAGMA\nFact-checking charity Full F…',
+truncated=False,
+entities={  
+   'hashtags':[  
+      {  
+         'text':'CTO',
+         'indices':[  
+            91,
+            95
+         ]
+      },
+      {  
+         'text':'DL',
+         'indices':[  
+            96,
+            99
+         ]
+      },
+      {  
+         'text':'Ml',
+         'indices':[  
+            100,
+            103
+         ]
+      },
+      {  
+         'text':'FAGMA',
+         'indices':[  
+            104,
+            110
+         ]
+      }
+   ],
+   'symbols':[  
+
+   ],
+   'user_mentions':[  
+      {  
+         'screen_name':'DalithSteiger',
+         'name':'Dalith Steiger',
+         'id':386538440,
+         'id_str':'386538440',
+         'indices':[  
+            3,
+            17
+         ]
+      }
+   ],
+   'urls':[  
+
+   ]
+},
+metadata={  
+   'iso_language_code':'en',
+   'result_type':'recent'
+},
+source='Twitter for iPhone',
+source_url='http://twitter.com/download/iphone',
+in_reply_to_status_id=None,
+in_reply_to_status_id_str=None,
+in_reply_to_user_id=None,
+in_reply_to_user_id_str=None,
+in_reply_to_screen_name=None,
+author=User(
+  _api=<tweepy.api.API object at 0x1153a9f60>,
+  _json={  
+   'id':138662055,
+   'id_str':'138662055',
+   'name':'ShivGrewal',
+   'screen_name':'shivgrewal09',
+   'location':'India',
+   'description':'Mechanical Engineer,  
+SAP ARIBA SOLUTION EXPERT,  
+learning and innovating @SAPAriba. Devoted to family,  
+friends and a better world.',
+   'url':'https://t.co/CdAtuaCCuE',
+   'entities':{  
+      'url':{  
+         'urls':[  
+            {  
+               'url':'https://t.co/CdAtuaCCuE',
+               'expanded_url':'http://linkedin.com/in/shiv-grewal-39316631',
+               'display_url':'linkedin.com/in/shiv-grewal…',
+               'indices':[  
+                  0,
+                  23
+               ]
+            }
+         ]
+      },
+      'description':{  
+         'urls':[  
+
+         ]
+      }
+   },
+   'protected':False,
+   'followers_count':314,
+   'friends_count':419,
+   'listed_count':115,
+   'created_at':'Fri Apr 30 05:49:18 +0000 2010',
+   'favourites_count':897,
+   'utc_offset':None,
+   'time_zone':None,
+   'geo_enabled':True,
+   'verified':False,
+   'statuses_count':15812,
+   'lang':None,
+   'contributors_enabled':False,
+   'is_translator':False,
+   'is_translation_enabled':False,
+   'profile_background_color':'C0DEED',
+   'profile_background_image_url':'http://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_image_url_https':'https://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_tile':False,
+   'profile_image_url':'http://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+   'profile_image_url_https':'https://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+   'profile_banner_url':'https://pbs.twimg.com/profile_banners/138662055/1560599173',
+   'profile_link_color':'1DA1F2',
+   'profile_sidebar_border_color':'C0DEED',
+   'profile_sidebar_fill_color':'DDEEF6',
+   'profile_text_color':'333333',
+   'profile_use_background_image':True,
+   'has_extended_profile':True,
+   'default_profile':True,
+   'default_profile_image':False,
+   'following':False,
+   'follow_request_sent':False,
+   'notifications':False,
+   'translator_type':'none'
+},
+id=138662055,
+id_str='138662055',
+name='ShivGrewal',
+screen_name='shivgrewal09',
+location='India',
+description='Mechanical Engineer,
+SAP ARIBA SOLUTION EXPERT,
+learning and innovating @SAPAriba. Devoted to family,
+friends and a better world.',
+url='https://t.co/CdAtuaCCuE',
+entities={  
+   'url':{  
+      'urls':[  
+         {  
+            'url':'https://t.co/CdAtuaCCuE',
+            'expanded_url':'http://linkedin.com/in/shiv-grewal-39316631',
+            'display_url':'linkedin.com/in/shiv-grewal…',
+            'indices':[  
+               0,
+               23
+            ]
+         }
+      ]
+   },
+   'description':{  
+      'urls':[  
+
+      ]
+   }
+},
+protected=False,
+followers_count=314,
+friends_count=419,
+listed_count=115,
+created_at=datetime.datetime(2010,4,30,5,49,18),
+favourites_count=897,
+utc_offset=None,
+time_zone=None,
+geo_enabled=True,
+verified=False,
+statuses_count=15812,
+lang=None,
+contributors_enabled=False,
+is_translator=False,
+is_translation_enabled=False,
+profile_background_color='C0DEED',
+profile_background_image_url='http://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_image_url_https='https://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_tile=False,
+profile_image_url='http://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+profile_image_url_https='https://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+profile_banner_url='https://pbs.twimg.com/profile_banners/138662055/1560599173',
+profile_link_color='1DA1F2',
+profile_sidebar_border_color='C0DEED',
+profile_sidebar_fill_color='DDEEF6',
+profile_text_color='333333',
+profile_use_background_image=True,
+has_extended_profile=True,
+default_profile=True,
+default_profile_image=False,
+following=False,
+follow_request_sent=False,
+notifications=False,
+translator_type='none'),
+user=User(_api=<tweepy.api.API object at 0x1153a9f60>,
+_json={  
+   'id':138662055,
+   'id_str':'138662055',
+   'name':'ShivGrewal',
+   'screen_name':'shivgrewal09',
+   'location':'India',
+   'description':'Mechanical Engineer, SAP ARIBA SOLUTION EXPERT, learning and innovating @SAPAriba. Devoted to family, friends and a better world.',
+   'url':'https://t.co/CdAtuaCCuE',
+   'entities':{  
+      'url':{  
+         'urls':[  
+            {  
+               'url':'https://t.co/CdAtuaCCuE',
+               'expanded_url':'http://linkedin.com/in/shiv-grewal-39316631',
+               'display_url':'linkedin.com/in/shiv-grewal…',
+               'indices':[  
+                  0,
+                  23
+               ]
+            }
+         ]
+      },
+      'description':{  
+         'urls':[  
+
+         ]
+      }
+   },
+   'protected':False,
+   'followers_count':314,
+   'friends_count':419,
+   'listed_count':115,
+   'created_at':'Fri Apr 30 05:49:18 +0000 2010',
+   'favourites_count':897,
+   'utc_offset':None,
+   'time_zone':None,
+   'geo_enabled':True,
+   'verified':False,
+   'statuses_count':15812,
+   'lang':None,
+   'contributors_enabled':False,
+   'is_translator':False,
+   'is_translation_enabled':False,
+   'profile_background_color':'C0DEED',
+   'profile_background_image_url':'http://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_image_url_https':'https://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_tile':False,
+   'profile_image_url':'http://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+   'profile_image_url_https':'https://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+   'profile_banner_url':'https://pbs.twimg.com/profile_banners/138662055/1560599173',
+   'profile_link_color':'1DA1F2',
+   'profile_sidebar_border_color':'C0DEED',
+   'profile_sidebar_fill_color':'DDEEF6',
+   'profile_text_color':'333333',
+   'profile_use_background_image':True,
+   'has_extended_profile':True,
+   'default_profile':True,
+   'default_profile_image':False,
+   'following':False,
+   'follow_request_sent':False,
+   'notifications':False,
+   'translator_type':'none'
+},
+id=138662055,
+id_str='138662055',
+name='ShivGrewal',
+screen_name='shivgrewal09',
+location='India',
+description='Mechanical Engineer,
+SAP ARIBA SOLUTION EXPERT,
+learning and innovating @SAPAriba. Devoted to family,
+friends and a better world.',
+url='https://t.co/CdAtuaCCuE',
+entities={  
+   'url':{  
+      'urls':[  
+         {  
+            'url':'https://t.co/CdAtuaCCuE',
+            'expanded_url':'http://linkedin.com/in/shiv-grewal-39316631',
+            'display_url':'linkedin.com/in/shiv-grewal…',
+            'indices':[  
+               0,
+               23
+            ]
+         }
+      ]
+   },
+   'description':{  
+      'urls':[  
+
+      ]
+   }
+},
+protected=False,
+followers_count=314,
+friends_count=419,
+listed_count=115,
+created_at=datetime.datetime(2010,4,30,5,49,18),
+favourites_count=897,
+utc_offset=None,
+time_zone=None,
+geo_enabled=True,
+verified=False,
+statuses_count=15812,
+lang=None,
+contributors_enabled=False,
+is_translator=False,
+is_translation_enabled=False,
+profile_background_color='C0DEED',
+profile_background_image_url='http://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_image_url_https='https://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_tile=False,
+profile_image_url='http://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+profile_image_url_https='https://pbs.twimg.com/profile_images/1139862051336183808/2TAHmO1C_normal.jpg',
+profile_banner_url='https://pbs.twimg.com/profile_banners/138662055/1560599173',
+profile_link_color='1DA1F2',
+profile_sidebar_border_color='C0DEED',
+profile_sidebar_fill_color='DDEEF6',
+profile_text_color='333333',
+profile_use_background_image=True,
+has_extended_profile=True,
+default_profile=True,
+default_profile_image=False,
+following=False,
+follow_request_sent=False,
+notifications=False,
+translator_type='none'),
+geo=None,
+coordinates=None,
+place=None,
+contributors=None,
+retweeted_status=Status(_api=<tweepy.api.API object at 0x1153a9f60>,
+_json={  
+   'created_at':'Mon Aug 05 04:31:27 +0000 2019',
+   'id':1158234035002281986,
+   'id_str':'1158234035002281986',
+   'text':'Full Fact asks Facebook to clarify machine learning fact-checking plans\n#CTO #DL #Ml #FAGMA\nFact-checking charity F… https://t.co/iiYiAhoxJg',
+   'truncated':True,
+   'entities':{  
+      'hashtags':[  
+         {  
+            'text':'CTO',
+            'indices':[  
+               72,
+               76
+            ]
+         },
+         {  
+            'text':'DL',
+            'indices':[  
+               77,
+               80
+            ]
+         },
+         {  
+            'text':'Ml',
+            'indices':[  
+               81,
+               84
+            ]
+         },
+         {  
+            'text':'FAGMA',
+            'indices':[  
+               85,
+               91
+            ]
+         }
+      ],
+      'symbols':[  
+
+      ],
+      'user_mentions':[  
+
+      ],
+      'urls':[  
+         {  
+            'url':'https://t.co/iiYiAhoxJg',
+            'expanded_url':'https://twitter.com/i/web/status/1158234035002281986',
+            'display_url':'twitter.com/i/web/status/1…',
+            'indices':[  
+               117,
+               140
+            ]
+         }
+      ]
+   },
+   'metadata':{  
+      'iso_language_code':'en',
+      'result_type':'recent'
+   },
+   'source':'<a href="http://www.swisscognitive.ch" rel="nofollow">SwissCognitive Dalith</a>',
+   'in_reply_to_status_id':None,
+   'in_reply_to_status_id_str':None,
+   'in_reply_to_user_id':None,
+   'in_reply_to_user_id_str':None,
+   'in_reply_to_screen_name':None,
+   'user':{  
+      'id':386538440,
+      'id_str':'386538440',
+      'name':'Dalith Steiger',
+      'screen_name':'DalithSteiger',
+      'location':'Zürich, Schweiz',
+      'description':'Co-Founder of #swisscognitive - all #Switzerland companies using #AI and #cognitive #technologies united in one network – Why Wait? Act Now!',
+      'url':'https://t.co/genSmskfzc',
+      'entities':{  
+         'url':{  
+            'urls':[  
+               {  
+                  'url':'https://t.co/genSmskfzc',
+                  'expanded_url':'http://linkedin.com/in/dalith-steiger',
+                  'display_url':'linkedin.com/in/dalith-stei…',
+                  'indices':[  
+                     0,
+                     23
+                  ]
+               }
+            ]
+         },
+         'description':{  
+            'urls':[  
+
+            ]
+         }
+      },
+      'protected':False,
+      'followers_count':99250,
+      'friends_count':105132,
+      'listed_count':752,
+      'created_at':'Fri Oct 07 13:19:19 +0000 2011',
+      'favourites_count':5647,
+      'utc_offset':None,
+      'time_zone':None,
+      'geo_enabled':True,
+      'verified':False,
+      'statuses_count':3541,
+      'lang':None,
+      'contributors_enabled':False,
+      'is_translator':False,
+      'is_translation_enabled':False,
+      'profile_background_color':'C0DEED',
+      'profile_background_image_url':'http://abs.twimg.com/images/themes/theme1/bg.png',
+      'profile_background_image_url_https':'https://abs.twimg.com/images/themes/theme1/bg.png',
+      'profile_background_tile':False,
+      'profile_image_url':'http://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+      'profile_image_url_https':'https://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+      'profile_banner_url':'https://pbs.twimg.com/profile_banners/386538440/1541705780',
+      'profile_link_color':'1DA1F2',
+      'profile_sidebar_border_color':'C0DEED',
+      'profile_sidebar_fill_color':'DDEEF6',
+      'profile_text_color':'333333',
+      'profile_use_background_image':True,
+      'has_extended_profile':False,
+      'default_profile':True,
+      'default_profile_image':False,
+      'following':False,
+      'follow_request_sent':False,
+      'notifications':False,
+      'translator_type':'none'
+   },
+   'geo':None,
+   'coordinates':None,
+   'place':None,
+   'contributors':None,
+   'is_quote_status':False,
+   'retweet_count':10,
+   'favorite_count':22,
+   'favorited':False,
+   'retweeted':False,
+   'possibly_sensitive':False,
+   'lang':'en'
+},
+created_at=datetime.datetime(2019,
+8,
+5,
+4,
+31,
+27),
+id=1158234035002281986,
+id_str='1158234035002281986',
+text='Full Fact asks Facebook to clarify machine learning fact-checking plans\n#CTO #DL #Ml #FAGMA\nFact-checking charity F… https://t.co/iiYiAhoxJg',
+truncated=True,
+entities={  
+   'hashtags':[  
+      {  
+         'text':'CTO',
+         'indices':[  
+            72,
+            76
+         ]
+      },
+      {  
+         'text':'DL',
+         'indices':[  
+            77,
+            80
+         ]
+      },
+      {  
+         'text':'Ml',
+         'indices':[  
+            81,
+            84
+         ]
+      },
+      {  
+         'text':'FAGMA',
+         'indices':[  
+            85,
+            91
+         ]
+      }
+   ],
+   'symbols':[  
+
+   ],
+   'user_mentions':[  
+
+   ],
+   'urls':[  
+      {  
+         'url':'https://t.co/iiYiAhoxJg',
+         'expanded_url':'https://twitter.com/i/web/status/1158234035002281986',
+         'display_url':'twitter.com/i/web/status/1…',
+         'indices':[  
+            117,
+            140
+         ]
+      }
+   ]
+},
+metadata={  
+   'iso_language_code':'en',
+   'result_type':'recent'
+},
+source='SwissCognitive Dalith',
+source_url='http://www.swisscognitive.ch',
+in_reply_to_status_id=None,
+in_reply_to_status_id_str=None,
+in_reply_to_user_id=None,
+in_reply_to_user_id_str=None,
+in_reply_to_screen_name=None,
+author=User(_api=<tweepy.api.API object at 0x1153a9f60>,
+_json={  
+   'id':386538440,
+   'id_str':'386538440',
+   'name':'Dalith Steiger',
+   'screen_name':'DalithSteiger',
+   'location':'Zürich, Schweiz',
+   'description':'Co-Founder of #swisscognitive - all #Switzerland companies using #AI and #cognitive #technologies united in one network – Why Wait? Act Now!',
+   'url':'https://t.co/genSmskfzc',
+   'entities':{  
+      'url':{  
+         'urls':[  
+            {  
+               'url':'https://t.co/genSmskfzc',
+               'expanded_url':'http://linkedin.com/in/dalith-steiger',
+               'display_url':'linkedin.com/in/dalith-stei…',
+               'indices':[  
+                  0,
+                  23
+               ]
+            }
+         ]
+      },
+      'description':{  
+         'urls':[  
+
+         ]
+      }
+   },
+   'protected':False,
+   'followers_count':99250,
+   'friends_count':105132,
+   'listed_count':752,
+   'created_at':'Fri Oct 07 13:19:19 +0000 2011',
+   'favourites_count':5647,
+   'utc_offset':None,
+   'time_zone':None,
+   'geo_enabled':True,
+   'verified':False,
+   'statuses_count':3541,
+   'lang':None,
+   'contributors_enabled':False,
+   'is_translator':False,
+   'is_translation_enabled':False,
+   'profile_background_color':'C0DEED',
+   'profile_background_image_url':'http://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_image_url_https':'https://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_tile':False,
+   'profile_image_url':'http://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+   'profile_image_url_https':'https://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+   'profile_banner_url':'https://pbs.twimg.com/profile_banners/386538440/1541705780',
+   'profile_link_color':'1DA1F2',
+   'profile_sidebar_border_color':'C0DEED',
+   'profile_sidebar_fill_color':'DDEEF6',
+   'profile_text_color':'333333',
+   'profile_use_background_image':True,
+   'has_extended_profile':False,
+   'default_profile':True,
+   'default_profile_image':False,
+   'following':False,
+   'follow_request_sent':False,
+   'notifications':False,
+   'translator_type':'none'
+},
+id=386538440,
+id_str='386538440',
+name='Dalith Steiger',
+screen_name='DalithSteiger',
+location='Zürich,
+Schweiz',
+description='Co-Founder of #swisscognitive - all #Switzerland companies using #AI and #cognitive #technologies united in one network – Why Wait? Act Now!',
+url='https://t.co/genSmskfzc',
+entities={  
+   'url':{  
+      'urls':[  
+         {  
+            'url':'https://t.co/genSmskfzc',
+            'expanded_url':'http://linkedin.com/in/dalith-steiger',
+            'display_url':'linkedin.com/in/dalith-stei…',
+            'indices':[  
+               0,
+               23
+            ]
+         }
+      ]
+   },
+   'description':{  
+      'urls':[  
+
+      ]
+   }
+},
+protected=False,
+followers_count=99250,
+friends_count=105132,
+listed_count=752,
+created_at=datetime.datetime(2011,10,7,13,19,19),
+favourites_count=5647,
+utc_offset=None,
+time_zone=None,
+geo_enabled=True,
+verified=False,
+statuses_count=3541,
+lang=None,
+contributors_enabled=False,
+is_translator=False,
+is_translation_enabled=False,
+profile_background_color='C0DEED',
+profile_background_image_url='http://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_image_url_https='https://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_tile=False,
+profile_image_url='http://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+profile_image_url_https='https://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+profile_banner_url='https://pbs.twimg.com/profile_banners/386538440/1541705780',
+profile_link_color='1DA1F2',
+profile_sidebar_border_color='C0DEED',
+profile_sidebar_fill_color='DDEEF6',
+profile_text_color='333333',
+profile_use_background_image=True,
+has_extended_profile=False,
+default_profile=True,
+default_profile_image=False,
+following=False,
+follow_request_sent=False,
+notifications=False,
+translator_type='none'),
+user=User(
+  _api=<tweepy.api.API object at 0x1153a9f60>,
+  _json={  
+   'id':386538440,
+   'id_str':'386538440',
+   'name':'Dalith Steiger',
+   'screen_name':'DalithSteiger',
+   'location':'Zürich, Schweiz',
+   'description':'Co-Founder of #swisscognitive - all #Switzerland companies using #AI and #cognitive #technologies united in one network – Why Wait? Act Now!',
+   'url':'https://t.co/genSmskfzc',
+   'entities':{  
+      'url':{  
+         'urls':[  
+            {  
+               'url':'https://t.co/genSmskfzc',
+               'expanded_url':'http://linkedin.com/in/dalith-steiger',
+               'display_url':'linkedin.com/in/dalith-stei…',
+               'indices':[  
+                  0,
+                  23
+               ]
+            }
+         ]
+      },
+      'description':{  
+         'urls':[  
+
+         ]
+      }
+   },
+   'protected':False,
+   'followers_count':99250,
+   'friends_count':105132,
+   'listed_count':752,
+   'created_at':'Fri Oct 07 13:19:19 +0000 2011',
+   'favourites_count':5647,
+   'utc_offset':None,
+   'time_zone':None,
+   'geo_enabled':True,
+   'verified':False,
+   'statuses_count':3541,
+   'lang':None,
+   'contributors_enabled':False,
+   'is_translator':False,
+   'is_translation_enabled':False,
+   'profile_background_color':'C0DEED',
+   'profile_background_image_url':'http://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_image_url_https':'https://abs.twimg.com/images/themes/theme1/bg.png',
+   'profile_background_tile':False,
+   'profile_image_url':'http://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+   'profile_image_url_https':'https://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+   'profile_banner_url':'https://pbs.twimg.com/profile_banners/386538440/1541705780',
+   'profile_link_color':'1DA1F2',
+   'profile_sidebar_border_color':'C0DEED',
+   'profile_sidebar_fill_color':'DDEEF6',
+   'profile_text_color':'333333',
+   'profile_use_background_image':True,
+   'has_extended_profile':False,
+   'default_profile':True,
+   'default_profile_image':False,
+   'following':False,
+   'follow_request_sent':False,
+   'notifications':False,
+   'translator_type':'none'
+  },
+id=386538440,
+id_str='386538440',
+name='Dalith Steiger',
+screen_name='DalithSteiger',
+location='Zürich,
+Schweiz',
+description='Co-Founder of #swisscognitive - all #Switzerland companies using #AI and #cognitive #technologies united in one network – Why Wait? Act Now!',
+url='https://t.co/genSmskfzc',
+entities={  
+   'url':{  
+      'urls':[  
+         {  
+            'url':'https://t.co/genSmskfzc',
+            'expanded_url':'http://linkedin.com/in/dalith-steiger',
+            'display_url':'linkedin.com/in/dalith-stei…',
+            'indices':[  
+               0,
+               23
+            ]
+         }
+      ]
+   },
+   'description':{  
+      'urls':[  
+
+      ]
+   }
+},
+protected=False,
+followers_count=99250,
+friends_count=105132,
+listed_count=752,
+created_at=datetime.datetime(2011,10,7,13,19,19),
+favourites_count=5647,
+utc_offset=None,
+time_zone=None,
+geo_enabled=True,
+verified=False,
+statuses_count=3541,
+lang=None,
+contributors_enabled=False,
+is_translator=False,
+is_translation_enabled=False,
+profile_background_color='C0DEED',
+profile_background_image_url='http://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_image_url_https='https://abs.twimg.com/images/themes/theme1/bg.png',
+profile_background_tile=False,
+profile_image_url='http://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+profile_image_url_https='https://pbs.twimg.com/profile_images/1072625676208037893/gv2wSyrJ_normal.jpg',
+profile_banner_url='https://pbs.twimg.com/profile_banners/386538440/1541705780',
+profile_link_color='1DA1F2',
+profile_sidebar_border_color='C0DEED',
+profile_sidebar_fill_color='DDEEF6',
+profile_text_color='333333',
+profile_use_background_image=True,
+has_extended_profile=False,
+default_profile=True,
+default_profile_image=False,
+following=False,
+follow_request_sent=False,
+notifications=False,
+translator_type='none'),
+geo=None,
+coordinates=None,
+place=None,
+contributors=None,
+is_quote_status=False,
+retweet_count=10,
+favorite_count=22,
+favorited=False,
+retweeted=False,
+possibly_sensitive=False,
+lang='en'),
+is_quote_status=False,
+retweet_count=10,
+favorite_count=0,
+favorited=False,
+retweeted=False,
+lang='en')
