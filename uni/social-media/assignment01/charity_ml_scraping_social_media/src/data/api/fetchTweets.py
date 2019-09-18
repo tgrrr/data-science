@@ -48,9 +48,6 @@ def tweepy_item(tweepyParams, api):
             out = better_twitter_api_parse(tweet)
             # print(out)
             # full_text, hashtags = better_twitter_api_parse(tweet)
-            foo = out[1]
-            print(foo)
-            print(type(foo))
             # _full_text = better_twitter_api_parse(tweet)
             _created_at = datetimeConvertToString(tweet.created_at)
 
@@ -103,7 +100,6 @@ def tweepy_item(tweepyParams, api):
 
 # ------------------------------------------
 
-# def dofetchTweets(_search_term, tweepyParams):
 def fetchTweets(search_term, start_date):
     """
         Fetch Tweets using Tweepy

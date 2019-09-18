@@ -1,11 +1,9 @@
-# 76 Line version Question
-# %%
-#
 # COSC2671 Social Media and Network Analytics
 # @author Jeffrey Chan, 2019
 # LATER: @author Phil Steinke, 2019 UPDATED
 #
-# %%
+from src.common.util import *
+
 def processTweet(text, tokenizer, stemmer, stopwords):
     """
     Perform tokenisation, normalisation (lower case and stemming) and stopword and twitter keyword removal.
@@ -44,6 +42,7 @@ def doProcessTweet(
     fJsonName, 
     key = 'full_text', 
     freqNum = 10,
+    isJson = False,
     ):
     
     # tweet tokeniser to use
@@ -54,19 +53,32 @@ def doProcessTweet(
     lStopwords = nltk.corpus.stopwords.words('english') + lPunct + ['rt', 'via']
     # we use the popular Porter stemmer
     tweetStemmer = nltk.stem.PorterStemmer()
-
     # our term frequency counter
     termFreqCounter = Counter()
 
     # open json file and process it tweet by tweet
     with open(fJsonName, 'r') as f:
-        for line in f:
-            tweet = json.loads(line)
-            tweetText = tweet.get(key, '')
-            # tokenise, filter stopwords and get convert to lower case
-            lTokens = processTweet(text=tweetText, tokenizer=tweetTokeniser, stemmer=tweetStemmer, stopwords=lStopwords)
-            # update count
-            termFreqCounter.update(lTokens)
+
+        if(isJson == False):
+            for line in f:
+                tweet = json.loads(line)
+                tweetText = tweet.get(key, '')
+                # tokenise, filter stopwords and get convert to lower case
+                lTokens = processTweet(text=tweetText, tokenizer=tweetTokeniser, stemmer=tweetStemmer, stopwords=lStopwords)
+                # update count
+                termFreqCounter.update(lTokens)
+
+        else:
+            _f = json.load(f)
+            for tweet in _f:
+                
+                # REFACTOR: bug in utils/isJson for python 3.7
+                tweetText = tweet.get(key, '')
+                # tokenise, filter stopwords and get convert to lower case
+                lTokens = processTweet(text=tweetText, tokenizer=tweetTokeniser, stemmer=tweetStemmer, stopwords=lStopwords)
+                # update count
+                termFreqCounter.update(lTokens)
+                # print(data[i]['full_text'])
 
     # print out most common terms
     for term, count in termFreqCounter.most_common(freqNum):
