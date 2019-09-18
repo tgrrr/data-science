@@ -8,21 +8,26 @@
 # %% markdown
 #
 # TODO: Introduction
+
+# All code chunks are available on [github](https://github.com/tgrrr/data-science/tree/social-media-assignment1/uni/social-media/assignment01)
 # - Describe what/who is your selected entity
+# I'm searching for sentiment analysis about the topic `Charity` on Twitter
+#
 # - Describe why it is interesting to find the sentiment and topics 
 # (answer questions) of this entity
-#
-# ### Goals:
-# - [ ] What are the trending concepts and topics associated with this person or event?
-# - [ ] What are the perceptions and feelings towards this person or event?
-# - [x] Get Twitter data
-# - [ ] Do market research
+# A: Given the heart foundations recent 
+# (controversy)[https://www.abc.net.au/news/2019-05-31/heart-foundation-apologises-for-heartless-words-ad-campaign/11167870]
+# I became interested in how people feel about charities.
+# Eg. Are people generally positive about charity? Or do they have 'compassion
+# fatigue'? Can organisations like the Heart foundation justify shocking people
+# into doing what they want?
 
 # %%
 #
 # packages
 # python scripts
 import os
+import pdb
 from src.config.constants import Constants
 os.chdir(Constants.path)
 from src.common.util import *
@@ -235,9 +240,13 @@ BUG: doGetMentions('data/processed/data.json', 30)
 #
 # ## Analysis & Discussion
 #
-# - what are the topics been discussed about a user via a top-K terms
 
-# TODO: check in notebook
+
+
+# %% markdown
+#
+# - what are the topics been discussed about a user via a top-K terms
+#
 # charities: 8703
 # this: 1902
 # raise: 1803
@@ -268,25 +277,63 @@ BUG: doGetMentions('data/processed/data.json', 30)
 # year: 651
 # please: 631
 
-
-# - word-cloud of the topics discovered by topic modelling
 # - what are the topics
 
-# - does it correspond to recent news
+# %%
+from src.visualization import *
+from src.data import *
+lTweets_sample = load_tweets_list('data/processed/data_sample.json')
+doDisplayWordcloud(lTweets_sample)
+
+lTweets = load_tweets_list('data/processed/data.json')
+doDisplayWordcloud(lTweets)
+
+# %% markdown
+# ### Word Cloud
+#
+# - [x] word-cloud of the topics discovered by topic modelling
+#
+# > **Topic 0:** charity new today work amp support event help local great helping looking need challenge charities
+# > **Topic 1:** like shop charity good month people luck yes life fantastic time 50 thank end receive
+# > **Topic 2:** charity match proceeds funds final organisations 16 hate million dedicated held alongside stadium distributed combatting
+# > **Topic 3:** charity amp donate amazing just year don ve make people going uk time aid great
+# > **Topic 4:** president charity donating 10 000 donate project help campaign let trump salary rich known vets
+# > **Topic 5:** charity raised donations world did million tour sell massive 29 harry 90 seconds styles years
+# > **Topic 6:** cancer charity want people support thank help link use saturday research way thanks august donated
+# > **Topic 7:** charity day september raising love team 2019 golf health community amp does know days family
+# > **Topic 8:** porn charity money raise world watch created clean dirtiest oceans home follow begins doesn girl
+# > **Topic 9:** charity money god heart like government taking jesus think doing amp head isn shops good
+
+#%%
+
+# from src.models import *
+from src.models import *
+doSentimentAnalysis('data/processed/data_sample-multi-json.json')
+# Note: I added senti
+
+
+'reports/figures/charity_sentiment_analysis_timeseries.png'
+
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# - [x] Does it correspond to recent news
 # A: Given the heart foundations recent 
 # (controversy)[https://www.abc.net.au/news/2019-05-31/heart-foundation-apologises-for-heartless-words-ad-campaign/11167870]
 # I became interested in how people feel about charities.
 # Eg. Are people generally positive about charity? Or do they have 'compassion
 # fatigue'? Can organisations like the Heart foundation justify shocking people
 # into doing what they want?
-# - other sources of information
-# - if the results don’t correspond to background knowledge, why you think that is so?
+# - [x] other sources of information
+# See comments about Red Cross above
+# - [x]  if the results don’t correspond to background knowledge, why you think that is so?
+# It corresponds to my background knowledge
 
 # %% markdown
 #
-# TODO: Conclusion
+# TODO: ### Conclusion
 #	 •	Provide a short conclusion about your entity, analysis and what you found
-#
 # ### Discussion of results (Discussion)
 #
 # - Describe your data
@@ -296,12 +343,15 @@ BUG: doGetMentions('data/processed/data.json', 30)
 # %% markdown
 #
 # ### Explain what the results indicate (Discussion)
+#
+# ### Goals:
+# - [x] What are the trending concepts and topics associated with this person or event?
+# - [x] What are the perceptions and feelings towards this person or event?
+# - [x] Get Twitter data
+# - [x] Do market research
 
 # %% markdown
 #
-#  ##### Other Rubric
-#  - [ ] Report Presentation 15%
-#  - [ ] Code Style and Readability
 
 # %% markdown
 #
