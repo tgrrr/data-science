@@ -59,7 +59,7 @@ def tweepy_item(tweepyParams, api):
                 out[0], # full_text
                 _created_at,
                 tweet.user.id,
-                # *foo, # hashtags
+                # # hashtags
                 # tweet.text.encode('utf-8'), 
                 # _tweet.user.screen_name,
                 # _tweet.user.friends_count,
@@ -100,6 +100,7 @@ def tweepy_item(tweepyParams, api):
 
 # ------------------------------------------
 
+# def dofetchTweets(_search_term, tweepyParams):
 def fetchTweets(search_term, start_date):
     """
         Fetch Tweets using Tweepy
