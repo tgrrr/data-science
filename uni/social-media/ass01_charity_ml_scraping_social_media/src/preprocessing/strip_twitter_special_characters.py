@@ -59,13 +59,13 @@ def remove_newline(text):
     @rtype:   string
     """
     # remove all underscores:
-    text = text.replace("\\n", "")
+    text = text.replace("\\n", " ")
     return str
 
 def remove_underscore(text):
     # remove all underscores:
-    text = text.replace("_", "")
-    return text
+    _text = text.replace("_", " ")
+    return _text
 
 def strip_unicode_characters(_str):
     # str="\x01\x02\x10\x13\x20\x21hello world"
@@ -91,8 +91,10 @@ def remove_unicode(sentence):
     #         out = ' '.join(_word for _word in result)
     # print(out)
 
-def do_strip_tweet(str):
-    _tweet_without_newlines = remove_newline(str)
+
+
+def do_strip_tweet(text):
+    _tweet_without_newlines = remove_newline(text)
     _tweet_without_underscore = remove_underscore(_tweet_without_newlines)
     # _tweet_without_unicode = remove_unicode(_tweet_without_underscore)
     stripped = strip_all_entities(strip_links(_tweet_without_underscore))

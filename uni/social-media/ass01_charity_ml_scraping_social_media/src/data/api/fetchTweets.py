@@ -13,7 +13,7 @@ def better_twitter_api_parse(tweet):
     out = []
 
     if 'retweeted_status' in tweet._json:
-        print('Retweeted')
+        # print('Retweeted')
         
         _full_text = (tweet._json['retweeted_status']['full_text'])
 

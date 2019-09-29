@@ -25,14 +25,14 @@ def strip_links(text):
     link_regex    = re.compile('((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)', re.DOTALL)
     links         = re.findall(link_regex, text)
     for link in links:
-        text = text.replace(link[0], ', ')    
+        text = text.replace(link[0], ' ')    
     return text
 
 def strip_all_entities(text):
     entity_prefixes = ['@','#']
     for separator in  string.punctuation:
         if separator not in entity_prefixes :
-            text = text.replace(separator,' ')
+            text = text.replace(separator, ' ')
     words = []
     for word in text.split():
         word = word.strip()
@@ -41,21 +41,21 @@ def strip_all_entities(text):
                 words.append(word)
     return ' '.join(words)
 
-def remove_newline(str):
+def remove_newline(text):
     # remove all underscores:
-    str = str.replace("\\n", "")
-    return str
+    text = text.replace('\\n', '')
+    return text
 
-def remove_underscore(str):
+def remove_underscore(text):
     # remove all underscores:
-    str = str.replace("_", "")
-    return str
+    text = text.replace('_', '')
+    return text
 
-def strip_unicode_characters(_str):
+def strip_unicode_characters(text):
     # str="\x01\x02\x10\x13\x20\x21hello world"
-    # print(_str)
+    # print(text)
     escapes = ''.join([chr(char) for char in range(1, 32)])
-    t = _str.translate(None, escapes)
+    t = text.translate(None, escapes)
     t
 
 # NOTE: not used in code
@@ -75,8 +75,8 @@ def remove_unicode(sentence):
     #         out = ' '.join(_word for _word in result)
     # print(out)
 
-def do_strip_tweet(str):
-    _tweet_without_newlines = remove_newline(str)
+def do_strip_tweet(text):
+    _tweet_without_newlines = remove_newline(text)
     _tweet_without_underscore = remove_underscore(_tweet_without_newlines)
     # _tweet_without_unicode = remove_unicode(_tweet_without_underscore)
     stripped = strip_all_entities(strip_links(_tweet_without_underscore))

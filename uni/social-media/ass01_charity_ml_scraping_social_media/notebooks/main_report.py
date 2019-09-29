@@ -1,3 +1,9 @@
+# %% markdown
+#
+# ## COSC2671 Social Media and Network Analytics
+# ### Assignment 1
+# ### @author Phil Steinke, 2019
+# ### Student s3725547
 
 # %%
 import warnings
@@ -12,6 +18,9 @@ os.chdir(PATH)
 
 # dark theme:
 # !jt -t onedork
+# !jt -t chesterish
+# !jt -t grade3
+
 warnings.filterwarnings('ignore')
 
 # python scripts
@@ -22,13 +31,6 @@ from src.visualization import *
 from src.features import *
 from src.preprocessing import *  # convert_csv_to_json
 from src.common.util import *
-
-# %% markdown
-#
-# ## COSC2671 Social Media and Network Analytics
-# ### Assignment 1
-# ### @author Phil Steinke, 2019
-# ### Student
 
 # %% markdown
 #
@@ -94,8 +96,7 @@ fetchTweets(search_term, start_date)
 # %%
 search_term = 'charity'
 # please note: only run this once, it's an expensive function
-fetchTweets(search_term, start_date)
-
+# fetchTweets(search_term, start_date)
 
 # %% markdown
 #
@@ -151,7 +152,6 @@ convert_csv_to_json('data/raw/charity_tweets_11110', colnames)
 # 
 # > `don't use just artificialintelligence for the sake of it. AI needs to solve a problem - What kind of problems could AI solve in your charity?`
 
-
 # #### Describe what pre-processing you performed
 # 
 # - Each of the tweets when we get the full_text tweet starts with `b'`
@@ -187,8 +187,9 @@ b'didn\xe2\x80\x99t'.decode('utf-8')
 
 fJsonName = 'data/raw/charity_tweets_sample_100.json'
 out = 'data/processed/data_sample.json'
-# FIXME: TypeError: replace() takes at least 2 arguments (1 given)
 strip_tweet(fJsonName, out)
+
+
 
 # %%
 
@@ -200,27 +201,44 @@ strip_tweet(fJsonName, out)
 
 # %% markdown
 #
+
+# %% markdown
 # ### Demo stripping:
-# FIXME: does this demo work?
-
-# %%
-test_tweets = [
-    "The * Mooch*...apt nickname...you're not truthful so it's doubtful the * proceeds * go to any charity that isn't an LLC for *Mooch's Piggy Bank*... https://t.co/YA9pey2ljW",
-    "FBI eyes Jones' charity, UAW officials' California junkets https://t.co/iQfIjLCyxL",
-    "@johnpavlovitz @2LarryJohnson7 I hope Larry Johnson boxes you for charity.",
-    "#TheBiblicalStandard it's only the HONORABLE MESSIAH who will help the church to reach the Bibilical standards. HE offered the Sarcrifice of attonment outside the gate on a tree for you and me to see GOD face to face.Uuuuuuuuii this is greater love."
-]
-
-cols = ['tweet']
-df = pd.DataFrame(test_tweets, columns=cols)
-
-test_tweet = df.iloc[1, 0]
-print(test_tweet)
-# test_tweet = "b\The * Mooch*...apt nickname...you're not truthful so it's doubtful the * proceeds * go to any charity that isn't an LLC for *Mooch's Piggy Bank*... https://t.co/YA9pey2ljW"
-
-# FIXME: pt2 for demo. This works in the test dataset
-stripped_tweet = do_strip_tweet(test_tweets) # FIXME: 'list' object has no attribute 'replace'
-stripped_tweet
+#
+# Samples of before and after stripped tweets:
+#
+# full_text: "b'#\\xe0\\xa4\\xaa\\xe0\\xa5\\x82\\xe0\\xa4\\xb0\\xe0\\xa5\\x8d\\xe0\\xa4\\xa3\\xe0\\xa4\\x97\\xe0\\xa5\\x81\\xe0\\xa4\\xb0\\xe0\\xa5\\x81_\\xe0\\xa4\\xb8\\xe0\\xa4\\x82\\xe0\\xa4\\xa4\\xe0\\xa4\\xb0\\xe0\\xa4\\xbe\\xe0\\xa4\\xae\\xe0\\xa4\\xaa\\xe0\\xa4\\xbe\\xe0\\xa4\\xb2\\xe0\\xa4\\x9c\\xe0\\xa5\\x80\\nKabir, Guru without turning garland, Guru without giving charity.\\n Guru bin is both fruitless, ask whether the Beda Purana.\\n Guru bin Naam revokes or donates a garland of 
+# chanting, that is in vain.  This is also evident in the Vedas and Puranas. https://t.co/SACS9EGRGU'"
+#
+# full_text_stripped: "Kabir Guru without turning garland Guru without giving charity Guru bin is both fruitless ask whether the Beda Purana Guru bin Naam revokes or donates a garland of chanting that is in vain This is also evident in the Vedas and Puranas"
+# 
+# full_text: "b'Summer Sweep Sale! 20% Off Store Wide!!\\nTammysTreasures554 -Ebay - 10% Of All Sales Go To Charity \\nhttps://t.co/x5zLCBtjxC https://t.co/j2kzcgNDrU'"
+#
+# full_text_stripped: "Summer Sweep Sale 20 Off Store Wide TammysTreasures554 Ebay 10 Of All Sales Go To Charity"
+# 
+# full_text: "b'May God bless them kids that these niggas be lien on cus they don\\xe2\\x80\\x99t deserve all that \\xf0\\x9f\\xa5\\xba'"
+#
+# full_text_stripped: "May God bless them kids that these niggas be lien on cus they don\u2019t deserve all that \ud83e\udd7a"
+# 
+# full_text: "b'Audrey Hepburn at the charity ball Les Petits Lits Blancs aboard the liner France in Le Havre, France, January 14, 1962. #audreyhepburn https://t.co/njgOruCOSd'"
+#
+# full_text_stripped: "Audrey Hepburn at the charity ball Les Petits Lits Blancs aboard the liner France in Le Havre France January 14 1962"
+# 
+# full_text: "b\"Through their 'Integrity Initiative' project, the Institute for Statecraft \\xe2\\x88\\x92 a state-funded charity \\xe2\\x88\\x92 conducted a number of shady activities, like smearing Jeremy Corbyn.\\n\\nThis requires a public inquiry. Watch what happened when I visited their London office earlier this year. https://t.co/42LOIhFcDO\""
+#
+# full_text_stripped: "Through their Integrity Initiative project the Institute for Statecraft \u2212 a state funded charity \u2212 conducted a number of shady activities like smearing Jeremy Corbyn This requires a public inquiry Watch what happened when I visited their London office earlier this year"
+# 
+# full_text: "b'Sunday morning looks sunny - so why not join this fundraising family walk? It is a way to help raise funds for the Park along with a second charity chosen by the organisers. You will find all details online https://t.co/9fAo10AEpg'"
+#
+# full_text_stripped: "Sunday morning looks sunny so why not join this fundraising family walk It is a way to help raise funds for the Park along with a second charity chosen by the organisers You will find all details online"
+# 
+# full_text: "b'Cheating at a charity golf day. Yay or nay? \\n@mattricho0\\n@NathanBrown_07\\n\\nListen to Richo, Browny &amp; Hummer here  -  https://t.co/yI4xyEKPYC https://t.co/Oo9zflwHId'"
+#
+# full_text_stripped: "Cheating at a charity golf day Yay or nay Listen to Richo Browny amp Hummer here"
+# 
+# full_text: "b\"2 days to go! 10 of the Broadsword team will be running 10km in Hyde Park on Sunday for Mind, the mental health charity. If you haven't already, you can donate by following this link https://t.co/yqMeBjEOwz #10k #goteambroadsword\""
+#
+# full_text_stripped: "2 days to go 10 of the Broadsword team will be running 10km in Hyde Park on Sunday for Mind the mental health charity If you haven t already you can donate by following this link"
 
 # %% markdown
 #
@@ -233,17 +251,28 @@ stripped_tweet
 #
 # ### 1.2 Initial Exploration (Pre-processing)
 # 
-# - TODO: top K unique hashtags
+# #### top K unique hashtags
+
+# %%
+fName = 'data/raw/with-hashtags/data-array-with-hashtags.txt'
+doGetHashtags(fName, 50)
+# BUG: doGetMentions('data/processed/data.json', 30)
+
+# %% markdown
+# - Please note that while I was able to scrape the hashtags and mentions,
+# there is a continuing bug in this code which means I have not been able to
+# display the `mentions`
 
 # %% markdown
 #
 # Top K unique words
 
 # %%
-# FIXME: doProcessTweet('data/processed/data.json', 'full_text_stripped', 30) 
-doProcessTweet('data/processed/data.json',
-               'full_text_stripped', 30, isJson=True)
+# expensive process:
+# doProcessTweet('data/processed/data.json',           
+               # 'full_text_stripped', 30, isJson=True)
 
+# %%
 lTweets_sample = load_tweets_list('data/processed/data_sample.json')
 lTweets = load_tweets_list('data/processed/data.json')
 
@@ -256,22 +285,10 @@ lTweets = load_tweets_list('data/processed/data.json')
 lengths_lTweets = [len(i) for i in lTweets]
 sum(lengths_lTweets) / float(len(lengths_lTweets))
 
-# %%
-# TODO: after MD scrape it again, with hashtags and mentions
-# BUG: doGetHashtags('data/processed/data.json', 30)
-# BUG: doGetMentions('data/processed/data.json', 30)
-
-# %% markdown
-#
-# - Please note that I was unable to scrape the tweet entities json because of bug in my code, so was unable to create the outputs for the above scripts
-
 # %% markdown
 #
 # ## 2. Analysis Methodology
 # 
-# - TODO: Describe what analysis you performed to answer the questions
-# - TODO: What type of sentiment analysis did you do?  Briefly explain your rationale for doing it as such.
-# - TODO: What type of topic modelling did you do?  Again, briefly explain your rationale for your approach.
 
 # %% markdown
 #
@@ -337,15 +354,16 @@ doDisplayWordcloud(lTweets)
 # #### Sentiment Analysis - Count
 
 # %%
-#
 doSentimentAnalysis('data/processed/data_sample-multi-json.json', approach='count')
+
+doSentimentAnalysis('data.txt', approach='count')
+
 
 # %% markdown
 #
 # #### Sentiment Analysis - Vader
 
 # %%
-#
 doSentimentAnalysis('data/processed/data_sample-multi-json.json', approach='vader')
 
 # %% markdown
@@ -423,7 +441,7 @@ doSentimentAnalysis('data/processed/data_sample-multi-json.json', approach='vade
 #
 # ### Bibleography
 #
-# Nothing cited
+# Plenty of this code is from Jeffrey Chan, RMIT. Cited in Files where appropriate
 #
 # ### Appendix for code
 #
