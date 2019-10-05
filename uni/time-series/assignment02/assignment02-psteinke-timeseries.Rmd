@@ -29,8 +29,10 @@ setwd("./.")
 dataFilename <- "raw-data/eggs.csv"
 startYear = 1981 # get start year
 endYear = 1996 # get end year
+
 devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
 library(packagr)
+
 packages <- c('FitAR','fUnitRoots','lmtest','readr','tidyr','TSA','TTR','MASS','purrr','captioner')
 packagr(packages) # alpha package to check, install and load packages
 data <- read_csv(dataFilename)

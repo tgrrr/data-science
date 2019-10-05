@@ -1,10 +1,10 @@
 #%% [markdown]
-# # TODO: Objective
+# # ~old_todo~ Objective
 #
 #%% [markdown]
 # Hey there cutie
 
-# TODO: Data cleaning:
+# ~old_todo~ Data cleaning:
 # - [ ] separate target data from the rest of variables (this is something he does in his examples)
 # - [ ] deal with outliers/data well outside range of 0-1 normalised data
 # - [x] Add comment: check if nulls are signified by a character. If this was the case, we would get it with numerical values
@@ -13,7 +13,7 @@
 # - [ ] change other nominal variables to binary variable (e.g. countryId?)
 # - [x] pylint -P
 
-# TODO: Data Visualisation
+# ~old_todo~ Data Visualisation
 # - [ ] univariate data visualisation
 # - [ ] multivariate data visualisation (scatter plots etc)
 
@@ -62,7 +62,7 @@ import io
 # from google.colab import files
 # uploaded = files.upload()
 #%%
-# FIXME: use this auth code: 4/PAFcAWF6qf6kjcKmzPXysqJoAQZdys52vS4GlHyFoPdWFw6XchbtmF0
+# ~old_fixme~ use this auth code: 4/PAFcAWF6qf6kjcKmzPXysqJoAQZdys52vS4GlHyFoPdWFw6XchbtmF0
 # from google.colab import drive
 # drive.mount('/content/drive')
 # !ls "/content/drive/My Drive/" # this line will let you know if it's mounted correctly
@@ -100,11 +100,11 @@ data = pd.read_csv(__file_name__)
 # * **price1, price2, price3**: Price combination for the record set by the company (numeric)
 # * **ad_area**: area of advertisement (normalized between 0 and 1)
 # * **ad_ratio**: ratio of advertisement's length to its width (normalized between 0 and 1)
-# * **requests**: TODO: (numeric)
-# * **impression**: TODO: (numeric)
-# * **cpc**: Cost per click TODO: (numeric)
-# * **ctr**: TODO: (numeric) 
-# * **viewability**: TODO: (numeric)
+# * **requests**: ~old_todo~ (numeric)
+# * **impression**: ~old_todo~ (numeric)
+# * **cpc**: Cost per click ~old_todo~ (numeric)
+# * **ctr**: ~old_todo~ (numeric) 
+# * **viewability**: ~old_todo~ (numeric)
 # * **ratio1, ..., ratio5**: Ratio characteristics related to the record (normalized between 0 and 1)
 # * **y **(target feature): revenue-related metric (numeric)
 
@@ -129,7 +129,7 @@ data = pd.read_csv(__file_name__)
         - oneHotEncode()
 
 # * **day**: Day of record (integer between 1 (oldest) and 30 for train, 
-    - TODO: does this need to be split? 31 and 35 (most recent) for test)
+    - ~old_todo~ does this need to be split? 31 and 35 (most recent) for test)
     - add a global variable for whether it's 1-30 or 31 - 35
 # * **dow**: Day of week of the record (categorical)
 dow_friday,
@@ -149,21 +149,21 @@ dow_wednesday,
 # * **price1, price2, price3**: Price combination for the record set by the company (numeric)
 # * **ad_area**: area of advertisement (normalized between 0 and 1)
 # * **ad_ratio**: ratio of advertisement's length to its width (normalized between 0 and 1)
-# * **requests**: TODO: (numeric)
+# * **requests**: ~old_todo~ (numeric)
 
-# * **impression**: TODO: (numeric)
-# * **cpc**: TODO: (numeric)
-# * **ctr**: TODO: (numeric) 
-# * **viewability**: TODO: (numeric)
+# * **impression**: ~old_todo~ (numeric)
+# * **cpc**: ~old_todo~ (numeric)
+# * **ctr**: ~old_todo~ (numeric) 
+# * **viewability**: ~old_todo~ (numeric)
 # * **ratio1, ..., ratio5**: Ratio characteristics related to the record (normalized between 0 and 1)
-- TODO: what kind of data is this? numeric?
+- ~old_todo~ what kind of data is this? numeric?
 
 # * **y **(target feature): revenue-related metric (numeric)
 - split into separate dataset
 - don't normalise
 
 #%%
-# TODO:
+# ~old_todo~
 # Convert to DataFrame
 # df = data.convert_objects(
 #     # convert_dates=True,
@@ -222,7 +222,7 @@ print(data.isnull().sum())
 # summary statistics
 print(data.describe())
 
-# TODO: ? Scale these features only
+# ~old_todo~ ? Scale these features only
 scaleTheseFeatures = [
 'price1',
 'price2',
@@ -242,17 +242,17 @@ scaleTheseFeatures = [
 ]
 
 #%%
-# TODO: split `y` into separate dataset before normalisation
+# ~old_todo~ split `y` into separate dataset before normalisation
 
 
 #%%
-# TODO: normalise everything not already between 1 and 0
+# ~old_todo~ normalise everything not already between 1 and 0
 # WIP:
 # Compare outliers with this after normalisation
 data_scaler = preprocessing.RobustScaler().fit(data)
 dataNormalised = data_scaler.transform(data)
 
-data = dataNormalised # TODO: compare outliers between data and dataNormalised
+data = dataNormalised # ~old_todo~ compare outliers between data and dataNormalised
 
 # scaleTheseFeatures = ['A', 'B']
 # data[scaleTheseFeatures] = scaler.fit_transform(data[scaleTheseFeatures])
@@ -292,7 +292,7 @@ for index, row in data.head(n=1).iterrows():
 data.boxplot(column = ['price2'])
 
 # about 25%
-# TODO: (len(data[outliers]))/(len(outliers))
+# ~old_todo~ (len(data[outliers]))/(len(outliers))
 
 outliersIndexList = data[outliers].index.values.astype(int)
 
@@ -375,14 +375,14 @@ source = data[['price1','price2', 'price3']].sample(n=10000)
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 #%% [markdown]
 # ## Data Visualisation
-# ### TODO: Multivariate
+# ### ~old_todo~ Multivariate
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 # WIP:
 #%%
-# TODO: compare to this library: https://pypi.org/project/iso-3166-1/
+# ~old_todo~ compare to this library: https://pypi.org/project/iso-3166-1/
 # def do_country(x):
 #     foo = int(df['countryId'][193])
 #     print countries.get(int(foo))
@@ -433,7 +433,7 @@ source = data[['price1','price2', 'price3']].sample(n=10000)
 # numericColumnsList = list(data[(numeric)].columns.values)
 # # objects = list(data.select_dtypes(include=['object']).columns)
 
-# # TODO: Count of each numerical Column
+# # ~old_todo~ Count of each numerical Column
 # def get_value_counts(x):
 #     print x.value_counts()
 # data[numericColumnsList].apply(get_value_counts)

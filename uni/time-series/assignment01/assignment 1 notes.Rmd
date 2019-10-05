@@ -4,7 +4,7 @@ author: "Phil Steinke s3725547"
 ---
 +++++++++++++++++++++++++++
 
-Final TODOLATER:
+Final ~old_todo~~old_later~
 link to github
 remove commented code
 copy paste variables
@@ -13,11 +13,11 @@ check graph x and y
 
 +++++++++++++++++++++++++++
 
-TODOLATER:
+~old_todo~~old_later~
 - What are the elements of a suitable and successful data analysis
 - how you might go about presenting your results in a written report format. 
 
-## TODOLATER: INCLUDE? Compare to previous year
+## ~old_todo~~old_later~ INCLUDE? Compare to previous year
 ```{r}
 # doTimeSeriesPlot(
 #   x = zlag(ozone.ts), # Generate first lag of the series
@@ -32,7 +32,7 @@ TODOLATER:
 #   linearTrendModel_previousYear,
 #   col = colourPallete[1])
 ```
-TODOLATER: where's this? Do I need it?
+~old_todo~~old_later~ where's this? Do I need it?
 ```{r}
 # index = 2:length(x)    # Create an index to get rid of the first NA value in x
 # cor(y[index],x[index]) # Calculate correlation between numerical values in x and y
@@ -259,7 +259,7 @@ doTimeSeriesPlot <-
       # x = ts_data,
       # x = zlag(ts_data),
       type = 'o',
-      ylab = 'TODOLATER: How much humans suck (annually)',
+      ylab = '~old_todo~~old_later~ How much humans suck (annually)',
       xlab = 'year',
       col = colourPallete[9],
       pch = 19
@@ -326,7 +326,7 @@ lines(as.vector(ozone.ts), type = "o")
 
 
 
-- TODOLATER: Does it look “random?” - Probably not, tbh
+- ~old_todo~~old_later~ Does it look “random?” - Probably not, tbh
 - Display and interpret the time series plot for these data.
 - Use least squares to fit a linear time trend to this time series. 
 - Interpret the regression output. 
@@ -335,9 +335,9 @@ lines(as.vector(ozone.ts), type = "o")
 - **harmonic trends** Use the least squares approach to fit a harmonic trend to the landings time series. Interpret the regression output. Save the standardized residuals from the fit for further analysis.
 
 Looking for different kinds of trends, eg season, etc.
-## TODOLATER: Should we normalise the data?
+## ~old_todo~~old_later~ Should we normalise the data?
 ```{r}
-# TODOLATER: Should we normalise the data?
+# ~old_todo~~old_later~ Should we normalise the data?
 
 # dat <- data.frame(x = rnorm(10, 30, .2), y = runif(10, 3, 5))
 # scaled.dat <- scale(dat)
@@ -380,7 +380,7 @@ knit_theme$get()
 doTimeSeriesPlot <- function(ts_data, title = '') {
   plot(ts_data,
        type = 'o',
-       ylab = 'TODOLATER: How much humans suck (annually)',
+       ylab = '~old_todo~~old_later~ How much humans suck (annually)',
        xlab = 'year')
   title(main = title,
         col.main = "darkblue",
@@ -391,4 +391,4 @@ doOzonePlot(ozone, titleTest)
 
 doOzonePlot(ozone)
 
-# TODOLATER: title refactor
+# ~old_todo~~old_later~ title refactor

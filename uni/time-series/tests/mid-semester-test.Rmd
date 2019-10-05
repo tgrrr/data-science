@@ -11,16 +11,16 @@ cat("\014") # clear everything
 workingDirectory <- "/Users/phil/code/data-science/cheatsheet/source/includes/time-series/raw-data"
 
 dataFilename <- "datasetMidSemTest.csv"
-startYear = 1919 # TODO: get start year
-# endYear = 0 # TODO: get start year
+startYear = 1919 # ~old_todo~ get start year
+# endYear = 0 # ~old_todo~ get start year
 default_ylab = ''
 # default_subtitle = ''
 default_xlab = 'Year'
 ```
 
-#### TODO: Hypothesis
+#### ~old_todo~ Hypothesis
 
-<!-- TODO: -->
+<!-- ~old_todo~ -->
 H<sub>0</sub>: the stochastic component of model 2 is normally distributed
 H<sub>a</sub>: 
 
@@ -47,8 +47,8 @@ data <- read.csv(
 ```
 
 ```{r}
-data %>% head(n = 5) # TODO: check for header, set startYear
-data %>% tail(n = 5) # TODO: set endYear
+data %>% head(n = 5) # ~old_todo~ check for header, set startYear
+data %>% tail(n = 5) # ~old_todo~ set endYear
 ```
 
 ```{r libraries, message=FALSE, warning=FALSE, include=FALSE, warnings=0}
@@ -79,7 +79,7 @@ data %>% tail(n = 5) # TODO: set endYear
 ```
 
 ```{r}
-# TODO: check if it needs labelling
+# ~old_todo~ check if it needs labelling
 rownames(data) <- seq(from = startYear, to = endYear)
 
 isTimeSeries <- function(data) { return(data %>% class() == 'ts') }
@@ -89,7 +89,7 @@ convertToTimeSeries <- function(data, startYear) {
     data.ts <- data :
     data.ts <- ts(
       as.vector(data), 
-      start = startYear # FIXME: start_year
+      start = startYear # ~old_fixme~ start_year
       # end = endYear # optional
     );
 }
@@ -117,7 +117,7 @@ checkCorrelationWithPreviousYear <- function(data) {
 }
 checkCorrelationWithPreviousYear(data.ts)
 ```
-TODO: There is a strong positive auto-correlation of the data for concurrent years
+~old_todo~ There is a strong positive auto-correlation of the data for concurrent years
 
 ### Data Visualisation
 
@@ -126,11 +126,11 @@ TODO: There is a strong positive auto-correlation of the data for concurrent yea
 - Change in variance
 - Behaviour of the series (AR or MA)
 
-```{r fig.cap='TODO: caption'}
+```{r fig.cap='~old_todo~ caption'}
 plot(
   data.ts
 )
-# OR LATER FIXME:
+# OR ~old_later~ ~old_fixme~
 # doTimeSeriesPlot(
 
 ```
@@ -151,8 +151,8 @@ summary(linearTrendModel)
 - a p-value < 0.05 shows that the model is significant
 - R<sup>2</sup> = 0.6655 shows the model is partially significant
 
-Slope: β̂<sub>1</sub>= TODO:
-Intercept: β̂̂<sub>0</sb>0= TODO:
+Slope: β̂<sub>1</sub>= ~old_todo~
+Intercept: β̂̂<sub>0</sb>0= ~old_todo~
 
 
 #### f() ACF and PACF
@@ -188,7 +188,7 @@ data.ts.transform = BoxCox.ar(
   hessian = T
   )
 data.ts.transform$ci
-lambda = 1 # The mid point of the interval TODO:
+lambda = 1 # The mid point of the interval ~old_todo~
 BC.data.ts = (data.ts^lambda-1)/lambda # apply the Box-Cox transformation
 ```
 
@@ -208,7 +208,7 @@ shapiro.test(BC.data.ts)
 ```
 
 ```{r}
-plot(BC.data.ts,type='o',ylab='TODO', main='Box-Cox TODO ')
+plot(BC.data.ts,type='o',ylab='~old_todo~', main='Box-Cox ~old_todo~ ')
 # In the time series plot, we observe that the variation in the series is 
 # decreased after applying the Box-Cox transformation. But there is still trend.
 # So let's apply the first difference and see if it helps.
@@ -217,7 +217,7 @@ plot(BC.data.ts,type='o',ylab='TODO', main='Box-Cox TODO ')
 ```{r}
 diff.BC.data.ts = diff(BC.data.ts)
 par(mfrow=c(1,1))
-plot(diff.BC.data.ts,type='o',ylab='TODO')
+plot(diff.BC.data.ts,type='o',ylab='~old_todo~')
 # Now, there is only changing variance in the series after taking the first difference.
 # Let's go on with the specification of the models.
 ```
@@ -250,7 +250,7 @@ eacf(diff.BC.data.ts)
 
 #### BIC table
 ```{r}
-# TODO: (Hint: use "  nar=10, nma=10, ar.method='ols'   " options while displaying BIC table).
+# ~old_todo~ (Hint: use "  nar=10, nma=10, ar.method='ols'   " options while displaying BIC table).
 nar <- 10
 nma <- 10
 par(mfrow=c(1,1))
@@ -259,7 +259,7 @@ res2 =
     y=diff.BC.data.ts,
     nar=nar,
     nma=nma,
-    y.name='TODO:',
+    y.name='~old_todo~',
     ar.method='ols')
 plot(res2)
 # In the BIC table, shaded columns correspond to AR(4), MA(3) and MA(11) coefficients and 

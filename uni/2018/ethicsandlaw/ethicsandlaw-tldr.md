@@ -1,6 +1,6 @@
 LEP sections:
 
-TODOLATER: what are core learning objectives?
+~old_todo~~old_later~ what are core learning objectives?
 
 This week will contribute to Course Learning Objectives 1,2,3 and 4:
 

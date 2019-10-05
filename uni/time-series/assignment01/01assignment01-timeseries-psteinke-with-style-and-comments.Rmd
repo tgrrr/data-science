@@ -21,16 +21,16 @@ This report examines the decline of the thickness of Ozone layer over 90 years.
 To find this, data was collected from 1927 to 2016 in Dobson units (yearly changes). Where a negative value in the dataset represents a decrease in Ozone thickness and a positive value represents an Ozone increase in the thickness.
 
 
-#### TODOLATER: Hypothesis
+#### ~old_todo~~old_later~ Hypothesis
 
-TODOLATER:
+~old_todo~~old_later~
 H<sub>0</sub>: the stochastic component of model 2 is normally distributed
 H<sub>a</sub>: 
 
 H0:μΔ=0
 HA:μΔ≠0
 
-We found that ... TODOLATER:
+We found that ... ~old_todo~~old_later~
 as the p-value was less than 5% and the null mean (i.e. zero) did not fall within the 95% confidence interval. As such the null hypothesis was rejected.
 
 #### Goals:
@@ -287,7 +287,7 @@ summary(model.ozone.qa)
 ```{r}
 plot(
   ts(fitted(model.ozone.qa)),
-  ylab = 'y TODOLATER:',
+  ylab = 'y ~old_todo~~old_later~',
   ylim = c(
     min(c(
       fitted(model.ozone.qa),

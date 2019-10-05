@@ -54,7 +54,7 @@ The company has decided to use a **similarity-based model** to implement the rec
 Answer: ==Russel Rao==, because they want to include what is not bought, and the other models do not account for **co-absence**
 > the behavior of customers is captured in terms of what items they have bought or not bought
 
-TODO: formulas
+~old_todo~ formulas
 - **Russel-rao(x, y)** = ratio of co-presence / total binary
 - **Sokal-Michiner(x, y)** = ratio of co-presence and co-absence / total binary
 - **Jaccard(x,y)** = ignores co-absence altogether

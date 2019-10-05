@@ -71,7 +71,7 @@ HA:μΔ≠0
 Didn't use:
 # 'CADFtest','smooth','beepr','RColorBrewer','CADFtest'
 
-TODO:
+~old_todo~
 
 intonation point
 
@@ -86,8 +86,8 @@ change plots titles
 - [ ] should I have diffed the boxcox?
 - [ ] Return object of outputs from function
 
-- TODO: For MA(1) 
-- TODO: For AR(1) 
+- ~old_todo~ For MA(1) 
+- ~old_todo~ For AR(1) 
 
 lags of 1 and 4 might be significant
 
@@ -97,10 +97,10 @@ lags of 1 and 4 might be significant
 - see: https://www.one-tab.com/page/ArtMluDpSnSmRtMUervoVw
 (includes lectures for this.)
 
-TODO: check that we've proven there's a trend before here: Because a trend exists, We'll check the `BoxCox.ar`
+~old_todo~ check that we've proven there's a trend before here: Because a trend exists, We'll check the `BoxCox.ar`
 
 
-TODO: maths for  ADF test Δyt=α+βt+γyt−1+δ1Δyt−1+⋯+δp−1Δyt−p+1+εt
+~old_todo~ maths for  ADF test Δyt=α+βt+γyt−1+δ1Δyt−1+⋯+δp−1Δyt−p+1+εt
 
 > # Slowly decaying pattern in ACF and very high first correlation in PACF
 > # implies the existence of trend and nonstationarity.
@@ -110,7 +110,7 @@ TODO: maths for  ADF test Δyt=α+βt+γyt−1+δ1Δyt−1+⋯+δp−1Δyt−p+1
 With a p-value of 0.6665, we cannot reject the null hypothesis stating that
 the series is non-stationary." - from 05-tasks
 
-TODO: ```{r} qqnorm(BC.gold)
+~old_todo~ ```{r} qqnorm(BC.gold)
 qqline(BC.gold, col = 2)
 shapiro.test(BC.gold)
 ```
@@ -134,7 +134,7 @@ CADFtest() in CADFtest.
 function for `adfTests`
 
 
-TODO: showing different adfTest possibilities
+~old_todo~ showing different adfTest possibilities
 <!-- ))))))))))))))) -->
 
 adf drift, intercepts, and...
@@ -164,9 +164,9 @@ model fitting shows Intercept
 intercept in model 
 cross y axis
 
-TODO: Working on understanding ar tests, late thurs night
+~old_todo~ Working on understanding ar tests, late thurs night
 
-<!-- TODO: remove?  -->
+<!-- ~old_todo~ remove?  -->
 ```{r}
 ar(data.ts)
 ```
@@ -229,13 +229,13 @@ ar(diff(log.data.ts, 3))
 
 
 #### Initial Plot Declare
-<!-- TODO: update -->
+<!-- ~old_todo~ update -->
 ```{r fig.height=4, fig.width=8}
 t = time(data.ts.ts) # Create time points for model fitting
 
-default_ylab = '' # TODO:
-default_subtitle = '' # TODO:
-default_xlab = '' # TODO:
+default_ylab = '' # ~old_todo~
+default_subtitle = '' # ~old_todo~
+default_xlab = '' # ~old_todo~
 
 doTimeSeriesPlot <- function(
   x, 
@@ -267,7 +267,7 @@ doTimeSeriesPlot <- function(
 ```
 
 
-# LATER
+# ~old_later~
 ? put into single saply function diff 1, 2, 3...?
 ```{r}
 diffCounts <- list(1,2,3)
@@ -278,7 +278,7 @@ sapply(diffCounts, df=data.ts, doDiffAndPlot)
 Didn't use this reverse transform
 
 ```{r}
-# TODO: remove?
+# ~old_todo~ remove?
 # We applied log transformation and second difference. To take them back:
 log.data.ts = log(data.ts.raw)
 log.data.ts.diff2.back = diffinv(diff.data.ts, differences = 2, xi = data.ts.matrix(log.data.ts[1:2]))

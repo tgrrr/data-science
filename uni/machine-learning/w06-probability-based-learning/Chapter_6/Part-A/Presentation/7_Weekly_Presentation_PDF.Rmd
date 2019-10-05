@@ -30,7 +30,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 * Git (on your local branch)
 * Git to GitHub (not recommended unless you or your team are willing to pay for private repository)
-* `TODO` markers as an alternative to "comments"
+* `~old_todo~` markers as an alternative to "comments"
 * `#` vs `#'`
 * Making sections in R Script
 * [R Coding Style](https://google.github.io/styleguide/Rguide.xml) at https://google.github.io/styleguide/Rguide.xml

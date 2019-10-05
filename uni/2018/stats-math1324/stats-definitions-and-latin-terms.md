@@ -7,7 +7,7 @@ Point estimator is single value of sample mean
 
 [integrated learners]: https://mlr-org.github.io/mlr-tutorial/release/html/integrated_learners/
 
-todo:
+~old_todo~
 what are equal variances?
 
 

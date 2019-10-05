@@ -211,7 +211,7 @@ Fill in the blanks with no more than a few words.
 _unsupervised_.
 2. There are two kinds of mistakes that can be made in a prediction modelling problem. The first kind of mistake is that the prediction model selected by the algorithm is **too simplistic to represent the underlying relationship** between the descriptive feature and the target feature. This kind of mistake is called _Underfitting_
 3. There are two kinds of mistakes that can be made in a prediction modelling problem. The second type of mistake is that the prediction model selected by the algorithm is so complex that the model fits to the dataset too closely and becomes sensitive to the noise in the data. This kind of mistake is called _Overfitting_
-TODO: 4. In many cases, a unique solution cannot be determined using only the information available in a machine learning problem. This is why machine learning is considered as _local search_ problem.
+~old_todo~ 4. In many cases, a unique solution cannot be determined using only the information available in a machine learning problem. This is why machine learning is considered as _local search_ problem.
 5. The set of assumptions that define the model selection criteria of a machine learning algorithm is known as _Inductive Bias_
 
 ## Problem 4: (15 points, 3 points each) 

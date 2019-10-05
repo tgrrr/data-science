@@ -218,7 +218,7 @@ dataset of FSAdata package.
     \StringTok{'adf p-value:'}\NormalTok{,}
 \NormalTok{    p, (}\KeywordTok{ifelse}\NormalTok{(p }\OperatorTok{<}\StringTok{ }\FloatTok{0.05}\NormalTok{, }\StringTok{'< 0.05 significant'}\NormalTok{, }\StringTok{'> 0.05 insignificant'}\NormalTok{)}
 \NormalTok{    )) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{print}\NormalTok{()}
-  \CommentTok{# }\AlertTok{TODO}\CommentTok{: later ifelse(showEacf, eacf(df.ts, ar.max=3, ma.max=3),'') # works on larger datasets}
+  \CommentTok{# }\AlertTok{~old_todo~}\CommentTok{: later ifelse(showEacf, eacf(df.ts, ar.max=3, ma.max=3),'') # works on larger datasets}
   \ControlFlowTok{if}\NormalTok{(showPlot) \{}
     \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
     \KeywordTok{plot}\NormalTok{(}
@@ -353,7 +353,7 @@ bimodal data in the data
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{doDiffAndPlot}\NormalTok{(data.ts, }\DecValTok{1}\NormalTok{, F, F) }\CommentTok{# p = 0.3601 no lags! = nope }\AlertTok{TODO}\CommentTok{: only show lags}
+\KeywordTok{doDiffAndPlot}\NormalTok{(data.ts, }\DecValTok{1}\NormalTok{, F, F) }\CommentTok{# p = 0.3601 no lags! = nope }\AlertTok{~old_todo~}\CommentTok{: only show lags}
 \end{Highlighting}
 \end{Shaded}
 

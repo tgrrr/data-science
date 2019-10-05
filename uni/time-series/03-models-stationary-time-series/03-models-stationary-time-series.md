@@ -1,6 +1,6 @@
 # Models for Stationary Time Series - Week 3
 
-# TODOLATER:
+# ~old_todo~~old_later~
 - [ ] at Friday 7.32 looking for 
 - [ ] R^2, significant coefficients, and something in competition
 
@@ -21,7 +21,7 @@ Also:
 - ρt,s: Correlation between lags t and s of a time series data. 
 - γt,s: Covariance between lags t and s of a time series data. 
 
-## !Contents (TODOLATER:)
+## !Contents (~old_todo~~old_later~)
 - [ ] Introduction
 - [ ] Online Notes (plus pdf)
 - [ ] Presentation (plus pdf)
@@ -84,11 +84,11 @@ Expectation of Y<sub>t</sub> is 0
 ϕ co-efficient of GLP
 
 
-  Yt=et+Ψ1et−1Ψ2et−2+… TODOLATER:
+  Yt=et+Ψ1et−1Ψ2et−2+… ~old_todo~~old_later~
 
   provided that
 
-  ∑1∞Ψ2i<∞.TODOLATER:
+  ∑1∞Ψ2i<∞.~old_todo~~old_later~
   
   
 What did he say at 7.33?   

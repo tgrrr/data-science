@@ -60,7 +60,7 @@ plt.show()
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
-# TODOLATER:
+# ~old_todo~~old_later~
 
 # - text: between 3 to 10 pages for each phase
 # - total: between 3 to 10 pages for each phase

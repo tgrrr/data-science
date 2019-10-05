@@ -3,13 +3,13 @@ id: "my-id"
 class: "my-class1 my-class2"
 ---
 
-==TODO:==
+==~old_todo~==
 
 - ! Draw binary classifier box
 - ROC curve ch8 q3
 - Bayes Theorum
   - k-NN model vs Native Bayes Model see ch8b
-- TODO's in untitled
+- ~old_todo~'s in untitled
 
 profit matrix
 
@@ -17,11 +17,11 @@ Later tonight:
 - css print fix <!-- @import "cheatsheetstyle.less" -->
 - turn into snippets
 
-  - [ ] TODO: Chapter 4 (Information-based learning): Problems 2, 3, 4
-  - [ ] TODO: Chapter 5 (Similarity-based learning): Problems 1, 2, 5
-    - [ ] TODO: including Feature Selection (5.4.6)
-  - [ ] TODO: Chapter 6 (Probability-based learning): Problems 2, 5, 6
-  - [ ] TODO: Chapter 8 (Evaluation): Exercises 1, 2, 3, 4
+  - [ ] ~old_todo~ Chapter 4 (Information-based learning): Problems 2, 3, 4
+  - [ ] ~old_todo~ Chapter 5 (Similarity-based learning): Problems 1, 2, 5
+    - [ ] ~old_todo~ including Feature Selection (5.4.6)
+  - [ ] ~old_todo~ Chapter 6 (Probability-based learning): Problems 2, 5, 6
+  - [ ] ~old_todo~ Chapter 8 (Evaluation): Exercises 1, 2, 3, 4
 
   ### Chapters covered by the final exam:
     - [ ] Chapter 1
@@ -33,9 +33,9 @@ Later tonight:
 
   ### Deathlist
 
-    - [ ] TODO: Add final test solutions
-    - [ ] TODO: Check each chapter pdf and summarise
-    - [ ] TODO: The check-these folder
+    - [ ] ~old_todo~ Add final test solutions
+    - [ ] ~old_todo~ Check each chapter pdf and summarise
+    - [ ] ~old_todo~ The check-these folder
 
 <details id='lefty'>
   <summary>
@@ -44,7 +44,7 @@ Later tonight:
   <br><p id='righty'>
 
   eg. Probability of card = 0.019 (1/52)
-  ==FIXME:== example for every _level_ 
+  ==~old_fixme~== example for every _level_ 
   = -Sum(Pr(suit) * log₂(Pr(suit)))
   = ==-== Pr(♡) * log₂(Pr(♡) +
       Pr(♧) * log₂(Pr(♧) +
@@ -106,7 +106,7 @@ Entropy of partition\enskip H(t,D)=-\sum _{ l\; \epsilon \; levels(t) }^{ l } \l
   </summary>
   <br />
 
-  ==TODO: Eg.==
+  ==~old_todo~ Eg.==
   How:
 
   - Get fraction of answers that will be true vs false from col
@@ -137,7 +137,7 @@ IG ratio: GR(t,\mathcal{D}) = { \frac { IG(d,\mathcal{D})  }{ H(t,\mathcal{D})  
 </details>
 
 ```math
-gini(t,D)=1\, -\sum _{ l\; \epsilon \; levels(t) }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ TODO: }=1\, -\sum _{ l\; \epsilon \; \left\{ \begin{matrix} 'chapparian' \\ 'riparian' \\ 'conifer' \end{matrix} \right\}  }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ TODO: } \\ =1-\left( { \frac { 3 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 } \right) \ =0.653
+gini(t,D)=1\, -\sum _{ l\; \epsilon \; levels(t) }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ ~old_todo~ }=1\, -\sum _{ l\; \epsilon \; \left\{ \begin{matrix} 'chapparian' \\ 'riparian' \\ 'conifer' \end{matrix} \right\}  }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ ~old_todo~ } \\ =1-\left( { \frac { 3 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 }+{ \frac { 2 }{ 7 }  }^{ 2 } \right) \ =0.653
 ```
 
 ### Co-presence / Co-absence
@@ -169,7 +169,7 @@ Eg. `k = 3` <- count 3 look at 3 nearest-neigbours
 | if adding new obs. to training data | do not want to continuously retrain     |
 |                                     | If irrelevant descriptive features      |
 | noisy data                          | noisy data                              |
-| TODO: if concept drift              | want fast predictions                   |
+| ~old_todo~ if concept drift              | want fast predictions                   |
 | ^                                   | OR large number of observations         |
 | if numeric data                     | if mix of numeric & categorical         |
 | ^                                   | && want minimise preprocessing          |
@@ -181,7 +181,7 @@ Eg. `k = 3` <- count 3 look at 3 nearest-neigbours
     </summary>
   <br>
   - choose the majority when splitting decision tree roots
-  - ==TODO:== don't forget equality! huh?
+  - ==~old_todo~== don't forget equality! huh?
   - prefer shallower trees & less tests
   - by splitting into pure sets (aka groups) of T/F
   - measured with _entropy_ in bits
@@ -193,7 +193,7 @@ $Nearest neighbour \mathbb{M}_{k}(\mathbf{q})=\underset{l \in \text {lelevels}(t
 
 $Weighted Neighest Neighbour \mathbb{M}_{k}(\mathbf{q})=\underset{l \in \operatorname{levels}(t)}{\operatorname{argmax}} \sum_{i=1}^{k} \frac{1}{\operatorname{dist}\left(\mathbf{q}, \mathbf{d}_{\mathbf{i}}\right)^{2}} \times \delta\left(t_{i}, I\right)$
 
-==TODO:==
+==~old_todo~==
 $Normalisation a_{i}^{\prime}=\frac{a_{i}-\min (a)}{\max (a)-\min (a)} \times(h i g h-l o w)+l o w$
 
 <div class='clearfix'>
@@ -379,7 +379,7 @@ $Normalisation a_{i}^{\prime}=\frac{a_{i}-\min (a)}{\max (a)-\min (a)} \times(h 
 
 $F₁ = 2×\frac{precision×recall}{precision+recall}$
 
-==TODO:==
+==~old_todo~==
 average class accuracy=1/∣levels(t)∣∣∑lϵlevels(t)recall
 
 <details>
@@ -452,17 +452,17 @@ average class accuracy=1/∣levels(t)∣∣∑lϵlevels(t)recall
 
 ### Bayes theorum
 
-==TODO==
+==~old_todo~==
 ```math
 \text {Bayes}=P(X | Y)=\frac{P(Y | X) P(X)}{P(Y)}=P(d | t)=\frac{P(t | d) P(d)}{P(t)}
 ```
 
-==TODO==
+==~old_todo~==
 ```math
 \begin{array}{l}{\text { Generalised Bayes Theorem: }} \\ {P(t=l | q[1], \ldots, q[m])=\frac{P(q[1], \ldots, q[m] | t=l) P(t=l)}{p(q[1], \ldots, q[m])}}\end{array}```
 ```
 
-==TODO==
+==~old_todo~==
 ${\text {Chain rule: }}P(q[1], \ldots, q[m]) \times P(q[2] | q[1]) \times \ldots \times P(q[m] | q[m-1], \ldots, q[2], q[1])$
 
 <details>
@@ -509,32 +509,32 @@ ${\text {Chain rule: }}P(q[1], \ldots, q[m]) \times P(q[2] | q[1]) \times \ldots
 P(f=v | t)=\frac{\operatorname{count}(f=v | t)+k}{\operatorname{count}(f | t)+(k \times|\operatorname{Domain}(f)|)}
 ```
 
-==TODO== eg.
+==~old_todo~== eg.
 ```math
 \text { Sum of squared errors }=\frac{1}{2} \sum_{i=1}^{n}\left(t_{i}-\mathbb{M}\left(d_{i}\right)\right)^{2}
 ```
-==TODO== eg.
+==~old_todo~== eg.
 ```math
 \text { Mean squared error }=\frac{\sum_{i=1}^{n}\left(t_{i}-\mathbb{M}\left(d_{i}\right)\right)^{2}}{n}
 ```
-==TODO== eg.
+==~old_todo~== eg.
 ```math
 \text {Root } M S E=\sqrt{M S E}
 ```
-==TODO== eg.
+==~old_todo~== eg.
 ```math
 { meanabsoluteerror }=\frac { \sum _{ i=1 }^{ n }{ abs } \left( t_{ i }-{ M }\left( { d }_{ i } \right)  \right)  }{ n } 
 ```
-==TODO== eg.
+==~old_todo~== eg.
 ```math
 \begin{matrix} Sum\enskip of\enskip squared\enskip errors\enskip =\enskip \frac { 1 }{ 2 } \sum _{ i=1 }^{ n } \left( t_{ i }-{ M }\left( d_{ i } \right)  \right) ^{ 2 } \\ =\frac { 1 }{ 2 } \sum _{ i=1 }^{ n } \left( true\enskip target\enskip feature\enskip value_{ i }-\enskip model's\enskip prediction \right) ^{ 2 } \end{matrix}
 ```
-==TODO== eg.
+==~old_todo~== eg.
 
 ```math
 R^{2}=1-\frac{\text { sum of squared errors }}{\text { total sum of squares }}
 ```
-==TODO== eg.
+==~old_todo~== eg.
 
 <details>
   <summary>

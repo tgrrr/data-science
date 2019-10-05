@@ -6,7 +6,7 @@
 #%% [markdown]
 # ------------------------------------------
 #%% [markdown]
-# # TODOLATER:
+# # ~old_todo~~old_later~
 #
 # - text: between 3 to 10 pages for each phase
 # - total: between 3 to 10 pages for each phase
@@ -43,7 +43,7 @@ df.shape
 # Get 5 randomly sampled
 df.sample(n=5) 
 
-# TODO: move df to github:
+# ~old_todo~ move df to github:
 # cancer_url = 'https://raw.githubusercontent.com/vaksakalli/datasets/master/breast_cancer_wisconsin.csv'
 # url_content = requests.get(cancer_url).content
 # cancer_df = pd.read_csv(io.StringIO(url_content.decode('utf-8')))
@@ -54,7 +54,7 @@ df.sample(n=5)
 col_nulls = {col: df[col].isnull().sum()
              for col in df.columns if df[col].isnull().sum() > 0}
 print(col_nulls)
-# TODO: does this check for everything?
+# ~old_todo~ does this check for everything?
 
 #%% [markdown]
 # ## Source and Description - Rubric 3/20

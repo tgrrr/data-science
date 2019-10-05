@@ -7,7 +7,7 @@ Areas:
 - Issues - improvements/solutions --> Upstream Business Risk (BP)
 
 
-TODOLATER:
+~old_todo~~old_later~
 
 
 
@@ -22,13 +22,13 @@ Sanity Checking
 - Identify systematic data issues
 - Predictive modelling assumes the future will be like the past
   - we have to make sure the past is like the past
-- TODOLATER: The data contains the questions
+- ~old_todo~~old_later~ The data contains the questions
 
-- TODOLATER: what's the IBM Watson story?
+- ~old_todo~~old_later~ what's the IBM Watson story?
 
 - If data has more than 1 dimension:
   - always plot it
-  - TODOLATER: image of Financial statement dates p11.
+  - ~old_todo~~old_later~ image of Financial statement dates p11.
 
 # Daily issues
 

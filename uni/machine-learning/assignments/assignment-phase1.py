@@ -1,4 +1,4 @@
-# TODO: Data cleaning:
+# ~old_todo~ Data cleaning:
 # - [ ] how to handle 14-15% outliers
 
 # - [x] separate target data from the rest of variables (this is something he does in his examples)
@@ -14,7 +14,7 @@
 # - [x] refactor (extract variables/functions/etc)
 # - [x] Check docs - convert to pandas dataframe (see code inline line #80)
 
-# TODO: Data Visualisation
+# ~old_todo~ Data Visualisation
 # - [ ] univariate data visualisation
 # - [ ] multivariate data visualisation (scatter plots etc)
 # - [ ] add figure labels to each visualisation 
@@ -47,7 +47,7 @@
 
 
 #%% [markdown]
-# # TODO: Objective
+# # ~old_todo~ Objective
 #
 
 #%% [markdown]
@@ -86,21 +86,21 @@ data.columns = labelNames
 
 # Features in this data set are as follows:
 
-# | Feature Name                           | Data Type   | Description                                                                                             | Transform TODO                                                                                                                                                                                              | # DataVis?                                                                                                                                                                                                                                      |
+# | Feature Name                           | Data Type   | Description                                                                                             | Transform ~old_todo~                                                                                                                                                                                              | # DataVis?                                                                                                                                                                                                                                      |
 # | -------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 # | **company_id**                          | categorical | Company ID of record                                                                                    | oneHotEncode()                                                                                                                                                                                              # |                                                                                                                                                                                                                                               |
 # | **country_id**                          | categorical | Country ID of record _iso3166 1.0_                                                                      | oneHotEncode()?binary/scaling it                                                                                                                                                                            | _iso3166 1.0_ to # country                                                                                                                                                                                                                      |
-# | **device_type**                         | categorical | Device type of record                                                                                   | oneHotEncode()                                                                                                                                                                                              | FIXME:1 Desktop, 2 mobile, 3 tablet, 5 # ConnectedTv                                                                                                                                                                                            |
-# | * **day**                              | integer     | Day of record <br/> - between 1 (oldest) and 30 for train, <br/> - between 31 (oldest) and 35 for test, | TODO: add a global variable for whether it's training/test                                                                                                                                                  # |                                                                                                                                                                                                                                               |
+# | **device_type**                         | categorical | Device type of record                                                                                   | oneHotEncode()                                                                                                                                                                                              | ~old_fixme~1 Desktop, 2 mobile, 3 tablet, 5 # ConnectedTv                                                                                                                                                                                            |
+# | * **day**                              | integer     | Day of record <br/> - between 1 (oldest) and 30 for train, <br/> - between 31 (oldest) and 35 for test, | ~old_todo~ add a global variable for whether it's training/test                                                                                                                                                  # |                                                                                                                                                                                                                                               |
 # | * **dow**                              | categorical | Day of week of the record                                                                               | - oneHotEncode? <br /> dow_friday <br /> dow_monday <br />  dow_saturday <br />   dow_sunday <br />   dow_thursday <br /> dow_tuesday <br />  dow_wednesday <br /> - maybe: split into weekday and weekend? | Note: normally we would have [transformed `dow` data as time series](https://datascience.stackexchange.com/questions/17759/# encoding-features-like-month-and-hour-as-categorial-or-numeric). However, the assignment specifies not to do this. |
 # | **price1,<br /> price2, <br />price3** | numeric     | Price combination for the record set by the company                                                     |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
 # | **ad_area**                            | numeric     | area of advertisement (normalized between 0 and 1)                                                      |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
 # | **ad_ratio**                           | numeric     | ratio of advertisement's length to its width (normalized between 0 and 1)                               |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
-# | **requests**                           | numeric     | TODO:                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
-# | **impression**                         | numeric     | TODO:                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
-# | **cpc**                                | numeric     | TODO:                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
-# | **ctr**                                | numeric     | TODO:                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
-# | **viewability**                        | numeric     | TODO:                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
+# | **requests**                           | numeric     | ~old_todo~                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
+# | **impression**                         | numeric     | ~old_todo~                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
+# | **cpc**                                | numeric     | ~old_todo~                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
+# | **ctr**                                | numeric     | ~old_todo~                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
+# | **viewability**                        | numeric     | ~old_todo~                                                                                                   |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
 # | **ratio1, ..., ratio5**                | numeric     | Ratio characteristics related to the record (normalized between 0 and 1)                                |                                                                                                                                                                                                             # |                                                                                                                                                                                                                                               |
 # | **y (target feature)**                 | numeric     | revenue-related metric                                                                                  | - split into separate dataset <br /> - don't normalise                                                                                                                                                      # |                                                                                                                                                                                                                                               |
 
@@ -158,7 +158,7 @@ print(data.describe())
 dataUnscaled = data.drop(columns = 'y')
 dataTarget = data['y']
 # type(dataTarget) # pandas series
-# TODO:reorganise the days so that y is at the end
+# ~old_todo~reorganise the days so that y is at the end
 
 #%% [markdown] 
 # ### Data Normalisation
@@ -289,13 +289,13 @@ sample.boxplot(column = ['ratio1','ratio2', 'ratio3','ratio4','ratio5'])
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 #%% [markdown]
 # ## Data Visualisation
-# ### TODO: Multivariate
+# ### ~old_todo~ Multivariate
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
 
 # WIP:
 #%%
-# TODO: compare to this library: https://pypi.org/project/iso-3166-1/
+# ~old_todo~ compare to this library: https://pypi.org/project/iso-3166-1/
 # def do_country(x):
 #     foo = int(df['country_id'][193])
 #     print countries.get(int(foo))
@@ -341,7 +341,7 @@ sample.boxplot(column = ['ratio1','ratio2', 'ratio3','ratio4','ratio5'])
 # numericColumnsList = list(data[(numeric)].columns.values)
 # # objects = list(data.select_dtypes(include=['object']).columns)
 
-# # TODO: Count of each numerical Column
+# # ~old_todo~ Count of each numerical Column
 # def get_value_counts(x):
 #     print x.value_counts()
 # data[numericColumnsList].apply(get_value_counts)

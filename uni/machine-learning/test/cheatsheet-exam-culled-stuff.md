@@ -1,9 +1,9 @@
 #### Final Cheatsheet: ready
 
-- TODO: supervised vs unsupervised:
+- ~old_todo~ supervised vs unsupervised:
   unsupervised => no target (aka response variable)
 
-## TODO: Examples of each formula
+## ~old_todo~ Examples of each formula
 
 ## Formulas:
 **Entropy** 
@@ -45,9 +45,9 @@ Information Gain: IG(d,\mathcal{D})=H(t,\mathcal{D})-\operatorname{rem}(d,\mathc
 ```math
 IG ratio: GR(t,\mathcal{D}) = { \frac { IG(d,\mathcal{D})  }{ H(t,\mathcal{D})  }  }
 ```
-==TODO:==
+==~old_todo~==
 ```math
-gini(t,D)=\quad 1\, - \sum _{ l\; \epsilon \; levels(t) }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ TODO } 
+gini(t,D)=\quad 1\, - \sum _{ l\; \epsilon \; levels(t) }^{ l } \underbrace { { Pr(t=l) }^{ 2 } }_{ ~old_todo~ } 
 ```
 **Eg.**
 - Gini index = how often misclassify an instance in a dataset
@@ -65,10 +65,10 @@ graph LR;
 ```
 
 - choose the majority when splitting decision tree roots
-- TODO: don't forget equality!
+- ~old_todo~ don't forget equality!
 - **Inductive Bias** = The set of assumptions that defines the model selection criteria of a ML algorithms
 
-==TODO:== ID3 algorithms
+==~old_todo~== ID3 algorithms
 1. choosing the best descriptive feature to test using IG
 2. Add root node to tree labelled with selected test
 3. Partition data using this feature
@@ -108,7 +108,7 @@ AP: absense(q)presence(d) = 0
 - [ ] $\text {Euclidean}(\mathbf{a}, \mathbf{b})=\sqrt{\sum_{i=1}^{m}(\mathbf{a}[i]-\mathbf{b}[i])^{2}}$
 - [ ] $\operatorname{Minkowski}(\mathbf{a}, \mathbf{b})=\left(\sum_{i=1}^{m} a b s(\mathbf{a}[i]-\mathbf{b}[i])^{p}\right)^{\frac{1}{\rho}}$
 
-- [ ] Manhattan distance ==TODO:==
+- [ ] Manhattan distance ==~old_todo~==
 
 | Neural Network                      | Decision Tree                           |
 | ----------------------------------- | --------------------------------------- |
@@ -117,7 +117,7 @@ AP: absense(q)presence(d) = 0
 | if adding new obs. to training data | do not want to continuously retrain     |
 |                                     | If irrelevant descriptive features      |
 | noisy data                          | noisy data                              |
-| TODO: if concept drift              | want fast predictions                   |
+| ~old_todo~ if concept drift              | want fast predictions                   |
 | ^                                   | OR large number of observations         |
 | if numeric data                     | if mix of numeric & categorical         |
 | ^                                   | && want minimise preprocessing          |

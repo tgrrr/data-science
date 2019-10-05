@@ -8,7 +8,7 @@ normalising function
 # # for x in data[x]:
 # #        print x
 # about 25%
-# TODO: (len(data[outliers]))/(len(outliers))
+# ~old_todo~ (len(data[outliers]))/(len(outliers))
 
 
 
@@ -24,7 +24,7 @@ EG PRICE INTO SAME COL
 from iso3166 import countries
 
 #%%
-# TODO: Count of each numerical Column
+# ~old_todo~ Count of each numerical Column
 def get_value_counts(x): 
     print x.value_counts()
 df[numericColumnsList].apply(get_value_counts)
@@ -45,7 +45,7 @@ for c in countries:
 
 
 
-# TODO:
+# ~old_todo~
 # - outliers
 # - missing values
 # - check normality and assumptions
@@ -153,7 +153,7 @@ Mobile
 
 
 #%%
-# FIXME: Working on doing the count in one go
+# ~old_fixme~ Working on doing the count in one go
 # def get_sublist(x):
     # return x.value_counts()
 # df[['ad_ratio']].apply(get_sublist)
@@ -364,7 +364,7 @@ plt.title('Figure 6')
 plt.xlabel('Risk Factor Symbol')
 plt.ylabel('Frequency')
 plt.show()
-# todo: group by drive-wheels
+# ~old_todo~ group by drive-wheels
 
 #%%
 # Task 2: Data Exploration
@@ -471,7 +471,7 @@ Your Phase II report must include the following (30 points total):
  
 
 Miscellenous:
-TODOLATER: Sources for project ideas is here Actions  .
+~old_todo~~old_later~ Sources for project ideas is here Actions  .
 How to convert jupyter notebooks to professional looking PDF files: (pdf Actions  ) (sample_zip)
 
 Sample Course Project in Python:

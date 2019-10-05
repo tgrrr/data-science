@@ -12,7 +12,7 @@ title: "MATH1318 Time Series"
 
 ## Executive Summary
 
-TODO:
+~old_todo~
 This report examines the .
 
 ### Goals:
@@ -190,7 +190,7 @@ residual.analysis(
   title = fig_nums('linear_residual', 'Linear model residual analysis')
 )
 
-# TODO: MASE for linear model
+# ~old_todo~ MASE for linear model
 ```
 
 - The standardised residuals are not white noise and show that the model has 
@@ -202,7 +202,7 @@ distributed
 - ACF: there are significant lags which does not fit with a white noise series
 - Shapiro-Wilk: significant, therefore reject the null that the residuals are 
 normally distributed
-- TODO: MASE value for this model
+- ~old_todo~ MASE value for this model
 
 ## Quadratic Model
 
@@ -238,7 +238,7 @@ residual.analysis(
     'quadratic_model_residual', 
     'Quadratic model residual analysis'))
 
-# TODO: MASE for quadratic model
+# ~old_todo~ MASE for quadratic model
 ```
 
 - The residuals are largely unchanged from the linear plot
@@ -251,7 +251,7 @@ distributed
 - ACF: there are significant lags which does not fit with a white noise series
 - Shapiro-Wilk: significant, therefore reject the null that the residuals are 
 normally distributed
-- TODO: MASE value for this model
+- ~old_todo~ MASE value for this model
 
 ```{r, plot-no-diff}
 doDiffAndPlot(data.ts, 0, 'Bitcoin with no diff')
@@ -261,7 +261,7 @@ doDiffAndPlot(data.ts, 0, 'Bitcoin with no diff')
 - the series will be transformed and/or differenced before fitting ARIMA
 
 ```{r, message=FALSE, warning=FALSE}
-# TODO: look at code to see where he uses it 
+# ~old_todo~ look at code to see where he uses it 
 # I think we should scrap this? - ash
 # bc.search = BoxCoxSearch(y = data.ts)
 ```
@@ -326,7 +326,7 @@ doDiffAndPlot(data.ts_log, 2, T, T,
 - don't need, overdifferencing
 - aka overPhil
 
-### M TODO:
+### M ~old_todo~
 
 > ACF, PACF and EACF all shows pattern of white noise for the correlation 
 > structure. However, there is an ARCH effect present in the series.
@@ -362,7 +362,7 @@ doDiffAndPlot(
   fig_nums("absolute_transformation", "Absolute Transformation"))
 ```
 
-NOTE: TODO: After the absolute value transformation, we observe many 
+NOTE: ~old_todo~ After the absolute value transformation, we observe many 
 signficicant lags in both ACF and PACF. Also, EACF does not suggest an 
 ARMA(0,0) model.
 From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for absolute 
@@ -378,7 +378,7 @@ doDiffAndPlot(
   fig_nums('square-transform','Square transformation'))
 ```
 
-NOTE: TODO:
+NOTE: ~old_todo~
 After the square transformation, we boserve many signficicant lags in both 
 ACF and PACF. Also, EACF does not suggest an ARMA(0,0) model.
 From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for squared 
@@ -411,7 +411,7 @@ adfTest(data.ts)
 # doDiffAndPlot(data.ts, 1)
 ```
 
-### TODO: Arima subset
+### ~old_todo~ Arima subset
 
 ```{r message=FALSE, warning=FALSE}
 res = armasubsets(
@@ -429,8 +429,8 @@ title(
 ```
 
 ```{r}
-# FIXME:error here
-# TODO: add other models
+# ~old_fixme~error here
+# ~old_todo~ add other models
 # can't add diff.data.ts
 # AIC and BIC values
 # sort.score(AIC(
@@ -465,13 +465,13 @@ forecast(fit, h = 10) %>%
     xlim = c(2018, 2020))
 ```
 
-- TODO: interpret forecast
+- ~old_todo~ interpret forecast
 
-## TODO: Conclusion
+## ~old_todo~ Conclusion
 
 The results of the above tests summarised:
 
-TODO: interpret
+~old_todo~ interpret
 
 [coinmarketcap.com]: coinmarketcap.com
 

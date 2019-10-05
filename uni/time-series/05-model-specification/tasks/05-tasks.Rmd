@@ -32,7 +32,7 @@ data(gold) # Load data. Here no need to convert it to ts object because
 # it is already ts object. See below:
 class(gold)
 gold
-par(mfrow=c(1,1)) # TODO: in r studio - what is par?
+par(mfrow=c(1,1)) # ~old_todo~ in r studio - what is par?
 # ?par
 plot(gold,type='o',ylab="Rainfall", main='Los Angelos rainfall series')
 # In the time series plot there is trend, no seasonality, no obvious intervention, and no changing 

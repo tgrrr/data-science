@@ -109,7 +109,7 @@ Find out the country that has NAs for every column using  `rowsums()` nested wit
 cat("dimensions: ")
 dim(private_consumption)
 
-# TODO: check this, because there are possible options
+# ~old_todo~ check this, because there are possible options
 rowSums(is.na(private_consumption))
 
 private_consumption %>%

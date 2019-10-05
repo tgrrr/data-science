@@ -5,7 +5,7 @@ output: html_notebook
 
 From here: https://docs.google.com/document/d/1WzaKKXAQiUY0mMSSeXoG_Vayt603L2dWFCOjeCWmugE/edit
 
-TODO:
+~old_todo~
 1.1 Import the data into RStudio and assign the appropriate labels to the following factors: Gender, Class, UsuallyDrink, First, Second, Third, Fourth.
 1.2 Explore the first, second, third and fourth preferences given by students. Is there evidence of preference for a specific brand?
 1.3 Explore the Preference variable. What is the modal preference?

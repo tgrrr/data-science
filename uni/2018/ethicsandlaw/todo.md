@@ -5,7 +5,7 @@ Areas:
 - Focus - biggest margin/profit --> Hotel Spending (NRMA)
 - Issues - improvements/solutions --> Upstream Business Risk (BP)
 
-TODOLATER:
+~old_todo~~old_later~
 
 - [ ] Watch Julian Thomas again - data privacy RMIT centre
 - [ ] Contact Julian Thomas

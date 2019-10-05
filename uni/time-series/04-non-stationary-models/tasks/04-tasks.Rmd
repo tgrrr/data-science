@@ -179,7 +179,7 @@ data(larain)
 plot(larain,type='o',ylab='Los Angelos rainfall series')
 ```
 
-- TODO: What are the main characteristics of this time series plot?
+- ~old_todo~ What are the main characteristics of this time series plot?
 
 - Display appropriate plots and 
 - conduct suitable hypothesis test to infer about normality of this rainfall series.
@@ -316,7 +316,7 @@ plot(
   ylab='Simulated series')
 ```
 
-- TODO: What are the main characteristics of this time series plot?
+- ~old_todo~ What are the main characteristics of this time series plot?
 
 - Display ACF and PACF plots and notice the patterns in these plots.
 ```{r}
@@ -368,4 +368,4 @@ pacf(diff.data.sim)
 par(mfrow=c(1,1)) 
 ```
 
-- TODO: Compare the ACF and PACF plots obtained after differencing and transforming with those obtained in (b) and try to figure out the effect of trend in these plots.
+- ~old_todo~ Compare the ACF and PACF plots obtained after differencing and transforming with those obtained in (b) and try to figure out the effect of trend in these plots.

@@ -32,7 +32,7 @@ OLD:
 
 # favstats(~ | Brand, data = body)
 
-body$Sex <- factor(body$Sex, levels = c(0,1), labels=c("female", "male")) # TODO: check Sex
+body$Sex <- factor(body$Sex, levels = c(0,1), labels=c("female", "male")) # ~old_todo~ check Sex
 
 body_fat_male <-
   subset(x = body,
@@ -64,7 +64,7 @@ body <- mutate(
  confint(t.test( ~ Body_temp, data = Body_temp))
 qqPlot(body, dist="norm") #Check normality if required
 
-# Todo: should I be doing this for Brozek?
+# ~old_todo~ should I be doing this for Brozek?
 favstats(~BFP_Brozek, data = body)
 numberOfCases <- length(body$Case) # number of cases
 mean <- mean(body$BFP_Brozek) %>% print()

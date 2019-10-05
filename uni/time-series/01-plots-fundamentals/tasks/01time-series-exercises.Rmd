@@ -15,13 +15,13 @@ setwd("~/code/data-science/cheatsheet/source/includes/time-series/01-plots-funda
 - [ ] Load the Melbourne Airport annual rainfall data (MelbourneAnnualRainfall.csv) into R. 
 
 ```{r}
-# TODO: change to data and data.ts for reusability
+# ~old_todo~ change to data and data.ts for reusability
 data <-
   read.csv("./raw-data/MelbourneAnnualRainfall.csv", header = FALSE)
 rownames(data) <- seq(from = 1995, to = 2016)
 class(data)
 # Hint: “ts()” to convert the “data.frame” to timeSeries.
-# TODO: doConvertTimeSeries()
+# ~old_todo~ doConvertTimeSeries()
 data.ts <-
   ts(as.vector(data),
      start = 1995,
@@ -36,7 +36,7 @@ plot(data.ts, type = 'o', ylab = 'Amount of annual rainfall')
 #### Do you think there is a trend in the series?
 No obvious trend
 
-## TODO: 2. Random values
+## ~old_todo~ 2. Random values
 
 #### - [x] Simulate a completely random process of `length 48` 
 - [ ] with `independent, normal values`. 
@@ -59,14 +59,14 @@ plot.ts(data_random,
 #without converting the generated data to a time series object
 ```
 
-### TODO: check #converting the generated data to a time series object
+### ~old_todo~ check #converting the generated data to a time series object
 ```{r}
 plot(ts(data_random) , type = 'o', ylab = 'Normal distributed process') #converting the generated data to a time series object
 ```
 
 - [ ] Does it look “random?”
 
-TODO: wk1q2. Plot with random values
+~old_todo~ wk1q2. Plot with random values
 - [ ] Display the time series plot without converting the generated data to a time series object 
   - [ ] and by converting the generated data to a time series object.
   - [ ] Does it look “random?”
@@ -74,7 +74,7 @@ TODO: wk1q2. Plot with random values
 - [ ] Repeat this exercise with standard deviations of 0.1 and 10. What is the effect of variance of series on the resulting time series plot?
 
 
-## TODO: 3. Chi Squared exercise
+## ~old_todo~ 3. Chi Squared exercise
 3. Simulate a completely random process of `length 48` with independent, `chi-square distributed values`, `each with 2 degrees of freedom`.
 - Display the time series plot. Does it look “random?”
 - Repeat this exercise several times with a new simulated dataset at each time. Does your view on the randomness of series change from one simulation to the other?
@@ -109,7 +109,7 @@ data <-
 - [ ] Construct a time series plot in a blank graphics window with monthly plotting symbols. 
 
 ```{r}
-# TODO: WRONG: learn this. This breaks it, because data is wrong
+# ~old_todo~ WRONG: learn this. This breaks it, because data is wrong
 rownames(data) <- seq(from = 1995, to = 2016)
 colnames(data) <-
   c("jan",
