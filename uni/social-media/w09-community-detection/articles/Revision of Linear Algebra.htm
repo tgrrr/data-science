@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0059)http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Revision of Linear Algebra</title>
+</head>
+<body bgcolor="white">
+<h2>Revision of Linear Algebra</h2>
+<p align="center">
+<a href="http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html#vector">Vectors</a> |
+<a href="http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html#geometrial">Geometrical Interpretation</a> |
+<a href="http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html#innerproduct">Inner Products</a> |
+<a href="http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html#matrix">Matrices</a> |
+<a href="http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html#matrixmult">Matrix Multiplication</a> |
+<a href="http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html#hyperplane">Hyperplanes</a> |
+<a href="http://www.cse.unsw.edu.au/~billw/cs9444/linearalgebra.html#eigen">Eigenvectors and Eigenvalues</a>
+</p>
+<p>This material provides the bare definitions, and some simple
+examples. As you are using these notes to <i>revise</i>
+your linear algebra, you will hopefully recall that there are
+important geometric interpretations for these concepts, as well.
+</p>
+<a name="vector">
+<h3>Vectors</h3>
+
+<p>A <i>vector</i> over the real numbers may be viewed as
+a sequence of real numbers. The <i>dimension</i> of the vector is the
+number of real numbers in the sequence. So (3.2, 4.7, –2.4, 0.0) is
+a vector of dimension 4. The 4 numbers in the sequence are referred
+to as the <i>components</i> of the vector.</p>
+
+<p>
+An ordered number-sequence like this is also referred to as a <i>tuple</i>.
+If the dimension (number of components) of the sequence is <i>n</i>, then
+the tuple is an <i>n</i>-tuple. 2-tuples are usually called <i>ordered pairs</i>,
+and 3-tuples are called <i>ordered triples</i>.
+</p>
+
+<p>Vectors can be added together by adding the corresponding components.
+Thus (2, 7, 4, 0) + (1, 3, 5, 9) = (2+1, 7+3, 4+5, 0+9) = (3, 10, 9, 9).
+A vector can also be multiplied by a real number (sometimes called a
+<i>scalar</i>) by multiplying each component of the vector by the real
+number. So 3×(2, 7, 4, 0) = (3×2, 3×7, 3×4, 3×0) 
+= (6, 21, 12, 0).
+</p>
+
+<font size="-1">
+<p>There is no particular reason why the components have to be <i>real
+numbers</i>. In some applications (but probably not in the neural networks
+course for which these revision notes were written) the components might
+be <i>complex numbers</i>, or members of a <i>finite field</i> such as
+the whole numbers with arithmetic done modulo <i>p</i>, where <i>p</i>
+is a prime number.</p>
+</font>
+
+<p>It is often useful to work with vectors whose components are symbols
+representing numbers (pro-numerals). Thus
+(<i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>, <i>x</i><sub>3</sub>, <i>x</i><sub>4</sub>)
+is a vector of symbols. Sometimes it is convenient to use a symbol to refer
+to a whole vector - a pro-vector, if you like. Often bold face symbols are
+used for this purpose. So we might write <b>x</b> = 
+(<i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>, <i>x</i><sub>3</sub>, <i>x</i><sub>4</sub>),
+or <b>y</b> =
+(<i>y</i><sub>1</sub>, <i>y</i><sub>2</sub>, <i>y</i><sub>3</sub>, <i>y</i><sub>4</sub>).
+</p>
+
+</a><a name="geometrical">
+<h3>Geometrical Interpretation</h3>
+<p>
+With vectors that have 2 or 3 components, it is fairly easy to see how to
+interpret the vectors as points in space. For example, the ordered
+pair (–1, 1) is interpreted as a point in 2-dimensional
+space (<i>xy</i>-space) with <i>x</i>–
+and <i>y</i>–coordinates –1 and 1, respectively, as shown
+in the diagram below. The vector is thought of as the line joining the
+<i>origin</i> (the point (0, 0)) to the point (–1, 1).
+Similarly, 3-tuples can be drawn as points in 3-dimensional
+space (<i>xyz</i>-space).
+</p>
+<p align="center">
+<img src="./Revision of Linear Algebra_files/2-vectors.png" alt="two vectors at right angles">
+</p>
+<p>
+All of this works in dimensions &#8805; 4, but obviously is harder to visualise.
+</p>
+
+</a><a name="innerproduct">
+<h3>Inner Products</h3>
+<p>
+The <i>inner product</i> (sometimes also called the <i>dot product</i>) of two
+vectors with the same number of components is obtained by multiplying
+together the corresponding
+components and adding up the products. The inner product of vectors <b>x</b>
+and <b>y</b> is written <b>x</b>&nbsp;•&nbsp;<b>y</b>, hence the alternative name dot-product.</p>
+
+<p>So (1, 2, 3, 4) • (5, 6, 7, 8) = 1×5 + 2×6 + 3×7 + 4×8
+= 5 + 12 + 21 + 32 = 70.<br>
+As a symbolic example, <b>x</b> • <b>y</b> =
+(<i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>, <i>x</i><sub>3</sub>, <i>x</i><sub>4</sub>) .
+(<i>y</i><sub>1</sub>, <i>y</i><sub>2</sub>, <i>y</i><sub>3</sub>, <i>y</i><sub>4</sub>) =
+<i>x</i><sub>1</sub><i>y</i><sub>2</sub> + <i>x</i><sub>2</sub><i>y</i><sub>2</sub> +
+<i>x</i><sub>3</sub><i>y</i><sub>3</sub> + <i>x</i><sub>4</sub><i>y</i><sub>4</sub><br> 
+</p>
+
+<p>Two vectors are said to be <i>orthogonal</i> if their inner product is 0. For example
+(1, 1, 1, 1) • (1, –1, 1, –1) = 1 + –1 + 1 + –1 = 0.<br>
+Vectors in two and three dimensions are orthogonal, in the sense
+just defined, if they are at right angles to each other.
+For example, in the figure below, the two vectors shown geometrically, (1, 1) and (–1, 1), are at right angles, and have an inner product of 0.
+</p>
+
+
+<p>The <i>length</i> of a vector <b>x</b> is defined to be the square root of
+its inner product with itself: &#8730;(<b>x</b> • <b>x</b>). The length of
+<b>x</b> is sometimes written as ||<b>x</b>||. As an example,
+||(1, –1, 1, –1)|| = &#8730;(1×1 + (–1×–1) + 1×1 + (–1×–1))
+= &#8730;4 = 2.
+</p>
+<p>
+In the diagram above, the length of (1, 1) is &#8730;(1<sup>2</sup> + 1<sup>2</sup>) = &#8730;2. This is the same as the length of the line from (0, 0) to (1, 1), calculated using Pythagoras's theorem.
+</p>
+
+<p>A vector is said to be <i>normal</i> if it has length 1. So (0.5, –0.5, 0.5, –0.5)
+is normal. If <b>x</b> is any vector, then <b>x</b>/||<b>x</b>|| is normal, and
+the process of converting <b>x</b> into <b>x</b>/||<b>x</b>|| is called normalisation.
+</p>
+
+</a><a name="matrix">
+<h3>Matrices</h3>
+<p>
+A <i>matrix</i> can be thought of as a vector of vectors. Alternatively, you can
+think of a matrix as a rectangular array of numbers. <font size="-1">Again, they don't
+have to be numbers, but for our purposes they will be.</font> Here is an example of
+a matrix:</p>
+<p>
+[ 1 2 3 4 ]<br>
+[ 5 4 3 2 ]<br>
+[ 0 1 0 –1 ]
+</p>
+This is a 3×4 matrix (3 rows and 4 columns) - the size of the matrix is 3×4.<br>
+As with vectors, matrices of the same size can be added together by adding corresponding
+components:
+
+<p>
+<table border="0">
+<tbody><tr>
+<td>
+[ 1 2 3 4 ]<br>
+[ 5 4 3 2 ]<br>
+[ 0 1 0 –1 ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ 7 4 3 0 ]<br>
+[ 1 1 1 1 ]<br>
+[ 1 0 –1 0 ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ 8 6 6 4 ]<br>
+[ 6 5 4 3 ]<br>
+[ 1 1 –1 –1 ]
+</td>
+</tr>
+</tbody></table>
+</p>
+
+<p>When <i>matrices</i> are written in symbolic form, they look like this:</p>
+
+<p>
+[ <i>a</i><sub>11</sub> <i>a</i><sub>12</sub> <i>a</i><sub>13</sub> <i>a</i><sub>14</sub> ]<br>
+[ <i>a</i><sub>21</sub> <i>a</i><sub>22</sub> <i>a</i><sub>23</sub> <i>a</i><sub>24</sub> ]<br>
+[ <i>a</i><sub>31</sub> <i>a</i><sub>32</sub> <i>a</i><sub>33</sub> <i>a</i><sub>34</sub> ]
+</p>
+
+<p>
+Each entry, <i>a<sub>ij</sub></i>, has two subscripts - the first one, <i>i</i> in 
+<i>a<sub>ij</sub></i>, indicates which row the entry belongs to, and the second one,
+<i>j</i> in <i>a<sub>ij</sub></i>, indicates which column the entry belongs to.
+For example, <i>a</i><sub>32</sub> belongs to the third row and second column of the
+matrix.
+</p>
+<p>Matrices as a whole are often symbolised using a capital letter, like <i>A</i>.
+So <i>a<sub>ij</sub></i> is the prototypical entry in the matrix <i>A</i>.
+If <i>A</i> is an <i>m</i>×<i>n</i> matrix, then we say that <i>m</i> is the
+row dimension of the matrix (or just the number of rows) and <i>n</i> is the column
+dimension (or number of columns).
+</p>
+
+<p>The transpose <i>A<sup>T</sup></i> of a matrix <i>A</i> is obtained by interchanging its
+rows and columns. So the transpose of the 3×4 matrix</p><p>
+</p><p>
+[ 1 2 3 4 ]<br>
+[ 5 4 3 2 ]<br>
+[ 0 1 0 –1 ]
+</p>
+<p>is the 4×3 matrix</p>
+<p>
+[ 1 5 0 ]<br>
+[ 2 4 1 ]<br>
+[ 3 3 0 ]<br>
+[ 4 2 –1 ]
+</p>
+<p>The transpose of an <i>m</i>×<i>n</i> matrix is an <i>n</i>×<i>m</i> matrix.
+
+</p><p>Notice that a vector with <i>n</i> components can be viewed as a 1×<i>n</i> matrix.
+The vectors we used above were <i>row vectors</i>. If you view them as matrices and transpose,
+them, you get <i>column vectors</i>. Thus (1, 2, 3, 4) is a row vector, whose transpose is
+the column vector</p>
+
+<p>
+1<br>
+2<br>
+3<br>
+4
+</p>
+
+which, of course, can be viewed as an <i>n</i>×1 matrix.
+
+</a><a name="matrixmult">
+<h3>Matrix Multiplication</h3>
+<p>
+It is sometimes possible to multiply two matrices together. This is done, <b>not</b> by
+multiplying corresponding entries together as with matrix addition, but by computing an
+inner product for each entry of the product matrix. In general, the product of an
+<i>m</i>×<i>n</i> matrix with <i>n</i>×<i>p</i> is an
+<i>m</i>×<i>p</i> matrix. Note that for the product of two matrices to exist,
+the column dimension of the first matrix (<i>m</i>) must equal the row dimension of
+the second matrix. Example (with first matrix 2×3 and second matrix 3×2, so
+that the product matrix is 2×2):
+</p>
+<p>
+<table border="0">
+<tbody><tr>
+<td>
+[ 1 2 3 ]<br>
+[ 5 4 3 ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;×&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ 3 0 ]<br>
+[ 1 1 ]<br>
+[ 1 0 ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ (1, 2, 3) • (3, 1, 1) &nbsp;&nbsp;&nbsp; (1, 2, 3) • (0, 1, 0) ]<br>
+[ (5, 4, 3) • (3, 1, 1) &nbsp;&nbsp;&nbsp; (5, 4, 3) • (0, 1, 0) ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ 8&nbsp;&nbsp;&nbsp;2 ]<br>
+[ 22&nbsp;4 ]
+</td>
+</tr>
+</tbody></table>
+</p>
+
+<p>Notice that it is sometimes possible to multiply a matrix by a vector
+(viewed as a matrix). If the matrix is <i>m</i>×<i>n</i> and the
+vector has <i>n</i> components, then you can view the vector as a column
+vector (<i>n</i>×1 matrix) and multiply them, to get an
+<i>m</i>×1 result - a column vector of dimension <i>m</i>:</p>
+<p>
+<table border="0">
+<tbody><tr>
+<td>
+[ 1 2 3 ]<br>
+[ 3 4 1 ]<br>
+[ 0 1 2 ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;×&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ 1 ]<br>
+[ 2 ]<br>
+[ 1 ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ (1, 2, 3) • (1, 2, 1) ]<br>
+[ (3, 4, 1) • (1, 2, 1) ]<br>
+[ (0, 1, 2) • (1, 2, 1) ]
+</td>
+<td>&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;</td>
+<td>
+[ 7 ]<br>
+[ 12 ]<br>
+[ 4 ]
+</td>
+</tr>
+</tbody></table>
+</p>
+
+<p>You could call this post-multiplication by the vector, as the vector
+appears post- or after- the matrix. Pre-multiplication by a row vector
+is also sometimes possible - an <i>m</i>-dimensional row vector (i.e. an
+1×<i>m</i> matrix) can be multiplied by an <i>m</i>×<i>n</i>
+matrix to give a 1×<i>n</i> result - another row vector, but of
+dimension <i>n</i>.
+</p>
+
+</a><a name="hyperplane">
+<h3>Hyperplanes</h3>
+
+<p>A hyperplane is a higher-dimensional analogue of a plane in 3-dimensional
+space. The general equation of a plane in 3-space is</p>
+
+<p align="center"><i>ax</i> + <i>by</i> + <i>cz</i> = <i>d</i></p>
+
+<p>where <i>x</i>, <i>y</i>, and <i>z</i> are variables
+and <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> are constants.
+That is, the plane is the set of all points (<i>x</i>, <i>y</i>,
+<i>z</i>) such that <i>ax</i> + <i>by</i> + <i>cz</i> = <i>d</i> holds.</p>
+
+<p>Thinking in a vector and inner-product sort of way, you can rewrite the
+equation of a plane in 3-space as </p>
+
+<p align="center">(<i>a</i>, <i>b</i>, <i>c</i>) • (<i>x</i>, <i>y</i>, <i>z</i>)
+= <i>d</i></p>
+
+<p>If we write <b>a</b> for (a, b, c) and <b>x</b> for (x, y, z), the equation
+becomes</p>
+
+<p align="center"><b>a</b> • <b>x</b> = <i>d</i>.</p>
+
+<p>Note that any (but not all) of <i>a</i>, <i>b</i>, <i>c</i>, and <i>d</i>
+can be zero. So examples of equations of planes are:</p>
+
+<blockquote>
+a) 2<i>x</i> + 3<i>y</i> + 4<i>z</i> = 5<br>
+b) <i>x</i> + <i>y</i> = 3<br>
+c) <i>y</i> + <i>z</i> = 7<br>
+d) <i>x</i> + 3<i>z</i> = 4<br>
+e) <i>x</i> = 2<br>
+f) <i>y</i> = 1<br>
+g) <i>z</i> = 43.2
+</blockquote>
+
+<p>So, a plane is a hyperplane in 3-space. Similarly, a line is a hyperplane
+in 2-space, and it has an general equation of the form
+<b>a</b>&nbsp;•&nbsp;<b>x</b>&nbsp;=&nbsp;<i>d</i>,
+where this time, <b>a</b> = (<i>a</i>, <i>b</i>), and
+<b>x</b> = (<i>x</i>, <i>y</i>). Notice that equations (b)-(g), above,
+are equations of planes in 3-space, but also are equations of lines in
+2-space. How can this be? Consider (b): <i>x</i> + <i>y</i> = 3.
+In 2-space, this is the set of all points (<i>x</i>, <i>y</i>)
+such that the equation holds. In 3-space, it is the set of all points
+(<i>x</i>, <i>y</i>, <i>z</i>) such that the equation holds - i.e.
+<i>x</i> + <i>y</i> = 3, and <i>z</i> can have any value at all.
+Similarly, with (e), in 2-space, this is the line consisting
+of all points (<i>x</i>, <i>y</i>) such that <i>x</i> = 2, and <i>y</i>
+can have any value at all, and in 3-space, it is the line consisting
+of all points (<i>x</i>, <i>y</i>, <i>z</i>) such that <i>x</i> = 2, and
+<i>y</i> and <i>z</i> can have any value at all.</p>
+
+<p>In the case of a line in 2-space, the line is one-dimensional, and 2-space
+is of course 2-dimensional. For a plane in 3-space, the plane is 2-dimensional
+and 3-space is 3-dimensional. In general, in an <i>n</i>-dimensional space,
+(i.e. a space of vectors with <i>n</i> components), a hyperplane is a
+(<i>n</i>–1)-dimensional object. As before, its general equation is of the
+form:</p>
+
+<p align="center"><b>a</b>&nbsp;•&nbsp;<b>x</b>&nbsp;=&nbsp;<i>d</i></p>
+
+<p>but this time <b>a</b> and <b>x</b> are <i>n</i>-dimensional vectors.
+So <b>a</b> =
+(<i>a</i><sub>1</sub>, <i>a</i><sub>2</sub>, ..., <i>a<sub>n</sub></i>)
+and <b>x</b> =
+(<i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>, ..., <i>x<sub>n</sub></i>).
+</p>
+
+<p>In the case of a line in 2-space, (<i>ax</i> + <i>by</i> = <i>d</i>)
+it is easy to check that for a point (<i>x</i>, <i>y</i>) <i>not</i> on
+the line, which side of the line the point is on is determined by
+whether <i>ax</i> + <i>by</i> – <i>d</i> is positive or negative.
+For example, with the line <i>x</i> + <i>y</i> = 1, the point
+(<i>x</i>, <i>y</i>) = (0, 0)
+is to the left of the line, and <i>x</i> + <i>y</i> – 1 = –1 is negative,
+while the point (<i>x</i>, <i>y</i>) = (1, 1) is to the right of the line
+and  <i>x</i> + <i>y</i> – 1 = +1 is positive.</p>
+
+<p>You can check this for planes in 3-space, too, with a little more
+difficulty. It holds in general: for a point <b>x</b> in <i>n</i>-space,
+the point lies on one "side" of the hyperplane if
+<b>a</b>&nbsp;•&nbsp;<b>x</b>&nbsp;–&nbsp;<i>d</i>
+is negative, and on the other side if 
+<b>a</b>&nbsp;•&nbsp;<b>x</b>&nbsp;–&nbsp;<i>d</i> is positive.</p>
+
+</a><a name="eigen">
+<h3>Eigenvectors and Eigenvalues</h3>
+
+<p>When you pre-multiply a column vector <b>x</b> by a matrix A:
+<b>x</b> &#8594; A<b>x</b>,
+you transform the vector to another vector. Let us consider a particular matrix
+A. For some vectors <b>x</b>, A<b>x</b> will be a multiple of <b>x</b>. For
+example, if <b>x</b> = (0, 1, 0)<sup><font size="-1">T</font></sup>, and A =<br>
+[2, 0, 0]<br>
+[0, 7, 0]<br>
+[0, 0, 3]<br>
+then it is easy to check that A<b>x</b> = 7<b>x</b>.</p>
+<p>In such a case we say that <b>x</b> is an <b>eigenvector</b> of A, and
+the multiple, in this case 7, is an <b>eigenvalue</b> of A. Thus if
+A<b>x</b>&nbsp;=&nbsp;&#955;<b>x</b>, <b>x</b> is the eigenvector, and
+&#955; is the eigenvalue.
+</p>
+<p>A matrix can have several eigenvalues (and hence several eigenvectors).
+For example, our example matrix A has three eigenvalues: 2, 7, and 3.
+</p>
+
+<hr>
+</a><p><a name="eigen">
+</a><a href="http://www.cse.unsw.edu.au/~billw/cs9444/index.html#contact">Bill Wilson's contact info</a><br>
+Last updated:
+<script language="JavaScript">
+document.write(document.lastModified);
+</script>09/30/2010 10:10:42
+</p>
+
+
+</body></html>
