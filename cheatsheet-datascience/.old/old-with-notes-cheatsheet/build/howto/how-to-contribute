@@ -1,0 +1,6 @@
+<p>To contribute:
+- fork <a href="https://github.com/tgrrr/data-science-cheatsheet">data-science-cheatsheet</a> and
+- add new docs as markdown in <code>source/includes</code> (starting with an underscore)
+- Add the filename to the <code>includes:</code> list in <a href="without%20the%20underscore">index.html.md</a>
+- Create a PR
+- That&#39;s it!</p>

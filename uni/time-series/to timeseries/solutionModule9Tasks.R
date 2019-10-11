@@ -1,0 +1,244 @@
+
+library(TSA)
+library(fUnitRoots)
+library(forecast)
+library(CombMSC)
+library(lmtest)
+library(fGarch)
+library(rugarch)
+
+residual.analysis <- function(model, std = TRUE,start = 2, class = c("ARIMA","GARCH","ARMA-GARCH")[1]){
+  # If you have an output from arima() function use class = "ARIMA"
+  # If you have an output from garch() function use class = "GARCH"
+  # If you have an output from ugarchfit() function use class = "ARMA-GARCH"
+  library(TSA)
+  library(FitAR)
+  if (class == "ARIMA"){
+    if (std == TRUE){
+      res.model = rstandard(model)
+    }else{
+      res.model = residuals(model)
+    }
+  }else if (class == "GARCH"){
+    res.model = model$residuals[start:model$n.used]
+  }else if (class == "ARMA-GARCH"){
+    res.model = model@fit$residuals
+  }else {
+    stop("The argument 'class' must be either 'ARIMA' or 'GARCH' ")
+  }
+  par(mfrow=c(3,2))
+  plot(res.model,type='o',ylab='Standardised residuals', main="Time series plot of standardised residuals")
+  abline(h=0)
+  hist(res.model,main="Histogram of standardised residuals")
+  acf(res.model,main="ACF of standardised residuals")
+  pacf(res.model,main="PACF of standardised residuals")
+  qqnorm(res.model,main="QQ plot of standardised residuals")
+  qqline(res.model, col = 2)
+  print(shapiro.test(res.model))
+  k=0
+  LBQPlot(res.model, lag.max = 30, StartLag = k + 1, k = 0, SquaredQ = FALSE)
+}
+
+# --- TASK 1 ---
+data("google") # This is already returns series
+par(mfrow=c(1,1))
+plot(google,type='o',main="Time series plot of daily returns of Google stock")
+# There is sign of neither a trend nor seasonality. Observations are bouncing around the mean level. But changing variance is obvious.
+mean(google) # Mean is very close to zero
+
+McLeod.Li.test(y=google,main="McLeod-Li Test Statistics for Daily Google Returns")
+# McLeod-Li test is significnat at 5% level of significance for all lags. This gives a strong idea about existence of volatiliy clustering.
+qqnorm(google,main="Q-Q Normal Plot of Daily Google Returns")
+qqline(google) # Fat tails is in accordance with volatiliy clustering
+
+par(mfrow=c(1,2))
+acf(google, main="The sample ACF plot for return series")
+pacf(google, main="The sample PACF plot for return series")
+eacf(google)
+# ACF, PACF and EACF all shows pattern of white noise for the correlation structure. However, there is an ARCH effect present in the series.
+
+#So we'll use absolute value and square transformations to figure out this ARCH effect.
+abs.google = abs(google)
+sq.google = google^2
+
+par(mfrow=c(1,2))
+acf(abs.google, ci.type="ma",main="The sample ACF plot for absolute return series")
+pacf(abs.google, main="The sample PACF plot for absolute return series")
+eacf(abs.google)
+# After the absolute value transformation, we boserve many signficicant lags in 
+#both ACF and PACF. Also, EACF do not suggest an ARMA(0,0) model.
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for absolute 
+#value series. 
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1] and [max(2,2),2]. 
+# So the corresponding tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
+
+par(mfrow=c(1,2))
+acf(sq.google, ci.type="ma",main="The sample ACF plot for squared return series")
+pacf(sq.google, main="The sample PACF plot for squared return series")
+eacf(sq.google)
+# After the square transformation, we oserve many signficicant lags in both ACF and PACF. Also, EACF do not suggest an ARMA(0,0) model.
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), ARMA(2,1), and ARMA(2,2) models for squared series. 
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], [max(1,2),2], and [max(2,2),2]. So the corresponding 
+# tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
+
+m.11 = garch(google,order=c(1,1),trace = FALSE)
+summary(m.11) # All the coefficients are significant at 5% level of significance.
+m.11_2 = garchFit(formula = ~garch(1,1), data =google )
+summary(m.11_2)
+
+m.12 = garch(google,order=c(1,2),trace = FALSE)
+summary(m.12)# All the coefficients but aplha_2 are significant at 5% level of significance.
+m.12_2 = garchFit(formula = ~garch(2,1), data =google, trace = FALSE )
+summary(m.12_2)
+
+m.22 = garch(google,order=c(2,2),trace = FALSE)
+summary(m.22) # Higher order parameters are insignificant
+m.22_2 = garchFit(formula = ~garch(2,2), data =google, trace = FALSE, cond.dist = "QMLE" )
+summary(m.22_2)
+
+residual.analysis(m.11,class="GARCH",start=2)
+
+residual.analysis(m.12,class="GARCH",start=3)
+
+residual.analysis(m.22,class="GARCH",start=3)
+
+#For all models, we get suitable diagnostic check results. So, we will go on with GARCH(1,1) model.
+
+par(mfrow=c(1,1))
+plot((fitted(m.11)[,1])^2,type='l',ylab='Conditional Variance',xlab='t',main="Estimated Conditional Variances of the Daily Returns")
+# Changes in conditional variance at the beginning of the series and between observations 300 and 400, then the conditional variance settles down. 
+# 
+
+fGarch::predict(m.11_2,n.ahead=100,trace=FALSE,plot=TRUE) 
+# Forecasts for the confidance limits are based on the forecasts of conditional variance.
+
+
+library(rugarch)
+model<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)), 
+                  mean.model = list(armaOrder = c(0, 0), include.mean = FALSE), 
+                  distribution.model = "norm")
+m.11_3<-ugarchfit(spec=model,data=google)
+par(mfrow=c(1,1))
+plot(m.11_3)
+par(mfrow=c(1,1))
+forc = ugarchforecast(m.11_3, data = google, n.ahead = 10)
+plot(forc)
+
+
+# --- TASK 2 ---
+
+library(tswge)
+data("mm.eq")
+wave = mm.eq
+wave = ts(wave)
+par(mfrow=c(1,1))
+plot(wave,main="Time series plot of seismic Lg wave series")
+# There is sign of neither a trend nor seasonality. Observations are bouncing around the mean level. But changing variance is obvious especially 
+# at the begining of the observationi period.
+mean(wave)
+
+McLeod.Li.test(y=wave,main="McLeod-Li Test Statistics for seismic Lg wave series")
+# McLeod-Li test is significnat at 5% level of significance for all lags. This gives a strong idea about existence of volatiliy clustering.
+qqnorm(wave,main="Q-Q Normal Plot of seismic Lg wave series")
+qqline(wave) # Fat tails is in accordance with volatiliy clustering
+
+
+
+par(mfrow=c(1,2))
+acf(wave, main="The sample ACF plot for seismic Lg wave series")
+pacf(wave, main="The sample PACF plot for seismic Lg wave series")
+eacf(wave)
+# In the ACF, PACF, and EACF plots we observe significant correlations and there is no sign of 
+# a white noise process.However, volatiliy clustering is obvious in the time series plot. So, 
+# we will consider fitting an ARMA+GARCH model.
+
+wave.positive = wave + min(abs(wave))+0.1
+BC = BoxCox.ar(wave.positive)
+BC$ci
+lambda = 1.1
+BC.wave = ((wave.positive^lambda)-1)/lambda
+
+order = ar(diff(BC.wave))$order
+adfTest(BC.wave, lags = order,  title = NULL,description = NULL)
+
+diff.BC.wave = diff(BC.wave)
+order = ar(diff(diff.BC.wave))$order
+adfTest(diff.BC.wave, lags = order,  title = NULL,description = NULL)
+
+par(mfrow=c(1,2))
+acf(diff.BC.wave, main="The sample ACF plot for seismic Lg wave series")
+pacf(diff.BC.wave, main="The sample PACF plot for seismic Lg wave series")
+# Due to the changing variance, we do not have a clear picture in ACF and PACF.
+# Referring very high autocorrelations {ARIMA(2,1,4), ARIMA(2,1,3), ARIMA(0,1,3), ARIMA(0,1,4)} can be identified
+
+eacf(diff.BC.wave)
+#{ARIMA(0,1,6), ARIMA(1,1,6)}
+
+res = armasubsets(y=diff.BC.wave,nar=7,nma=7,y.name='test',ar.method='ols')
+plot(res)
+#Additional to the previously identified models, {ARIMA(1,1,6), ARIMA(1,1,5),ARIMA(2,1,6), ARIMA(2,1,5)}
+
+#Overall, 
+#{ARIMA(2,1,4), ARIMA(2,1,3), ARIMA(0,1,3), ARIMA(0,1,4),ARIMA(0,1,6), ARIMA(1,1,6),ARIMA(1,1,6), ARIMA(1,1,5),ARIMA(2,1,6), ARIMA(2,1,5)}
+
+source('~/Documents/MATH1318_TimeSeries/Utility Functions/TSHandy.r')
+
+modelList <- list(c(2,1,4), c(2,1,3), c(0,1,3), c(0,1,4),c(0,1,6), c(1,1,6),c(1,1,6), c(1,1,5),c(2,1,6), c(2,1,5))
+modelEstimation <- myCandidate(BC.wave, orderList = modelList, methodType = "ML")
+# Nearly all models have all coefficients significant.
+modelEstimation$IC
+# The smalles AIC, AICc and BIC come from ARIMA(2,1,6) model which is 9th model in the modelEstimation object
+
+residual.analysis(modelEstimation$model[[9]], std = TRUE,start = 1)
+
+m216_residuals = modelEstimation$model[[9]]$residuals
+
+abs.res = abs(m216_residuals)
+sq.res = m216_residuals^2
+
+par(mfrow=c(1,2))
+acf(abs.res, ci.type="ma",main="The sample ACF plot for absolute residual series")
+pacf(abs.res, main="The sample PACF plot for absolute residual series")
+eacf(abs.res)
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for absolute residual series. 
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], and [max(2,2),2]. So the corresponding 
+# tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
+
+
+par(mfrow=c(1,2))
+acf(sq.res, ci.type="ma",main="The sample ACF plot for square residual series")
+pacf(sq.res, main="The sample PACF plot for square residual series")
+eacf(sq.res)
+# From the EACF, we can identify ARMA(1,1), ARMA(1,2), and ARMA(2,2) models for squared residual series. 
+# These models correspond to parameter settings of [max(1,1),1], [max(1,2),1], and [max(2,2),2]. So the corresponding 
+# tentative GARCH models are GARCH(1,1), GARCH(2,1), GARCH(2,2).
+
+model1<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)), 
+                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE), 
+                   distribution.model = "norm")
+m.26_11<-ugarchfit(spec = model1, data = diff.BC.wave, out.sample = 100)
+# I'm fitting ARMA model here not ARIMA!
+# Therefore I need to send the differenced and transformed series to ugarchfit().
+m.26_11  # AIC = -6.3964
+plot(m.26_11)
+# We display residual plots with selection of 8, 9, 10 and 11. 
+
+model2<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(2, 1)), 
+                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE), 
+                   distribution.model = "norm")
+m.26_21<-ugarchfit(spec = model2, data = diff.BC.wave, out.sample = 100)
+m.26_21 # AIC = -6.3869
+plot(m.26_21)
+
+model3<-ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(2, 2)), 
+                   mean.model = list(armaOrder = c(2, 6), include.mean = FALSE), 
+                   distribution.model = "norm")
+m.26_22<-ugarchfit(spec = model3, data = diff.BC.wave, out.sample = 100)
+m.26_22 # AIC = -6.3138
+plot(m.26_22)
+
+
+
+forc.26_11 = ugarchforecast(m.26_11, data = diff.BC.wave, n.ahead = 10, n.roll = 10)
+plot(forc.26_11, which = "all")
+forc.26_11

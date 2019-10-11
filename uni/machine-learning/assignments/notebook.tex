@@ -1,0 +1,1334 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{assignmentML}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{machine-learning-assignment}{%
+\section{Machine learning
+Assignment}\label{machine-learning-assignment}}
+
+\hypertarget{math2319---phase-ii-report}{%
+\subsubsection{MATH2319 - Phase II
+report}\label{math2319---phase-ii-report}}
+
+\hypertarget{authors-phil-steinke-s3725547-ash-olney-s3686808}{%
+\subsubsection{Authors: Phil Steinke s3725547 Ash Olney
+s3686808}\label{authors-phil-steinke-s3725547-ash-olney-s3686808}}
+
+    \hypertarget{methodology}{%
+\subsection{Methodology}\label{methodology}}
+
+The Google advertising dataset which we explored in detail in Phase I
+will be further transformed as appropriate for machine learning. This
+includes encoding the categorical variables, such as country\_id and
+company\_id, into binary variables by oneHotEncoding. The features and
+the target variable are then scaled between 0 and 1. As the original
+dataset is \textgreater200k rows, we have taken a random sample of 5000
+rows and then split this sample further into training and testing data.
+The target variable, `y', is a continuous numeric variable so we will be
+using regression algorithms to predict the outcome. - neural network -
+k-nearest neighbor regressior - decision tree regressor
+
+Each of these algorithms were optimised within a pipeline to fine tune
+the hyperparameters. This includes feature selection. As the encoded
+data had over 200 variables, we had to limit the range of features which
+could be selected during this process. The limited scope for
+hyperparameters to test was indended to manage our execution time. The
+best parameters as identified by the pipeline by the mean squared error
+are selected for the model and cross-validated.
+
+    \hypertarget{algorithms-tuning-process}{%
+\subsection{Algorithm's tuning
+process}\label{algorithms-tuning-process}}
+
+Feature selection is inlcuded in the pipeline process for algorithm fine
+tuning. Included is f-regression and mutual info regression. The
+pipeline iterates through 5, 10, 15, 20, and 100 variables. The entire
+set of variables is not included in the pipeline to reduce execution
+time. The pipeline algorithm for k-nearest neighbour includes the
+feature selection, and also the hyperparameters k, and p.~k-neighbours
+runs from 1 through 10 and includes distance = 1, and 2. The pipeline
+algorithm for the decision tree regressor included feature selection,
+and hyperparameters max depth, and minimum sample split.
+
+    \hypertarget{algorithm-performance-analysis}{%
+\subsection{Algorithm Performance
+Analysis}\label{algorithm-performance-analysis}}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Rank & Model & negative MSE & Execution time (min)\tabularnewline
+\midrule
+\endhead
+1 & KNN & -0.0006579 & 359.1\tabularnewline
+2 & DT & -0.0006866 & 278.8\tabularnewline
+3 & NN & -0.0007560 & 618.6\tabularnewline
+\bottomrule
+\end{longtable}
+
+As you can see above: - the K-Nearest Neighbor has the best MSE (closest
+to 0) - The execution time required to run the decision tree was most
+efficient
+
+    \hypertarget{setup}{%
+\subsection{Setup}\label{setup}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{io}\PY{o}{,} \PY{n+nn}{joblib}\PY{o}{,} \PY{n+nn}{math}\PY{o}{,} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}\PY{o}{,} \PY{n+nn}{os}\PY{o}{,} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}\PY{o}{,} \PY{n+nn}{sklearn}\PY{o}{,} \PY{n+nn}{warnings}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} all of the sklearn libraries:}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{feature\PYZus{}selection} \PY{k}{as} \PY{n}{fs}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectKBest}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{,} \PY{n}{RepeatedStratifiedKFold}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RepeatedKFold}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neural\PYZus{}network} \PY{k}{import} \PY{n}{MLPRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{as} \PY{n+nn}{metrics}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeRegressor}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} from google.colab import files}
+        \PY{c+c1}{\PYZsh{} uploaded = files.upload()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} from google.colab import drive}
+        \PY{c+c1}{\PYZsh{} drive.mount(\PYZsq{}/content/drive\PYZsq{})}
+        \PY{c+c1}{\PYZsh{} !ls \PYZdq{}/content/drive/My Drive/\PYZdq{} \PYZsh{} this line will let you know if it\PYZsq{}s mounted correctly}
+\end{Verbatim}
+
+
+    Import data in Google Colab
+
+    Import data in Jupyter / Atom / VS Code
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} os.getcwd()}
+        \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/ashleigholney/Desktop/MATH2319\PYZhy{}Machine\PYZhy{}Learning/Course Project}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} ash\PYZsq{}s}
+        \PY{n+nv+vm}{\PYZus{}\PYZus{}file\PYZus{}\PYZus{}} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{advertising\PYZus{}train.csv}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n+nv+vm}{\PYZus{}\PYZus{}file\PYZus{}\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Consistent naming of columns (minus camelCase):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{labelNames} \PY{o}{=} \PY{p}{[}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{case\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{company\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{device\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ad\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ad\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{requests}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{impression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cpc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ctr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viewability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ratio1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ratio2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ratio3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ratio4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ratio5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{]}
+        \PY{n}{data}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{labelNames}
+\end{Verbatim}
+
+
+    Common code/functions we reuse throughout code
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{categoricalFeatureList} \PY{o}{=} \PY{p}{[}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{company\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{country\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{device\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dow}\PY{l+s+s1}{\PYZsq{}}
+              \PY{p}{]}
+\end{Verbatim}
+
+
+    \hypertarget{source-pre-processing}{%
+\subsection{Source Pre-processing}\label{source-pre-processing}}
+
+Remove any index columns:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)} \PY{o}{!=} \PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+        \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (214128, 21)
+\end{Verbatim}
+            
+    Remove any constant features (that have only one unique value):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} (214128, 21)
+\end{Verbatim}
+            
+    Check for nulls:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+company\_id     0
+country\_id     0
+device\_type    0
+day            0
+dow            0
+price1         0
+price2         0
+price3         0
+ad\_area        0
+ad\_ratio       0
+requests       0
+impression     0
+cpc            0
+ctr            0
+viewability    0
+ratio1         0
+ratio2         0
+ratio3         0
+ratio4         0
+ratio5         0
+y              0
+dtype: int64
+
+    \end{Verbatim}
+
+    Encode Categorical Variables:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+          \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{categoricalFeatureList}\PY{p}{)}
+\end{Verbatim}
+
+
+    Our data is now 226 features wide
+
+\hypertarget{outlier-detection}{%
+\subsection{Outlier detection}\label{outlier-detection}}
+
+    Check if we have outliers
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}outliers}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{absolute\PYZus{}normalized} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{zscore}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{absolute\PYZus{}normalized} \PY{o}{\PYZgt{}} \PY{l+m+mi}{3}
+             
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}length\PYZus{}unique\PYZus{}outliers}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} get boolean array of outliers:}
+             \PY{n}{outliers} \PY{o}{=} \PY{n}{get\PYZus{}outliers}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+         
+             \PY{k}{if} \PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}module\PYZus{}\PYZus{}} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} for numpy:}
+                 \PY{c+c1}{\PYZsh{} get boolean array of outliers:}
+                 \PY{n}{outliersIndexList} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{outliers}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} for pandas:}
+                 \PY{n}{outliersIndexList} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{outliers}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} exclude records that include multiple outliers:}
+             \PY{n}{uniqueOutliersIndexList} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{outliersIndexList}\PY{p}{)}
+             \PY{n}{uniqueOutliersLength} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{outliersIndexList}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{uniqueOutliersLength}
+         
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}proportion\PYZus{}unique\PYZus{}outliers}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{uniqueOutliersLength} \PY{o}{=} \PY{n}{get\PYZus{}length\PYZus{}unique\PYZus{}outliers}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+             \PY{n}{outlierPercent} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{uniqueOutliersLength}\PY{o}{/}\PY{l+m+mi}{214128}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+             \PY{k}{return} \PY{n}{outlierPercent}
+\end{Verbatim}
+
+
+    \hypertarget{split-into-targetdata}{%
+\subsection{Split into target/data}\label{split-into-targetdata}}
+
+Split \texttt{y} into separate dataset before normalisation
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{source} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{target} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Normalise our source
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{sourceNormalised} \PY{o}{=} \PY{n}{source}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sourceNormalised} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{sourceNormalised}\PY{p}{)}
+         
+         \PY{n}{targetNormalised} \PY{o}{=} \PY{n}{target}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{targetNormalised} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{targetNormalised}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{sample-our-data}{%
+\subsection{Sample our data}\label{sample-our-data}}
+
+    Refactored samples to a set of 100 for testing pipelines, then in
+production set the sample = 5000
+
+NOTE: This smaller sample size is limited by computing power. In a
+production environment, we would set this to a much larger sample
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{c+c1}{\PYZsh{} sample = 100}
+          \PY{c+c1}{\PYZsh{} Setting random\PYZus{}state makes sampling reproducible }
+          \PY{n}{samples} \PY{o}{=} \PY{l+m+mi}{5000}
+          
+          \PY{c+c1}{\PYZsh{} numpy version}
+          \PY{n}{sourceSample} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+              \PY{n}{sourceNormalised}\PY{p}{,}
+              \PY{p}{)}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{n} \PY{o}{=} \PY{n}{samples}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{8}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+          \PY{n}{targetSample} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+              \PY{n}{targetNormalised}\PY{p}{,}
+              \PY{p}{)}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{n} \PY{o}{=} \PY{n}{samples}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{8}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \hypertarget{feature-selection}{%
+\subsubsection{Feature selection}\label{feature-selection}}
+
+\begin{itemize}
+\tightlist
+\item
+  We refactored the parameter pipeline code (using DRY methodology) into
+  the following dictionary:
+\item
+  It is merged with the 4 pipeline dict's using \texttt{**} (requires
+  python\textgreater3.5)
+\end{itemize}
+
+\hypertarget{parameters}{%
+\paragraph{Parameters}\label{parameters}}
+
+\begin{itemize}
+\tightlist
+\item
+  k - set to numerous options from 5 - 100
+\item
+  Score function: tested the \texttt{f\_regression} and
+  \texttt{mutual\_info\_regression}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{cv\PYZus{}method} \PY{o}{=} \PY{n}{RepeatedKFold}\PY{p}{(}\PY{n}{n\PYZus{}splits} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{999}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} parameter pipeline for `fselector` to use in 3 functions}
+         \PY{n}{params\PYZus{}pipe\PYZus{}fselector} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fselector\PYZus{}\PYZus{}score\PYZus{}func}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}
+                 \PY{n}{fs}\PY{o}{.}\PY{n}{f\PYZus{}regression}\PY{p}{,} 
+                 \PY{n}{fs}\PY{o}{.}\PY{n}{mutual\PYZus{}info\PYZus{}regression}
+                 \PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fselector\PYZus{}\PYZus{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{,} 
+             \PY{c+c1}{\PYZsh{} \PYZsq{}fselector\PYZus{}\PYZus{}k\PYZsq{}: [5, 10, source.shape[1]],}
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \hypertarget{neural-network}{%
+\subsection{Neural Network}\label{neural-network}}
+
+    \hypertarget{parameters}{%
+\subsubsection{Parameters}\label{parameters}}
+
+\begin{itemize}
+\item
+  hidden\_layer\_sizes : number of neurons in the ith hidden layer - 5 -
+  100
+\item
+  activation: Activation function for the hidden layer (default `relu')
+\item
+  solver: The solver for weight optimization (default `adam')
+\item
+  learning\_rate: Learning rate schedule for weight updates (default
+  `constant')
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{params\PYZus{}pipe\PYZus{}NN\PYZus{}fs} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{o}{*}\PY{o}{*}\PY{n}{params\PYZus{}pipe\PYZus{}fselector}\PY{p}{,} \PY{c+c1}{\PYZsh{} pylint: disable=syntax\PYZhy{}error,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn\PYZus{}\PYZus{}alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn\PYZus{}\PYZus{}hidden\PYZus{}layer\PYZus{}sizes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{p}{)}\PY{p}{]}\PY{p}{,}      \PY{c+c1}{\PYZsh{} default: (100,)}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn\PYZus{}\PYZus{}max\PYZus{}iter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{200}\PY{p}{]}\PY{p}{,}                  \PY{c+c1}{\PYZsh{} default is 200}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn\PYZus{}\PYZus{}activation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{identity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{c+c1}{\PYZsh{} default \PYZsq{}relu\PYZsq{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn\PYZus{}\PYZus{}solver}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lbfgs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sgd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{]}\PY{p}{,}   \PY{c+c1}{\PYZsh{} default \PYZsq{}adam\PYZsq{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn\PYZus{}\PYZus{}verbose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{True}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn\PYZus{}\PYZus{}learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{invscaling}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adaptive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{steps\PYZus{}NN} \PY{o}{=} \PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fselector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{MLPRegressor}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{]}
+         
+         \PY{n}{pipe\PYZus{}NN\PYZus{}fs} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps\PYZus{}NN}\PY{p}{)}
+         
+         \PY{n}{pipe\PYZus{}NN\PYZus{}fs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}
+             \PY{n}{estimator} \PY{o}{=} \PY{n}{pipe\PYZus{}NN\PYZus{}fs}\PY{p}{,}
+             \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{n}{params\PYZus{}pipe\PYZus{}NN\PYZus{}fs}\PY{p}{,}
+             \PY{n}{cv} \PY{o}{=} \PY{n}{cv\PYZus{}method}\PY{p}{,}
+             \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+             \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{refit} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  
+             \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{pipe\PYZus{}NN\PYZus{}fs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{sourceSample}\PY{p}{,} \PY{n}{targetSample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 30 folds for each of 360 candidates, totalling 10800 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n\_jobs=-1)]: Done  34 tasks      | elapsed:    7.1s
+[Parallel(n\_jobs=-1)]: Done 184 tasks      | elapsed:   21.2s
+[Parallel(n\_jobs=-1)]: Done 434 tasks      | elapsed:   58.4s
+[Parallel(n\_jobs=-1)]: Done 784 tasks      | elapsed:  2.0min
+[Parallel(n\_jobs=-1)]: Done 1234 tasks      | elapsed: 20.9min
+[Parallel(n\_jobs=-1)]: Done 1784 tasks      | elapsed: 82.7min
+[Parallel(n\_jobs=-1)]: Done 2434 tasks      | elapsed: 125.4min
+[Parallel(n\_jobs=-1)]: Done 3184 tasks      | elapsed: 127.1min
+[Parallel(n\_jobs=-1)]: Done 4034 tasks      | elapsed: 217.3min
+[Parallel(n\_jobs=-1)]: Done 4984 tasks      | elapsed: 250.2min
+[Parallel(n\_jobs=-1)]: Done 6034 tasks      | elapsed: 322.3min
+[Parallel(n\_jobs=-1)]: Done 7184 tasks      | elapsed: 372.8min
+[Parallel(n\_jobs=-1)]: Done 8434 tasks      | elapsed: 472.2min
+[Parallel(n\_jobs=-1)]: Done 9784 tasks      | elapsed: 504.7min
+[Parallel(n\_jobs=-1)]: Done 10800 out of 10800 | elapsed: 618.6min finished
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 1, loss = 0.00270981
+Iteration 2, loss = 0.00060439
+Iteration 3, loss = 0.00048236
+Iteration 4, loss = 0.00046257
+Iteration 5, loss = 0.00045494
+Iteration 6, loss = 0.00045074
+Iteration 7, loss = 0.00044478
+Iteration 8, loss = 0.00044358
+Iteration 9, loss = 0.00043839
+Iteration 10, loss = 0.00043618
+Iteration 11, loss = 0.00043370
+Iteration 12, loss = 0.00043098
+Iteration 13, loss = 0.00042930
+Iteration 14, loss = 0.00043095
+Training loss did not improve more than tol=0.000100 for 10 consecutive epochs. Stopping.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} GridSearchCV(cv=<sklearn.model\_selection.\_split.RepeatedKFold object at 0x1099a7ef0>,
+                      error\_score='raise-deprecating',
+                      estimator=Pipeline(memory=None,
+                                         steps=[('fselector',
+                                                 SelectKBest(k=10,
+                                                             score\_func=<function f\_classif at 0x1234806a8>)),
+                                                ('nn',
+                                                 MLPRegressor(activation='relu',
+                                                              alpha=0.0001,
+                                                              batch\_size='auto',
+                                                              beta\_1=0.9, beta\_2=0.999,
+                                                              early\_stopping=False,
+                                                              epsilon=1{\ldots}
+                                  'nn\_\_activation': ['identity', 'logistic', 'tanh',
+                                                     'relu'],
+                                  'nn\_\_alpha': [0.001],
+                                  'nn\_\_hidden\_layer\_sizes': [(5, 10, 100)],
+                                  'nn\_\_learning\_rate': ['constant', 'invscaling',
+                                                        'adaptive'],
+                                  'nn\_\_max\_iter': [200],
+                                  'nn\_\_solver': ['lbfgs', 'sgd', 'adam'],
+                                  'nn\_\_verbose': [True]\},
+                      pre\_dispatch='2*n\_jobs', refit='neg\_mean\_squared\_error',
+                      return\_train\_score=False, scoring='neg\_mean\_squared\_error',
+                      verbose=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{joblib}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{pipe\PYZus{}NN\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pipe\PYZus{}NN\PYZus{}fs.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{compress}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} saved\PYZus{}nn = joblib.load(\PYZsq{}pipe\PYZus{}NN\PYZus{}fs.pkl\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} ['pipe\_NN\_fs.pkl']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{pipe\PYZus{}NN\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} -0.0007555238411689335
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{pipe\PYZus{}NN\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} \{'fselector\_\_k': 10,
+          'fselector\_\_score\_func': <function sklearn.feature\_selection.univariate\_selection.f\_regression(X, y, center=True)>,
+          'nn\_\_activation': 'relu',
+          'nn\_\_alpha': 0.001,
+          'nn\_\_hidden\_layer\_sizes': (5, 10, 100),
+          'nn\_\_learning\_rate': 'adaptive',
+          'nn\_\_max\_iter': 200,
+          'nn\_\_solver': 'adam',
+          'nn\_\_verbose': True\}
+\end{Verbatim}
+            
+    \hypertarget{nearest-neighbour-pipelines}{%
+\subsection{Nearest Neighbour
+Pipelines}\label{nearest-neighbour-pipelines}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{steps\PYZus{}KNN} \PY{o}{=} \PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fselector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{KNeighborsRegressor}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{]}
+         \PY{n}{pipe\PYZus{}KNN} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps\PYZus{}KNN}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{the-algorithms-tuning-process}{%
+\paragraph{the algorithms' tuning
+process,}\label{the-algorithms-tuning-process}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\textquotesingle{}fselector\_\_k\textquotesingle{}:\ {[}5,\ 10{]}}
+  are feature selection
+\item
+  \texttt{\textquotesingle{}knn\_\_n\_neighbors\textquotesingle{}}
+\item
+  \texttt{\textquotesingle{}knn\_\_p\textquotesingle{}:\ {[}1,\ 2{]}} is
+  distance
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{params\PYZus{}pipe\PYZus{}KNN} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{o}{*}\PY{o}{*}\PY{n}{params\PYZus{}pipe\PYZus{}fselector}\PY{p}{,}        \PY{c+c1}{\PYZsh{} copies from above}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn\PYZus{}\PYZus{}n\PYZus{}neighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn\PYZus{}\PYZus{}p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{pipe\PYZus{}KNN} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}
+             \PY{n}{estimator} \PY{o}{=} \PY{n}{pipe\PYZus{}KNN}\PY{p}{,}
+             \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{n}{params\PYZus{}pipe\PYZus{}KNN}\PY{p}{,}
+             \PY{n}{cv} \PY{o}{=} \PY{n}{cv\PYZus{}method}\PY{p}{,}
+             \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{c+c1}{\PYZsh{} CHECKME: this was set to \PYZhy{}2}
+             \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{pipe\PYZus{}KNN}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{sourceSample}\PY{p}{,} \PY{n}{targetSample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 30 folds for each of 200 candidates, totalling 6000 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n\_jobs=-1)]: Done  52 tasks      | elapsed:    1.0s
+[Parallel(n\_jobs=-1)]: Done 352 tasks      | elapsed:    4.9s
+[Parallel(n\_jobs=-1)]: Done 742 tasks      | elapsed: 16.7min
+[Parallel(n\_jobs=-1)]: Done 1092 tasks      | elapsed: 59.4min
+[Parallel(n\_jobs=-1)]: Done 1542 tasks      | elapsed: 72.2min
+[Parallel(n\_jobs=-1)]: Done 2092 tasks      | elapsed: 109.1min
+[Parallel(n\_jobs=-1)]: Done 2742 tasks      | elapsed: 146.5min
+[Parallel(n\_jobs=-1)]: Done 3492 tasks      | elapsed: 207.0min
+[Parallel(n\_jobs=-1)]: Done 4342 tasks      | elapsed: 235.5min
+[Parallel(n\_jobs=-1)]: Done 5292 tasks      | elapsed: 288.4min
+[Parallel(n\_jobs=-1)]: Done 6000 out of 6000 | elapsed: 359.1min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} GridSearchCV(cv=<sklearn.model\_selection.\_split.RepeatedKFold object at 0x1099a7ef0>,
+                      error\_score='raise-deprecating',
+                      estimator=Pipeline(memory=None,
+                                         steps=[('fselector',
+                                                 SelectKBest(k=10,
+                                                             score\_func=<function f\_classif at 0x1234806a8>)),
+                                                ('knn',
+                                                 KNeighborsRegressor(algorithm='auto',
+                                                                     leaf\_size=30,
+                                                                     metric='minkowski',
+                                                                     metric\_params=None,
+                                                                     n\_jobs=None,
+                                                                     n\_neighbors=5, p=2,
+                                                                     weights='uniform'))],
+                                         verbose=False),
+                      iid='warn', n\_jobs=-1,
+                      param\_grid=\{'fselector\_\_k': [5, 10, 15, 20, 100],
+                                  'fselector\_\_score\_func': [<function f\_regression at 0x123480840>,
+                                                            <function mutual\_info\_regression at 0x123aec510>],
+                                  'knn\_\_n\_neighbors': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                                  'knn\_\_p': [1, 2]\},
+                      pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score=False,
+                      scoring='neg\_mean\_squared\_error', verbose=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{joblib}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{pipe\PYZus{}KNN}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best\PYZus{}KNN.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{compress} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} saved\PYZus{}knn = joblib.load(\PYZsq{}best\PYZus{}KNN.pkl\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} ['best\_KNN.pkl']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{pipe\PYZus{}KNN}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} \{'fselector\_\_k': 10,
+          'fselector\_\_score\_func': <function sklearn.feature\_selection.univariate\_selection.f\_regression(X, y, center=True)>,
+          'knn\_\_n\_neighbors': 10,
+          'knn\_\_p': 1\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{pipe\PYZus{}KNN}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} -0.000652080088372151
+\end{Verbatim}
+            
+    \hypertarget{decision-tree-pipelines}{%
+\subsection{Decision Tree Pipelines}\label{decision-tree-pipelines}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{df\PYZus{}regressor} \PY{o}{=} \PY{n}{DecisionTreeRegressor}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{999}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{params\PYZus{}pipe\PYZus{}DT\PYZus{}fs} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{o}{*}\PY{o}{*}\PY{n}{params\PYZus{}pipe\PYZus{}fselector}\PY{p}{,}        \PY{c+c1}{\PYZsh{} copied from above}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}\PYZus{}criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}\PYZus{}min\PYZus{}samples\PYZus{}split}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{150}\PY{p}{]}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{steps} \PY{o}{=} \PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fselector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{score\PYZus{}func} \PY{o}{=} \PY{n}{fs}\PY{o}{.}\PY{n}{f\PYZus{}regression}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df\PYZus{}regressor}\PY{p}{)}
+             \PY{p}{]}
+         
+         \PY{n}{pipe\PYZus{}DT\PYZus{}fs} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{p}{)}
+         
+         \PY{n}{grid\PYZus{}DT\PYZus{}fs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}
+             \PY{n}{pipe\PYZus{}DT\PYZus{}fs}\PY{p}{,}
+             \PY{n}{params\PYZus{}pipe\PYZus{}DT\PYZus{}fs}\PY{p}{,}
+             \PY{n}{cv} \PY{o}{=} \PY{n}{cv\PYZus{}method}\PY{p}{,}
+             \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+             \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{refit} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{grid\PYZus{}DT\PYZus{}fs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{sourceSample}\PY{p}{,} \PY{n}{targetSample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 30 folds for each of 160 candidates, totalling 4800 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n\_jobs=-1)]: Done  34 tasks      | elapsed:   58.8s
+[Parallel(n\_jobs=-1)]: Done 184 tasks      | elapsed: 10.3min
+[Parallel(n\_jobs=-1)]: Done 434 tasks      | elapsed: 24.9min
+[Parallel(n\_jobs=-1)]: Done 784 tasks      | elapsed: 45.7min
+[Parallel(n\_jobs=-1)]: Done 1234 tasks      | elapsed: 71.7min
+[Parallel(n\_jobs=-1)]: Done 1784 tasks      | elapsed: 104.2min
+[Parallel(n\_jobs=-1)]: Done 2434 tasks      | elapsed: 141.3min
+[Parallel(n\_jobs=-1)]: Done 3184 tasks      | elapsed: 185.5min
+[Parallel(n\_jobs=-1)]: Done 4034 tasks      | elapsed: 233.7min
+[Parallel(n\_jobs=-1)]: Done 4800 out of 4800 | elapsed: 278.8min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} GridSearchCV(cv=<sklearn.model\_selection.\_split.RepeatedKFold object at 0x1099a7ef0>,
+                      error\_score='raise-deprecating',
+                      estimator=Pipeline(memory=None,
+                                         steps=[('fselector',
+                                                 SelectKBest(k=10,
+                                                             score\_func=<function f\_regression at 0x123480840>)),
+                                                ('dt',
+                                                 DecisionTreeRegressor(criterion='mse',
+                                                                       max\_depth=None,
+                                                                       max\_features=None,
+                                                                       max\_leaf\_nodes=None,
+                                                                       min\_impurity\_decrease={\ldots}
+                      param\_grid=\{'dt\_\_criterion': ['mse'],
+                                  'dt\_\_max\_depth': [1, 2, 3, 4],
+                                  'dt\_\_min\_samples\_split': [5, 50, 100, 150],
+                                  'fselector\_\_k': [5, 10, 15, 20, 100],
+                                  'fselector\_\_score\_func': [<function f\_regression at 0x123480840>,
+                                                            <function mutual\_info\_regression at 0x123aec510>]\},
+                      pre\_dispatch='2*n\_jobs', refit='neg\_mean\_squared\_error',
+                      return\_train\_score=False, scoring='neg\_mean\_squared\_error',
+                      verbose=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{grid\PYZus{}DT\PYZus{}fs}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} GridSearchCV(cv=<sklearn.model\_selection.\_split.RepeatedKFold object at 0x1099a7ef0>,
+                      error\_score='raise-deprecating',
+                      estimator=Pipeline(memory=None,
+                                         steps=[('fselector',
+                                                 SelectKBest(k=10,
+                                                             score\_func=<function f\_regression at 0x123480840>)),
+                                                ('dt',
+                                                 DecisionTreeRegressor(criterion='mse',
+                                                                       max\_depth=None,
+                                                                       max\_features=None,
+                                                                       max\_leaf\_nodes=None,
+                                                                       min\_impurity\_decrease={\ldots}
+                      param\_grid=\{'dt\_\_criterion': ['mse'],
+                                  'dt\_\_max\_depth': [1, 2, 3, 4],
+                                  'dt\_\_min\_samples\_split': [5, 50, 100, 150],
+                                  'fselector\_\_k': [5, 10, 15, 20, 100],
+                                  'fselector\_\_score\_func': [<function f\_regression at 0x123480840>,
+                                                            <function mutual\_info\_regression at 0x123aec510>]\},
+                      pre\_dispatch='2*n\_jobs', refit='neg\_mean\_squared\_error',
+                      return\_train\_score=False, scoring='neg\_mean\_squared\_error',
+                      verbose=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{joblib}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{grid\PYZus{}DT\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pipe\PYZus{}DT\PYZus{}fs.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{compress}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} saved\PYZus{}knn = joblib.load(\PYZsq{}pipe\PYZus{}DT\PYZus{}fs.pkl\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} ['pipe\_DT\_fs.pkl']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{grid\PYZus{}DT\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} -0.0006999301498536244
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{grid\PYZus{}DT\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} \{'dt\_\_criterion': 'mse',
+          'dt\_\_max\_depth': 4,
+          'dt\_\_min\_samples\_split': 150,
+          'fselector\_\_k': 20,
+          'fselector\_\_score\_func': <function sklearn.feature\_selection.mutual\_info\_.mutual\_info\_regression(X, y, discrete\_features='auto', n\_neighbors=3, copy=True, random\_state=None)>\}
+\end{Verbatim}
+            
+    NOTE: The best parameters are at the upper bounds of what was tested.
+the pipeline will be extended
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{params\PYZus{}pipe\PYZus{}DT2} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fselector\PYZus{}\PYZus{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{26}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}\PYZus{}criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}\PYZus{}min\PYZus{}samples\PYZus{}split}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{150}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{,} \PY{l+m+mi}{350}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{450}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{]}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{steps} \PY{o}{=} \PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fselector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{score\PYZus{}func} \PY{o}{=} \PY{n}{fs}\PY{o}{.}\PY{n}{f\PYZus{}regression}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df\PYZus{}regressor}\PY{p}{)}
+         \PY{p}{]}
+         \PY{n}{pipe\PYZus{}DT2} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{p}{)}
+         
+         \PY{n}{grid\PYZus{}DT2} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}
+             \PY{n}{pipe\PYZus{}DT2}\PY{p}{,}
+             \PY{n}{params\PYZus{}pipe\PYZus{}DT2}\PY{p}{,}
+             \PY{n}{cv} \PY{o}{=} \PY{n}{cv\PYZus{}method}\PY{p}{,}
+             \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+             \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{refit} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{grid\PYZus{}DT2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{sourceSample}\PY{p}{,} \PY{n}{targetSample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 30 folds for each of 32 candidates, totalling 960 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
+[Parallel(n\_jobs=-1)]: Done  34 tasks      | elapsed:    2.2s
+[Parallel(n\_jobs=-1)]: Done 319 tasks      | elapsed:    4.9s
+[Parallel(n\_jobs=-1)]: Done 819 tasks      | elapsed:   10.1s
+[Parallel(n\_jobs=-1)]: Done 945 out of 960 | elapsed:   11.5s remaining:    0.2s
+[Parallel(n\_jobs=-1)]: Done 960 out of 960 | elapsed:   11.6s finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} GridSearchCV(cv=<sklearn.model\_selection.\_split.RepeatedKFold object at 0x1099a7ef0>,
+                      error\_score='raise-deprecating',
+                      estimator=Pipeline(memory=None,
+                                         steps=[('fselector',
+                                                 SelectKBest(k=10,
+                                                             score\_func=<function f\_regression at 0x123480840>)),
+                                                ('dt',
+                                                 DecisionTreeRegressor(criterion='mse',
+                                                                       max\_depth=None,
+                                                                       max\_features=None,
+                                                                       max\_leaf\_nodes=None,
+                                                                       min\_impurity\_decrease={\ldots}
+                                                                       presort=False,
+                                                                       random\_state=999,
+                                                                       splitter='best'))],
+                                         verbose=False),
+                      iid='warn', n\_jobs=-1,
+                      param\_grid=\{'dt\_\_criterion': ['mse'],
+                                  'dt\_\_max\_depth': [5, 10, 15, 20],
+                                  'dt\_\_min\_samples\_split': [150, 200, 250, 300, 350, 400,
+                                                            450, 500],
+                                  'fselector\_\_k': [26]\},
+                      pre\_dispatch='2*n\_jobs', refit='neg\_mean\_squared\_error',
+                      return\_train\_score=False, scoring='neg\_mean\_squared\_error',
+                      verbose=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{joblib}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{grid\PYZus{}DT2}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grid\PYZus{}DT2.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{compress}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} saved\PYZus{}knn = joblib.load(\PYZsq{}grid\PYZus{}DT2.pkl\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} ['grid\_DT2.pkl']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{grid\PYZus{}DT2}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} \{'dt\_\_criterion': 'mse',
+          'dt\_\_max\_depth': 20,
+          'dt\_\_min\_samples\_split': 200,
+          'fselector\_\_k': 26\}
+\end{Verbatim}
+            
+    \begin{verbatim}
+{'dt__criterion': 'mse',
+ 'dt__max_depth': 20,
+ 'dt__min_samples_split': 200,
+ 'fselector__k': 26}
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{grid\PYZus{}DT2}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} -0.0007118538116185094
+\end{Verbatim}
+            
+    \#\#\# Performance Comparison of Algorithms
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} this is virul\PYZsq{}s code}
+        \PY{n}{cv\PYZus{}results\PYZus{}DT} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}
+            \PY{n}{gs\PYZus{}pipe\PYZus{}DT\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{,}
+            \PY{n}{Data}\PY{p}{,}
+            \PY{n}{target}\PY{p}{,} 
+            \PY{n}{cv}\PY{o}{=}\PY{n}{cv\PYZus{}method\PYZus{}ttest}\PY{p}{,} 
+            \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{cv\PYZus{}results\PYZus{}DT}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{cv\PYZus{}method\PYZus{}ttest} \PY{o}{=} \PY{n}{RepeatedKFold}\PY{p}{(}\PY{n}{n\PYZus{}splits} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{do\PYZus{}cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{estimator}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}generates and compares the test to the real target (y) }
+          \PY{l+s+sd}{    for the test data}
+          
+          \PY{l+s+sd}{    Parameters}
+          \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+          \PY{l+s+sd}{    estimator : type}
+          \PY{l+s+sd}{        Description of parameter `estimator`.}
+          
+          \PY{l+s+sd}{    Returns}
+          \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+          \PY{l+s+sd}{    type}
+          \PY{l+s+sd}{        Mean Squared Error}
+          
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}
+                  \PY{n}{estimator} \PY{o}{=} \PY{n}{estimator}\PY{p}{,}
+                  \PY{n}{X} \PY{o}{=} \PY{n}{sourceSample}\PY{p}{,}
+                  \PY{n}{y} \PY{o}{=} \PY{n}{targetSample}\PY{p}{,}
+                  \PY{n}{cv} \PY{o}{=} \PY{n}{cv\PYZus{}method\PYZus{}ttest}\PY{p}{,}
+                  \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}
+                  \PY{n}{scoring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg\PYZus{}mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{return}\PY{p}{(}\PY{n}{cv\PYZus{}results}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{cv\PYZus{}results\PYZus{}KNN} \PY{o}{=} \PY{n}{do\PYZus{}cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{pipe\PYZus{}KNN}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{cv\PYZus{}results\PYZus{}KNN}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:} -0.0006579652267258794
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{cv\PYZus{}results\PYZus{}NN} \PY{o}{=} \PY{n}{do\PYZus{}cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{pipe\PYZus{}NN\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{cv\PYZus{}results\PYZus{}NN}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}127}]:} -0.0007560312310680465
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{cv\PYZus{}results\PYZus{}DT} \PY{o}{=} \PY{n}{do\PYZus{}cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{grid\PYZus{}DT\PYZus{}fs}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{cv\PYZus{}results\PYZus{}DT}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:} -0.0007033477900923612
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{cv\PYZus{}results\PYZus{}DT2} \PY{o}{=} \PY{n}{do\PYZus{}cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{grid\PYZus{}DT2}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{cv\PYZus{}results\PYZus{}DT2}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:} -0.0006866844189859961
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}rel}\PY{p}{(}\PY{n}{cv\PYZus{}results\PYZus{}KNN}\PY{p}{,} \PY{n}{cv\PYZus{}results\PYZus{}NN}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}rel}\PY{p}{(}\PY{n}{cv\PYZus{}results\PYZus{}KNN}\PY{p}{,} \PY{n}{cv\PYZus{}results\PYZus{}DT2}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}rel}\PY{p}{(}\PY{n}{cv\PYZus{}results\PYZus{}DT2}\PY{p}{,} \PY{n}{cv\PYZus{}results\PYZus{}NN}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ttest\_relResult(statistic=15.181983879339706, pvalue=1.3470120147125353e-27)
+Ttest\_relResult(statistic=2.695891749078752, pvalue=0.008250336560359844)
+Ttest\_relResult(statistic=6.156974486867929, pvalue=1.591993301700683e-08)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}rel}\PY{p}{(}\PY{n}{cv\PYZus{}results\PYZus{}KNN}\PY{p}{,} \PY{n}{cv\PYZus{}results\PYZus{}NN}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ttest\_relResult(statistic=15.181983879339706, pvalue=1.3470120147125353e-27)
+
+    \end{Verbatim}
+
+    \hypertarget{limitations-of-report}{%
+\subsection{Limitations of Report}\label{limitations-of-report}}
+
+Our methodology has several weaknesses and limitations:
+
+\begin{itemize}
+\tightlist
+\item
+  We did not know the context of the data, or it's target, as the
+  company and what the target variable is, were not included in the
+  Kaggle competition.
+\item
+  We did not know what the target data was, as the company and what the
+  target variable is, were not included in the Kaggle competition.
+\item
+  We did not do in-depth feature selection and only included several
+  options within the pipeline (i.e.~5 or 10 features).
+\item
+  We used a small sample of the entire dataset in order to perform our
+  analysis (5000 rows of a total possible \textasciitilde200k).
+\item
+  These limitations were put in place to reduce execution time; to
+  improve the accuaracy of these models in future
+\item
+  the hyperparameters of each algorithm could be further optimised
+\item
+  As our data required us to perform regression our only performance
+  metric was mean squared error.
+\end{itemize}
+
+    \hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+This report examined an unknown companies Google Ads exported data. It
+compared three machine learning models to find the best parameters to
+maximise the ROI on advertising against an unknown parameter (y).
+
+Ranked by MSE, the Nearest Neighbour (KNN) is the most performant model
+with the parameters: \texttt{n\_neighbors:\ 10} and \texttt{p:\ 1} using
+the feature selection of \texttt{SelectKBest()}
+
+The t-test p-value is significant (p \textless{} 0.05) when we compare
+it to both the Neural Network, and the Decision Tree model.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

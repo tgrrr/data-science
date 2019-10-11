@@ -1,0 +1,31 @@
+<aside class="notice">
+A blue highlighted section
+</aside>
+<h1 id='styleguide'>Styleguide</h1>
+<ul>
+<li>Links like this:
+<a href="https://github.com/lord/slate/wiki/Markdown-Syntax">All of the ways to do markdown in Slate</a></li>
+</ul>
+<h4 id='code'>code</h4><pre class="highlight ruby tab-ruby"><code><span class="c1"># This is some Ruby code!</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="c"># This is some Python code!</span>
+</code></pre>
+<p>Table:</p>
+
+<table><thead>
+<tr>
+<th>Table Header 1</th>
+<th>Table Header 2</th>
+<th>Table Header 3</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Row 1 col 1</td>
+<td>Row 1 col 2</td>
+<td>Row 1 col 3</td>
+</tr>
+<tr>
+<td>Row 2 col 1</td>
+<td>Row 2 col 2</td>
+<td>Row 2 col 3</td>
+</tr>
+</tbody></table>

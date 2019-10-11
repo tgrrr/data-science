@@ -1,0 +1,32 @@
+Your tasks are to:
+
+ETS:
+
+TODO:
+- ? Models other than ETS
+
+1. fit the suitable models among the ones covered in MATH1307 Forecasting course in this semester to the 95% (round up to get an integer number of observations) 
+of each of the given 1000 series 
+and **obtain the model that gives the minimum MASE value for each series**. 
+
+By this way, you will choose your best model for each series. 
+
+Then, you will calculate the mean minimum MASE for each of yearly, quarterly, and monthly periods. 
+
+So, you will have three **overall mean minimum MASE values** for yearly, quarterly, and monthly periods.
+
+2. use the remaining 5% of each series to check the quality of your forecasts. For this, you will use your best models found in Task 1 to calculate MASE values over the forecasts for 6, 8, and 18 times-ahead forecasts for yearly, quarterly, and monthly periods, respectively. Then you will find the overall average of MASE values for each of yearly, quarterly, and monthly periods.
+The final scoring of the groups will be done according to the following rules:
+
+3. The group that finds the minimum mean MASE for each period type gets 10 points. The total number of nonnormal standardized residuals out of 1000 according to the Shapiro-Wilks test and the total number of standardized residuals with significant serial correlations out of 1000 at 5% level of significance will be counted and multiplied by 0.015 points as the penalty value. Then, the overall average of fits and forecasts will be penalized by the penalty value.
+The groups that come as close as 3%, 5%, and 15% to the top group will 8, 6, and 3 points, respectively. The penalty points for these groups will be as shown in the following table.
+
+```{r}
+setwd('/Users/phil/code/03assignment-forecasting-m3/')
+getwd()
+source('src/data/loadM3Reduced.R')
+
+source("src/data/loader.R")
+
+
+```

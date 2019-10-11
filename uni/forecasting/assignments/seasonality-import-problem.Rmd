@@ -1,0 +1,79 @@
+
+```{r include=FALSE}
+# Packages:
+
+# devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
+library(packagr)
+packages <- c(
+  'dLagM', 'forecast', 'expsmooth', 'TSA', 'Hmisc', 'car', 'AER',
+  'readr', 'tseries', 'lubridate', 'stringr', 'testthis', 'captioner', 'urca')
+packagr(packages) # alpha package to check, install and load packages
+
+source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+
+# Config Options:
+# data %>% head(1) # Initial date: Jan-04 (from original date column)
+file_name = '~/code/data-science-next/datasets/forecasting/ASX_data.csv'
+tsStart = c(2004, 1)
+# data %>% tail(1) # Final date: May-17 (from original date column)
+tsEnd = c(2017, 5)
+default_ylab = 'ASX data'
+default_xlab = 'Year'
+featuresData <- list('asx.ts', 'gold.ts', 'oil.ts', 'copper.ts')
+
+# Load data:
+data <- read_csv(
+  file_name,
+  col_names = TRUE,)
+names(data) <- c('asx', 'gold', 'oil', 'copper')
+```
+
+
+##### Create timeSeries objects
+
+```{r}
+
+with12Frequency.ts <- ts(
+  data$oil,
+  start = tsStart,
+  frequency = 12
+); 
+
+with6Frequency.ts <- ts(
+  data$oil,
+  start = tsStart,
+  frequency = 6
+); 
+
+with1Frequency.ts <- ts(
+  data$oil,
+  start = tsStart,
+  frequency = 1
+); 
+
+
+noFrequency.ts <- ts(
+  data$oil,
+  start = tsStart
+); 
+
+decompose12Frequency.ts <- decompose(with12Frequency.ts, type="multiplicative") 
+plot(decompose12Frequency.ts$seasonal)
+
+decompose6Frequency.ts <- decompose(with6Frequency.ts, type="multiplicative") 
+plot(decompose6Frequency.ts$seasonal)
+
+# decompose1Frequency.ts <- decompose(with1Frequency.ts, type="multiplicative") 
+# plot(decompose1Frequency.ts$seasonal)
+
+plot(noFrequency.ts)
+
+isSeasonal(with12Frequency.ts)
+isSeasonal(with6Frequency.ts)
+isSeasonal(with1Frequency.ts)
+isSeasonal(noFrequency.ts)
+
+
+
+# decomposeNoFrequency.ts <- decompose(noFrequency.ts, type="multiplicative") 
+# plot(noFrequency.ts)

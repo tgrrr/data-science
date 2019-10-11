@@ -1,0 +1,320 @@
+TODO:
+- [ ] Check order of operations against assignment. Because some stuff isn't loading in order
+
+
+- [ ] After Assignment: 
+  - move utils into separate files
+  - remove unnecessary packages
+
+Order of Operations
+
+fix plot time years
+
+# wk1 Ex3
++ solution1
+read.csv
+ts
+
+plot
+  points
+
+acf
+pacf
+<!-- Phillips-Perron Unit Root Test -->
+- [ ] ur.df %>% summary
+- [ ] ur.pp %>% summary
+
+++ Correlation
+
+---------------
++ solution2
+
+# [x] Transforms
+BoxCox.ar()
+log()
+
+plot()
+  points()
+
+# [x] differencing
+diff()
+  plot()
+    points(
+      pch=as.vector(season()))
+<!-- TODO: diff with seasonality -->
+
+  ## differencing seasonal
+
+# DECOMPOSITION (3 TYPES)
+
+x12()
+  plot()
+
+stl()
+  plot()
+
+# FORECASTING WITH SEASONAL DECOMPOSITION
+
+seasadj()
+  plot(
+    naive())
+
+forecast( , h=24)
+  plot()
+
+----------------
++ solution3
+
+# DISTRIBUTED LAG MODELS
+
+warming = ts(globalWarming$Warming,start = 1959)
+co2 = ts(globalWarming$CO2,start = 1959)
+data.ts = ts(globalWarming[,2:3],start = 1959)
+
+# We can plot them individually
+plot(warming)
+plot(co2)
+
+plot(data.ts)
+  legend()
+
+# We can scale and center both series to see in the same plot clearly
+data.scaled = scale(data.ts)
+plot(data.scaled)
+  legend()
+
+# The correlation between warming and CO2 series is very high
+cor(data.ts)
+
+
+# Fit a finite DLM with a lag length of 4 and do the diagnostic checking.
+model1 = dlm( x = as.vector(co2) , y = as.vector(warming), q = 4 )
+  summary(model1)
+  checkresiduals(model1$model)
+
+# Find the finite lag length based on AIC and BIC for this data
+# We can change  q and compare AIC/BIC values
+for ( i in 1:10){
+  model1.1 = dlm( x = as.vector(co2) , y = as.vector(warming), q = i )
+  cat("q = ", i, "AIC = ", AIC(model1.1$model), "BIC = ", BIC(model1.1$model),"\n")
+}
+
+# TODO: bgtest() vif() geometric lag
+# TODO: sort.score()
+
+# AIC
+finiteDLMauto(
+  x = as.vector(co2),
+  y = as.vector(warming),
+)
+
+# BIC
+finiteDLMauto(
+  x = as.vector(co2),
+  y = as.vector(warming),
+) # In the outpt "q - k" shows the lag length.
+
+# repeat with q = 1 <- why?
+model1.2 = dlm(
+  ...
+  q = 1)
+  summary(model1.2)
+  checkresiduals(model1.2$model)
+
+# POLYNOMIAL DISTRIBUTED LAGS
+
+# Fit a polynomial DLM of order 2. 
+model2 = polyDlm(
+  ...
+  q = 2,
+  k = 2, 
+  show.beta = TRUE)
+  summary(model2)
+  checkresiduals(model2$model)
+
+# Find forecasts for the CO2 levels 406.31, 407, and 415. Here 406.31 ppm is the latest measurement in May 2017. 
+# Plot the forecasts along with the original warming series.
+model1.2Frc = dLagM::forecast(
+  model1.2, 
+  x = c(406.31, 407, 415), 
+  h = 3)
+model2Frc = dLagM::forecast(
+  model2, 
+  x = c(406.31, 407, 415), 
+  h = 3)
+
+# Dlm
+plot(
+  ts(
+    c(
+      as.vector(warming), 
+      model1.2Frc$forecasts
+    ),
+    start = 1959),
+  type="o",
+  col="Blue",
+  ylim=c(-0.3, 1.7),
+  ylab = "Warming", 
+  xlab = "Year", 
+  main="Global warming series with three years ahead forecasts")
+
+# Polynomial warming and model2Frc forecast
+lines(
+  ts(
+    c(as.vector(warming), model2Frc$forecasts), 
+    start = 1959
+  ),
+  col="red",
+  type="o"
+)
+# just warming
+lines(
+  ts(
+    as.vector(warming), 
+    start = 1959
+  ),
+  col="black",
+  type="o")
+
+legend(
+  "topleft",
+  lty=1,
+  pch = 1,
+  text.width = 11, 
+  col=c("blue", "red", "black"), 
+  c("Dlm", "Polynomial", "Warming")
+)
+
+# KOYCK TRANSFORMATION
+
+# Koyck
+model3 = koyckDlm(
+  x = as.vector(co2),
+  y = as.vector(warming)
+  )
+  summary(model3)
+  checkresiduals(model3$model)
+
+# AR DISTRIBUTED LAG
+
+# Fit autoregressive distributed lag models
+model4 = ardlDlm(
+  x = as.vector(co2),
+  y = as.vector(warming), 
+  p = 1,
+  q = 1 
+)
+  summary(model4)
+  checkresiduals(model4$model)
+
+model4 = ardlDlm(
+  formula = Warming ~ CO2, 
+  data = globalWarming, 
+  p = 1,
+  q = 1
+)
+  summary(model4)
+  checkresiduals(model4$model)
+
+for (i in 1:5){
+  for(j in 1:5){
+    model4.1 = ardlDlm(
+      x = as.vector(co2),
+      y = as.vector(warming), 
+      p = i, 
+      q = j)
+    cat(
+      "p = ", i, 
+      "q = ", j, 
+      "AIC = ", AIC(model4.1$model), 
+      "BIC = ", BIC(model4.1$model),
+      "\n")
+  }
+}
+# p =  1 q =  1 gives the smallest AIC and BIC
+
+# FORECASTING
+
+# Find forecasts for the CO2 levels 406.31, 407, and 415. Here 406.31 ppm is the latest measurement in May 2017. 
+# Plot the forecasts along with the original warming series.
+model3Frc = dLagM::forecast(
+  model3,
+  x = c(406.31, 407, 415),
+  h = 3
+)
+model4Frc = dLagM::forecast(
+  model4,
+  x = c(406.31, 407, 415),
+  h = 3
+)
+
+# Dlm
+plot(
+  ts(
+    c(
+      as.vector(warming), 
+      model1.2Frc$forecasts
+    ),
+    start = 1959
+  ),
+  type="o",
+  col="Blue",
+  ylim= c(-0.3, 1.7), 
+  ylab = "Warming",
+  xlab = "Year",
+  main="Global warming series with 3 years ahead forecasts"
+  )   
+
+# Polynomial   
+lines(
+  ts(
+    c(
+      as.vector(warming),
+      model2Frc$forecasts),
+      start = 1959
+    ),
+    col="red",
+    type="o"
+)
+
+# Koyck
+lines(
+  ts(
+    c(
+      as.vector(warming),
+      model3Frc$forecasts
+    ),
+    start = 1959
+  ),
+  col="green",
+  type="o"
+)
+
+# ARDL
+lines(
+  ts(
+    c(
+      as.vector(warming), 
+      model4Frc$forecasts
+    ), 
+    start = 1959
+  ),
+  col="purple",
+  type="o"
+)
+
+# Warming
+lines(
+  ts(
+    as.vector(warming),
+    start = 1959),
+    col="black",
+    type="o")
+
+legend(
+  "topleft",
+  lty = 1,
+  pch = 1,
+  text.width = 11,
+  col = c("blue", "red", "green", "purple", "black"), c("Dlm", "Polynomial", "Koyck", "ARDL", "Warming")
+)
