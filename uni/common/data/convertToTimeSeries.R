@@ -28,6 +28,7 @@ convertToTimeseries <- function(
       frequency = frequency
     ); 
   }
+  return(df.ts)
 };
 
 convertMultivariateTimeseriesObjects <- function(

@@ -1,18 +1,16 @@
 
-assign(paste0("perf.a", "1"), 5)
+# assign(paste0("perf.a", "1"), 5)
 
-perf.a1
+# assign(bar, value = paste0(colName, ".ts"), envir = .GlobalEnv)
 
-colName = 'foo'
-
-bar = ''
-
- assign(bar, value = paste0(colName, ".ts"), envir = .GlobalEnv)
-
-createVariableNames <- function(df, colName, ...rest) {
-  assign(paste0(colName, ".ts"), df, envir = .GlobalEnv);
+createVariableNames <- function(
+  df, 
+  colName, 
+  append='.ts',
+  ...rest
+) {
+  assign(paste0(colName, append), df, envir = .GlobalEnv);
 };
 
-
-createVariableNames();
-
+# How it works:
+createVariableNames('foo', 'bar', append=NULL);

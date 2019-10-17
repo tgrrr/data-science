@@ -1,4 +1,10 @@
 Week 10: Introduction-2
+
+f(s) = expected number of activated nodes
+
+s = set
+
+
 Introduction to the week
 Welcome to Week 10.  In this week, we will study information diffusion, or how information is propagated among people.  We will study 2 main types, one that diffuses on a network, the other about how innovation diffuses.
 
