@@ -5,7 +5,7 @@
 
 > moved to Notion
 
-# TODO:
+# ~old_todo~
 
 - practice exam
 - Questions from chapters 1, 4, 5

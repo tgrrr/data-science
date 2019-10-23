@@ -7,9 +7,9 @@
 - Data and methods should **fit the question**
 - Ethics: Our responsibility extends beyond the delivery of the model
 
-- [ ] TODOLATER: good points about why data science
-- [ ] TODOLATER: (from video) - Our problems have evolved
-- [ ] TODO ethics summary
+- [ ] ~old_todo~~old_later~ good points about why data science
+- [ ] ~old_todo~~old_later~ (from video) - Our problems have evolved
+- [ ] ~old_todo~ ethics summary
 
 ## Ethics tl;dr (grabbed throughout these notes):
 - Diversity in teams
@@ -24,7 +24,7 @@
 + Similarity drives user engagement <- (could be a problem)
 
 ## Our problems have evolved
-TODOLATER: (from video)
+~old_todo~~old_later~ (from video)
 - Datasets are not simply big, they are granular 
 - Moved away from domain expertise
 - Tools, tools, tools!

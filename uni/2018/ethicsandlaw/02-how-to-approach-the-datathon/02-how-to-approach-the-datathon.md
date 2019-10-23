@@ -2,7 +2,7 @@
 1. Data pipeline
 2. Machine Learning
 3. Front-end UI
-(TODOLATER: circular diagram)
+(~old_todo~~old_later~ circular diagram)
 
 ### Data science lifecycle
 

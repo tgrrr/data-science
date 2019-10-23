@@ -35,7 +35,7 @@ pacf(sim.data2)
 # Set of possible models : {ARMA(1,1), AR(1) = ARMA(1,0), MA(1) = ARMA(0,1)} 
 ```
 
-<!-- TODO: c) AR(2) with LaTeX: \phi=[0.6, -0.6] ϕ = [ 0.6 , − 0.6 ] -->
+<!-- ~old_todo~ c) AR(2) with LaTeX: \phi=[0.6, -0.6] ϕ = [ 0.6 , − 0.6 ] -->
 
 ### d) MA(1) with LaTeX: \theta = 0.5 
 θ = 0.5
@@ -56,7 +56,7 @@ pacf(sim.data4)
 # Set of possible models : {MA(1), ARMA(1,1)}
 ```
 
-<!-- TODO: f) MA(2) with LaTeX: \theta = [-0.5,0.5] θ = [ − 0.5 , 0.5 ] -->
+<!-- ~old_todo~ f) MA(2) with LaTeX: \theta = [-0.5,0.5] θ = [ − 0.5 , 0.5 ] -->
 
 ### g) ARMA(1,1) with LaTeX: \phi = 0.6; \theta = 0.5 
 ϕ = 0.6 
@@ -71,7 +71,7 @@ pacf(sim.data5)
 ### h) ARMA(1,1) with LaTeX: \phi=0.6; \theta=-0.5 
 ϕ = 0.6 ; 
 θ = − 0.5
-<!-- TODO: is 0.15 a typo? -->
+<!-- ~old_todo~ is 0.15 a typo? -->
 ```{r}
 sim.data6 = arima.sim(list(order = c(1,0,1), ar = 0.6, ma = -0.15), n = n)
 acf(sim.data6)
@@ -100,7 +100,7 @@ pacf(sim.data8)
 # Set of possible models : {ARMA(2,2), ARMA(2,3), ARMA(1,2)}
 ```
 
-<!-- TODO: ### k) ARMA(2,2) with  LaTeX: \phi=[0.6,-0.6]; \theta=[-0.5,0.5] -->
+<!-- ~old_todo~ ### k) ARMA(2,2) with  LaTeX: \phi=[0.6,-0.6]; \theta=[-0.5,0.5] -->
 
 ## 2. Stationary ARMA Models
 - Load the simulated datasets into R. 

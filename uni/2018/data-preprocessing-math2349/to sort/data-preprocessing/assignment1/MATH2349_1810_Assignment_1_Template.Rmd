@@ -67,7 +67,7 @@ You must also provide the R codes with outputs (i.e. `head()` of the data set) t
 ok_cupid_data <- readRDS("data/parsed_data_public.rds")
 
 # save it as a dataframe
-# TODO:
+# ~old_todo~
 
 # You must also provide the R codes with outputs (i.e. `head()` of the data set) that you used to import/read/scrape the data set
 head(ok_cupid_data)

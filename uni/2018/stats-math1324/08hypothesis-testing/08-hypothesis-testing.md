@@ -3,11 +3,11 @@ week 8
 
 #### tldr
 
-<!-- TODO: -->
+<!-- ~old_todo~ -->
 
 #### steps
 
-<!-- TODO: -->
+<!-- ~old_todo~ -->
 
 #### What's included:
 

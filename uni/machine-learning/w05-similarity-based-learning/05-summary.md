@@ -1,7 +1,7 @@
 # Chapter 5: Similarity-based Learning
 Fundamentals of Machine Learning
 
-TODO: Sections 5.1, 5.2, 5.3
+~old_todo~ Sections 5.1, 5.2, 5.3
 
 ## Contents:
 

@@ -51,7 +51,7 @@ CustomerData <- read.csv("~/code/data-science/data-preprocessing-math2349/data/C
     is.na(df$col2)
 
 
-## TODO: question goes here    
+## ~old_todo~ question goes here    
 mean(df$col4, na.rm = TRUE)
 
 mean(na.omit(df$col4))

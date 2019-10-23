@@ -21,7 +21,7 @@ title: "MATH1318 Time Series"
 
 ## Executive Summary
 
-TODO:
+~old_todo~
 This report examines the .
 
 ### Goals:
@@ -198,7 +198,7 @@ abline(model_linear)
 
 residual.analysis(model_linear, std = TRUE, start = 1)
 
-# TODO: MASE for linear model
+# ~old_todo~ MASE for linear model
 ```
 
 - The standardised residuals are not white noise and show that the model has 
@@ -210,7 +210,7 @@ distributed
 - ACF: there are significant lags which does not fit with a white noise series
 - Shapiro-Wilk: significant, therefore reject the null that the residuals are 
 normally distributed
-- TODO: MASE value for this model
+- ~old_todo~ MASE value for this model
 
 ## Quadratic Model
 
@@ -235,7 +235,7 @@ lines(as.vector(data.ts))
 
 residual.analysis(model_quadratic, std = TRUE, start = 1)
 
-# TODO: MASE for quadratic model
+# ~old_todo~ MASE for quadratic model
 ```
 
 - The residuals are largely unchanged from the linear plot
@@ -248,7 +248,7 @@ distributed
 - ACF: there are significant lags which does not fit with a white noise series
 - Shapiro-Wilk: significant, therefore reject the null that the residuals are 
 normally distributed
-- TODO: MASE value for this model
+- ~old_todo~ MASE value for this model
 
 ```{r, plot-no-diff}
 doDiffAndPlot(data.ts, 0, 'Bitcoin with no diff')
@@ -258,7 +258,7 @@ doDiffAndPlot(data.ts, 0, 'Bitcoin with no diff')
 - the series will be transformed and/or differenced before fitting ARIMA
 
 ```{r, message=FALSE, warning=FALSE}
-# TODO: look at code to see where he uses it 
+# ~old_todo~ look at code to see where he uses it 
 # I think we should scrap this? - ash
 bc.search = BoxCoxSearch(y = data.ts)
 ```
@@ -344,7 +344,7 @@ qqline(data.ts_log_diff1)
 abs.data.ts_log_diff1 = abs(data.ts_log_diff1)
 sq.data.ts_log_diff1 = data.ts_log_diff1 ^ 2
 
-# TODO: refactor to diffPlot Phil
+# ~old_todo~ refactor to diffPlot Phil
 par(mfrow = c(1, 2))
 acf(
   abs.data.ts_log_diff1,
@@ -354,7 +354,7 @@ pacf(
   abs.data.ts_log_diff1,
   main = "The sample PACF plot for absolute return series")
 eacf(abs.data.ts_log_diff1)
-# NOTE: TODO: After the absolute value transformation, we observe many 
+# NOTE: ~old_todo~ After the absolute value transformation, we observe many 
 # signficicant lags in both ACF and PACF. Also, EACF does not suggest an 
 # ARMA(0,0) model.
 # From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for absolute 
@@ -374,7 +374,7 @@ pacf(
   sq.data.ts_log_diff1,
   main = "The sample PACF plot for squared return series")
 eacf(sq.data.ts_log_diff1)
-# NOTE: TODO:
+# NOTE: ~old_todo~
 # After the square transformation, we boserve many signficicant lags in both 
 # ACF and PACF. Also, EACF does not suggest an ARMA(0,0) model.
 # From the EACF, we can identify ARMA(1,1) and ARMA(1,2) models for squared 
@@ -410,7 +410,7 @@ adfTest(data.ts)
 # doDiffAndPlot(data.ts, 1)
 ```
 
-### TODO: Arima subset
+### ~old_todo~ Arima subset
 
 ```{r}
 res = armasubsets(
@@ -424,8 +424,8 @@ plot(res)
 ```
 
 ```{r}
-# FIXME:error ere
-# TODO: add other models
+# ~old_fixme~error ere
+# ~old_todo~ add other models
 # can't add diff.data.ts
 # AIC and BIC values
 # sort.score(AIC(
@@ -464,15 +464,15 @@ plot(forecast(fit, h = 10),
   ylab = figureName)
 ```
 
-- TODO: interpret forecast
+- ~old_todo~ interpret forecast
 
 
-## TODO: Conclusion
+## ~old_todo~ Conclusion
 
 The results of the above tests summarised:
 
 
-TODO: interpret
+~old_todo~ interpret
 
 
 

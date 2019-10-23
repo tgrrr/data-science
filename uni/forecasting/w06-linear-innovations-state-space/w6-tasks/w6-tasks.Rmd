@@ -1,0 +1,24 @@
+Module 6: Tasks
+Exponential smoothing methods
+The aims of the tasks given here are to
+
+improve R skills in the application of state-space models,
+practice choosing the most suitable state-space model among the available state space and exponential smoothing models,
+observe the effect of treating the error terms additively or multiplicatively, and
+improve the ability to draw inferences from the results of state-space models.
+Working individually or in small groups, please complete the following exercises.
+
+In this task, we will focus on estimating missing values in time series data and eventually forecasting for the future. The file ausOlympics.csvPreview the document [1] includes the number of Australia’s gold medals in the Summer Olympics games between 1896 and 2016. However, there are no Olympic games in 1916, 1940 and 1944. The values of the series for these years are left NA. Please load the data series from the file ausOlympics.csvPreview the document into the workspace of R and do the following tasks using both exponential smoothing and state-space models:
+Display the series using suitable descriptive plots and draw inferences about the mechanism behind the series.
+Use the data between 1896 and 1912 and estimate the number of gold medals that Australia could win in 1916 if there were some Olympic games. Then write the estimated value in its place in the data set and go on with the next task.
+Use the data between 1896 and 1936 and estimate the number of gold medals that Australia could win in 1940 and 1944 if there were some Olympic games. Then write the estimated values in their place in the data set and go on with the next task.
+Use the complete series to forecast the number of the gold medal that Australia will win in the next two Olympic games in 2020 and 2024.
+The series including the total number of employed persons (in 1000s) in Australia between February 1978 and July 2017 is given in employed.csvPreview the document [2] file. Please load the data series from the file employed.csvPreview the document into the workspace of R and do the following tasks using both exponential smoothing and state-space models:
+Display the series using suitable descriptive plots and draw inferences about the mechanism behind the series.
+Use time series decomposition methods to support your inference about the existence of seasonality in the series.
+Fit a set of suitable classical exponential smoothing methods and choose one of the models as the best fitting one within the set of tentative models considering diagnostic checking as well.
+Apply state-space versions of exponential smoothing methods focused on the previous task and select the best fitting model using model selection criteria and diagnostic checking results.
+Compare the results obtained by exponential smoothing and state-space model approaches to infer about the effect of inclusion of additive or multiplicative error terms in the model.
+[1] https://en.wikipedia.org/wiki/Australia_at_the_Olympics (Links to an external site.)
+
+[2] http://www.abs.gov.au/AUSSTATS/abs@.nsf/DetailsPage/6202.0Jul 2017?OpenDocument

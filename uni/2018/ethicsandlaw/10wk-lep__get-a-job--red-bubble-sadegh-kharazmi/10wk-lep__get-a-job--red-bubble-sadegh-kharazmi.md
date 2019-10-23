@@ -1,13 +1,13 @@
-TODO
+~old_todo~
 
 What is Data Science?
 
-TODOLATER: add Venn diagram
+~old_todo~~old_later~ add Venn diagram
 
-TODOLATER: 
+~old_todo~~old_later~ 
 information -> optimisation
 
-TODOLATER: T diagram
+~old_todo~~old_later~ T diagram
 
 Top:
 

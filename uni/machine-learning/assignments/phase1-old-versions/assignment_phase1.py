@@ -9,7 +9,7 @@ print('ash is a cutie')
 #%% [markdown]
 #  ------------------------------------------
 #%% [markdown]
-#  # TODOLATER:
+#  # ~old_todo~~old_later~
 #
 #  - text: between 3 to 10 pages for each phase
 #  - total: between 3 to 10 pages for each phase
@@ -66,7 +66,7 @@ from scipy import stats
 __file_name__ = 'advertising_train.csv'
 df = pd.read_csv(__file_name__)
 # list(df.columns.values)
-# TODO: , names=['companyId', 'countryId', 'deviceType', 'day', 'dow', 'price1', 'price2', 'price3', 'ad_area', 'ad_ratio', 'requests', 'impression', 'cpc', 'ctr', 'viewability', 'ratio1', 'ratio2', 'ratio3', 'ratio4', 'ratio5', 'y']
+# ~old_todo~ , names=['companyId', 'countryId', 'deviceType', 'day', 'dow', 'price1', 'price2', 'price3', 'ad_area', 'ad_ratio', 'requests', 'impression', 'cpc', 'ctr', 'viewability', 'ratio1', 'ratio2', 'ratio3', 'ratio4', 'ratio5', 'y']
 
 # VS: Google Colab
 # from google.colab import files
@@ -113,7 +113,7 @@ objects = list(df.select_dtypes(include=['object']).columns)
 
 #%%
 # calculate z scores for numeric columns
-# TODO: check this
+# ~old_todo~ check this
 # - should we remove the entire row?
 # - should we adjust 3?
 # - are there any other methods?
@@ -121,8 +121,8 @@ z = np.abs(stats.zscore(df[(numeric)]))
 # remove rows with outliers (outlier is z > 3)
 df = df[(z < 3).all(axis=1)]
 print(df.shape)
-# FIXME: type(z)
-# TODO: Removing rows with outliers has removed 7% of the original data
+# ~old_fixme~ type(z)
+# ~old_todo~ Removing rows with outliers has removed 7% of the original data
 
 #%%
 # Logic Checks - Numerical Column Upper and Lower limits
@@ -132,12 +132,12 @@ pd.concat(
     axis=1)
 
 #%%
-# TODO: Count of each numerical Column
+# ~old_todo~ Count of each numerical Column
 def get_value_counts(x): 
     print x.value_counts()
 df[numericColumnsList].apply(get_value_counts)
 
-# TODO:
+# ~old_todo~
 # def get_value_counts_length(x): print len(x.value_counts())
 # df[numericColumnsList].apply(get_sublist)
 
@@ -198,7 +198,7 @@ df['deviceType'].replace(2, 'mobile', inplace=True)
 df['deviceType'].replace(3, 'tablet', inplace=True)
 print(df['deviceType'].value_counts())
 
-# TODO Fixthis:
+# ~old_todo~ Fixthis:
 # 'countryId',
 # ? 'ad_area',
 # 'ad_ratio',
@@ -227,10 +227,10 @@ for c in countries:
        print c
 
 # #%%
-# # TODO: check for illogical values
+# # ~old_todo~ check for illogical values
 
 #%%
-# TODO: check outliers
+# ~old_todo~ check outliers
 #%% [markdown]
 # calculate z scores
 # z = np.abs(stats.zscore(df)

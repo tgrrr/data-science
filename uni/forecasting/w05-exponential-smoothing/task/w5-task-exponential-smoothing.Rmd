@@ -1,0 +1,12 @@
+
+# Module 5: Tasks
+# Exponential smoothing methods
+
+**Goals:**
+
+- practice choosing the most suitable exponential smoothing method for data, and
+- improve the ability to draw inferences from the results of exponential smoothing analyses.
+
+---
+
+DONE: moved into task rmd itself

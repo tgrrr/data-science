@@ -10,10 +10,10 @@ except:
 #   #### Phase 2-Assignment 2-Semester 1, 2019
 #   #### Phil Steinke s3725547, Ash Olney s3686808
 #%% [markdown]
-#  TODO:
+#  ~old_todo~
 #  
 # - [ ] Pick 3 different classifiers @together
-# - [ ] FIXME: outliers, test it with random.seed
+# - [ ] ~old_fixme~ outliers, test it with random.seed
 #  > FEEDBACK: Data wrangling was careful except using Isolation forest to detect outliers. You might want to use a different random seed to check if you will get similar outlier detection results.
 # - [ ] > FEEDBACK: Is your target feature a numeric or multiclass variable?
 # - [ ] > FEEDBACK: Is it a classification or regression problem?
@@ -101,8 +101,8 @@ data = pd.read_csv(__file_name__)
 #   ------------------------------------------------------------------
 #%% [markdown]
 #  # Introduction
-#  - The objective of this project was to build classifiers to predict whether TODO:
-#  - Data sourced from TODO:
+#  - The objective of this project was to build classifiers to predict whether ~old_todo~
+#  - Data sourced from ~old_todo~
 #  - In Phase I, we CHECKME: cleaned the data and re-categorised some descriptive features to be less granular.
 #  - In Phase II, we built three binar classifiers on the cleaned data. The rest of this report is organised as followS.
 #  - Section 2 describes an overview of our methodology.

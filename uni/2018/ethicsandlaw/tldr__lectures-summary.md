@@ -2,7 +2,7 @@
 - RMIT 
 
 
-## TODOLATER:
+## ~old_todo~~old_later~
 
 read this:
 http://pages.cs.wisc.edu/~dpage/cs760/evaluating.pdf

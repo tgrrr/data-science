@@ -1,0 +1,545 @@
+---
+title: "Forecasting Assignment 1 - Phil Steinke"
+output: html_notebook
+---
+
+### - [ ] @focus do everything for copper variable
+
+## SECTION
+### - [ ] TODO: Choice of Variables/models
+### - [ ] TODO: Implementation of models
+### - [ ] TODO: diagnostics Checking Section
+
+### - [ ] TODO: Reporting
+### - [ ] TODO: Descriptive analysis
+
+### our analysis must explore and elaborate on:
+  - [x] The existence of **non-stationarity** in dataset,
+  - [ ] RUBRIC: the impact of the components of a time series data on the given dataset
+  - [ ] RUBRIC: the most accurate and suitable distributed lag model for the ASX price index.
+
+QUICK: Bibleography
+NICE: Captioner
+
+# TODO: There is seasonality every 12 months
+
+- [ ] LATER: https://emedia.rmit.edu.au/learninglab/content/writing-report-0
+
+- [ ] TODO: Convert Instructions to Summary
+  ### Instructions:
+  The dataset you will analyse in this assignment includes monthly averages of ASX All Ordinaries (Ords) Price Index, Gold price (AUD),  Crude Oil (Brent, USD/bbl) and copper (USD/tonne) between January 2004 and May 2017. .
+
+  Your task is to analyze the data by using the analysis methods covered in the first three modules of MATH1307 Forecasting course this semester. 
+  Your final goal is to give a precise analysis of the series given in the CSV file. Your analysis must explore and elaborate on 
+
+  - the existence of non-stationarity in dataset,
+  - the impact of the components of a time series data on the given dataset
+  - the most accurate and suitable distributed lag model for the ASX price index.
+
+  ![Rubric](./MATH1307_Assignments_Rubric.png)
+  The dataset you will analyse in this assignment includes monthly averages of ASX:
+
+  - All Ordinaries (Ords) Price Index
+  - Gold price (AUD)
+  - Crude Oil (Brent, USD/bbl) and copper (USD/tonne) 
+
+  When: Between January 2004 and May 2017.
+
+```{r include=FALSE}
+# Packages:
+
+# devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
+library(packagr)
+packages <- c(
+  'dLagM', 'forecast', 'expsmooth', 'TSA', 'Hmisc', 'car', 'AER',
+  'readr', 'tseries', 'lubridate', 'stringr', 'testthis', 'captioner', 'urca')
+packagr(packages) # alpha package to check, install and load packages
+
+source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+
+# Config Options:
+# data %>% head(1) # Initial date: Jan-04 (from original date column)
+file_name = '~/code/data-science-next/datasets/forecasting/ASX_data.csv'
+tsStart = c(2004, 1)
+# data %>% tail(1) # Final date: May-17 (from original date column)
+tsEnd = c(2017, 5)
+default_ylab = 'ASX data'
+default_xlab = 'Year'
+featuresData <- list('asx.ts', 'gold.ts', 'oil.ts', 'copper.ts')
+
+# Load data:
+data <- read_csv(
+  file_name,
+  col_names = TRUE,)
+names(data) <- c('asx', 'gold', 'oil', 'copper')
+```
+
+
+##### Create timeSeries objects
+
+```{r}
+# `data.ts` - a time-series dataframe with all columns
+data.ts <- convertToTimeseries(data, tsStart)
+
+# Create a timeSeries object for each feature:
+# LATER: convertMultivariateTimeseriesObjects(data, tsStart)
+
+asx.ts <- convertToTimeseries(data, tsStart, colName='asx')
+gold.ts <- convertToTimeseries(data, tsStart, colName='gold')
+oil.ts <- convertToTimeseries(data, tsStart, colName='oil')
+copper.ts <- convertToTimeseries(data, tsStart, colName='copper')
+
+asx.ts %>% head(12)
+```
+#### Plot individual features
+
+- [x] Display and infer time series, ACF and PACF plots (pt1)
+```{r}
+plotLayout(rows=2, cols=1)
+colourGraphs <- c("blue", "red", "green", "orange")
+
+plot(data.ts, plot.type="s",col = colourGraphs, main = "ASX compare data")
+legend("topleft", lty=1, col=colourGraphs, legend = featuresData)
+
+# Scale and centre each series
+data.scaled <- scale(data.ts)
+plot(data.scaled, plot.type="s", col = colourGraphs, main = "ASX compare data scaled")
+legend("topleft", lty=1, col= colourGraphs, legend = featuresData)
+```
+
+```{r}
+apply(data.ts, 2, doPlot)
+```
+- [ ] TODO: Interpret plots
+- [ ] NICE: plot titles (line 118)
+- [ ] NICE: height of plot outputs
+
+##### Check correlation of each of the features
+```{r}
+cor(data.ts)
+```
+
+- High positive correlation between:
+  - `copper` and `oil` of `0.87`
+  - `copper` and `asx` of `0.56`
+  - `copper` and `gold` of `0.54`
+- **Therefore:** features are not independent
+- `copper` USD correlates with most other variables, so we can _test_ a model for `data.ts` that's primarily based on `copper.ts`
+
+## Apply a Suitable Transformation
+
+```{r load-packages-and-scripts, message=FALSE, warning=FALSE}
+confidenceInterval(asx.ts)
+```
+- No confidence intervals do not capture `0`, so we'll try a `BoxCox` transformation
+
+```{r boxcox-transform, include=FALSE}
+# lambda = seq(-5, 5, 0.01)
+
+asx.boxcox.ts <- convertToBoxCox(asx.ts)
+asx.boxcox.ts <- convertToBoxCox(asx.ts, lambda = seq(-5, 5, 0.01))
+gold.boxcox.ts <- convertToBoxCox(gold.ts)
+oil.boxcox.ts <- convertToBoxCox(oil.ts)
+copper.boxcox.ts <- convertToBoxCox(copper.ts)
+```
+
+```{r}
+# TODO: compareNormality(c(copper.ts,copper.boxcox.ts))
+```
+- The Box-Cox transformation **did not** help to improve the normality of the series because:
+- the dots are still not aligned with the red line in the QQ plot
+- The Shapiro test p-value < 0.05
+- Actually makes data less normal
+- Therefore we discard the Box-Cox transformation
+
+##### For other features
+
+- For brevity; Q-Q plots are not included for other features
+
+```{r}
+cat('Gold: ', shapiro.test(gold.ts)$p, 'BoxCox: ', shapiro.test(gold.boxcox.ts)$p, '\n')
+cat('Crude Oil: ', shapiro.test(oil.ts)$p, 'BoxCox: ', shapiro.test(oil.boxcox.ts)$p, '\n')
+cat('Copper: ', shapiro.test(copper.ts)$p, 'BoxCox: ', shapiro.test(copper.boxcox.ts)$p, '\n')
+```
+- For other features, the Box-Cox transformation **did not** help to improve the normality of the series because the Shapiro test p-value < 0.05
+
+## Check if there is existing seasonality
+
+- Should we diff with or without seasonality?
+
+```{r}
+plotLayout(rows=2, cols=1)
+# additive seasonality:
+asx.additive.ts <- decompose(asx.ts, type="additive")
+plot(asx.additive.ts$seasonal) # April - max every, min every June
+# asx.additive.ts$seasonal %>% head(24)
+# multiplicative seasonality:
+asx.multiplicative.ts <- decompose(
+  asx.ts, 
+  type="multiplicative",
+)
+plot(asx.multiplicative.ts$seasonal)
+cat('isSeasonal: ', isSeasonal(asx.ts), '\n')
+cat('Calculated frequency: ', findSeasonalFreq(asx.ts), '\n')
+
+
+```
+- From decomposition, it appears there is seasonality every 12 months
+  - However, the `isSeasonal` and `findSeasonalFreq` don't find the seasonality
+- So, we will attempt to diff both with and without seasonality
+
+## The existence of **Non-Stationary** in the dataset
+
+- [x] The existence of **Non-Stationary** in the dataset
+- [x] Display and infer time series, ACF and PACF plots (pt1)
+
+H0:μΔ=0
+HA:μΔ≠0
+
+```{r}
+adf.test(asx.ts)$p.value %>% round(2)
+adf.test(gold.ts)$p.value %>% round(2)
+adf.test(oil.ts)$p.value %>% round(2)
+adf.test(copper.ts)$p.value %>% round(2)
+```
+- With p-value's for all data of `0.28, 0.64, 0.64, 0.47`, we cannot reject the null hypothesis stating that the series is non-stationar
+- The stochastic component of `data.ts` is not normally distributed
+- We found that as the p-value was less than 5% and the null mean (i.e. zero) fell within the 95% confidence interval. As such the null hypothesis was rejected.
+
+```{r}
+# LATER: just show ACF and PACF plots
+doDiffAndPlot(copper.ts, 0, T, T)
+```
+```{r}
+doDiffAndPlot(gold.ts, 0, F, F)
+doDiffAndPlot(oil.ts, 0, F, F)
+doDiffAndPlot(asx.ts, 0, F, F)
+```
+
+### Find best transformation:
+```{r, warning=FALSE}
+### Diff #1 with ACF PACF plots
+# TODO: update diffAndPlot to just show desired plot outputs
+copper.diff1.seasonal.ts <- doDiffAndPlot(copper.ts, 1, T, lag=12, out=TRUE, plotTitle='copper.diff1.seasonal.ts')
+```
+
+- ACF shows decay
+
+```{r, warning=FALSE}
+copper.diff2.seasonal.ts <- doDiffAndPlot(copper.ts, 2, T, lag=12, out = TRUE, plotTitle='copper.diff2.seasonal.ts')
+```
+
+Further diff doesn't remove decay in ACF
+
+```{r, warning=FALSE}
+# FIXME:
+copper.boxcox.diff1.seasonal.ts <- doDiffAndPlot(copper.boxcox.ts, 1, lag=12, out=TRUE, plotTitle='copper.boxcox.diff1.seasonal.ts')
+```
+
+This is also true when we consider the BoxCox Transform
+
+```{r, warning=FALSE}
+copper.diff1.ts <- doDiffAndPlot(copper.ts, 1, T, F, out=TRUE, plotTitle='copper.diff1.ts')
+```
+
+- Not including the seasonal diff gives the best output
+- First diff is stationary
+- ACF and PACF plots show normality
+- So, we will choose `diff = 1`, `no seasonal differencing`, `no boxcox transform`
+
+```{r}
+# TODO: fix figure title in utils
+compareNormality(
+  copper.ts, 
+  copper.diff1.ts
+  # plotTitle='Compare Normality across Copper transforms'
+)
+```
+
+#### Create dataframe for each feature with `diff = 1`
+
+```{r}
+# TODO: Titles for first diff
+asx.diff1.ts <- doDiffAndPlot(asx.ts, 1, F, F, out=TRUE)
+gold.diff1.ts <- doDiffAndPlot(gold.ts, 1, F, F, out=TRUE)
+oil.diff1.ts <- doDiffAndPlot(oil.ts, 1, F, F, out=TRUE)
+```
+
+- First difference is significant for all features - Augmented Dickey Fuller `p < 0.5`
+
+#### Phillips-Perron Unit Root Test
+```{r}
+PP.test(copper.ts, lshort = TRUE)$p.value %>% round(2)
+PP.test(copper.ts, lshort = FALSE)$p.value %>% round(2)
+cat('\ndiff = 1: ')
+PP.test(copper.diff1.ts, lshort = TRUE)$p.value %>% round(2)
+PP.test(copper.diff1.ts, lshort = FALSE)$p.value %>% round(2)
+```
+
+According to Phillips-Perron Unit Root Test:
+
+- data.ts is not stationary  `p(0.55, 0.62) > 0.05`
+- data with diff=1 is stationary `p(.01) < 0.05`
+
+## Model
+
+```{r}
+model.asxVsCopperDiff1 = dlm(
+  x = as.vector(asx.diff1.ts), 
+  y = as.vector(copper.diff1.ts), 
+  q = 4
+)
+summarySummary(model.asxVsCopperDiff1)
+# checkresiduals(model.asxVsCopperDiff1)
+```
+
+- `Adjusted R-squared: 0.0817` (residuals skipped)
+
+#### Test model q values
+
+```{r}
+# FIXME: For some reason, this is returning an ideal `q = 78`
+for ( i in 1:80){
+  model.dlm.i = dlm(
+    x = as.vector(asx.diff1.ts),
+    y = as.vector(copper.diff1.ts), 
+    q = i
+  )
+  cat("q = ", i, "AIC = ", AIC(model1.1$model), "BIC = ", BIC(model1.1$model),"\n")
+}
+```
+
+The best returned result is weirdly: 
+q =  78 AIC =  879.5822 BIC =  1074.526 
+- I tested this without diff as well
+
+```{r}
+# FIXME:
+findBestModel(
+  asx.diff1.ts,
+  orderTotal=100
+)
+```
+
+##### Linear Model
+
+```{r}
+model.lm <- lm(asx ~ gold, oil, copper, data=data.ts)
+summarySummary(model.lm)
+# checkresiduals(model.lm$residuals) # 
+```
+- residuals skipped because of low `adjusted r-squared: 0.37`
+
+NICE: linear model hypothesis
+<!-- H<sub>0</sub>: y<sub>t</sub> ≠ β<sub>0</sub> + β<sub>1</sub>x<sub>t</sub> + ε<sub>t</sub>
+H<sub>a</sub>: y<sub>t</sub> = β<sub>0</sub> + β<sub>1</sub>x<sub>t</sub> + ε<sub>t</sub> -->
+
+#### Dynamic LM - `dynlm`
+
+@nextup: can we move this model to 
+
+```{r}
+model.dynlm = dynlm(
+  asx ~ gold + oil + copper,
+  data=data.ts)
+summarySummary(model.dynlm)
+# checkresiduals(model.dynlm$residuals)
+```
+
+- Residuals skipped because of low `Adjusted r-squared: 0.41` 
+- p-value is significant `< 0.05`
+
+```{r}
+model.dlm = dlm(x = as.vector(asx.ts) , y = as.vector(copper.ts), q = 8)
+summarySummary(model.dlm)
+# checkresiduals(model.dlm$model)
+```
+- Since copper has a high correlation with most variables, 
+I've looked at a dlm between asx and copper. A good fit between these would ideally correlate well with other factors.
+- However, with dlm, the adjusted r-squared is only `0.17`
+
+#### Model our data vs model
+TODO: move
+```{r}
+plotLayout(rows=2, cols=1)
+colourGraphs <- c("blue", "red", "green", "orange")
+
+# FIXME:
+legend("topleft", lty=1, col=colourGraphs, legend = featuresData)
+```
+
+@focus
+
+```{r}
+# AIC
+model.finiteDlmauto <- finiteDLMauto(
+  x = as.vector(asx.ts),
+  y = as.vector(copper.ts),
+)
+summarySummary(model.finiteDlmauto)
+# checkresiduals(model.finiteDlmauto$model)
+```
+
+- Only provides an adjusted R squared of 0.12, much lower than previous models
+
+```{r}
+model.polyDlm = polyDlm(
+  x = as.vector(asx.ts),
+  y = as.vector(copper.ts),
+  q = 2,
+  k = 2, 
+  show.beta = TRUE)
+summarySummary(model.polyDlm)
+# checkresiduals(model.polyDlm$model)
+```
+
+- Rejected: because this only has an adjusted r-squared of `0.2924`
+
+### Koyck
+
+```{r}
+model.koyck = koyckDlm(
+  x = as.vector(asx.ts),
+  y = as.vector(copper.ts)
+  )
+summarySummary(model.koyck)
+checkresiduals(model.koyck$model)
+```
+
+- And we have a winner, with an adjusted R-squared of `0.949`
+- So high that it's possibly an overfit
+
+```{r}
+# Fit autoregressive distributed lag models
+model.ardlDlm = ardlDlm(
+  x = as.vector(asx.ts),
+  y = as.vector(copper.ts), 
+  p = 1,
+  q = 1 
+)
+summarySummary(model.ardlDlm)
+checkresiduals(model.ardlDlm$model)
+```
+
+- Adjusted R-squared: `0.9516`
+
+## Forecasting
+
+```{r}
+# tail.ts <- function(data,n) {
+#   data <- as.ts(data)
+#   window(data,start=tsp(data)[2]-(n-1)/frequency(data))
+# }
+
+modelsList <- c(
+  # model.lm,
+  # model.dynlm,
+  model.dlm,
+  # model.finiteDlmauto,
+  model.polyDlm,
+  model.koyck,
+  model.ardlDlm
+)
+
+# lastValues = c(5824, 5683, 5599)
+# predict.lm(
+#   model.lm, 
+#   # newData=lastValues, 
+#   interval = "prediction")
+
+# skip this because it's way off
+# forecast.model.lm <- doForecast(model.lm, copper.ts)
+
+# FIXME: forecast.model.finiteDlmauto <- doForecast(model.finiteDlmauto, copper.ts)
+
+forecast.copper.dlm <- doForecast(model.dlm, copper.ts)
+extended.copper.dlm <- c(copper.ts , forecast.copper.dlm)
+forecast.copper.polyDlm <- doForecast(model.polyDlm, copper.ts)
+extended.copper.polyDlm <- c(copper.ts, forecast.copper.polyDlm)
+forecast.copper.koyck <- doForecast(model.koyck, copper.ts)
+extended.copper.koyck <- c(copper.ts, forecast.copper.koyck)
+forecast.copper.ardlDlm <- doForecast(model.ardlDlm, copper.ts)
+extended.copper.ardlDlm <- c(copper.ts, forecast.copper.ardlDlm)
+
+forecast.asx.dlm <- doForecast(model.dlm, asx.ts)
+extended.asx.dlm <- c(asx.ts, forecast.asx.dlm)
+forecast.asx.polyDlm <- doForecast(model.polyDlm, asx.ts)
+extended.asx.polyDlm <- c(asx.ts, forecast.asx.dlm)
+forecast.asx.koyck <- doForecast(model.koyck, asx.ts)
+extended.asx.koyck <- c(asx.ts, forecast.asx.dlm)
+forecast.asx.ardlDlm <- doForecast(model.ardlDlm, asx.ts)
+extended.asx.ardlDlm <- c(asx.ts, forecast.asx.dlm)
+
+forecast.oil.dlm <- doForecast(model.dlm, oil.ts)
+extended.oil.dlm <- c(oil.ts, forecast.oil.dlm)
+forecast.oil.polyDlm <- doForecast(model.polyDlm, oil.ts)
+extended.oil.polyDlm <- c(oil.ts, forecast.oil.polyDlm)
+forecast.oil.koyck <- doForecast(model.koyck, oil.ts)
+extended.oil.koyck <- c(oil.ts, forecast.oil.koyck)
+forecast.oil.ardlDlm <- doForecast(model.ardlDlm, oil.ts)
+extended.oil.ardlDlm <- c(oil.ts, forecast.oil.ardlDlm)
+
+forecast.gold.dlm <- doForecast(model.dlm, gold.ts)
+extended.gold.dlm <- c(gold.ts, forecast.gold.dlm)
+forecast.gold.polyDlm <- doForecast(model.polyDlm, gold.ts)
+extended.gold.polyDlm <- c(gold.ts, forecast.gold.polyDlm)
+forecast.gold.koyck <- doForecast(model.koyck, gold.ts)
+extended.gold.koyck <- c(gold.ts, forecast.gold.koyck)
+forecast.gold.ardlDlm <- doForecast(model.ardlDlm, gold.ts)
+extended.gold.ardlDlm <- c(gold.ts, forecast.gold.ardlDlm)
+```
+
+```{r}
+plot(
+  extended.copper.koyck,
+  col='Red',
+  type='l',
+  xlim=c(150,170)
+)
+lines(extended.copper.dlm, col='Green', type='l')
+lines(extended.copper.polyDlm, col='Orange', type='l')
+lines(extended.copper.ardlDlm, col='Purple', type='l')
+```
+
+### ASX Forecast
+
+```{r}
+plot(
+  extended.asx.koyck,
+  col='Red',
+  type='l',
+  # xlim=c(150,170)
+)
+lines(extended.asx.dlm, col='Green', type='l')
+lines(extended.asx.polyDlm, col='Orange', type='l')
+lines(extended.asx.ardlDlm, col='Purple', type='l')
+```
+
+### Oil Forecast
+
+```{r}
+plot(
+  extended.oil.koyck,
+  col='Red',
+  type='l',
+  xlim=c(150,170)
+)
+lines(extended.oil.dlm, col='Green', type='l')
+lines(extended.oil.polyDlm, col='Orange', type='l')
+lines(extended.oil.ardlDlm, col='Purple', type='l')
+```
+
+### Gold Forecast
+
+```{r}
+plot(
+  extended.gold.koyck,
+  col='Red',
+  type='l',
+  xlim=c(150,170)
+)
+lines(extended.gold.dlm, col='Green', type='l')
+lines(extended.gold.polyDlm, col='Orange', type='l')
+lines(extended.gold.ardlDlm, col='Purple', type='l')
+```
+

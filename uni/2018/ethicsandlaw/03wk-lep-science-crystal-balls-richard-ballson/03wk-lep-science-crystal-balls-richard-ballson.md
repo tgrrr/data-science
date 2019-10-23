@@ -30,7 +30,7 @@ The important things to consider is:
 ## Insights Driven: Approach to Modelling
 - Focus on prediction, with the development of insights
 - **Contextualising data** and developing hypotheses to test are key
-- TODOLATER: Generally **parametric models**   
+- ~old_todo~~old_later~ Generally **parametric models**   
 - Models are less accurate than purely predictive models in general
 - These models can 
   - generalise well over long periods and 
@@ -85,7 +85,7 @@ Insights Driven: Example Insights
 - Genetics
 
 
-TODOLATER:
+~old_todo~~old_later~
 ## Incorporating Actions into Structural Models
 - tldr: behaviour not feasable
 - Just as relationships between elements in the system are defined,

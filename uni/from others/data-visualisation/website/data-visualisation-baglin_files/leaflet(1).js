@@ -259,7 +259,7 @@ var DataFrame = function () {
       this.columns[index] = (0, _util.asArray)(values);
       this.colstrict[index] = !!strict;
 
-      // TODO: Validate strictness (ensure lengths match up with other stricts)
+      // ~old_todo~ Validate strictness (ensure lengths match up with other stricts)
 
       this._updateCachedProperties();
 
@@ -1025,7 +1025,7 @@ var LayerManager = function () {
             // ...if it's something with a point...
             if (layerInfo.layer.getLatLng) {
               // ... and it's inside the selection bounds...
-              // TODO: Use pixel containment, not lat/lng containment
+              // ~old_todo~ Use pixel containment, not lat/lng containment
               if (bounds.contains(layerInfo.layer.getLatLng())) {
                 // ...add the key to the selection.
                 selection.push(ctKey);

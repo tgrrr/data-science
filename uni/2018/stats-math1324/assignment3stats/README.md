@@ -73,7 +73,7 @@ Sex: “1” for male and “0” for female
 qqPlot(body$BFP_Brozek, dist = "norm") # Check normality if required # gives a weird answer
 mplot(bodyAbdomenMaxModel, 1)
 
-# TODO: possible image export here
+# ~old_todo~ possible image export here
 # png(filename="data/foo.png")
 # grid.arrange(x,y, ncol =2)
 # dev.off()

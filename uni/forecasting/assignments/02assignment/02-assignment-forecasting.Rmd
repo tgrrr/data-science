@@ -1,0 +1,741 @@
+---
+title: 'Forecasting'
+subtitle: 'Assignment 2'
+author: 'Phil Steinke'
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+
+Task 2:
+
+In the second task, you will analyse the correlation between quarterly Residential Property Price Index (PPI) in Melbourne and quarterly population change over the previous quarter in Victoria between September 2003 and December 2016. The quarterly PPI and population change series are available in data2.csvPreview the document file.
+
+In this task, the main goal of your analysis is to demonstrate whether the correlation between these two series is spurious or not.
+
+In both tasks, it is expected that you ask yourself what are the elements of a suitable and successful data analysis, and how you might go about presenting your results in a written report format. Please review the contents of the relevant modules and apply suitable approaches here. The rubric given below will guide you through my expectations in terms of reporting, R codes, descriptive analysis, modelling, and diagnostic checking.
+
+
+---
+
+
+## Introduction / Description
+
+<!-- TODO:  -->
+- Describe what/who is your selected entity
+- Describe why it is interesting to find the sentiment and topics (answer questions) of this entity
+
+### Source
+### Dataset
+### Goals
+
+> In this task, the main goal of your analysis is to demonstrate whether the correlation between these two series is spurious or not.
+
+```{r packages, message=FALSE, warning=FALSE, include=FALSE}
+
+# Packages:
+# devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
+library(packagr)
+packages <- c(
+  'readr', 'dLagM', 'TSA', 'x12'
+  # 'dLagM', 'forecast', 'expsmooth', 'TSA', 'Hmisc', 'car', 'AER',
+  # 'readr', 'tseries', 'lubridate', 'stringr', 'testthis', 'captioner', 'urca'
+)
+packagr(packages) # alpha package to check, install and load packages
+
+# utility files:
+source('~/code/data-science-next/uni/common/utils-forecasting.R')
+```
+
+<!-- { "python": "magicpython", "r": "r source.gfm.rmd" } -->
+
+## Data Collection
+
+---
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+Instructions
+
+<!-- In the first task, you will analyse and forecast the amount of horizontal solar radiation reaching the ground at a particular location over the globe.  For this aim, you will work on the monthly average horizontal solar radiation and the monthly precipitation series measured at the same points between January 1960 and December 2014. Both series are available herePreview the document. -->
+
+Your task is to give best 2 years ahead forecasts in terms of MASE for the solar radiation series by using one of the time series regression methods (dLagM package), dynamic linear models (dynlm package), and exponential smoothing and corresponding state-space models covered in the Modules 3 - 7 of our course in this semester. Hint: Use MASE() function from the dLagM package to compute MASE for time series regression methods for model comparisons.
+
+For the solar radiation forecasts, the required precipitation measurements (predictor series) for the months from January 2015 to December 2016 at the exact same locations are given in data.x.csvPreview the document file. You will use this data for the calculation of 2 years ahead forecasts.
+
+
+## Task 1:
+
+In the first task, you will analyse and forecast the amount of `horizontal solar radiation reaching the ground at a particular location over the globe`.  For this aim, you will work on the **monthly** average horizontal solar radiation and the monthly precipitation series measured at the same points between `January 1960 and December 2014`.
+
+```{r config}
+# Config Options:
+# data %>% head(1) # Initial date: Jan-04 (from original date column)
+
+# TODO: PATH = ''
+DATA_PATH = '~/code/data-science-next/uni/forecasting/assignments/02assignment/data/'
+FILE_NAME_1 = 'data1.csv'
+FILE1 = paste0(DATA_PATH, FILE_NAME_1)
+
+tsStart = c(1960, 1)
+
+# TODO: update for both datasets
+default_ylab = 'TODO'
+default_xlab = 'Year'
+```
+
+```{r config}
+# Load data:
+data.weather <- read_csv(
+  FILE1,
+  col_names = TRUE)
+
+data.weather.ts <- convertToTimeseries(
+  data.weather,
+  freq = 12, # monthly data
+  # colName = 'solar',
+  tsStart)
+
+# simplify for single feature datasets:
+data.weather.solar.ts <- data.weather.ts[,1]
+data.weather.precipitation.ts <- data.weather.ts[,2]
+
+```
+
+```{r}
+cor(data.weather.solar.ts, data.weather.precipitation.ts)
+```
+
+- There is a `-.45` correlation.
+- A partial, yet significant negative correlation between the datasets.
+
+<!-- NOTE: -->
+Your task is to give best 2 years ahead forecasts in terms of MASE for the solar radiation.
+Therefore Solar is dependent?
+
+<!-- ### TODO: check if I'm putting these in the right order -->
+y = solar (dependent variable)
+x = precipitation (independent variable)
+
+```{r}
+# TODO: check if I'm putting these in the right order
+# y = data.weather.solar.ts
+# x = data.weather.precipitation.ts
+
+data = data.weather.ts
+plot(
+  data,
+  plot.type="s",
+  col = c("black", "red"),
+  main = "Monthly Solar (Y, Black) and Precipitation (X, Red)"
+)
+
+```
+
+<!-- ---------------------------- -->
+
+Transforms from here onwards:
+<!-- (TODO: cut the transforms?) -->
+
+<!-- ---------------------------- -->
+
+```{r}
+
+# with no differencing, we have trend in our data:
+
+tsPlots(
+  data.weather.solar.ts,
+  # showPlots='adf',
+  diffCount=0,
+  lag=12
+)
+
+```
+
+### Trend is eliminated with `diff = 1`:
+
+```{r}
+source('~/code/data-science-next/uni/common/utils-forecasting.R')
+
+tsPlots(
+  data.weather.solar.ts,
+  diffCount=1,
+  lag=12
+)
+```
+
+- However, we still have obvious seasonality in ACF
+
+
+```{r}
+fit.weather.add <- decompose(data.weather.solar.ts, type="additive")
+fit.weather.mult <- decompose(data.weather.solar.ts, type="multiplicative")
+doPar(c(1,2))
+plot(fit.weather.add$random, main='Additive')
+plot(fit.weather.mult$random, main='Multiplicative')
+
+```
+
+- We get significantly less noise with multiplicative than additive, so it seems multiplicative handles the decomposition better
+- Note: we get several outliers with multiplicative
+
+```{r}
+plot(fit.weather.mult)
+
+```
+
+### Boxcox Confidence Interval:
+
+```{r boxcoxCI, eval=FALSE, include=FALSE}
+doPar(mfrow = c(1,1))
+weather.boxcox.ts <- BoxCox.ar(data.weather.solar.ts,method = "yule-walker")
+lambda <- weather.boxcox.ts$ci
+lambda
+# `lambda == 0.9`
+```
+
+- The confidence interval does _not_ include 0, so we _will_ do a BoxCox Transformation
+
+```{r}
+x <- data.weather.solar.ts
+x.boxcox = (x^lambda-1)/lambda
+shapiro.test(x.boxcox)
+# removed for brevity:
+# qqnorm(x.boxcox)
+# qqline(x.boxcox, col = 2)
+# LATER: title(fig_nums('boxcox_ci','Confidence Interval of Lambda'), line = -1.5, outer = TRUE)
+```
+
+The Box-Cox transformation did not help to improve normality of the series
+because the dots are not aligned with the red line in QQ plot and
+p-value of the Shapiro test is less than 0.05.
+
+```{r}
+data.weather.precipitation.diff1.ts <- tsPlots(data.weather.precipitation.ts, diff=1, lag=12, out=TRUE )
+
+fit.weather.precipitation.diff1.ts <- decompose(data.weather.precipitation.diff1.ts, type="multiplicative")
+plot(fit.weather.precipitation.diff1.ts)
+
+```
+
+
+
+```{r x12}
+doFitX12 <- function(
+  data.ts
+) {
+  fit.data.x12 = x12(data.ts)
+  plot(fit.data.x12 , sa=TRUE , trend=TRUE)
+}
+
+doPar(mfrow=c(2,1))
+doFitX12(data.weather.precipitation.diff1.ts)
+doFitX12(data.weather.precipitation.diff1.ts)
+
+```
+
+- If we `diff = 1` with `lag=12`, then we get
+- A **significant** adf p-value,
+- Remove visible seasonality that is obvious in the `data.weather.solar.ts` data
+<!-- - FIXME: Remove _some_ visible seasonality that is obvious in the `data.weather.solar.ts` data -->
+
+```{r}
+doFitX12 <- function(
+  data.ts
+) {
+  fit.data.x12 = x12(data.ts)
+  plot(fit.data.x12 , sa=TRUE , trend=TRUE)
+}
+doFitX12(data.ts)
+```
+
+```{r}
+doFitX12 <- function(
+  data.ts,
+  bar,
+  ray,
+  foo,
+) {
+  fit.data.x12 = x12(data.ts)
+  plot(fit.data.x12 , sa=TRUE , trend=TRUE)
+}
+doFitX12(data.ts)
+```
+
+<!-- ----------------------------------------------------------------------- -->
+
+Transforms are ABOVE here
+
+<!-- ----------------------------------------------------------------------- -->
+
+### time series regression methods:
+#### RUBRIC dLagM package
+
+
+### RUBRIC: Dlm model
+
+```{r dlm}
+# y = data.weather.solar.ts
+# x = data.weather.precipitation.ts
+
+model.data.weather.dlm = dlm(
+  x = as.vector(data.weather.precipitation.ts),
+  y = as.vector(data.weather.solar.ts),
+  q = 8)
+summary(model.data.weather.dlm)
+checkresiduals(model.data.weather.dlm$model$residuals)
+bgtest(model.data.weather.dlm$model)
+
+
+# > the Breusch-Godfrey test is displayed to test the existence of serial correlation up to the displayed order. According to this test and ACF plot we can conclude that the serial correlation left in residuals is highly significant
+
+VIF.model.data.weather.dlm = vif(model.data.weather.dlm$model) # variance inflation factors
+# Notice again we are getting the model object out of the model fitting
+# by using "$model" in addition to "model.data.weather.dlm"
+VIF.model.data.weather.dlm
+VIF.model.data.weather.dlm > 10
+# this is interestingly not > 10 for all values
+# not multicollinearity
+```
+
+# lets do Autoregressive Distributed Lag Model, because seasonality
+
+@focus
+```{r}
+
+# TODO: loop through p and q's
+# mapply(paste, a, b)
+
+# from class
+fit.data.weather.ardldlm = ardlDlm(
+  x = as.vector(data.weather.precipitation.ts),
+  y = as.vector(data.weather.solar.ts),
+  p = 1,
+  q = 1
+)$model
+summary(fit.data.weather.ardldlm)
+checkresiduals(fit.data.weather.ardldlm$residuals)
+bgtest(fit.data.weather.ardldlm$model)
+
+# > the Breusch-Godfrey test is displayed to test the existence of serial correlation up to the displayed order. According to this test and ACF plot we can conclude that the serial correlation left in residuals is highly significant
+
+VIF.model.data.weather.ardldlm = vif(fit.data.weather.ardldlm) # variance inflation factors
+VIF.model.data.weather.ardldlm > 10
+
+```
+
+
+<!-- ```{r}
+model2 = polyDlm(
+  x = as.vector(data.weather.precipitation.ts),
+  y = as.vector(data.weather.solar.ts),
+  q = 8,
+  k = 2,
+  show.beta = FALSE
+)
+summary(model2)
+
+``` -->
+
+#### RUBRIC dynamic linear models (dynlm package)
+
+```{r}
+# from lecture 4:
+Y.t = log(airmiles) #TODO: do we need log?
+T = 69 # The time point when the intervention occurred
+P.t = 1*(seq(airmiles) == T)
+P.t.1 = Lag(P.t,+1)
+
+model1 = dynlm(Y.t ~ L(Y.t , k = 1 ) + P.t.1 + P.t + trend(Y.t) + season(Y.t))
+summary(model1)
+residual.analysis((model1) , std=TRUE , Ljung.Box=FALSE)
+AIC(model1)
+
+model2 = dynlm(Y.t ~ L(Y.t , k = 1 ) + P.t.1 + P.t + L(Y.t , k = 2 ) + trend(Y.t) + season(Y.t))
+summary(model2)
+residual.analysis((model2) , std=TRUE , Ljung.Box=FALSE)
+AIC(model2)
+
+plot(log(airmiles),ylab='Log(airmiles)',type="l",color="red")
+lines(model1$fitted.values)
+
+
+# forecast:
+q = 24
+n = nrow(model1$model)
+airmiles.frc = array(NA , (n + q))
+airmiles.frc[1:n] = Y.t[4:length(Y.t)]
+trend = array(NA,q)
+trend.start = model1$model[n,"trend(Y.t)"]
+trend = seq(trend.start , trend.start + q/12, 1/12)
+
+for (i in 1:q){
+  months = array(0,11)
+  months[(i-1)%%12] = 1
+  data.new = c(1,airmiles.frc[n-1+i], P.t.1[n] , P.t[n] ,trend[i],months)
+  airmiles.frc[n+i] = as.vector(model1$coefficients) %*% data.new
+}
+
+par(mfrow=c(1,1))
+
+plot(Y.t,xlim=c(1995,2008),ylab='Log number of passengers',xlab='Year',main = "Time series plot of log(airmiles) series.")
+lines(ts(airmiles.frc[(n+1):(n+q)],start=c(2005,5),frequency = 12),col="red")
+```
+
+#### RUBRIC exponential smoothing w5
+
+ses stuff
+
+Using HW because of seasonality
+```{r}
+# From class:
+data("ukcars")
+fit1 <- hw(ukcars,seasonal="additive", h=5*frequency(ukcars))
+fit2 <- hw(ukcars,seasonal="additive",damped = TRUE, h=5*frequency(ukcars))
+fit3 <- hw(ukcars,seasonal="multiplicative", h=5*frequency(ukcars))
+fit4 <- hw(ukcars,seasonal="multiplicative",exponential = TRUE, h=5*frequency(ukcars))
+
+```
+
+#### RUBRIC corresponding state-space models w6
+
+ets stuff below here:
+
+#### RUBRIC MASE
+Use MASE() function from the dLagM package to compute MASE for time series regression methods for model comparisons.
+
+
+<!-- ----------------------------------------------------------------------- -->
+
+https://www.rdocumentation.org/packages/forecast/versions/8.9/topics/ets
+error, trend, season
+> The first letter denotes the error type ("A", "M" or "Z");
+> the second letter denotes the trend type ("N","A","M" or "Z");
+> and the third letter denotes the season type ("N","A","M" or "Z"). In all cases, "N"=none, "A"=additive, "M"=multiplicative and "Z"=automatically selected.
+---
+
+```{r}
+
+@focus
+checkForbiddenModelCombination <- function(
+  # source: https://github.com/robjhyndman/forecast/blob/master/R/ets.R#L257
+  if (restrict) {
+  if ((errortype == "A" && (trendtype == "M" || seasontype == "M")) |
+    (errortype == "M" && trendtype == "M" && seasontype == "A") ||
+    (additive.only && (errortype == "M" || trendtype == "M" || seasontype == "M"))) {
+    stop("Forbidden model combination")
+  }
+}
+)
+
+# A*M, AM*,
+# MMA
+# MMM
+
+# source:https://github.com/robjhyndman/forecast/blob/master/R/ets.R#L272
+# TODO:
+# if (damped && trendtype == "N")
+
+library('purrr')
+
+
+
+errortypes = c('A','M')
+seasontypes <- trendtypes <- c('N','A','M')
+
+etsModels <- list()
+
+assignToEts <- function(x,y,z) {
+  print(x,y,z)
+  # rbind(etsModels, c(x,y,z))
+}
+
+foo <- purrr::pwalk(
+  expand.grid(errortypes,seasontypes,trendtypes),
+  # ~ rbind(etsModels, paste0(..1, ..2, ..3,))
+  # ~ rbind(etsModels, paste0(..1, ..2, ..3))
+  # ~ paste0(..1, ..2, ..3)
+  ~ function(x = ..1, y =  ..2, z = ..3) {
+    #  FIXME:
+      rbind(etsModels, c(x,y,z), envir = .GlobalEnv)
+      # paste0(x,y,z)
+
+  }
+  # ~ assignToEts(..1, ..2, ..3)
+)
+
+
+
+xy.list <- split(foo, seq(nrow(foo)))
+
+foo
+
+
+generateEtsModels <- function(df.ts) {
+  etsModels <- list()
+
+  errortypes = c('A','M')
+  seasontypes <- trendtypes <- c('N','A','M')
+
+  for(errortype in errortypes){
+    for(trendtype in trendtypes){
+      for(seasontype in seasontypes){
+        if (
+          (errortype == "A" && (trendtype == "M" || seasontype == "M")) |
+          (errortype == "M" && trendtype == "M" && seasontype == "A")
+        )
+          {
+            # print('forbidden model combination')
+          } else {
+            etsModels <- rbind(etsModels, paste0(errortype,trendtype,seasontype))
+          }
+
+  }}}
+  return(etsModels)
+}
+etsModels <- generateEtsModels(data1.ts)
+length(etsModels)
+```
+
+```{r}
+# Similar to this:
+# fit.unemp.ZZZ = ets(unemp.ts,model = "ZZZ")
+# summary(fit.unemp.ZZZ)
+# checkresiduals(fit.unemp.ZZZ)
+
+
+doFit <- function(
+  data.ts = 'data.ts',
+  models = c('MNN', 'MMN', 'MMM', 'MAM', 'ZZZ'),
+  showSummary = c(TRUE, FALSE)[1],
+  showResiduals = c(TRUE, FALSE)[2],
+  # other = c(isDiff, isDamp),
+  isDiff = c(TRUE, FALSE)[2],
+  isDamp = c(TRUE, FALSE)[2],
+  k = 0
+  ) {
+
+  for (damp in isDamp) {
+
+    for (modelType in models){
+      isModelDiff <- ifelse(isDiff, 'diff.', '')
+      isModelDamp <- ifelse(isDamp, 'damp.', '')
+
+    tryCatch(
+      {
+
+        # Assign our Exponential Smoothing State Space Model
+        originalModelName <- deparse(substitute(data.ts))
+        modelName <- paste0('fit.', originalModelName, isModelDiff, isModelDamp, modelType)
+        # Exponential Smoothing State Space Model
+        etsToAssign <- ets(data.ts + k, model = modelType, damped = isDamp)
+        assign(modelName, etsToAssign, envir = .GlobalEnv)
+        modelToTest <- get(modelName)
+        # This is the equivalent to fit.data.MNN = ets(data.ts,model = "MNN")
+
+        # print('MODEL ABOVE')
+        # print(modelName)
+
+        # modelsToTest.assign(modelToTest)
+        if(showSummary == TRUE) {
+          summary(modelToTest)
+        }
+
+        if(showResiduals == TRUE) {
+          checkresiduals(modelToTest)
+        }
+
+      },
+      error = function(e) print(e)
+      # ,
+      # finally=print("finished")
+    )
+
+    }
+  }
+}
+
+doFit(data.weather.solar.ts, models=etsModels, showSummary=FALSE, showResiduals=FALSE, isDamp=FALSE)
+```
+
+| fit        | MASE      | AIC      | AICc     | BIC      |
+| ---------- | --------- | -------- | -------- | -------- |
+| ETS(A,A,A) | 0.24716   | 5434.708 | 5435.662 | 5511.076 |
+| ETS(A,N,A) | 0.254704  | 5449.974 | 5450.719 | 5517.358 |
+| ETS(M,N,M) | 0.3137226 | 5986.778 | 5987.524 | 6054.162 |
+| ETS(M,A,M) | 0.3721664 | 6105.959 | 6106.912 | 6182.327 |
+| ETS(A,A,N) | 0.461152  | 6003.797 | 6003.888 | 6026.258 |
+| ETS(M,A,A) | 0.4748561 | 7602.755 | 7603.708 | 7679.123 |
+| ETS(M,M,M) | 0.5292151 | 6670.168 | 6671.121 | 6746.536 |
+| ETS(A,N,N) | 0.6368203 | 6296.371 | 6296.407 | 6309.847 |
+| ETS(M,N,N) | 0.6369599 | 6619.776 | 6619.812 | 6633.253 |
+| ETS(M,A,N) | 0.6513597 | 6433.364 | 6433.456 | 6455.825 |
+| ETS(M,M,N) | 0.695816  | 6609.163 | 6609.255 | 6631.624 |
+| ETS(M,N,A) | 0.6989421 | 6546.856 | 6547.601 | 6614.239 |
+
+```{r}
+# FIXME: Error in MASE(fit.data.MNN, fit.data.MMN): MASE function works for lm, dlm, polyDlm, koyckDlm, and ardlDlm objects. Please make sure that you are sending model object directly or send a bunch of model objects to the function.
+MASE(fit.data.MNN, fit.data.MMN)
+
+accuracy)(
+
+# @focus
+
+accuracy(fit.data.MNN)
+
+class(fit.data.MNN)
+
+data.weather.solar.ZZZ = ets(data.weather.solar.ts,model = "ZZZ")
+summary(data.weather.solar.ZZZ)
+checkresiduals(fit.data.ZZZ)
+
+
+class(data.weather.solar.ZZZ)
+
+data.weather.solar.ZZZ$
+
+methods(accuracy)
+
+methods(summary)
+
+class(fit.data.MNN)
+summary(fit.data.MNN)
+
+names(fit.data.MNN)
+
+fit.data.MNN$mse
+
+doFit(data.weather.solar.ts, showSummary = TRUE, showResiduals = FALSE, isDamp=TRUE)
+
+# source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+# summarySummary(fit.data.MNN)
+
+# TODO: seasonal = "additive"
+data.diff.ts = diff(data.ts, lag = 12)
+doFit(data.diff.ts, isDiff=TRUE, k=2, showSummary = FALSE)
+doFit(data.diff.ts, isDiff=TRUE, isDamp=TRUE, k=2, showSummary = FALSE)
+
+# plot(data.diff.ts)
+
+
+# @uptohere:
+# Merge the differenced series and forecasts
+comb= ts.union(data.ts.diff , frc.data.MAdM.diff$mean-2)
+data.combined.diff  = pmin(comb[,1], comb[,2], na.rm = TRUE)
+
+back.series = diffinv(data.combined.diff, xi = data.ts[1:12],lag =12)
+
+upper.95.int = frc.data.MAdM.diff$upper[,2]
+lower.95.int = frc.data.MAdM.diff$lower[,2]
+centre = frc.data.MAdM.diff$mean
+
+length.int = abs(centre - upper.95.int)
+
+# To show what happens if I merge the original series and upper limit of the
+# 95% forecast interval
+comb2= ts.union(data.ts.diff , upper.95.int-2)
+data.combined.diff2  = pmin(comb2[,1], comb2[,2], na.rm = TRUE)
+back.series.upper = diffinv(data.combined.diff2, xi = data.ts[1:12],lag =12)
+
+abs(back.series.upper-back.series)
+# the difference between back-differenced series and back-differenced upper limit series
+# is the same as the difference between forecasts and upper and lower limits of the intervals.
+# So, I reckon that there is nothing with differencing and the lenght of the confidence interval
+# of forecasts.
+
+frc.original = window(back.series,start = c(2017,6)) #back-differenced forecasts
+frc.original.upper = frc.original + length.int
+frc.original.lower = frc.original - length.int
+
+plot(data.ts,xlim = c(1993,2020),ylim = c(0,7), ylab="Unemployment rate", main = "Original series, forecasts and 95% forecast interval for the dataloyment series")
+lines(frc.original, col = "red")
+lines(frc.original.upper, col = "blue")
+lines(frc.original.lower, col = "blue")
+legend("bottomleft", lty=1, cex=0.75, pch=1, pt.cex = 1.9, text.width = 2.3, col=c("black","red","blue"), c("Data","Forecasts","95% confidence limits"))
+
+```
+
+
+Your task is to give best `2 years` ahead forecasts in terms of **MASE** for the solar radiation series by using one of the time series regression methods:
+
+- (dLagM package),
+- dynamic linear models (dynlm package),
+- and exponential smoothing and
+- corresponding state-space models
+
+covered in the **Modules 3 - 7** of our course in this semester.
+
+**Hint:** Use `MASE()` function from the `dLagM` package to compute MASE for time series regression methods for model comparisons.
+
+For the `solar radiation forecasts`, the required precipitation measurements (predictor series) for the `months` from `January 2015 to December 2016` at the exact same locations are given in data.x.csv. You will use this data for the calculation of `2 years ahead forecasts`.
+
+## Task 1. Pre-processing and Data Cleaning
+
+- Describe  what pre-processing you performed
+- Show examples of noisy data, plot some graphs, etc to show why you decided to do those pre-processing
+
+### Transform
+
+## Task 1. Analysis
+
+Analysis Approach
+
+- Describe what analysis you performed to answer the questions
+- What type of sentiment analysis did you do?  Briefly explain your rationale for doing it as such.
+- What type of topic modelling did you do?  Again, briefly explain your rationale for your approach.
+
+Analysis & Insights
+
+- Present your analysis, to answer the questions
+- Present and discuss your insights
+- Use plots, tables, example of prints, visualisation, word clouds etc that supports your analysis and insights
+
+## Task 1. Error Checking
+
+## Task 1. Forecast
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+## Task 2:
+
+In the second task, you will analyse the correlation between quarterly _Residential Property Price Index (PPI) in Melbourne_ and _quarterly population change over the previous quarter in Victoria_ between _September 2003_ and _December 2016_. The quarterly PPI and population change series are available in `data2.csv`.
+
+RUBIC:
+reporting, R codes, descriptive analysis, modelling, and diagnostic checking.
+
+---
+
+## Task 2. Pre-processing and Data Cleaning
+
+- Describe  what pre-processing you performed
+- Show examples of noisy data, plot some graphs, etc to show why you decided to do those pre-processing
+
+### Transform
+
+## Task 2. Analysis
+
+Analysis Approach
+
+- Describe what analysis you performed to answer the questions
+- What type of sentiment analysis did you do?  Briefly explain your rationale for doing it as such.
+- What type of topic modelling did you do?  Again, briefly explain your rationale for your approach.
+
+Analysis & Insights
+
+- Present your analysis, to answer the questions
+- Present and discuss your insights
+- Use plots, tables, example of prints, visualisation, word clouds etc that supports your analysis and insights
+
+## Task 2. Error Checking
+
+## Task 2. Forecast
+
+
+---
+
+
+## Conclusion
+
+- Provide a short conclusion about your entity, analysis and what you found

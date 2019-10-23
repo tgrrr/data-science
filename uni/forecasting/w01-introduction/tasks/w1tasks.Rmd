@@ -1,0 +1,193 @@
+---
+title: "wk1 Fundamental Concepts"
+output: html_notebook
+---
+
+wavelet( layers = )
+
+# Module 1: Tasks
+
+```{r}
+working_directory <- '/Users/phil/code/data-science-next/datasets/forecasting'
+setwd(working_directory)
+
+library(packagr)
+packages <- c(
+  # 'dylnm',
+  'dLagM', 'forecast', 'expsmooth', 'TSA', 'Hmisc', 'car', 'AER',
+  'readr', 'tseries')
+packagr(packages) # alpha package to check, install and load packages
+
+source('/Users/phil/code/data-science-next/uni/time-series/common/utils.r')
+```
+
+
+## Fundamental Concepts
+
+The aims of the tasks given here are to:
+
+- make you familiar with data type conversions required in this course,
+- foster your practical ability to produce main time series displays,
+- strengthen your ability to draw inferences from the plots and hypothesis tests.
+- Working individually or in small groups, please complete the following exercises.
+
+## 1. Load the number of earthquakes per year magnitude 7.0 or greater between 1900 and 1998 in US given in earthquakes.csvPreview the document file (Source: http://datamarket.com/) into R and do the following tasks
+
+```{r}
+data_filename <- 'earthquakes.csv'
+earthquakes = read_csv(
+  "/Users/phil/code/data-science-next/datasets/forecasting/earthquakes.csv", 
+  col_names = TRUE, 
+)
+# class(earthquakes)
+# earthquakes %>% head()
+```
+
+### Convert the given data into the `ts`
+
+```{r}
+earthquakes.ts = ts(earthquakes$Number, start = 1900) 
+earthquakes.ts %>% head()
+# earthquakes.ts %>% class()
+```
+
+### Display and infer time series and ACF plots.
+
+```{r}
+# doDiffAndPlot(earthquakes, 0, TRUE, FALSE)
+plot(
+  earthquakes.ts,
+  type = 'l'
+)
+
+acf(earthquakes.ts)
+
+pacf(earthquakes.ts)
+```
+
+### What do you think stationarity of this series? Please answer by conducting a unit root test.
+
+- Not stationary 
+
+```{r}
+k1 = ar(earthquakes.ts)$order
+print(k1)
+
+adf.test(earthquakes.ts, k = k1)
+```
+
+```{r}
+k2 = trunc(12*((length(earthquakes.ts)/100)^(1/4)))
+print(k2)
+
+adf.test(earthquakes.ts, k = k2)
+```
+
+```{r}
+k3 = trunc(4*((length(earthquakes.ts)/100)^(1/4)))
+print(k3)
+
+adf.test(earthquakes.ts, k = k3)
+```
+
+
+
+```{r}
+PP.test(earthquakes.ts, lshort = TRUE)
+```
+
+```{r}
+PP.test(earthquakes.ts, lshort = FALSE)
+```
+
+```{r}
+adfTest(earthquakes.ts)
+```
+
+```{r}
+eacf(earthquakes.ts)
+```
+
+## 2. Load mean monthly flow recorded for Piper’s Hole River between 1953 and 1981 given in `flow.csv`. Preview the document file (Source: http://datamarket.com/) into R and do the following tasks
+
+```{r}
+data_filename <- 'flow.csv'
+flow = read_csv(
+  "/Users/phil/code/data-science-next/datasets/forecasting/flow.csv", 
+  col_names = TRUE, 
+)
+flow %>% head()
+flow %>% tail()
+
+flow$Month %>% length()
+```
+
+### Convert the given data into the `ts`
+
+```{r}
+flow.ts = ts(
+  flow$Flow,
+  start = c(1953, 1),
+  end = c(1981, 12),
+  frequency = 12
+  ) 
+
+data <-
+  ts(
+    as.vector(as.matrix(data)),
+    start = c(1995, 1),
+    end = c(2016, 12),
+    frequency = 12
+  )
+
+  flow.ts
+```
+
+### Display and infer time series and ACF plots.
+
+```{r}
+plot(flow.ts)
+```
+
+```{r}
+acf(flow.ts)
+```
+
+### What do you think stationarity of this series? Please answer by conducting a unit root test.
+
+```{r}
+k1 = ar(flow.ts)$order
+print(k1)
+adf.test(flow.ts, k = k1)
+```
+
+```{r}
+k2 = trunc(12*((length(flow.ts)/100)^(1/4)))
+print(k2)
+adf.test(flow.ts, k = k2)
+```
+
+```{r}
+test  = adf.test(flow.ts)
+test$parameter
+
+```
+
+```{r}
+PP.test(bonds, lshort = TRUE)
+PP.test(bonds, lshort = FALSE)
+
+
+```
+
+
+## 3. Load mean monthly median aerosol optical depth at Cape Grim between 1986 and 2014 given in aerosol.csv Preview the documentfile (Source: https://data.gov.au/) into R and do the following tasks
+
+### Convert the given data into the ts
+### Display and infer time series and ACF plots.
+### What do you think stationarity of this series? Please answer by conducting a unit root test.
+
+## 4. Simulate a random walk process of length 100.
+
+### Display and infer time series and ACF plots.
+### What do you think stationarity of this series? Please answer by conducting a unit root test.

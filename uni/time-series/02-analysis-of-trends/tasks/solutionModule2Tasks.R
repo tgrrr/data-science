@@ -91,11 +91,12 @@ points(y = res.model3,
        x = time(beersales),
        pch = as.vector(season(beersales)))
 
+# TODO: what is kde
 kde(res.model3)
 
 t = time(beersales)
 t2 = t ^ 2
-model4 = lm(beersales ~ t + t2) # label the quadratic trend model as model1
+model4 = lm(beersales ~ t + t2) # label the quadratic trend model as model4
 summary(model4)
 
 res.model4 = rstudent(model4)

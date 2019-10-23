@@ -1,0 +1,306 @@
+# 
+# arima.data1 = arima.sim(list(order = c(2,2,1), ar = c(0.19,0.6), ma=0.1), n = 100) 
+# plot(arima.data1)
+# write.table(arima.data1,file="data.sim.csv",row.names = FALSE,col.names=FALSE)
+
+
+library(TSA)
+library(tseries)
+#--- Task 1 ---
+data(gold) # Load data. Here no need to convert it to ts object because
+# it is already ts object. See below:
+class(gold)
+par(mfrow=c(1,1))
+plot(gold,type='o',ylab="Rainfall", main='Los Angelos rainfall series')
+# In the time series plot there is trend, no seasonality, no obvious intervention, and no changing 
+# variance and succeeding observations imply the existence of autoregressive 
+# behavior.
+
+
+par(mfrow=c(1,2))
+acf(gold) #Trend is apparent from ACF and PACf plots
+pacf(gold)
+par(mfrow=c(1,1))
+# Slowly decaying pattern in ACF and very high first correlation in PACF
+# implies the existence of trend and nonstationarity.
+
+# Apply ADF test with default settings
+adf.test(gold)
+# With a p-value of 0.6665, we cannot reject the null hypothesis stating that
+# the series is non-stationary.
+
+# Let's first apply the box-Cox transformation.
+gold.transform = BoxCox.ar(gold)
+gold.transform$ci
+# Mid-point of interval is -1.8. So we will take lambda as -1.8
+lambda = -1.8
+BC.gold = (gold^lambda-1)/lambda
+qqnorm(BC.gold)
+qqline(BC.gold, col = 2)
+shapiro.test(BC.gold)
+# The Box-Cox transformation did not help to improve normality of the series 
+# because the dots are not aligned with the red line in QQ plot and 
+# p-value of the Shapiro test is less than 0.05.
+
+#Let's calculate the first difference and plot the first differenced series
+diff.BC.gold = diff(BC.gold)
+plot(diff.BC.gold,type='o',ylab='Quarterly earnings ')
+# After applying the the first difference the series became detrended and stationary.
+# Now there is some changing varinace come the light.
+
+# Let's apply ADf unitroot test to the differenced series.
+adf.test(diff.BC.gold)
+# With a p-value of 0.01, we reject the null hypothesis stating that
+# the series is non-stationary; hence, we conclude that the first differencing 
+# make the series staionary.
+
+# Specify the orders using ACf, PACF, EACF and BIC over the differenced series
+par(mfrow=c(1,2))
+acf(diff.BC.gold)
+pacf(diff.BC.gold)
+par(mfrow=c(1,1))
+# Because there is no significant lags seen in ACF and PACF it is not possible to 
+# proceed over the ACF and PACF for this series. The patterns in ACF and PACF
+# implies existence of white noise behaviour.
+
+eacf(diff.BC.gold)
+# In EACF, the vertex includes the orders of p=0 and q=0 in accordance with the 
+# inference drawn from the ACF and PACF. But from EACF, we can include the models
+# with p=0; q=1 and p=1; q=0. Coreespondingly, the set of candidate models is
+# {ARIMA(1,1,0), ARIMA(0,1,1)}. Here the "1" in the middle comes from the 
+# first differencing.
+
+# Let's display the BIC table
+res = armasubsets(y=diff.BC.gold,nar=14,nma=14,y.name='test',ar.method='ols')
+plot(res)
+# In the BIC table shaded columns correspond to AR(1) and AR(8) coefficients and 
+# there is one MA effect(lag 8) supported by BICs. Since lag 8 is too large and,
+# we observed white noise from ACF and PACF, we can include ARIMA(1,1,0)
+# and ARIMA(8,1,0) models.
+
+# In conclusion the set of candidate models is {{ARIMA(1,1,0), ARIMA(0,1,1)}}. 
+# In the next modules we will fit these models and
+# select the best one according to some selection measures.
+
+#--- Task 2 ---
+
+data(JJ)# Load data. Here no need to convert it to ts object because
+# it is already ts object. See below:
+class(JJ)
+par(mfrow=c(1,1))
+plot(JJ,type='o',ylab='Earnings ', main='Quarterly earnings ')
+# In the time series plot there is trend, a repeating pattern (seasonality) and 
+# changing (increasing varinace) and bouncing observations arond the mean level
+# imply the existence of moving average behavior.
+
+par(mfrow=c(1,2))
+acf(JJ)
+pacf(JJ)
+par(mfrow=c(1,1))
+# Slowly decayin pattern in ACF and very high first correlation in PACF
+# implies the existence of trend and nonstationarity.
+
+# Let's first apply the box-Cox transformation.
+jj.transform = BoxCox.ar(JJ)
+jj.transform$ci
+lambda = 0.2 # The mid point of the interval 
+BC.jj = (JJ^lambda-1)/lambda # apply the Box-Cox transformation
+par(mfrow=c(1,1))
+qqnorm(BC.jj)
+qqline(BC.jj, col = 2)
+shapiro.test(BC.jj)
+# In the QQ plot the tails of the distribution is far from the normality.
+# The p-value of Shapiro test is less than 0.05; hence, we have enough 
+# evidence to reject the normality hypothesis. In conclusion, the Box-Cox
+# transformation did not significantly help to improve normality of the observations.
+plot(BC.jj,type='o',ylab='Earnings ', main='Box-Cox transformed Quarterly earnings ')
+# In theime series plot, we observe that the variation in the series is 
+# decreased after applying the Box-Cox transformation. But there is still trend.
+# So let's apply the first difference and see if it helps.
+
+diff.BC.jj = diff(BC.jj)
+par(mfrow=c(1,1))
+plot(diff.BC.jj,type='o',ylab='Quarterly earnings ')
+# Now, there is only changing variance in the series after taking the first difference.
+# Let's go on with the specification of the models.
+adf.test(diff.BC.jj)
+# The null hypothesis of non-staionarity is rejected with a p-value of 0.01; hence,
+# we conclude that the first differencing make the series staionary.
+
+par(mfrow=c(1,2))
+acf(diff.BC.jj)
+pacf(diff.BC.jj)
+par(mfrow=c(1,1))
+# There is a slowly decaying jagged pattern in ACF and 4 significant lags in the PACF.
+# So we can consider ARI(4,1) model and those smaller than this model like ARI(1,1)
+# ARI(2,1) and so on.
+
+eacf(diff.BC.jj)
+# Although ther is no clear vertex in EACF, we can take the row corresponding to 
+# p = 3 as the vertex and include ARIMA(3,1,2), ARIMA(3,1,3) and ARIMA(4,1,2)
+# model into the set of possible models.
+
+par(mfrow=c(1,1))
+res2 = armasubsets(y=diff.BC.jj,nar=14,nma=14,y.name='test',ar.method='ols')
+plot(res2)
+# In the BIC table, shaded columns correspond to AR(4), MA(3) and MA(11) coefficients and 
+# So, from here we can include ARIMA(4,1,2) and ARIMA(4,1,11) models in the set of 
+# candidate model.
+
+# In conclusion the set of candidate models is
+# {ARIMA(3,1,2), ARIMA(3,1,3), ARIMA(4,1,2), ARIMA(4,1,2)}. Here ARIMA(4,1,11)
+# is excluded because it is a very big model in terms of the number of its parameters.
+# In the next modules we will fit these models and
+# select the best one according to some selection measures.
+
+#--- Task 3 ---
+# REad data into R
+unemployment <- read.table("~/Documents/MATH1318_TimeSeries/tasks/Task5/unemployment.csv", quote="\"", comment.char="")
+# Convert to ts object
+unemployment = ts(unemployment,start = 1978)
+class(unemployment)
+
+par(mfrow=c(1,1))
+plot(unemployment,type='o',ylab='Yearly average unemployment numbers')
+# In the time series plot there is trend, no seasonality and no changing 
+# variance and succeeding observations imply the existence of autoregressive 
+# behavior.
+
+par(mfrow=c(1,2))
+acf(unemployment)
+pacf(unemployment)
+par(mfrow=c(1,1))
+# Slowly decaying pattern in ACF and very high first correlation in PACF
+# implies the existence of trend and nonstationarity.
+
+# Let's first apply the box-Cox transformation.
+par(mfrow=c(1,1))
+unemployment.transform = BoxCox.ar(unemployment)
+unemployment.transform$ci
+lambda = 1 
+# The mid point of the interval is very close to 1, which corresponds to no transformation
+# So we will go on with the original series.
+
+diff.unemployment = diff(unemployment)
+par(mfrow=c(1,1))
+plot(diff.unemployment,type='o',ylab='Quarterly earnings ')
+# There is still some trend in ther series
+adf.test(diff.unemployment)
+# ADF test confirms with the p-value of 0.03375 that the series is still non-staionary at 1% level of significance.
+# So we will apply the second differencing.
+
+diff.unemployment2 = diff(unemployment, differences = 2)
+par(mfrow=c(1,1))
+plot(diff.unemployment2,type='o',ylab="Unemployment")
+# There is no trend in ther series
+adf.test(diff.unemployment2)
+# ADF test confirms with the p-value of 0.01 that the series is staionary with 
+# the third differencing.
+
+par(mfrow=c(1,2))
+acf(diff.unemployment2)
+pacf(diff.unemployment2)
+# There is one significant lag in ACF and two significant lags in PACF.
+# So we can include ARIMA(2,2,1) model among the tentative models.
+
+eacf(diff.unemployment2,ar.max = 5, ma.max = 5) 
+# We put these argument to limit the orders p and q at 5. Otherwise, the eacf()
+# function retunrs an error and displays nothing. From the output of eacf
+# we include ARIMA(0,2,1) and ARIMA(1,2,1) models in the set of
+# possible models.
+
+
+par(mfrow=c(1,1))
+res3 = armasubsets(y=diff.unemployment2,nar=5,nma=5,y.name='test',ar.method='ols')
+plot(res3)
+# In the BIC table, shaded columns correspond to AR(2), MA(1) and MA(5)
+# coefficients and from here we can include ARIMA(2,2,1), ARIMA(2,2,5) models as
+# the other combinations give large models.
+
+
+# In conclusion the set of candidate models is
+# {ARIMA(0,2,1), ARIMA(1,2,1), ARIMA(2,2,1), ARIMA(2,2,5)}. 
+# In the next modules we will fit these models and
+# select the best one according to some selection measures.
+
+#--- Task 4 ---
+# REad data into R
+earnings <- read.table("~/Documents/MATH1318_TimeSeries/tasks/Task5/earnings.csv", quote="\"", comment.char="")
+# Convert to ts object
+earnings = ts(earnings,start = 1978)
+class(earnings)
+
+par(mfrow=c(1,1))
+
+plot(earnings,type='o',ylab='Yearly average unemployment numbers')
+# In the time series plot there is trend, no seasonality, no intervention, and no changing 
+# variance and succeeding observations imply the existence of autoregressive 
+# behavior.
+
+par(mfrow=c(1,2))
+acf(earnings)
+pacf(earnings)
+# Slowly decaying pattern in ACF and very high first correlation in PACF
+# implies the existence of trend and nonstationarity.
+
+# Let's first apply the box-Cox transformation.
+par(mfrow=c(1,1))
+earnings.transform = BoxCox.ar(earnings)
+earnings.transform$ci
+lambda = 0 # The interval includes 0, which corresponds to log transformation
+BC.earnings = log(earnings)
+par(mfrow=c(1,1))
+plot(BC.earnings)
+# Because there was no changin varinace, transformation had no effect on the series.
+# we will go on with the original series.
+
+diff.earnings = diff(earnings)
+par(mfrow=c(1,1))
+plot(diff.earnings,type='o',ylab='Quarterly earnings ')
+# There is still some trend in ther series
+adf.test(diff.earnings)
+# ADF test confirms with the p-value of 0.7564 that the series is still non-staionary at 5% level of significance.
+# So we will apply the second differencing.
+
+diff.earnings2 = diff(earnings, differences = 2)
+par(mfrow=c(1,1))
+plot(diff.earnings2,type='o',ylab='Quarterly earnings ')
+# There is still some trend in ther series
+adf.test(diff.earnings2)
+# ADF test confirms with the p-value of 0.0764 that the series is still non-staionary at 5% level of significance..
+# So we will apply the third differencing.
+
+diff.earnings3 = diff(earnings, differences = 3)
+par(mfrow=c(1,1))
+plot(diff.earnings3,type='o',ylab='Quarterly earnings ')
+# There is no trend in ther series
+adf.test(diff.earnings3)
+# ADF test confirms with the p-value of 0.01 that the series is staionary with 
+# the third differencing.
+
+par(mfrow=c(1,2))
+acf(diff.earnings3)
+pacf(diff.earnings3)
+# There is one highly significant lag in ACF and two significant lags in PACF.
+# So we can include ARIMA(2,3,1) models among the tentative models.
+
+eacf(diff.earnings3,ar.max = 5, ma.max = 5) 
+# We put these argument to limit the orders p and q at 5. Otherwise, the eacf()
+# function retunrs an error and displays nothing. From the output of eacf
+# we include ARIMA(0,3,1), ARIMA(0,3,2) and ARIMA(1,3,1) models in the set of
+# possible models.
+
+par(mfrow=c(1,1))
+res4 = armasubsets(y=diff.earnings3,nar=5,nma=5,y.name='test',ar.method='ols')
+plot(res4)
+# In the BIC table, shaded coulmns correspond to AR(3), AR(5), MA(1) and MA(5)
+# coefficients and from here we can include ARIMA(3,3,1), ARIMA(3,3,5) models as
+# the other combinations give large models.
+
+
+# In conclusion the set of candidate models is
+# {ARIMA(2,3,1), ARIMA(0,3,1), ARIMA(0,3,2), ARIMA(1,3,1), 
+# ARIMA(3,3,1), ARIMA(3,3,5) }. In the next modules we will fit these models and
+# select the best one according to some selection measures.
+
+

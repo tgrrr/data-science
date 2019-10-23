@@ -52,11 +52,11 @@ HTMLWidgets.widget({
 
     var graphDiv = document.getElementById(el.id);
     
-    // TODO: move the control panel injection strategy inside here...
+    // ~old_todo~ move the control panel injection strategy inside here...
     HTMLWidgets.addPostRenderHandler(function() {
       
       // lower the z-index of the modebar to prevent it from highjacking hover
-      // (TODO: do this via CSS?)
+      // (~old_todo~ do this via CSS?)
       // https://github.com/ropensci/plotly/issues/956
       // https://www.w3schools.com/jsref/prop_style_zindex.asp
       var modebars = document.querySelectorAll(".js-plotly-plot .plotly .modebar");
@@ -121,7 +121,7 @@ HTMLWidgets.widget({
       if (x.highlight.dynamic) {
         var picker = $("#" + pickerInput.id);
         var colors = x.highlight.color || [];
-        // TODO: let users specify options?
+        // ~old_todo~ let users specify options?
         var opts = {
           value: colors[0],
           showColour: "both",
@@ -175,9 +175,9 @@ HTMLWidgets.widget({
       // a new webgl context
       // https://github.com/plotly/plotly.js/blob/2b24f9def901831e61282076cf3f835598d56f0e/src/plot_api/plot_api.js#L531-L532
 
-      // TODO: restore crosstalk selections?
+      // ~old_todo~ restore crosstalk selections?
       Plotly.purge(graphDiv);
-      // TODO: why is this necessary to get crosstalk working?
+      // ~old_todo~ why is this necessary to get crosstalk working?
       graphDiv.data = undefined;
       graphDiv.layout = undefined;
       var plot = Plotly.plot(graphDiv, x);
@@ -203,7 +203,7 @@ HTMLWidgets.widget({
       // plotly's mapbox API doesn't currently support setting bounding boxes
       // https://www.mapbox.com/mapbox-gl-js/example/fitbounds/
       // so we do this manually...
-      // TODO: make sure this triggers on a redraw and relayout as well as on initial draw
+      // ~old_todo~ make sure this triggers on a redraw and relayout as well as on initial draw
       var mapboxIDs = graphDiv._fullLayout._subplots.mapbox || [];
       for (var i = 0; i < mapboxIDs.length; i++) {
         var id = mapboxIDs[i];
@@ -256,7 +256,7 @@ HTMLWidgets.widget({
           var attr = trace[attrsToAttach[i]];
           if (Array.isArray(attr)) {
               // pointNumber can be an array (e.g., heatmaps)
-              // TODO: can pointNumber be 3D?
+              // ~old_todo~ can pointNumber be 3D?
               obj[attrsToAttach[i]] = typeof pt.pointNumber === "number" ? 
                 attr[pt.pointNumber] : attr[pt.pointNumber[0]][pt.pointNumber[1]];
           }
@@ -307,7 +307,7 @@ HTMLWidgets.widget({
     
     
     // send user input event data to dashR
-    // TODO: make this more consistent with Graph() props?
+    // ~old_todo~ make this more consistent with Graph() props?
     var dashRwidgets = window.dashRwidgets || {};
     var dashRmode = typeof el.setProps === "function" &&
                     typeof dashRwidgets.htmlwidget === "function";
@@ -372,7 +372,7 @@ HTMLWidgets.widget({
         // http://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays-in-javascript
         var keyFlat = trace._isNestedKey ? [].concat.apply([], key) : key;
         
-        // TODO: better to only add new values?
+        // ~old_todo~ better to only add new values?
         keysBySet[trace.set].value = keysBySet[trace.set].value.concat(keyFlat);
       }
       
@@ -436,7 +436,7 @@ HTMLWidgets.widget({
           plotlySelectionColour: crosstalk.group(set).var("plotlySelectionColour").get()
         };
         event[set] = e.value;
-        // TODO: is there a smarter way to check object equality?
+        // ~old_todo~ is there a smarter way to check object equality?
         if (selectionHistory.length > 0) {
           var ev = JSON.stringify(event);
           for (var i = 0; i < selectionHistory.length; i++) {
@@ -526,7 +526,7 @@ HTMLWidgets.widget({
             traceManager.updateSelection(set, newItems);
           } else {
             // Item has been removed...
-            // TODO: this logic won't work for dynamically changing palette 
+            // ~old_todo~ this logic won't work for dynamically changing palette 
             traceManager.updateSelection(set, null);
             traceManager.updateSelection(set, selectize.items);
           }
@@ -546,7 +546,7 @@ function TraceManager(graphDiv, highlight) {
   this.gd = graphDiv;
 
   // Preserve the original data.
-  // TODO: try using Lib.extendFlat() as done in  
+  // ~old_todo~ try using Lib.extendFlat() as done in  
   // https://github.com/plotly/plotly.js/pull/1136 
   this.origData = JSON.parse(JSON.stringify(graphDiv.data));
   
@@ -565,7 +565,7 @@ function TraceManager(graphDiv, highlight) {
 }
 
 TraceManager.prototype.close = function() {
-  // TODO: Unhook all event handlers
+  // ~old_todo~ Unhook all event handlers
 };
 
 TraceManager.prototype.updateFilter = function(group, keys) {
@@ -622,7 +622,7 @@ TraceManager.prototype.updateSelection = function(group, keys) {
     this.groupSelections[group] = keys;
   } else {
     // add to the groupSelection, rather than overwriting it
-    // TODO: can this be removed?
+    // ~old_todo~ can this be removed?
     this.groupSelections[group] = this.groupSelections[group] || [];
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
@@ -645,7 +645,7 @@ TraceManager.prototype.updateSelection = function(group, keys) {
       this.highlight.color[0];
 
     for (var i = 0; i < this.origData.length; i++) {
-      // TODO: try using Lib.extendFlat() as done in  
+      // ~old_todo~ try using Lib.extendFlat() as done in  
       // https://github.com/plotly/plotly.js/pull/1136 
       var trace = JSON.parse(JSON.stringify(this.gd.data[i]));
       if (!trace.key || trace.set !== group) {
@@ -670,7 +670,7 @@ TraceManager.prototype.updateSelection = function(group, keys) {
         /  (1) official plotly.js selected attribute
         /  (2) highlight(selected = attrs_selected(...))
         */
-        // TODO: it would be neat to have a dropdown to dynamically specify these!
+        // ~old_todo~ it would be neat to have a dropdown to dynamically specify these!
         $.extend(true, trace, this.highlight.selected);
         
         // if it is defined, override color with the "dynamic brush color""
@@ -687,7 +687,7 @@ TraceManager.prototype.updateSelection = function(group, keys) {
           trace.textfont.color =  selectionColour || trace.textfont.color || d.textfont.color;
         }
         if (d.fillcolor) {
-          // TODO: should selectionColour inherit alpha from the existing fillcolor?
+          // ~old_todo~ should selectionColour inherit alpha from the existing fillcolor?
           trace.fillcolor = selectionColour || trace.fillcolor || d.fillcolor;
         }
         // attach a sensible name/legendgroup

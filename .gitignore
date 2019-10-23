@@ -18,6 +18,13 @@ python-and-machine-learning/
 python/
 uni/2018/data-preprocessing-math2349/assignment2/
 uni/2018/data-preprocessing-math2349/assignment3/
+
+
+# SUB GITS
+# TODO: git submodule add <url> cookiecutters/cookiecutter-data-science-py
+cookiecutters/cookiecutter-data-science-py
+
+# THESE FILES ARE TOO BIG:
 r-scraper-framework/
 tensorflow-1.4.1-cp36-cp36m-macosx_10_13_x86_64.whl
 study-other/python-udemy-with-nath/tensorflow
@@ -33,3 +40,15 @@ datasets/2018
 911.csv
 EdStatsFootNote.csv
 advertising_train.csv
+
+
+downloads-datascience/RStudio-1.2.5001.dmg
+sort these/models/inception.hdf5
+sort these/models/resnet.hdf5
+sort these/models/resnet.uff
+uni/forecasting/forecasting group ass mark2.mov
+uni/machine-learning/to ml/ML_Chapter11.pdf
+uni/social-media/w08-social-network-analysis/w10 social lecture.m4s
+uni/social-media/w09-community-detection/articles/1-s2.0-S0370157309002841-main.pdf
+uni/social-media/w2-text-analysis/lab/lab-i-did-this/Posts.json
+uni/social-media/w2-text-analysis/lab/lab02Code/Posts.json

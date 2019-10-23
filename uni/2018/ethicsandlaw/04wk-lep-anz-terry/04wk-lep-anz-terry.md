@@ -75,7 +75,7 @@ If you're trying to solve a micro-version
 - Good: Breaking into data and app -> I think he was talking about our team
 - Problems: Iterations and continual delivery
 
-TODOLATER:
+~old_todo~~old_later~
 
 - Agile slide
 - Microsoft slide

@@ -36,7 +36,7 @@ Conventions are groundwork
   - If need phd to understand, it's not useful
   - Don't gatekeep data
 
-TODOLATER: 
+~old_todo~~old_later~ 
 see Hans Rosling youtube
 
 

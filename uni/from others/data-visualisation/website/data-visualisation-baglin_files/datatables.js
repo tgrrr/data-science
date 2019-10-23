@@ -243,7 +243,7 @@ HTMLWidgets.widget({
       searchCols = searchCols.map(function(x) {
         return x === null ? '' : x.search;
       });
-      // FIXME: this means I don't respect the escapeRegex setting
+      // ~old_fixme~ this means I don't respect the escapeRegex setting
       delete options.searchCols;
     }
 
@@ -330,7 +330,7 @@ HTMLWidgets.widget({
         }
       }
       instance.ctselectSubscription = instance.ctselectHandle.on("change", applyCrosstalkSelection);
-      // TODO: This next line doesn't seem to work when renderDataTable is used
+      // ~old_todo~ This next line doesn't seem to work when renderDataTable is used
       applyCrosstalkSelection({value: instance.ctselectHandle.value});
     }
 
@@ -727,7 +727,7 @@ HTMLWidgets.widget({
         }
       }
 
-      // HACK
+      // hack: note by Baglin
       if (event === "rows_selected" && !noCrosstalk) {
         if (crosstalkOptions.group) {
           var keys = crosstalkOptions.key;
@@ -985,7 +985,7 @@ HTMLWidgets.widget({
 
     // expose some table info to Shiny
     var updateTableInfo = function(e, settings) {
-      // TODO: is anyone interested in the page info?
+      // ~old_todo~ is anyone interested in the page info?
       // changeInput('page_info', table.page.info());
       var updateRowInfo = function(id, modifier) {
         var idx;
