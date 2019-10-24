@@ -3,35 +3,65 @@ title: 'Forecasting'
 subtitle: 'Assignment 2'
 author: 'Phil Steinke'
 output:
-  html_document:
+  <!-- html_document:
     df_print: paged
-  pdf_document: default
+  pdf_document: default -->
 ---
 
+<!-- TODO: functions in ts Analysis -->
 
-Task 2:
+# Task 1
 
-In the second task, you will analyse the correlation between quarterly Residential Property Price Index (PPI) in Melbourne and quarterly population change over the previous quarter in Victoria between September 2003 and December 2016. The quarterly PPI and population change series are available in data2.csvPreview the document file.
+## TODO: Introduction / Description
 
-In this task, the main goal of your analysis is to demonstrate whether the correlation between these two series is spurious or not.
-
-In both tasks, it is expected that you ask yourself what are the elements of a suitable and successful data analysis, and how you might go about presenting your results in a written report format. Please review the contents of the relevant modules and apply suitable approaches here. The rubric given below will guide you through my expectations in terms of reporting, R codes, descriptive analysis, modelling, and diagnostic checking.
-
-
----
-
-
-## Introduction / Description
-
-<!-- TODO:  -->
-- Describe what/who is your selected entity
-- Describe why it is interesting to find the sentiment and topics (answer questions) of this entity
-
-### Source
-### Dataset
 ### Goals
 
-> In this task, the main goal of your analysis is to demonstrate whether the correlation between these two series is spurious or not.
+Your task is to give best `2 years` ahead **forecasts** in terms of **MASE** for the solar radiation series by using one of the time series regression methods:
+
+### TODO: (dLagM package)
+### TODO: dynamic linear models (dynlm package)
+### TODO: and exponential smoothing
+### TODO: corresponding state-space models
+TODO: Why did he say corresponding?
+
+### - **Hint:** Use `MASE()` function from the `dLagM` package to compute MASE for time series regression methods for model comparisons.
+
+### Source
+
+```{r dataConfig}
+# Config Options:
+
+# TODO: PATH = ''
+DATA_PATH = '~/code/data-science-next/uni/forecasting/assignments/02assignment/data/'
+FILE_NAME_1 = 'data1.csv'
+FILE1 = paste0(DATA_PATH, FILE_NAME_1)
+```
+
+### Dataset
+
+- In the first task, you will analyse and forecast the amount of `horizontal solar radiation reaching the ground at a particular location over the globe`.
+- For this aim, you will work on the `monthly` average horizontal solar radiation and the monthly precipitation series measured at the same points between `January 1960 and December 2014`.
+
+- From `January 1960 and December 2014`
+
+```{r config}
+# data %>% head(1) # Initial date:
+tsStart = c(1960, 1)
+tsEnd = c(2014, 12)
+
+# TODO: tsFreq = 12
+
+# TODO: update for both datasets
+default_xlab = 'Monthly time-series measurements'
+default_ylab = 'Solar radiation'
+default_title = 'Horizontal solar radiation reaching the ground'
+
+forecast_years_ahead = 2
+forcast_months_ahead = 24 # TODO:
+
+```
+
+## Setup
 
 ```{r packages, message=FALSE, warning=FALSE, include=FALSE}
 
@@ -45,48 +75,22 @@ packages <- c(
 )
 packagr(packages) # alpha package to check, install and load packages
 
-# utility files:
-source('~/code/data-science-next/uni/common/utils-forecasting.R')
+# Most of our code:
+source('~/code/data-science-next/uni/common/utils.R')
+sourceDir('~/code/data-science-next/uni/common/')
 ```
 
-<!-- { "python": "magicpython", "r": "r source.gfm.rmd" } -->
+## Data
 
-## Data Collection
+## Task 1. Pre-processing and Data Cleaning
 
----
+- TODO: Describe what pre-processing you performed
+- TODO: Show examples of noisy data, plot some graphs, etc to show why you decided to do those pre-processing
 
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-
-Instructions
-
-<!-- In the first task, you will analyse and forecast the amount of horizontal solar radiation reaching the ground at a particular location over the globe.  For this aim, you will work on the monthly average horizontal solar radiation and the monthly precipitation series measured at the same points between January 1960 and December 2014. Both series are available herePreview the document. -->
-
-Your task is to give best 2 years ahead forecasts in terms of MASE for the solar radiation series by using one of the time series regression methods (dLagM package), dynamic linear models (dynlm package), and exponential smoothing and corresponding state-space models covered in the Modules 3 - 7 of our course in this semester. Hint: Use MASE() function from the dLagM package to compute MASE for time series regression methods for model comparisons.
-
-For the solar radiation forecasts, the required precipitation measurements (predictor series) for the months from January 2015 to December 2016 at the exact same locations are given in data.x.csvPreview the document file. You will use this data for the calculation of 2 years ahead forecasts.
+### Transform
 
 
-## Task 1:
-
-In the first task, you will analyse and forecast the amount of `horizontal solar radiation reaching the ground at a particular location over the globe`.  For this aim, you will work on the **monthly** average horizontal solar radiation and the monthly precipitation series measured at the same points between `January 1960 and December 2014`.
-
-```{r config}
-# Config Options:
-# data %>% head(1) # Initial date: Jan-04 (from original date column)
-
-# TODO: PATH = ''
-DATA_PATH = '~/code/data-science-next/uni/forecasting/assignments/02assignment/data/'
-FILE_NAME_1 = 'data1.csv'
-FILE1 = paste0(DATA_PATH, FILE_NAME_1)
-
-tsStart = c(1960, 1)
-
-# TODO: update for both datasets
-default_ylab = 'TODO'
-default_xlab = 'Year'
-```
-
-```{r config}
+```{r importAndTransform}
 # Load data:
 data.weather <- read_csv(
   FILE1,
@@ -95,13 +99,11 @@ data.weather <- read_csv(
 data.weather.ts <- convertToTimeseries(
   data.weather,
   freq = 12, # monthly data
-  # colName = 'solar',
   tsStart)
 
 # simplify for single feature datasets:
 data.weather.solar.ts <- data.weather.ts[,1]
 data.weather.precipitation.ts <- data.weather.ts[,2]
-
 ```
 
 ```{r}
@@ -124,12 +126,13 @@ x = precipitation (independent variable)
 # y = data.weather.solar.ts
 # x = data.weather.precipitation.ts
 
-data = data.weather.ts
+# TODO: figure number
 plot(
-  data,
+  data.weather.ts,
   plot.type="s",
   col = c("black", "red"),
-  main = "Monthly Solar (Y, Black) and Precipitation (X, Red)"
+  main = "Monthly Solar (Y, Black) and Precipitation (X, Red)",
+  sub = default_title
 )
 
 ```
@@ -143,13 +146,13 @@ Transforms from here onwards:
 
 ```{r}
 
-# with no differencing, we have trend in our data:
-
 tsPlots(
   data.weather.solar.ts,
   # showPlots='adf',
-  diffCount=0,
-  lag=12
+  diffCount = 0,
+  lag = 12,
+  title = default_title
+  # TODO: refactor titleWith... into tsPlots
 )
 
 ```
@@ -157,7 +160,6 @@ tsPlots(
 ### Trend is eliminated with `diff = 1`:
 
 ```{r}
-source('~/code/data-science-next/uni/common/utils-forecasting.R')
 
 tsPlots(
   data.weather.solar.ts,
@@ -579,8 +581,6 @@ doFit(data.weather.solar.ts, models=etsModels, showSummary=FALSE, showResiduals=
 # FIXME: Error in MASE(fit.data.MNN, fit.data.MMN): MASE function works for lm, dlm, polyDlm, koyckDlm, and ardlDlm objects. Please make sure that you are sending model object directly or send a bunch of model objects to the function.
 MASE(fit.data.MNN, fit.data.MMN)
 
-accuracy)(
-
 # @focus
 
 accuracy(fit.data.MNN)
@@ -657,48 +657,24 @@ legend("bottomleft", lty=1, cex=0.75, pch=1, pt.cex = 1.9, text.width = 2.3, col
 
 ```
 
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-Your task is to give best `2 years` ahead forecasts in terms of **MASE** for the solar radiation series by using one of the time series regression methods:
+## TODO: Task 1. Analysis
 
-- (dLagM package),
-- dynamic linear models (dynlm package),
-- and exponential smoothing and
-- corresponding state-space models
+## TODO: Task 1. Error Checking / Residual Analysis / Residual Analysis
 
-covered in the **Modules 3 - 7** of our course in this semester.
+## TODO: Task 1. Forecast
 
-**Hint:** Use `MASE()` function from the `dLagM` package to compute MASE for time series regression methods for model comparisons.
+> For the `solar radiation forecasts`, the required precipitation measurements (predictor series) for the `months` from `January 2015 to December 2016` at the exact same locations are given in `data.x.csv`. You will use this data for the calculation of `2 years ahead forecasts`.
 
-For the `solar radiation forecasts`, the required precipitation measurements (predictor series) for the `months` from `January 2015 to December 2016` at the exact same locations are given in data.x.csv. You will use this data for the calculation of `2 years ahead forecasts`.
 
-## Task 1. Pre-processing and Data Cleaning
-
-- Describe  what pre-processing you performed
-- Show examples of noisy data, plot some graphs, etc to show why you decided to do those pre-processing
-
-### Transform
-
-## Task 1. Analysis
-
-Analysis Approach
-
-- Describe what analysis you performed to answer the questions
-- What type of sentiment analysis did you do?  Briefly explain your rationale for doing it as such.
-- What type of topic modelling did you do?  Again, briefly explain your rationale for your approach.
-
-Analysis & Insights
-
-- Present your analysis, to answer the questions
-- Present and discuss your insights
-- Use plots, tables, example of prints, visualisation, word clouds etc that supports your analysis and insights
-
-## Task 1. Error Checking
-
-## Task 1. Forecast
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-## Task 2:
+## TASK 2:
+
+<!-- FIXME:  -->
+> In this task, the main goal of your analysis is to demonstrate whether the correlation between these two series is spurious or not.
 
 In the second task, you will analyse the correlation between quarterly _Residential Property Price Index (PPI) in Melbourne_ and _quarterly population change over the previous quarter in Victoria_ between _September 2003_ and _December 2016_. The quarterly PPI and population change series are available in `data2.csv`.
 
@@ -719,8 +695,6 @@ reporting, R codes, descriptive analysis, modelling, and diagnostic checking.
 Analysis Approach
 
 - Describe what analysis you performed to answer the questions
-- What type of sentiment analysis did you do?  Briefly explain your rationale for doing it as such.
-- What type of topic modelling did you do?  Again, briefly explain your rationale for your approach.
 
 Analysis & Insights
 
@@ -728,10 +702,9 @@ Analysis & Insights
 - Present and discuss your insights
 - Use plots, tables, example of prints, visualisation, word clouds etc that supports your analysis and insights
 
-## Task 2. Error Checking
+## Task 2. Error Checking / Residual Analysis
 
 ## Task 2. Forecast
-
 
 ---
 

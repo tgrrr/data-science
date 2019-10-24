@@ -13,17 +13,6 @@ packages <- c(
 packagr(packages) # alpha package to check, install and load packages
 
 # setwd('/Users/phil/code/data-science-next/uni/common')
-
-# /Users/phil/code/data-science-next/uni/common/MATH1307_utilityFunctions.R
-source('./utils-timeseries.R')
-source('./MATH1307_utilityFunctions.R')
-source('./data/convertToTimeSeries.R')
-
-source('./preprocessing/diffTs.R')
-source('./visualization/diffAndPlot.R')
-source('./visualization/tsPlots.R')
-# includes: residual.analysis, sort.score
-
 summarySummary <- function(model.fit) {
   tryCatch({
     summary(model.fit)$adj.r.square %>% round(2) %>% cat('adjusted r-squared:', ., '\n')
@@ -63,7 +52,7 @@ confidenceInterval <- function(
   data.ts,
   method=c("yule-walker","")[1],
   title=''
-) {
+  ) {
   # check the confidence interval of lambda
   # doPar(mfrow = c(1,1))
   boxcoxCi <- BoxCox.ar(data.ts, method = "yule-walker")$ci
@@ -80,7 +69,7 @@ doTestNormality <- function(
   df,
   main, # plot title
   plotit = TRUE
-) {
+  ) {
 
   if (plotit) {
     title <- fig_nums(
@@ -100,7 +89,7 @@ compareNormality <- function(
   x, # list
   main='Normality test for timeseries data'
   # LATER: graph=TRUE
-) {
+  ) {
   doPar(mfrow=c(1,2))
     for (i in length(x)) {
       # TODO: accept list of titles # LATER: list
@@ -116,7 +105,7 @@ compareNormality <- function(
 convertToBoxCox <- function(
   df_col.ts,
   lambda= lambda_
-) {
+  ) {
 
   lambda = lambda_ || seq(-2, 2, by=0.5)
 
@@ -203,8 +192,7 @@ doFitHw <- function (
 
 
 # ----
-findSeasonalFreq <- function(x)
-{
+findSeasonalFreq <- function(x) {
     n <- length(x)
     spec <- spec.ar(c(x),plot=FALSE)
     if(max(spec$spec)>10) # Arbitrary threshold chosen by trial and error.

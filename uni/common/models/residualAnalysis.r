@@ -1,5 +1,3 @@
-
-
 residual.analysis <- function(model, std = TRUE, Ljung.Box = FALSE, start = 2, class = c("LM")[1]){
   # If you have an output from arima() function use class = "ARIMA"
   # If you have an output from garch() function use class = "GARCH"
@@ -35,15 +33,3 @@ residual.analysis <- function(model, std = TRUE, Ljung.Box = FALSE, start = 2, c
     LBQPlot(res.model, lag.max = 30, StartLag = k + 1, k = 0, SquaredQ = FALSE)
   }
 }
-
-# AIC and BIC sorting function by Cameron Doyle
-sort.score <- function(x, score = c("bic", "aic")){
-  if (score == "aic"){
-    x[with(x, order(AIC)),]
-  } else if (score == "bic") {
-    x[with(x, order(BIC)),]
-  } else {
-    warning('score = "x" only accepts valid arguments ("aic","bic")')
-  }
-}
-# AIC and BIC sorting function by Cameron Doyle

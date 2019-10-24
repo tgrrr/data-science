@@ -12,7 +12,7 @@ doDiffAndPlot <- function(
   showEacf = FALSE,
   lag = 1,
   out = NULL,
-  plotTitle = 'diff plot',
+  title = 'diff plot',
   ...
   ) {
 
@@ -53,7 +53,7 @@ doDiffAndPlot <- function(
     plot(
       df.afterDiff.ts,
       xlab=default_xlab,
-      main=plotTitle,
+      main=title,
       ylab = default_ylab,
       type = 'l'
     )

@@ -1,5 +1,5 @@
 # doDiff() <- function(
-# 
+#
 # )
 
 # out = tryCatch({}, error = function(e) print("No results for this test!"))
@@ -9,20 +9,20 @@ doTsPlots <- function(
   plots = c(plot, acf, pacf, eacf, adf)[1:5],  # new
   lag = 1,
   out = NULL,
-  plotTitle = 'diff plot',
+  title = 'diff plot',
   ...
   ) {
-    
+
   df.afterDiff.ts <- df.ts
-  
+
   ifelse(
-    diffCount != 0, 
+    diffCount != 0,
     (df.afterDiff.ts = diff(
-      df.ts, 
+      df.ts,
       differences = diffCount,
       lag)),
     df.afterDiff.ts)
-  
+
   order = ar(df.afterDiff.ts)$order
 
   paste('diff: ', diffCount, '\n') %>% writeLines()
@@ -35,7 +35,7 @@ doTsPlots <- function(
     paste(p, '< 0.05 significant\n') %>% writeLines()
     doPar(mfrow=c(1,1))
     if (showEacf) {
-      eacf(df.afterDiff.ts)      
+      eacf(df.afterDiff.ts)
     }
   } else {
     paste('> 0.05 insignificant\n', p) %>% writeLines()
@@ -50,7 +50,7 @@ doTsPlots <- function(
     plot(
       df.afterDiff.ts,
       xlab=default_xlab,
-      main=plotTitle,
+      main=title,
       ylab = default_ylab,
       type = 'l'
     )
@@ -69,14 +69,14 @@ doTsPlots <- function(
       # lag.max=2130
     )
   }
-  
+
   # return the diffed timeSeries object:
-  # LATER: update so doesn't require output named 
+  # LATER: update so doesn't require output named
   if (hasArg(out)) {
     # output.ts <- assign(out, df.afterDiff.ts)
     return(df.afterDiff.ts)
   }
-  
+
 }
 
 # depreciating function params
@@ -87,20 +87,20 @@ doDiffAndPlot <- function(
   showEacf = FALSE,
   lag = 1,
   out = NULL,
-  plotTitle = 'diff plot',
+  title = 'diff plot',
   ...
   ) {
-    
+
   df.afterDiff.ts <- df.ts
-  
+
   ifelse(
-    diffCount != 0, 
+    diffCount != 0,
     (df.afterDiff.ts = diff(
-      df.ts, 
+      df.ts,
       differences = diffCount,
       lag)),
     df.afterDiff.ts)
-  
+
   order = ar(df.afterDiff.ts)$order
 
   paste('diff: ', diffCount, '\n') %>% writeLines()
@@ -113,7 +113,7 @@ doDiffAndPlot <- function(
     paste(p, '< 0.05 significant\n') %>% writeLines()
     doPar(mfrow=c(1,1))
     if (showEacf) {
-      eacf(df.afterDiff.ts)      
+      eacf(df.afterDiff.ts)
     }
   } else {
     paste('> 0.05 insignificant\n', p) %>% writeLines()
@@ -128,7 +128,7 @@ doDiffAndPlot <- function(
     plot(
       df.afterDiff.ts,
       xlab=default_xlab,
-      main=plotTitle,
+      main=title,
       ylab = default_ylab,
       type = 'l'
     )
@@ -147,12 +147,12 @@ doDiffAndPlot <- function(
       # lag.max=2130
     )
   }
-  
+
   # return the diffed timeSeries object:
-  # LATER: update so doesn't require output named 
+  # LATER: update so doesn't require output named
   if (hasArg(out)) {
     # output.ts <- assign(out, df.afterDiff.ts)
     return(df.afterDiff.ts)
   }
-  
+
 }

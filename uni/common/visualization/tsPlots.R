@@ -3,12 +3,16 @@ library(packagr)
 
 # TODO:
 # plot multiple features on same plot
+# check tsAnalysis for other analysis
 
-packagr(c('tseries', 'captioner'))
+source('./titleWithFigureNumbers.r')
 
-library(TSA)
-library(fUnitRoots)
-library(lmtest)
+packagr(c(
+  'tseries',
+  'captioner',
+  'TSA',
+  'fUnitRoots',
+  'lmtest'))
 
 # setup captioner
 fig_nums <- captioner()
@@ -17,21 +21,19 @@ fig_nums <- captioner()
 tsPlots <- function(
   df.ts,
   diffCount = 0,
+  # TODO: refactor showPlots -> plots
+  # TODO: add analysis
   showPlots = c('plot', 'acf', 'pacf', 'eacf', 'adf')[c(1,2,3,5)],  # eacf off by default
-  lag = 1,
+  lag = 1, # defaults to yearly
   out = NULL,
-  plotTitle = 'Plot of timeseries',
+  title = 'Plot of timeseries',
   ...
   ) {
 
   # hide adf warnings
   options(warn=-1)
 
-  # Captioner::fig_nums requires a unique plot name to incriment the figure num
-  uniquePlotName <- paste(c(plotTitle, runif(1)), collapse = " ")
-  plotTitleWithDiffCount <- paste0(plotTitle, ' (diff = ', diffCount, ')', collapse = " ")
-
-  plotTitleWithFigureCount <- fig_nums(uniquePlotName, plotTitleWithDiffCount)
+  titleWithFigureCount <- titleWithFigureNumbers(title)
 
   # df.afterDiff.ts <- df.ts
 
@@ -51,7 +53,24 @@ tsPlots <- function(
   diffAdfTest = adfTest(df.afterDiff.ts, lags = order, title = NULL, description = NULL)
   p <- diffAdfTest@test$p.value
 
-  # writeLines('adf p-value:')
+  # TODO: refactor to doPlotAnalysis()
+  # augmented Dickey Fuller:
+  # adf.x = ur.df(
+  #   x,
+  #   type = "none",
+  #   lags = 1,
+  #   selectlags =  "AIC"
+  # )
+  # summary(adf.x)
+  #
+  # # Phillips-Perron Unit Root Test:
+  # pp.x = ur.pp(
+  #   x,
+  #   type = "Z-alpha",
+  #   lags = "short"
+  # )
+  # summary(pp.x)
+
   if (p < 0.05) {
     paste('adf p-value:', p, '< 0.05 significant\n') %>% writeLines()
     doPar(mfrow=c(1,1))
@@ -66,7 +85,7 @@ tsPlots <- function(
 
   # if(showPlot==TRUE) {
     # doPar(mfrow = c(1, 3))
-    doPar()
+    # doPar()
     layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
     # doPar(mfrow = c(2, 2))
 
@@ -74,7 +93,7 @@ tsPlots <- function(
       plot(
         df.afterDiff.ts,
         xlab=default_xlab,
-        main=plotTitleWithFigureCount,
+        main=titleWithFigureCount,
         ylab = default_ylab,
         type = 'l'
       )
@@ -87,7 +106,7 @@ tsPlots <- function(
         # lag.max=2130
       )
     }
-    if('acf' %in% showPlots) {
+    if('pacf' %in% showPlots) {
 
       pacf(
         df.afterDiff.ts,
@@ -99,43 +118,6 @@ tsPlots <- function(
   }
   # return the diffed timeSeries object:
   # LATER: update so doesn't require output named
-  if (hasArg(out)) {
-    # output.ts <- assign(out, df.afterDiff.ts)
-    return(df.afterDiff.ts)
-  }
-
-}
-
-# library(TSA)
-library(urca)
-
-# REFACTOR: refactor
-# REFACTOR: plot names
-doPlot <- function(x) {
-  doPar(mfrow = c(1,3))
-  plot(
-    x,
-    type = 'l',
-    #REFACTOR: ylab = "Relative temperature change", xlab = "Year", main = "Global warming series"
-  )
-  acf(x)
-  pacf(x)
-
-  adf.x = ur.df(
-    x,
-    type = "none",
-    lags = 1,
-    selectlags =  "AIC"
-  )
-  summary(adf.x)
-
-  pp.x = ur.pp(
-    x,
-    type = "Z-alpha",
-    lags = "short"
-  )
-  summary(pp.x)
-
   if (hasArg(out)) {
     # output.ts <- assign(out, df.afterDiff.ts)
     return(df.afterDiff.ts)

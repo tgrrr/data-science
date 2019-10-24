@@ -3,27 +3,27 @@ library(urca)
 
 # Exercise 1
 
-earthquakes = read.csv("/Users/phil/code/data-science-next/datasets/forecasting/Austria_Unemployment.csv")
-class(earthquakes) # Current class is data frame and we need to convert it to a ts object
-earthquakes = ts(earthquakes$Number, start=1900)
-class(earthquakes)
-head(earthquakes)
+earthquakes = read.csv("~/code/data-science-next/datasets/forecasting/Austria_Unemployment.csv")
+# class(earthquakes.ts) # Current class is data frame and we need to convert it to a ts object
+earthquakes.ts = ts(earthquakes$Value, start=1900, frequency = 12)
+# class(earthquakes.ts)
+# head(earthquakes.ts)
 
-plot(earthquakes, ylab="Number of earthquakes", xlab = "Year", main = "Number of earthquakes per year magnitude 7.0 or greater")
+plot(earthquakes.ts, ylab="Number of earthquakes.ts", xlab = "Year", main = "Number of earthquakes.ts per year magnitude 7.0 or greater")
 par(mfrow=c(1,2)) # Put the ACF and PACF plots next to each other
-acf(earthquakes, main = "Sample ACF for the number of earthquakes series")
-pacf(earthquakes, main = "Sample PACF for the number of earthquakes series")
+acf(earthquakes.ts, main = "Sample ACF for the number of earthquakes.ts series")
+pacf(earthquakes.ts, main = "Sample PACF for the number of earthquakes.ts series")
 
-adf.earthquakes = ur.df(earthquakes, type = "none", lags = 1,  selectlags =  "AIC")
-summary(adf.earthquakes)
-pp.earthquakes = ur.pp(earthquakes, type = "Z-alpha", lags = "short")
-summary(pp.earthquakes)
+adf.earthquakes.ts = ur.df(earthquakes.ts, type = "none", lags = 1,  selectlags =  "AIC")
+summary(adf.earthquakes.ts)
+pp.earthquakes.ts = ur.pp(earthquakes.ts, type = "Z-alpha", lags = "short")
+summary(pp.earthquakes.ts)
 
 # Exercise 2
 
 flow = read.csv("~/Documents/MATH1307_Forecasting/Tasks/Task 1/flow.csv")
 class(flow)
-flow = ts(flow$Flow,start=c(1953,1),frequency = 12) 
+flow = ts(flow$Flow,start=c(1953,1),frequency = 12)
 class(flow)
 head(flow)
 
@@ -46,12 +46,12 @@ aerosol = read.csv("~/Documents/MATH1307_Forecasting/Tasks/Task 1/aerosol.csv")
 
 class(aerosol)
 # Be careful about the transpose t() operation here!
-aerosol = ts(as.vector(t(as.matrix(aerosol[,2:13]))),start=c(1986,1),frequency = 12) 
+aerosol = ts(as.vector(t(as.matrix(aerosol[,2:13]))),start=c(1986,1),frequency = 12)
 class(aerosol)
 head(aerosol)
 
 par(mfrow=c(1,1))
-plot(aerosol, ylab="Monthly median aerosol optical depth",xlab="Year",main="Time series plot of mean monthly median aerosol 
+plot(aerosol, ylab="Monthly median aerosol optical depth",xlab="Year",main="Time series plot of mean monthly median aerosol
      optical depth at Cape Grim")
 points(y=aerosol,x=time(aerosol), pch=as.vector(season(aerosol)))
 
@@ -76,7 +76,7 @@ for (i in 2:100){
 y = ts(y)
 
 par(mfrow=c(1,1))
-plot(y,ylab = "Random measurements",xlab="Time", main="Time series plot for randomly 
+plot(y,ylab = "Random measurements",xlab="Time", main="Time series plot for randomly
      generated random walk")
 
 
@@ -88,4 +88,3 @@ adf.y = ur.df(y, type = "none", lags = 1,  selectlags =  "AIC")
 summary(adf.y)
 pp.y = ur.pp(y, type = "Z-alpha", lags = "short")
 summary(pp.y)
-
