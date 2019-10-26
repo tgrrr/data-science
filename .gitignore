@@ -1,52 +1,32 @@
+# Files to ignore:
+
 .Rproj.user/
 .RData
 .Rhistory
 *.xlsx
 *.html
-# *.csv
+*.csv
 *.history
 *.zip
-scrapy/
 *.RData
 *.rds
 *.ipynb
 *.Rout
 *.Rproj
 *.mp4
-python-and-machine-learning/
-.Rproj.user
-python/
-uni/2018/data-preprocessing-math2349/assignment2/
-uni/2018/data-preprocessing-math2349/assignment3/
-
-
-# SUB GITS
-# TODO: git submodule add <url> cookiecutters/cookiecutter-data-science-py
-cookiecutters/cookiecutter-data-science-py
-
-# THESE FILES ARE TOO BIG:
-r-scraper-framework/
-tensorflow-1.4.1-cp36-cp36m-macosx_10_13_x86_64.whl
-study-other/python-udemy-with-nath/tensorflow
-# uni/2018/data-preprocessing-math2349/01-data-preprocessing-intro/materials/Module 1_files
-06wk-lep__data-science-in-the-wild--colette-marais.pdf
-uni/2018/ethicsandlaw/datathon video/app melbourne datathon2018 saved by the bell 5min.mov
-uni/2018/ethicsandlaw/datathon video/app melbourne datathon2018 saved by the bell 7min.mov
-uni/2018/ethicsandlaw/datathon video/app melbourne datathon2018 saved by the bell.mov
-ML-Fundamentals-book.pdf
 Icon\r
 icon*
-datasets/2018
-911.csv
-EdStatsFootNote.csv
-advertising_train.csv
+.Rproj.user
 
+# Large files:
 
-downloads-datascience/RStudio-1.2.5001.dmg
-sort these/models/inception.hdf5
-sort these/models/resnet.hdf5
-sort these/models/resnet.uff
-uni/forecasting/forecasting group ass mark2.mov
+uni/forecasting/large-files/
+datasets/large/
+
+# Large uni files:
+
+uni/2018/ethicsandlaw/06wk-lep__data-science-in-the-wild--collete-marias/06wk-lep__data-science-in-the-wild--colette-marais.pdf
+uni/machine-learning/ML-Fundamentals-book.pdf
 uni/machine-learning/to ml/ML_Chapter11.pdf
 uni/social-media/w08-social-network-analysis/w10 social lecture.m4s
 uni/social-media/w09-community-detection/articles/1-s2.0-S0370157309002841-main.pdf
