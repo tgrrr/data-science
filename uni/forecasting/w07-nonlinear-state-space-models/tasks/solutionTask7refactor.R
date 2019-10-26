@@ -4,7 +4,7 @@ packagr(packages)
 
 # TASK 1
 par(mfrow=c(1,1))
-data = read.csv("~/code/data-science-next/datasets/forecasting/Austria_Unemployment.csv")
+data = read.csv("~/code/data-science/datasets/forecasting/Austria_Unemployment.csv")
 data.ts = ts(data[,2],start = c(1995,1),frequency = 12)
 plot(data.ts, ylab="Unemployment rate", main = "Time series plot for monthly dataloyment rate data of Austria")
 
@@ -89,7 +89,7 @@ summary()
 
 doFit(data.ts, showSummary = FALSE, isDamp=TRUE)
 
-# source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+# source('/Users/phil/code/data-science/uni/common/utils-forecasting.R')
 # summarySummary(fit.data.MNN)
 
 # TODO: seasonal = "additive"

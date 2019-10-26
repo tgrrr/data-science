@@ -16,9 +16,9 @@
 # Compare the procedures with each other using the measures based on MASE.
 
 # Data
-/Users/phil/code/data-science-next/datasets/forecasting/meanMaxTempAdel.csv
-/Users/phil/code/data-science-next/datasets/forecasting/meanMaxTempDarwin.csv 
-/Users/phil/code/data-science-next/datasets/forecasting/meanMaxTempMel.csv 
-/Users/phil/code/data-science-next/datasets/forecasting/meanMaxTempPerth.csv 
-/Users/phil/code/data-science-next/datasets/forecasting/meanMaxTempSyd.csv
+/Users/phil/code/data-science/datasets/forecasting/meanMaxTempAdel.csv
+/Users/phil/code/data-science/datasets/forecasting/meanMaxTempDarwin.csv 
+/Users/phil/code/data-science/datasets/forecasting/meanMaxTempMel.csv 
+/Users/phil/code/data-science/datasets/forecasting/meanMaxTempPerth.csv 
+/Users/phil/code/data-science/datasets/forecasting/meanMaxTempSyd.csv
 

@@ -32,7 +32,7 @@ TODO: Why did he say corresponding?
 # Config Options:
 
 # TODO: PATH = ''
-DATA_PATH = '~/code/data-science-next/uni/forecasting/assignments/02assignment/data/'
+DATA_PATH = '~/code/data-science/uni/forecasting/assignments/02assignment/data/'
 FILE_NAME_1 = 'data1.csv'
 FILE1 = paste0(DATA_PATH, FILE_NAME_1)
 ```
@@ -76,8 +76,8 @@ packages <- c(
 packagr(packages) # alpha package to check, install and load packages
 
 # Most of our code:
-source('~/code/data-science-next/uni/common/utils.R')
-sourceDir('~/code/data-science-next/uni/common/')
+source('~/code/data-science/uni/common/utils.R')
+sourceDir('~/code/data-science/uni/common/')
 ```
 
 ## Data
@@ -609,7 +609,7 @@ fit.data.MNN$mse
 
 doFit(data.weather.solar.ts, showSummary = TRUE, showResiduals = FALSE, isDamp=TRUE)
 
-# source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+# source('/Users/phil/code/data-science/uni/common/utils-forecasting.R')
 # summarySummary(fit.data.MNN)
 
 # TODO: seasonal = "additive"

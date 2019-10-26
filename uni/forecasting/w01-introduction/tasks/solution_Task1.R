@@ -3,7 +3,7 @@ library(urca)
 
 # Exercise 1
 
-earthquakes = read.csv("~/code/data-science-next/datasets/forecasting/Austria_Unemployment.csv")
+earthquakes = read.csv("~/code/data-science/datasets/forecasting/Austria_Unemployment.csv")
 # class(earthquakes.ts) # Current class is data frame and we need to convert it to a ts object
 earthquakes.ts = ts(earthquakes$Value, start=1900, frequency = 12)
 # class(earthquakes.ts)

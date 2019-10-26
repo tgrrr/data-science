@@ -5,7 +5,7 @@ library(Hmisc)
 library(forecast)
 library(xts)
 
-price <- read.csv('~/code/data-science-next/datasets/forecasting/seaLevel.csv',)
+price <- read.csv('~/code/data-science/datasets/forecasting/seaLevel.csv',)
 price = ts(price[,2], start=c(1998,4),frequency = 12)
 
 plot(price,ylab='Fuel price',xlab='Year',main = "Time series plot of the monthly retail unleaded fuel prices series.")

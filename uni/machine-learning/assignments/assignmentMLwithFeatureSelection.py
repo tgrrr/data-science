@@ -98,7 +98,7 @@ warnings.filterwarnings("ignore")
 #%%
 # os.getcwd()
 os.chdir('/Users/ashleigholney/Desktop/MATH2319-Machine-Learning/Course Project') # ash's
-os.chdir('/Users/phil/code/data-science-next/uni/machine-learning/assignments/') # phil's
+os.chdir('/Users/phil/code/data-science/uni/machine-learning/assignments/') # phil's
 __file_name__ = 'advertising_train.csv'
 data = pd.read_csv( __file_name__)
 # consistent naming of columns (minus camelCase):

@@ -9,7 +9,7 @@ library(TSA)
 
 # TASK 1
 par(mfrow=c(1,1))
-unemp = read.csv("~code/data-science-next/datasets/forecasting/Austria_Unemployment.csv")
+unemp = read.csv("~code/data-science/datasets/forecasting/Austria_Unemployment.csv")
 unemp.ts = ts(unemp[,2],start = c(1995,1),frequency = 12) 
 plot(unemp.ts, ylab="Unemployment rate", main = "Time series plot for monthly unemployment rate data of Austria")
 

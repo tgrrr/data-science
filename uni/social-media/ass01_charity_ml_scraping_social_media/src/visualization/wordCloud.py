@@ -17,7 +17,7 @@ import numpy as np
 import math
 import json
 import os
-os.chdir('/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media')
+os.chdir('/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media')
 
 # from tweepy import Cursor
 # from tweepy import api

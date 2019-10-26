@@ -6,7 +6,7 @@ output: html_notebook
 # Module 2: Tasks Basic operations and Decompositions
 
 ```{r}
-working_directory <- '/Users/phil/code/data-science-next/datasets/forecasting'
+working_directory <- '/Users/phil/code/data-science/datasets/forecasting'
 setwd(working_directory)
 
 library(packagr)
@@ -15,8 +15,8 @@ packages <- c(
   'dLagM', 'forecast', 'expsmooth', 'TSA', 'Hmisc', 'car', 'AER', 'readr', 'tseries', 'lubridate')
 packagr(packages) # alpha package to install & load packages
 
-source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
-source('/Users/phil/code/data-science-next/uni/common/utils.R')
+source('/Users/phil/code/data-science/uni/common/utils-forecasting.R')
+source('/Users/phil/code/data-science/uni/common/utils.R')
 
 ```
 
@@ -130,7 +130,7 @@ Load the annual mean series into the workspace of R and do the following tasks:
 ```{r}
 data_filename <- 'global_warming.csv'
 global_warming = read_csv(
-  "/Users/phil/code/data-science-next/datasets/forecasting/global_warming.csv", 
+  "/Users/phil/code/data-science/datasets/forecasting/global_warming.csv", 
   col_names = TRUE, 
 )
 class(global_warming)
@@ -164,7 +164,7 @@ class(global_warming)
 ```{r}
 data_filename <- 'inflation.csv'
 inflation = read_csv(
-  "/Users/phil/code/data-science-next/datasets/forecasting/inflation.csv", 
+  "/Users/phil/code/data-science/datasets/forecasting/inflation.csv", 
   col_names = TRUE, 
 )
 # class(inflation)

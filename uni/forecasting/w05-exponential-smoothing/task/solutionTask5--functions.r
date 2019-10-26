@@ -15,7 +15,7 @@ library(readr)
 
 # ----------------------------------------------------------
 data <- read_csv(
-  '~/code/data-science-next/datasets/forecasting/seaLevel.csv',
+  '~/code/data-science/datasets/forecasting/seaLevel.csv',
   col_names = TRUE, 
 )
 

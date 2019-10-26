@@ -13,7 +13,7 @@ import pandas as pd
 
 # from src.config.constants import Constants
 # os.chdir(Constants.path)
-PATH = '/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media'
+PATH = '/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media'
 os.chdir(PATH)
 
 # dark theme:

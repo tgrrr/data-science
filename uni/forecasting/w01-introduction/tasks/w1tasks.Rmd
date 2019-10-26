@@ -8,7 +8,7 @@ wavelet( layers = )
 # Module 1: Tasks
 
 ```{r}
-working_directory <- '/Users/phil/code/data-science-next/datasets/forecasting'
+working_directory <- '/Users/phil/code/data-science/datasets/forecasting'
 setwd(working_directory)
 
 library(packagr)
@@ -18,7 +18,7 @@ packages <- c(
   'readr', 'tseries')
 packagr(packages) # alpha package to check, install and load packages
 
-source('/Users/phil/code/data-science-next/uni/time-series/common/utils.r')
+source('/Users/phil/code/data-science/uni/time-series/common/utils.r')
 ```
 
 
@@ -36,7 +36,7 @@ The aims of the tasks given here are to:
 ```{r}
 data_filename <- 'earthquakes.csv'
 earthquakes = read_csv(
-  "/Users/phil/code/data-science-next/datasets/forecasting/earthquakes.csv", 
+  "/Users/phil/code/data-science/datasets/forecasting/earthquakes.csv", 
   col_names = TRUE, 
 )
 # class(earthquakes)
@@ -113,7 +113,7 @@ eacf(earthquakes.ts)
 ```{r}
 data_filename <- 'flow.csv'
 flow = read_csv(
-  "/Users/phil/code/data-science-next/datasets/forecasting/flow.csv", 
+  "/Users/phil/code/data-science/datasets/forecasting/flow.csv", 
   col_names = TRUE, 
 )
 flow %>% head()

@@ -16,7 +16,7 @@ In this task we will deepen the analysis of monthly retail unleaded fuel prices 
 
 
 ```{r}
-price <- read.csv(  '~/code/data-science-next/datasets/forecasting/seaLevel.csv',)
+price <- read.csv(  '~/code/data-science/datasets/forecasting/seaLevel.csv',)
 price = ts(price[,2], start=c(1998,4),frequency = 12)
 ```
 

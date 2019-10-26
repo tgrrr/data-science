@@ -265,7 +265,7 @@ lStopwords = stopwords.words('english') + lPunct + ['rt', 'via', '...', '…', '
 # tweetProcessor = TwitterProcessing.TwitterProcessing(tweetTokenizer, lStopwords)
 tweetProcessor = TwitterProcessing(tweetTokenizer, lStopwords)
 
-path = '/Users/phil/code/data-science-next/uni/social-media/w4-topic-detection/lab/lab04CodeAns/'
+path = '/Users/phil/code/data-science/uni/social-media/w4-topic-detection/lab/lab04CodeAns/'
 import os
 os.chdir(path)
 

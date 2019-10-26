@@ -9,11 +9,11 @@ packages <- c(
   'readr', 'tseries', 'lubridate', 'stringr', 'testthis', 'captioner', 'urca')
 packagr(packages) # alpha package to check, install and load packages
 
-source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+source('/Users/phil/code/data-science/uni/common/utils-forecasting.R')
 
 # Config Options:
 # data %>% head(1) # Initial date: Jan-04 (from original date column)
-file_name = '~/code/data-science-next/datasets/forecasting/ASX_data.csv'
+file_name = '~/code/data-science/datasets/forecasting/ASX_data.csv'
 tsStart = c(2004, 1)
 # data %>% tail(1) # Final date: May-17 (from original date column)
 tsEnd = c(2017, 5)

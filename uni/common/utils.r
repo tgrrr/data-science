@@ -25,7 +25,7 @@ sourceDir('./preprocessing/')
 sourceDir('./visualization/')
 
 # TODO: check if it loads these:
-# /Users/phil/code/data-science-next/uni/common/MATH1307_utilityFunctions.R
+# /Users/phil/code/data-science/uni/common/MATH1307_utilityFunctions.R
 # source('utils-timeseries.R')
 # source('./MATH1307_utilityFunctions.R')
 # source('./data/convertToTimeSeries.R')

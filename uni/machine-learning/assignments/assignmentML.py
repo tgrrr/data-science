@@ -92,7 +92,7 @@ from sklearn.tree import DecisionTreeRegressor
 #%%
 # os.getcwd()
 # os.chdir('/Users/ashleigholney/Desktop/MATH2319-Machine-Learning/Course Project') # ash's
-os.chdir('/Users/phil/code/data-science-next/uni/machine-learning/assignments') # phil's
+os.chdir('/Users/phil/code/data-science/uni/machine-learning/assignments') # phil's
 __file__ = 'advertising_train.csv'
 data = pd.read_csv(__file__)
 

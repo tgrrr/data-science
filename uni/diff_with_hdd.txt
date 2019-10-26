@@ -1,37 +1,37 @@
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 01
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 02
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 03
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 04
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 05
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 06
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 07
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 08
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: 09
-Only in /Users/charlie/code/data-science-next/uni/forecasting: 2008_Book_ForecastingWithExponentialSmoo.pdf
-Only in /Users/charlie/code/data-science-next/uni/forecasting: M3C_reduced_2019.xlsx
-Only in /Users/charlie/code/data-science-next/uni/forecasting: TODO.md
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: 01assignment
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: 02assignment
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: 03-assignment-shadi
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: 03assignment-forecasting-m3
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: MATH1307_Assignments_Rubric.png
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate/assignments: assignment02
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: seasonality-import-problem.Rmd
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: solutionTask3 refactor.R
-Only in /Users/charlie/code/data-science-next/uni/forecasting/assignments: solutionTask3 refactor.Rmd
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: data
-Only in /Users/charlie/code/data-science-next/uni/forecasting: forecasting group ass mark2.mov
-Only in /Users/charlie/code/data-science-next/uni/forecasting: forecasting group presentation.mov
-Only in /Users/charlie/code/data-science-next/uni/forecasting: forecasting.code-workspace
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate: review
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate/tests: MATH1307_Forecasting_MidSemTestInst_2019.pdf
-Only in /Users/charlie/code/data-science-next/uni/forecasting-duplicate/tests: MATH1307_Forecasting_SAMPLE_FinalExam_Questions.pdf
-Only in /Users/charlie/code/data-science-next/uni/forecasting/tests: test1
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w09-model-selection
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w1-introduction
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w2-decomposion
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w3-regression
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w4-dynamic-models
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w5-exponential-smoothing
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w6-linear-innovations-state-space
-Only in /Users/charlie/code/data-science-next/uni/forecasting: w7
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 01
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 02
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 03
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 04
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 05
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 06
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 07
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 08
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: 09
+Only in /Users/charlie/code/data-science/uni/forecasting: 2008_Book_ForecastingWithExponentialSmoo.pdf
+Only in /Users/charlie/code/data-science/uni/forecasting: M3C_reduced_2019.xlsx
+Only in /Users/charlie/code/data-science/uni/forecasting: TODO.md
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: 01assignment
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: 02assignment
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: 03-assignment-shadi
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: 03assignment-forecasting-m3
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: MATH1307_Assignments_Rubric.png
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate/assignments: assignment02
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: seasonality-import-problem.Rmd
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: solutionTask3 refactor.R
+Only in /Users/charlie/code/data-science/uni/forecasting/assignments: solutionTask3 refactor.Rmd
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: data
+Only in /Users/charlie/code/data-science/uni/forecasting: forecasting group ass mark2.mov
+Only in /Users/charlie/code/data-science/uni/forecasting: forecasting group presentation.mov
+Only in /Users/charlie/code/data-science/uni/forecasting: forecasting.code-workspace
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate: review
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate/tests: MATH1307_Forecasting_MidSemTestInst_2019.pdf
+Only in /Users/charlie/code/data-science/uni/forecasting-duplicate/tests: MATH1307_Forecasting_SAMPLE_FinalExam_Questions.pdf
+Only in /Users/charlie/code/data-science/uni/forecasting/tests: test1
+Only in /Users/charlie/code/data-science/uni/forecasting: w09-model-selection
+Only in /Users/charlie/code/data-science/uni/forecasting: w1-introduction
+Only in /Users/charlie/code/data-science/uni/forecasting: w2-decomposion
+Only in /Users/charlie/code/data-science/uni/forecasting: w3-regression
+Only in /Users/charlie/code/data-science/uni/forecasting: w4-dynamic-models
+Only in /Users/charlie/code/data-science/uni/forecasting: w5-exponential-smoothing
+Only in /Users/charlie/code/data-science/uni/forecasting: w6-linear-innovations-state-space
+Only in /Users/charlie/code/data-science/uni/forecasting: w7

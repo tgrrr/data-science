@@ -8,7 +8,7 @@
 # -----------------------------
 ##### Config Options
 data_filename <- 'ASX_data.csv'
-working_directory <- '/Users/phil/code/data-science-next/datasets/forecasting'
+working_directory <- '/Users/phil/code/data-science/datasets/forecasting'
 setwd(working_directory)
 
 # devtools::install_git('https://gitlab.com/botbotdotdotcom/packagr')
@@ -17,7 +17,7 @@ packages <- c(
   'dLagM', 'forecast', 'expsmooth', 'TSA', 'Hmisc', 'car', 'AER', 'readr', 'tseries', 'lubridate', 'stringr', 'testthis', 'captioner', 'urca', 'xts', 'dynlm')
 packagr(packages) # alpha package to check, install and load packages
 
-source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+source('/Users/phil/code/data-science/uni/common/utils-forecasting.R')
 # -------------------------------
 
 ##### Config:
@@ -42,7 +42,7 @@ featuresData <- list('SeaLevel')
 # Load file:
 # -----------------------------
 data <- read_csv(
-  '~/code/data-science-next/datasets/forecasting/seaLevel.csv',
+  '~/code/data-science/datasets/forecasting/seaLevel.csv',
   col_names = TRUE
 )
 
@@ -483,7 +483,7 @@ fit2.sea = hw(data.ts,seasonal="additive", damped = TRUE, h=5*frequency(data.ts)
 summary(fit2.sea) # Best fit, best time series plot for residuals
 checkresiduals(fit2.sea)
 
-source('/Users/phil/code/data-science-next/uni/common/utils-forecasting.R')
+source('/Users/phil/code/data-science/uni/common/utils-forecasting.R')
 
 fit2.sea = hw(data.ts,seasonal="additive", damped = TRUE, h=5*frequency(data.ts))
 summary(fit2.sea) # Best fit, best time series plot for residuals

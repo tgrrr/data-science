@@ -3,7 +3,7 @@
 import os
 
 class Constants:
-    path = "/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media/"
+    path = "/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media/"
 os.chdir(Constants.path)
 
 
@@ -93,7 +93,7 @@ from nltk.corpus import stopwords
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
 import os
-os.chdir('/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media')
+os.chdir('/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media')
 
 from colorama import Fore, Back, Style
 import pandas as pd

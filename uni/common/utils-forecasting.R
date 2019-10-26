@@ -12,7 +12,7 @@ packages <- c(
 )
 packagr(packages) # alpha package to check, install and load packages
 
-# setwd('/Users/phil/code/data-science-next/uni/common')
+# setwd('/Users/phil/code/data-science/uni/common')
 summarySummary <- function(model.fit) {
   tryCatch({
     summary(model.fit)$adj.r.square %>% round(2) %>% cat('adjusted r-squared:', ., '\n')

@@ -10,7 +10,7 @@ import networkx as nx
 from argparse import ArgumentParser
 
 import os
-os.chdir('/Users/phil/code/data-science-next/uni/social-media/w9/lab09')
+os.chdir('/Users/phil/code/data-science/uni/social-media/w9/lab09')
 
 from redditClient import redditClient
 

@@ -1,7 +1,7 @@
 
 import collections.abc
 import os
-os.chdir('/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media')
+os.chdir('/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media')
 
 def isString(obj):
     # is not string:
@@ -133,7 +133,7 @@ def strip_tweet(
 import os
 
 class Constants:
-    path = "/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media/"
+    path = "/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media/"
 
 os.chdir(Constants.path)
 

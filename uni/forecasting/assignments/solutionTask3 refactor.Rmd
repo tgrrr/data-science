@@ -3,7 +3,7 @@
 library(dLagM)
 library(forecast)
 
-working_directory <- '/Users/phil/code/data-science-next/datasets/forecasting'
+working_directory <- '/Users/phil/code/data-science/datasets/forecasting'
 data = read.csv("global_warming_CO2.csv")
 
 class(data)

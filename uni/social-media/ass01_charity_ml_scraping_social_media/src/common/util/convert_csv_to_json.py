@@ -1,7 +1,7 @@
 import csv
 import json
 import os
-os.chdir('/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media')
+os.chdir('/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media')
 
 def convert_csv_to_json(
     file,

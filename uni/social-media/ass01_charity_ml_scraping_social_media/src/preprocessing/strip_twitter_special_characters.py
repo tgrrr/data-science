@@ -2,7 +2,7 @@ import re,string
 from src.common.util import *
 
 import os
-os.chdir('/Users/phil/code/data-science-next/uni/social-media/ass01_charity_ml_scraping_social_media')
+os.chdir('/Users/phil/code/data-science/uni/social-media/ass01_charity_ml_scraping_social_media')
 
 # credit: https://stackoverflow.com/a/38119388/3281978
 # NOTE: data['result'] = data['result'].map(lambda x: x.lstrip('+-').rstrip('aAbBcC'))

@@ -3,7 +3,7 @@ library(dLagM)
 library(forecast)
 library(readr)
 
-data <- read_csv("~/code/data-science-next/datasets/forecasting/global_warming_CO2.csv")
+data <- read_csv("~/code/data-science/datasets/forecasting/global_warming_CO2.csv")
 data %>% head()
 
 
