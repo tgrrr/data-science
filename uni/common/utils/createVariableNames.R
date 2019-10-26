@@ -3,6 +3,20 @@
 
 # assign(bar, value = paste0(colName, ".ts"), envir = .GlobalEnv)
 
+<<<<<<< HEAD
+=======
+#' Title
+#'
+#' @param df 
+#' @param colName 
+#' @param append 
+#' @param ...rest 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+>>>>>>> feature/common
 createVariableNames <- function(
   df, 
   colName, 

@@ -1,12 +1,24 @@
-# REFACTOR: refactor to work for columns
+# TODO: REFACTOR: refactor to work for columns
+#' Convert dataframe to time-series object
+#'
+#' @param df
+#' @param tsStart
+#' @param colName
+#' @param frequency
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
 convertToTimeseries <- function(
-  df, 
+  df,
   tsStart,
-  colName = 1, 
-  frequency = 12, 
+  colName = 1,
+  frequency = 12,
   ...
 ) {
-# Convert dataframe to time-series object
+
 
 
   if(hasArg(colName)) {
@@ -19,14 +31,14 @@ convertToTimeseries <- function(
       start = tsStart,
       # REFACTOR: end = tsEnd,
       frequency = frequency
-    ); 
+    );
   } else {
     df.ts <- ts(
       df,
       start = tsStart,
       # end = tsEnd,
       frequency = frequency
-    ); 
+    );
   }
   return(df.ts)
 };

@@ -12,6 +12,7 @@ doDiffAndPlot <- function(
   showEacf = FALSE,
   lag = 1,
   out = NULL,
+<<<<<<< HEAD
   plotTitle = 'diff plot',
   ...
   ) {
@@ -26,6 +27,22 @@ doDiffAndPlot <- function(
       lag)),
     df.afterDiff.ts)
   
+=======
+  title = 'diff plot',
+  ...
+  ) {
+
+  df.afterDiff.ts <- df.ts
+
+  ifelse(
+    diffCount != 0,
+    (df.afterDiff.ts = diff(
+      df.ts,
+      differences = diffCount,
+      lag)),
+    df.afterDiff.ts)
+
+>>>>>>> feature/common
   order = ar(df.afterDiff.ts)$order
 
   paste('diff: ', diffCount, '\n') %>% writeLines()
@@ -38,7 +55,11 @@ doDiffAndPlot <- function(
     paste(p, '< 0.05 significant\n') %>% writeLines()
     doPar(mfrow=c(1,1))
     if (showEacf) {
+<<<<<<< HEAD
       eacf(df.afterDiff.ts)      
+=======
+      eacf(df.afterDiff.ts)
+>>>>>>> feature/common
     }
   } else {
     paste('> 0.05 insignificant\n', p) %>% writeLines()
@@ -53,7 +74,11 @@ doDiffAndPlot <- function(
     plot(
       df.afterDiff.ts,
       xlab=default_xlab,
+<<<<<<< HEAD
       main=plotTitle,
+=======
+      main=title,
+>>>>>>> feature/common
       ylab = default_ylab,
       type = 'l'
     )
@@ -72,12 +97,22 @@ doDiffAndPlot <- function(
       # lag.max=2130
     )
   }
+<<<<<<< HEAD
   
   # return the diffed timeSeries object:
   # LATER: update so doesn't require output named 
+=======
+
+  # return the diffed timeSeries object:
+  # LATER: update so doesn't require output named
+>>>>>>> feature/common
   if (hasArg(out)) {
     # output.ts <- assign(out, df.afterDiff.ts)
     return(df.afterDiff.ts)
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> feature/common
 }
