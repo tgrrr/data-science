@@ -1,13 +1,25 @@
+#' Author: Haydar Demirhan
+
+#' Title
+#'
+#' @param data
+#' @param H
+#' @param models
+#'
+#' @return
+#' @export
+#'
+#' @examples
 LEIC = function(data, H, models){
   M = length(models) # The number of competing models
   N = length(data) # The number of considered time series
   n = array(NA, N) # Array to hold the length of each series
   for ( j in 1:N){ # Find the length of each series
-    n[j] = length(data[[j]]) 
+    n[j] = length(data[[j]])
   }
   n.max = max(n)
   n.star = n - H
-  
+
   # Fit the models
   fit.models = list()
   count = 0
@@ -17,7 +29,7 @@ LEIC = function(data, H, models){
       fit.models[[count]] = ets(ts(data[[j]][1:n.star[j]],frequency = frequency(data[[j]])), model = models[i])
     }
   }
-  
+
   c = seq(0.15 , 2*log(n.max) , 0.05)
   ASE = array(NA, dim = c(H, length(c), N))
   MASE = array(NA, dim = c(H, length(c)))
@@ -52,7 +64,7 @@ LEIC = function(data, H, models){
     ch[h] = MASE[h, min( which(min(MASE[h,]) == MASE[h, ]) )] # the first min is to take minimum of minimums
   }
   c.opt = mean(ch)
-  
+
   series = array(NA, N*M)
   FittedModels = array(NA, N*M)
   values = array(NA, N*M)

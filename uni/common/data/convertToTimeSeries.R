@@ -1,4 +1,16 @@
-# REFACTOR: refactor to work for columns
+# TODO: REFACTOR: refactor to work for columns
+#' Title
+#'
+#' @param df 
+#' @param tsStart 
+#' @param colName 
+#' @param frequency 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 convertToTimeseries <- function(
   df, 
   tsStart,
@@ -6,6 +18,7 @@ convertToTimeseries <- function(
   frequency = 12, 
   ...
 ) {
+
 # Convert dataframe to time-series object
 
 

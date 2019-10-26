@@ -1,3 +1,15 @@
+#' Author: Haydar Demirhan
+
+#' Title
+#'
+#' @param data
+#' @param H
+#' @param models
+#'
+#' @return
+#' @export
+#'
+#' @examples
 GoFVals = function(data, H, models){
   M = length(models) # The number of competing models
   N = length(data) # The number of considered time series
@@ -35,6 +47,3 @@ GoFVals = function(data, H, models){
   }
   return(list(GoF = GoF))#, mean.MASE = mean.MASE, median.MASE = median.MASE))
 }
-
-
-

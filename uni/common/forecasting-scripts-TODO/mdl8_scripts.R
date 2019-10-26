@@ -1,3 +1,5 @@
+#' Author: Haydar Demirhan
+
 library(TSA)
 library(car)
 library(ggplot2)
@@ -8,7 +10,7 @@ library(expsmooth)
 
 data("ausgdp")
 
-plot(ausgdp,ylab = "Quarterly GDP per capita", xlab = "Year", main="Time series plot of Australian quarterly 
+plot(ausgdp,ylab = "Quarterly GDP per capita", xlab = "Year", main="Time series plot of Australian quarterly
      gross domestic product per capita")
 
 fit.ausgdp.AAN.conv <- ets(ausgdp,"AAN" , damped=FALSE , upper=rep(1,4))
@@ -22,7 +24,7 @@ lines(fit.ausgdp.AAN.stable$state[,2], col="blue", type="l")
 legend("topleft",lty=1, pch=1, col=c("black","blue"), c("Conventional","Stability"))
 
 data("usgdp")
-plot(usgdp,ylab = "Quarterly GDP per capita", xlab = "Year", main="Time series plot of US quarterly 
+plot(usgdp,ylab = "Quarterly GDP per capita", xlab = "Year", main="Time series plot of US quarterly
      gross domestic product per capita")
 
 fit.usgdp.ANN.mse <- ets(ausgdp,"ANN" , damped=FALSE , opt.crit = "mse")

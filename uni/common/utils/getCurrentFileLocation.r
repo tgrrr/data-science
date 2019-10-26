@@ -1,5 +1,11 @@
 library('tidyverse')
 
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 getCurrentFileLocation <- function(
   # TODO: subDirectory = NULL
   )

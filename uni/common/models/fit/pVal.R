@@ -1,13 +1,24 @@
+#' Author: Haydar Demirhan
+#' Title
+#'
+#' @param data
+#' @param H
+#' @param models
+#'
+#' @return
+#' @export
+#'
+#' @examples
 pVal = function(data, H, models){
   M = length(models) # The number of competing models
   N = length(data) # The number of considered time series
   n = array(NA, N) # Array to hold the length of each series
   for ( j in 1:N){ # Find the length of each series
-    n[j] = length(data[[j]]) 
+    n[j] = length(data[[j]])
   }
   n.max = max(n)
   n.star = n - H
-  
+
   # Fit the models
   fit.models = list()
   forecasts = list()
@@ -21,12 +32,12 @@ pVal = function(data, H, models){
       MASEvalues[count] = accuracy(fit.models[[count]])[6]
     }
   }
-  
+
   ASE = array(NA, dim = c(H, M, N))
   MASE.1 = array(NA, dim = c(M, N))
   MASE = array(NA, N)
   MASE.model = array(NA, N)
-  
+
   summ = 0
   for (h in 1:H){
     summ = 0
@@ -42,18 +53,18 @@ pVal = function(data, H, models){
       }
     }
   }
-  
+
   for ( j in 1:N){
     for ( i in 1:M ){
       MASE.1[i , j] = 0
       for (h in 1:H){
-        MASE.1[i , j] = MASE.1[i , j] + ASE[h, i , j] 
+        MASE.1[i , j] = MASE.1[i , j] + ASE[h, i , j]
       }
       MASE.1[i , j] = MASE.1[i , j]  / H
     }
     MASE[j] = min(MASE.1[ , j])
     MASE.model[j] = models[which(MASE[j] == MASE.1[ , j] )]
   }
-  
+
   return(list(MASE = MASE, best.model = MASE.model, MASEs = MASEvalues))
 }

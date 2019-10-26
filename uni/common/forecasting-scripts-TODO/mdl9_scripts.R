@@ -1,3 +1,5 @@
+#' Author: Haydar Demirhan
+
 library(forecast)
 library(expsmooth)
 library(readr)
@@ -48,7 +50,7 @@ MASEs = b$MASEs
 
 MASEvalues(data = data, H = H, model = "AAN", MASEs = MASEs)
 
-meanMaxTempMel <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempMel.csv", col_names = FALSE) 
+meanMaxTempMel <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempMel.csv", col_names = FALSE)
 meanMaxTempMel = ts(meanMaxTempMel,start=c(1971,1), end = c(2017, 8), frequency=12)
 
 meanMaxTempSyd <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempSyd.csv", col_names = FALSE)

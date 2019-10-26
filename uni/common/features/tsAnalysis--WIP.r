@@ -2,6 +2,14 @@ library(urca)
 
 # REFACTOR: refactor
 # REFACTOR: plot names
+#' Title
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doPlotAnalysis <- function(x)
 {
   par(mfrow=c(1,3))

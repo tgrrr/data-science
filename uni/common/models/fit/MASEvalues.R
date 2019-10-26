@@ -1,3 +1,16 @@
+#' Author: Haydar Demirhan
+
+#' Title
+#'
+#' @param data
+#' @param H
+#' @param model
+#' @param MASEs
+#'
+#' @return
+#' @export
+#'
+#' @examples
 MASEvalues = function(data, H, model, MASEs){
   # MASEs: All MASE values resulting from GoFVals() function
   N = length(data) # The number of considered time series

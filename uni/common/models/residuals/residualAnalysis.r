@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param model 
+#' @param std 
+#' @param Ljung.Box 
+#' @param start 
+#' @param class 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 residual.analysis <- function(model, std = TRUE, Ljung.Box = FALSE, start = 2, class = c("LM")[1]){
   # If you have an output from arima() function use class = "ARIMA"
   # If you have an output from garch() function use class = "GARCH"

@@ -25,6 +25,12 @@ defaultBlackWhite = FALSE
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doForecast <- function() {
   linear_predict = ts(
     forecastLinear[,1],
@@ -45,6 +51,14 @@ doForecast <- function() {
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+#' Title
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 saveTimeSeriesCSV <- function(x) {
   fname <- paste0(deparse(substitute(x)), ".csv")
   readr::write_csv(tsibble::as_tsibble(x, gather = FALSE), fname)
@@ -60,6 +74,16 @@ fig_nums <- captioner()
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+#' Title
+#'
+#' @param mfrow 
+#' @param mai 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doPar <- function(
             mfrow = c(1,1),
             mai = c(1,0.5,0.5,0.5),
@@ -91,6 +115,20 @@ doPar <- function(
 # nf <- layout(matrix(c(1,2,3),ncol=1), widths=c(4,4,4), heights=c(2,1,1), TRUE)
 # https://stackoverflow.com/questions/30156443/r-setting-multiple-plot-heights-with-par
 # https://bookdown.org/ndphillips/YaRrr/arranging-plots-with-parmfrow-and-layout.html
+#' Title
+#'
+#' @param rows 
+#' @param cols 
+#' @param fontSize 
+#' @param blackWhite 
+#' @param mfrow 
+#' @param mai 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plotLayout <- function(
             rows = 2,
             cols = 1,
@@ -140,6 +178,15 @@ plotLayout <- function(
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+#' Title
+#'
+#' @param x 
+#' @param score 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 sort.score <- function(x, score = c("bic", "aic")){
   if (score == "aic"){
     x[with(x, order(AIC)),]
@@ -157,6 +204,18 @@ sort.score <- function(x, score = c("bic", "aic")){
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+#' Title
+#'
+#' @param y 
+#' @param lambda 
+#' @param m 
+#' @param plotit 
+#' @param verbose 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 BoxCoxSearch = function(y, lambda=seq(-3,3,0.01),
                         m= c("sf", "sw","ad" ,"cvm", "pt", "lt", "jb"), plotit = T, verbose = T){
   N = length(m)
@@ -189,6 +248,18 @@ BoxCoxSearch = function(y, lambda=seq(-3,3,0.01),
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+#' Title
+#'
+#' @param model 
+#' @param std 
+#' @param start 
+#' @param class 
+#' @param title 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 residual.analysis <- function(
   model,
   std = TRUE,start = 2,
@@ -238,6 +309,18 @@ residual.analysis <- function(
 pkgs <- c('TSA', 'fUnitRoots', 'forecast', 'lmtest')
 invisible(lapply(pkgs, require, character.only = T))
 
+#' Title
+#'
+#' @param timeSeries 
+#' @param orderList 
+#' @param methodType 
+#' @param fixedList 
+#' @param includeConstant 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 myCandidate <- function(timeSeries, orderList,
                         methodType = c("CSS-ML", "ML", "CSS")[1],
                         fixedList = NULL, includeConstant = c(TRUE, FALSE)[1]){
@@ -272,6 +355,15 @@ myCandidate <- function(timeSeries, orderList,
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+#' Title
+#'
+#' @param df.ts 
+#' @param orderTotal 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 findBestModel <- function(
   df.ts,
   orderTotal=10
@@ -341,6 +433,14 @@ findBestModel <- function(
 }
 
 # model(p,d,q)
+#' Title
+#'
+#' @param df.ts 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 findBestModelV2 <- function(df.ts) {
   datalist = list()
 
@@ -379,6 +479,14 @@ findBestModelV2 <- function(df.ts) {
 #   order <- sapply(possibleArimaModels,function(x) unlist(x))[,i]
 #   getModelCoef(pdq = order)
 # }
+#' Title
+#'
+#' @param pdq 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 getModelCoef <- function(pdq) {
   cat('\nmodel: arima(', pdq, ')\n')
   methods=c('CSS','ML')
@@ -407,6 +515,14 @@ getModelCoef <- function(pdq) {
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+#' Title
+#'
+#' @param df.ts 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 check_seasonality_decompose <- function(df.ts) {
 
   time.series <- df.ts
@@ -436,6 +552,16 @@ check_seasonality_decompose <- function(df.ts) {
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+#' Title
+#'
+#' @param df.ts 
+#' @param diffCount 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 check_seasonality_ggplot <- function(
   df.ts = data.ts, # not transformed
   diffCount = 0,

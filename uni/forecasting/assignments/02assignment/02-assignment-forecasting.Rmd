@@ -76,6 +76,7 @@ packages <- c(
 packagr(packages) # alpha package to check, install and load packages
 
 # Most of our code:
+# source('https://raw.githubusercontent.com/tgrrr/data-science/master/uni/common/utils.r')
 source('~/code/data-science/uni/common/utils.R')
 sourceDir('~/code/data-science/uni/common/')
 ```

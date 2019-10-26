@@ -13,6 +13,14 @@ packages <- c(
 packagr(packages) # alpha package to check, install and load packages
 
 # setwd('/Users/phil/code/data-science/uni/common')
+#' Title
+#'
+#' @param model.fit 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 summarySummary <- function(model.fit) {
   tryCatch({
     summary(model.fit)$adj.r.square %>% round(2) %>% cat('adjusted r-squared:', ., '\n')
@@ -30,6 +38,12 @@ summarySummary <- function(model.fit) {
 
 # ~old_todo~
 # LATER:
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 unitRoots <- function() {
     k1 <- ar(data.ts)$order
   print(k1)
@@ -48,6 +62,16 @@ unitRoots <- function() {
 
 ### Confidence interval of Lambda
 
+#' Title
+#'
+#' @param data.ts 
+#' @param method 
+#' @param title 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 confidenceInterval <- function(
   data.ts,
   method=c("yule-walker","")[1],
@@ -65,6 +89,16 @@ confidenceInterval <- function(
   # lambda == 0
 }
 
+#' Title
+#'
+#' @param df 
+#' @param main 
+#' @param plotit 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doTestNormality <- function(
   df,
   main, # plot title
@@ -85,6 +119,15 @@ doTestNormality <- function(
   shapiro.test(df)
 }
 
+#' Title
+#'
+#' @param x 
+#' @param main 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 compareNormality <- function(
   x, # list
   main='Normality test for timeseries data'
@@ -102,6 +145,15 @@ compareNormality <- function(
 
 # REFACTOR: for refactor
 # bug: in TSA package: plot it unable to be set to false
+#' Title
+#'
+#' @param df_col.ts 
+#' @param lambda 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 convertToBoxCox <- function(
   df_col.ts,
   lambda= lambda_
@@ -159,6 +211,17 @@ convertToBoxCox <- function(
   # createVariableNames
 
 # We add a constant to be able to fit multiplicatie model with negative or zero values
+#' Title
+#'
+#' @param data.ts 
+#' @param seasonalType 
+#' @param constant 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doFitHw <- function (
   data.ts,
   seasonalType= c("additive","multiplicative")[1],
@@ -192,6 +255,14 @@ doFitHw <- function (
 
 
 # ----
+#' Title
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 findSeasonalFreq <- function(x) {
     n <- length(x)
     spec <- spec.ar(c(x),plot=FALSE)
@@ -219,6 +290,14 @@ findSeasonalFreq <- function(x) {
 
 # Is seasonal?
 
+#' Title
+#'
+#' @param data.ts 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 isSeasonal <- function(data.ts) {
   fit <- tbats(data.ts)
   seasonal <- !is.null(fit$seasonal)
@@ -251,11 +330,31 @@ isSeasonal <- function(data.ts) {
 
 
 
+#' Title
+#'
+#' @param data 
+#' @param n 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doTailTs <- function(data,n) {
   data <- as.ts(data)
   return (window(data,start=tsp(data)[2]-(n-1)/frequency(data)))
 }
 
+#' Title
+#'
+#' @param model 
+#' @param data 
+#' @param tail_data 
+#' @param h 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doForecast <- function (
   model,
   data = copper.ts,

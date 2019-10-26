@@ -3,6 +3,20 @@
 # )
 
 # out = tryCatch({}, error = function(e) print("No results for this test!"))
+#' Title
+#'
+#' @param df.ts 
+#' @param diffCount 
+#' @param plots 
+#' @param lag 
+#' @param out 
+#' @param title 
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 doTsPlots <- function(
   df.ts,
   diffCount = 0,
