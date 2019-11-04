@@ -53,7 +53,7 @@ doForecast <- function() {
 
 #' Title
 #'
-#' @param x 
+#' @param x
 #'
 #' @return
 #' @export
@@ -69,119 +69,14 @@ fig_nums <- captioner()
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# Make plots black and white
-# Change plot layout
-
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-#' Title
-#'
-#' @param mfrow 
-#' @param mai 
-#' @param ... 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-doPar <- function(
-            mfrow = c(1,1),
-            mai = c(1,0.5,0.5,0.5),
-            ...
-            ) {
-
-  if (hasArg(blackWhite) || defaultBlackWhite == TRUE) {
-    # Note: if blackWhite is specified in params at all, this will return TRUE
-    par(
-      bg = 'black',
-      col = "white",
-      col.axis = 	'white',
-      col.lab = "white",
-      col.main = 'white',
-      col.sub = 'white',
-      fg = 'white',
-      mai = mai,
-      mfrow = mfrow
-    )
-  } else {
-    par(
-      mai = mai,
-      mfrow = mfrow
-    )
-  }
-}
-
-# NICE: update to use layout rather than par
-# nf <- layout(matrix(c(1,2,3),ncol=1), widths=c(4,4,4), heights=c(2,1,1), TRUE)
-# https://stackoverflow.com/questions/30156443/r-setting-multiple-plot-heights-with-par
-# https://bookdown.org/ndphillips/YaRrr/arranging-plots-with-parmfrow-and-layout.html
-#' Title
-#'
-#' @param rows 
-#' @param cols 
-#' @param fontSize 
-#' @param blackWhite 
-#' @param mfrow 
-#' @param mai 
-#' @param ... 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-plotLayout <- function(
-            rows = 2,
-            cols = 1,
-            fontSize = 1,
-            blackWhite = TRUE,
-            mfrow = c(2,1),
-            mai = c(1,0.5,0.5,0.5),
-            ...
-            ) {
-
-  # TODO: par(cex = 0.5)
-
-  if (hasArg(rows) && hasArg(cols)) {
-    par(
-      mai = mai,
-      mfrow = c(rows, cols)
-    )
-    par(cex = 0.5)
-
-  }
-  # if (hasArg(blackWhite) || defaultBlackWhite == TRUE) {
-  #   # Note: if blackWhite is specified in params at all, this will return TRUE
-  #   if (blackWhite == TRUE) {
-  #     par(
-  #       bg = 'black',
-  #       col = "white",
-  #       col.axis = 	'white',
-  #       col.lab = "white",
-  #       col.main = 'white',
-  #       col.sub = 'white',
-  #       fg = 'white',
-  #       mai = mai,
-  #       mfrow = mfrow
-  #     )
-  #   }
-  # } else {
-  #   par(
-  #     mai = mai,
-  #     mfrow = mfrow
-  #   )
-  # }
-}
-
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 # sort.score <- not sure who to attribute
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 #' Title
 #'
-#' @param x 
-#' @param score 
+#' @param x
+#' @param score
 #'
 #' @return
 #' @export
@@ -206,11 +101,11 @@ sort.score <- function(x, score = c("bic", "aic")){
 
 #' Title
 #'
-#' @param y 
-#' @param lambda 
-#' @param m 
-#' @param plotit 
-#' @param verbose 
+#' @param y
+#' @param lambda
+#' @param m
+#' @param plotit
+#' @param verbose
 #'
 #' @return
 #' @export
@@ -250,11 +145,11 @@ BoxCoxSearch = function(y, lambda=seq(-3,3,0.01),
 
 #' Title
 #'
-#' @param model 
-#' @param std 
-#' @param start 
-#' @param class 
-#' @param title 
+#' @param model
+#' @param std
+#' @param start
+#' @param class
+#' @param title
 #'
 #' @return
 #' @export
@@ -311,11 +206,11 @@ invisible(lapply(pkgs, require, character.only = T))
 
 #' Title
 #'
-#' @param timeSeries 
-#' @param orderList 
-#' @param methodType 
-#' @param fixedList 
-#' @param includeConstant 
+#' @param timeSeries
+#' @param orderList
+#' @param methodType
+#' @param fixedList
+#' @param includeConstant
 #'
 #' @return
 #' @export
@@ -357,8 +252,8 @@ myCandidate <- function(timeSeries, orderList,
 
 #' Title
 #'
-#' @param df.ts 
-#' @param orderTotal 
+#' @param df.ts
+#' @param orderTotal
 #'
 #' @return
 #' @export
@@ -435,7 +330,7 @@ findBestModel <- function(
 # model(p,d,q)
 #' Title
 #'
-#' @param df.ts 
+#' @param df.ts
 #'
 #' @return
 #' @export
@@ -481,7 +376,7 @@ findBestModelV2 <- function(df.ts) {
 # }
 #' Title
 #'
-#' @param pdq 
+#' @param pdq
 #'
 #' @return
 #' @export
@@ -517,7 +412,7 @@ getModelCoef <- function(pdq) {
 
 #' Title
 #'
-#' @param df.ts 
+#' @param df.ts
 #'
 #' @return
 #' @export
@@ -554,9 +449,9 @@ check_seasonality_decompose <- function(df.ts) {
 
 #' Title
 #'
-#' @param df.ts 
-#' @param diffCount 
-#' @param ... 
+#' @param df.ts
+#' @param diffCount
+#' @param ...
 #'
 #' @return
 #' @export

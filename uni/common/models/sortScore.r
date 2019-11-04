@@ -1,11 +1,12 @@
 # AIC and BIC sorting function by Cameron Doyle
 sort.score <- function(x, score = c("bic", "aic")){
   if (score == "aic"){
-    x[with(x, order(AIC)),]
+    out = x[with(x, order(AIC)),]
   } else if (score == "bic") {
-    x[with(x, order(BIC)),]
+    out = x[with(x, order(BIC)),]
   } else {
-    warning('score = "x" only accepts valid arguments ("aic","bic")')
+    out = warning('score = "x" only accepts valid arguments ("aic","bic")')
   }
+  return(out)
 }
 # AIC and BIC sorting function by Cameron Doyle

@@ -1,10 +1,10 @@
 #' Title
 #'
-#' @param model 
-#' @param std 
-#' @param Ljung.Box 
-#' @param start 
-#' @param class 
+#' @param model
+#' @param std
+#' @param Ljung.Box
+#' @param start
+#' @param class
 #'
 #' @return
 #' @export

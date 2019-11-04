@@ -12,6 +12,10 @@
 *.rds
 *.ipynb
 *.Rout
+*.Rout
+Rout.*
+Rout_*
+*.log
 *.Rproj
 *.mp4
 Icon\r

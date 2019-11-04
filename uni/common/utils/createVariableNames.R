@@ -3,23 +3,20 @@
 
 # assign(bar, value = paste0(colName, ".ts"), envir = .GlobalEnv)
 
-<<<<<<< HEAD
-=======
 #' Title
 #'
-#' @param df 
-#' @param colName 
-#' @param append 
-#' @param ...rest 
+#' @param df
+#' @param colName
+#' @param append
+#' @param ...rest
 #'
 #' @return
 #' @export
 #'
 #' @examples
->>>>>>> feature/common
 createVariableNames <- function(
-  df, 
-  colName, 
+  df,
+  colName,
   append='.ts',
   ...rest
 ) {
@@ -27,4 +24,7 @@ createVariableNames <- function(
 };
 
 # How it works:
-createVariableNames('foo', 'bar', append=NULL);
+# createVariableNames('foo', 'bar', append=NULL);
+
+# Note, for opposite, see:
+# https://stackoverflow.com/questions/18508790/deparsesubstitutex-in-lapply?lq=1

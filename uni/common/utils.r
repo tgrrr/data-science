@@ -582,10 +582,15 @@ sourceDir <- function(
 # FIXME:
 # source(here::here('subdirectory', 'functions.R'))
 
-sourceDir('./data/')
 # sourceDir('./features/') # nothing in here for now
 # sourceDir('./models/') # nothing in here for now
+sourceDir('./data/')
+sourceDir('./diagnostics')
+sourceDir('./forecast')
+sourceDir('./layout/')
+sourceDir('./models/')
 sourceDir('./preprocessing/')
+sourceDir('./utils/')
 sourceDir('./visualization/')
 
 # TODO: check if it loads these:

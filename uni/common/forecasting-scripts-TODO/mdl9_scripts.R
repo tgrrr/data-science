@@ -50,22 +50,22 @@ MASEs = b$MASEs
 
 MASEvalues(data = data, H = H, model = "AAN", MASEs = MASEs)
 
-meanMaxTempMel <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempMel.csv", col_names = FALSE)
+meanMaxTempMel <- read_csv("~/code/data-science/datasets/forecasting/meanMaxTempMel.csv", col_names = FALSE)
 meanMaxTempMel = ts(meanMaxTempMel,start=c(1971,1), end = c(2017, 8), frequency=12)
 
-meanMaxTempSyd <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempSyd.csv", col_names = FALSE)
+meanMaxTempSyd <- read_csv("~/code/data-science/datasets/forecasting/meanMaxTempSyd.csv", col_names = FALSE)
 meanMaxTempSyd = stack(as.data.frame(t(meanMaxTempSyd)))
 meanMaxTempSyd = ts(meanMaxTempSyd$values,start=c(1971,1), end = c(2017, 8),frequency=12)
 
-meanMaxTempPer <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempPerth.csv", col_names = FALSE)
+meanMaxTempPer <- read_csv("~/code/data-science/datasets/forecasting/meanMaxTempPerth.csv", col_names = FALSE)
 meanMaxTempPer = stack(as.data.frame(t(meanMaxTempPer)))
 meanMaxTempPer = ts(meanMaxTempPer$values,start=c(1971,1), end = c(2017, 8), frequency=12)
 
-meanMaxTempDar <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempDarwin.csv", col_names = FALSE)
+meanMaxTempDar <- read_csv("~/code/data-science/datasets/forecasting/meanMaxTempDarwin.csv", col_names = FALSE)
 meanMaxTempDar = stack(as.data.frame(t(meanMaxTempDar)))
 meanMaxTempDar = ts(meanMaxTempDar$values,start=c(1971,1), end = c(2017, 8), frequency=12)
 
-meanMaxTempAde <- read_csv("~/Documents/MATH1307_Forecasting/presentations/Module 9/meanMaxTempAdel.csv", col_names = FALSE)
+meanMaxTempAde <- read_csv("~/code/data-science/datasets/forecasting/meanMaxTempAdel.csv", col_names = FALSE)
 meanMaxTempAde = stack(as.data.frame(t(meanMaxTempAde)))
 meanMaxTempAde = ts(meanMaxTempAde$values,start=c(1971,1), end = c(2017, 8), frequency=12)
 
